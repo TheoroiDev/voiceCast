@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Wiki — player & server guides (English)
+    url: https://github.com/TheoroiDev/voiceCast/wiki
+    about: Installation, configuration reference, access control, performance
+  - name: Wiki — 中文文档
+    url: https://github.com/TheoroiDev/voiceCast/wiki/Home-zh
+    about: 安装、配置参考、访问控制、性能与容量、排障
