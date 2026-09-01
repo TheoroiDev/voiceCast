@@ -189,7 +189,7 @@ public enum VoiceCastServer {
             Path modelPath = isLooseFilesEngine(engine)
                     ? IpaModel.directory(runDir, modelId)
                     : runDir.resolve("config/voicecast/models").resolve(modelId);
-            SpeechOptions opts = new SpeechOptions(true, true, 0.65f, modelPath.toString(), true);
+            SpeechOptions opts = new SpeechOptions(true, 0.65f, modelPath.toString(), true);
             r.setVocabulary(vocabulary);
             r.start(opts);
         } catch (Throwable t) {
