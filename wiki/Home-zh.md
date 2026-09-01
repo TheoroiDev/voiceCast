@@ -1,0 +1,35 @@
+# [English](Home) | [中文](Home-zh)
+
+# VoiceCast · 中文文档
+
+可复用的 Minecraft 1.20.1 **离线语音识别库模组**（Fabric + Forge），是 [Be a Real Wizard](https://github.com/TheoroiDev/wizardReal) 的语音引擎，任何 addon 模组都可嵌入。
+
+> 识别**完全在服务器端**进行——玩家本地不下载模型、不跑推理。
+
+## 核心特性
+
+- **双引擎**：Vosk 词语识别（~40 MB）/ wav2vec2-espeak IPA 音素识别（~230 MB）
+- **模型托管**：自动下载 + 镜像回退（hf-mirror.com）+ sha256 校验，支持完全自托管
+- **服务器访问控制**：`[server] enabled` 总开关 + `[players]` UUID 白名单 + 可插拔 `AccessCheck` 钩子
+- **Simple Voice Chat 集成**：感知/共享/暂缓三种共存模式 — 见 [SVC 集成](Simple-Voice-Chat-Integration-zh)
+- **引擎 SPI**：注册自定义识别器（Whisper、云端 STT…），不碰玩法代码
+
+## 文档（中文）
+
+| 页面 | 内容 |
+|---|---|
+| [入门](Getting-Started-zh) | 安装、引擎选择、模型下载、首次识别 |
+| [服务器搭建](Server-Setup-zh) | 服务端原理、代理、内存建议 |
+| [配置参考](Configuration-zh) | `voicecast.toml` 与 `models.json` 全键说明 |
+| [访问控制](Access-Control-zh) | 总开关、白名单、权限钩子 |
+| [性能与容量](Performance-zh) | 容量表、内存/CPU 画像 |
+| [SVC 集成](Simple-Voice-Chat-Integration-zh) | Simple Voice Chat 共存模式（share/defer） |
+| [排障](Troubleshooting-zh) | 麦克风、红波形、下载、引擎切换 |
+
+## 文档（English）
+
+| Page | Contents |
+|---|---|
+| [Home](Home) | Overview & quick facts |
+| [Getting Started](Getting-Started) | Install, engine choice, first recognition |
+| [Simple Voice Chat Integration](Simple-Voice-Chat-Integration) | Coexistence modes |
