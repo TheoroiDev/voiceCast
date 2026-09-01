@@ -47,7 +47,7 @@ engine = "vosk-text"
 | `[compat] svcCoexistence` | Simple Voice Chat coexistence mode — see [Simple Voice Chat Integration](Simple-Voice-Chat-Integration) |
 | `[client] engine` | Player-local engine preference. Valid: `vosk-text` / `vosk-en-us` / `ipa-phonemes` (command aliases vosk/en/ipa… are normalized) |
 
-> ⚠️ `[server] opusBitrate` is currently **not effective** (the encoder bitrate is hardcoded to 24 kbps). The key is read/written but does nothing — don't treat it as tunable.
+> The former `[server] opusBitrate` key was **removed** in v0.3.2: the Opus encoder runs on the client, so a server-side key could never reach it (that would require a new sync channel). Bandwidth is ~3 KB/s per speaking player (see [Performance](Performance.md)). Stale `opusBitrate` entries in existing configs are ignored.
 
 > CJK note: `models.json` ships entries for `vosk-zh-cn` / `vosk-ja-jp` / `vosk-ko-kr`, but those engines are **not registered yet** (not selectable in this version). For Chinese/Japanese chanting use `ipa-phonemes`.
 

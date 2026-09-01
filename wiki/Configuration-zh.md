@@ -47,7 +47,7 @@ engine = "vosk-text"
 | `[compat] svcCoexistence` | Simple Voice Chat 共存模式 — 见 [SVC 集成](Simple-Voice-Chat-Integration-zh) |
 | `[client] engine` | 玩家本地引擎偏好。合法值：`vosk-text` / `vosk-en-us` / `ipa-phonemes`（命令别名 vosk/en/ipa 等会归一化） |
 
-> ⚠️ `[server] opusBitrate` 目前**未生效**（编码码率硬编码 24 kbps），键会被读写但不起作用——不要把它当可调项。
+> 原 `[server] opusBitrate` 键已在 v0.3.2 **移除**：Opus 编码器运行在客户端，服务端键无法触达（那需要新增同步通道）。带宽约 3 KB/s 每个说话玩家（见 [Performance](Performance-zh.md)）。旧配置文件里遗留的 `opusBitrate` 会被忽略。
 
 > CJK 注意：`models.json` 中已预置 `vosk-zh-cn` / `vosk-ja-jp` / `vosk-ko-kr` 模型条目，但对应引擎**尚未注册**（当前版本不可选）；中文/日语咏唱请用 `ipa-phonemes`。
 
