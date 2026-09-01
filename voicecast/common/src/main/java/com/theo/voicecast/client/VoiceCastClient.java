@@ -10,6 +10,10 @@ import com.theo.voicecast.api.event.RecognizerStateEvent;
 import com.theo.voicecast.audio.MicCapture;
 import com.theo.voicecast.audio.WavDumper;
 import com.theo.voicecast.client.hud.VoiceCastHud;
+import com.theo.voicecast.compat.ModDetection;
+import com.theo.voicecast.compat.voicechat.DeferPolicy;
+import com.theo.voicecast.compat.voicechat.SvcState;
+import com.theo.voicecast.config.ClientVoiceConfig;
 import com.theo.voicecast.config.VoiceCastConfig;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -39,11 +43,26 @@ public enum VoiceCastClient {
     private long speechFirstMs;
     private long speechLastLoudMs;
 
+    // ---- SVC coexistence (M7b) ----
+    private ClientVoiceConfig.SvcCoexistence compatMode = ClientVoiceConfig.SvcCoexistence.SHARE;
+    private long deferStartedMs;          // when the current PTT press began deferring (0 = not deferring)
+    private boolean deferFallbackLogged;  // fallback notice logged for this press
+    private boolean svcOpenNoteLogged;    // share-mode coexistence note logged for this press
+    private long micRetryAtMs;            // >0 = retry startMic at this time (one shot per press)
+    private boolean micRetryUsed;
+    private boolean voiceModNoticeLogged; // first-open notice about other voice mods (once per session)
+
     public SpeechRecognizer recognizer() { return recognizer; }
 
     public synchronized void init() {
         if (started) return;
         started = true;
+        try {
+            Path gameDir = Minecraft.getInstance().gameDirectory.toPath();
+            compatMode = ClientVoiceConfig.load(gameDir).svcCoexistence;
+        } catch (Throwable t) {
+            com.theo.voicecast.VoiceCast.LOGGER.warn("Could not read [compat] svcCoexistence; using share", t);
+        }
         ClientNet.init();
         reload();
     }
@@ -118,10 +137,49 @@ public enum VoiceCastClient {
             // WizardReal controls PTT externally via right-click while holding a staff.
             want = pttHeld;
         }
-        if (want == micWanted) return;
-        micWanted = want;
-        if (want) startMic();
-        else stopMic();
+
+        if (want && !micWanted) {
+            // Opening the mic fresh: apply the configured SVC coexistence mode.
+            DeferPolicy.Decision d = DeferPolicy.decide(
+                    compatMode == ClientVoiceConfig.SvcCoexistence.DEFER,
+                    SvcState.transmittingWithin(DeferPolicy.SVC_DEFER_WINDOW_MS),
+                    deferStartedMs == 0 ? 0 : System.currentTimeMillis() - deferStartedMs,
+                    DeferPolicy.SVC_DEFER_TIMEOUT_MS);
+            if (d == DeferPolicy.Decision.DEFER) {
+                if (deferStartedMs == 0) deferStartedMs = System.currentTimeMillis();
+                want = false; // postpone the open; tick() retries while pttHeld stays true
+            } else {
+                if (d == DeferPolicy.Decision.FALLBACK_OPEN && !deferFallbackLogged) {
+                    deferFallbackLogged = true;
+                    com.theo.voicecast.VoiceCast.LOGGER.info("SVC is still transmitting; defer timeout ({} ms) reached — sharing the microphone",
+                            DeferPolicy.SVC_DEFER_TIMEOUT_MS);
+                }
+                deferStartedMs = 0;
+                if (SvcState.transmittingWithin(DeferPolicy.SVC_DEFER_WINDOW_MS) && !svcOpenNoteLogged) {
+                    svcOpenNoteLogged = true;
+                    com.theo.voicecast.VoiceCast.LOGGER.info("Opening mic while Simple Voice Chat is transmitting (svcCoexistence=share)");
+                }
+            }
+        }
+
+        if (!want) {
+            // press released / disabled: reset all per-press coexistence state
+            deferStartedMs = 0;
+            deferFallbackLogged = false;
+            svcOpenNoteLogged = false;
+            micRetryAtMs = 0;
+            micRetryUsed = false;
+        }
+
+        if (want != micWanted) {
+            micWanted = want;
+            if (want) startMic();
+            else stopMic();
+        } else if (micWanted && mic == null && micRetryAtMs > 0
+                && System.currentTimeMillis() >= micRetryAtMs) {
+            micRetryAtMs = 0;
+            startMic(); // one-shot retry for a transiently busy device
+        }
     }
 
     private void startMic() {
@@ -149,9 +207,29 @@ public enum VoiceCastClient {
                     "voicecast.state.mic_unavailable", java.util.List.of()));
             mic = null;
             if (dumper != null) { dumper.close(); dumper = null; }
+            // Transiently busy devices (e.g. another voice mod holding an
+            // exclusive line) usually free up within moments — retry once.
+            if (!micRetryUsed) {
+                micRetryUsed = true;
+                micRetryAtMs = System.currentTimeMillis() + 500;
+                com.theo.voicecast.VoiceCast.LOGGER.warn("Microphone unavailable{}; retrying once in 500 ms",
+                        SvcState.isPresent() ? " (Simple Voice Chat is active and may hold the device)" : "");
+            } else {
+                com.theo.voicecast.VoiceCast.LOGGER.warn("Microphone still unavailable; will retry on the next push-to-talk press");
+            }
         } else {
             VoiceCastEvents.post(new RecognizerStateEvent(RecognizerState.LISTENING,
                     "voicecast.state.listening", java.util.List.of()));
+            if (!voiceModNoticeLogged) {
+                voiceModNoticeLogged = true;
+                if (ModDetection.hasVoskLib()) {
+                    com.theo.voicecast.VoiceCast.LOGGER.warn("vosklib detected: another mod bundles its own Vosk — duplicate native libraries on the classpath may conflict with VoiceCast");
+                } else if (ModDetection.hasPlasmoVoice()) {
+                    com.theo.voicecast.VoiceCast.LOGGER.info("Plasmo Voice detected — VoiceCast holds the mic only during push-to-talk");
+                } else if (ModDetection.hasShriek()) {
+                    com.theo.voicecast.VoiceCast.LOGGER.info("Shriek detected — VoiceCast holds the mic only during push-to-talk");
+                }
+            }
         }
     }
 

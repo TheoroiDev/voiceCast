@@ -1,8 +1,8 @@
 // Root build: plugin classpath + Architectury minecraft version wiring only.
-// All shared subproject configuration lives in buildSrc convention plugins:
-//   wizardreal.common-conventions  — Java toolchain, repositories, naming
-//   wizardreal.loom-conventions    — Loom + minecraft/mappings (all subprojects)
-//   wizardreal.loader-conventions  — Loom runs (dev username / verbose bridge)
+// All shared subproject configuration lives in apply-from convention scripts:
+//   gradle/common-conventions.gradle — Java toolchain, repositories, naming
+//   gradle/loom-conventions.gradle   — Loom + minecraft/mappings (all subprojects)
+//   gradle/loader-conventions.gradle — Loom runs (dev username / auto-config)
 // See workspace-root docs/build_layout.md for the rationale.
 
 plugins {
@@ -16,4 +16,65 @@ apply plugin: "architectury-plugin"
 
 architectury {
     minecraft = rootProject.minecraft_version
+}
+
+// ---- M7b: jar packaging policy guard ---------------------------------------
+// Enforces the packaging invariants (AGENTS-voicecast.md): no module-info
+// anywhere, the voicechat API never bundled (compileOnly), JNA only where the
+// platform expects it (JiJ on Fabric, absent on Forge), no stray relocations.
+tasks.register("verifyFatJarPolicy") {
+    group = "verification"
+    description = "Asserts jar packaging invariants (module-info / JNA / api-bundling)."
+    dependsOn ":voicecast-common:jar", ":voicecast-fabric:remapJar", ":voicecast-forge:remapJar"
+    doLast {
+        def fail = { String msg -> throw new GradleException("verifyFatJarPolicy: " + msg) }
+        def entriesOf = { File f ->
+            def list = []
+            def zf = new java.util.zip.ZipFile(f)
+            try { zf.entries().each { e -> list << e.getName() } } finally { zf.close() }
+            list
+        }
+        def prodJar = { File dir ->
+            def files = dir.listFiles(new java.io.FilenameFilter() {
+                boolean accept(File d, String n) {
+                    return n.endsWith(".jar") && !n.contains("-dev") && !n.contains("-dev-shadow") && !n.contains("-sources") &&
+                            !n.contains("-javadoc") && !n.contains("transformProduction")
+                }
+            })
+            (files == null || files.length == 0) ? null : files.sort().last()
+        }
+        def commonJar = file("voicecast/common/build/devlibs").listFiles()
+                .find { it.name.endsWith("-dev.jar") }
+        if (commonJar == null) fail("common dev jar not found in voicecast/common/build/devlibs")
+        def fabricJar = prodJar(file("voicecast/fabric/build/libs"))
+        if (fabricJar == null || !fabricJar.name.startsWith("voicecast-fabric-")) fail("fabric production jar not found in voicecast/fabric/build/libs")
+        def forgeJar = prodJar(file("voicecast/forge/build/libs"))
+        if (forgeJar == null || !forgeJar.name.startsWith("voicecast-forge-")) fail("forge production jar not found in voicecast/forge/build/libs")
+
+        def checkCommon = { String name, List<String> entries ->
+            if (entries.any { it.endsWith("module-info.class") }) fail("$name bundles module-info.class")
+            if (entries.any { it.startsWith("de/maxhenkel/voicechat/") }) fail("$name bundles the voicechat API (must stay compileOnly)")
+            if (!entries.any { it.startsWith("com/theo/voicecast/") }) fail("$name is missing voicecast classes")
+        }
+
+        def commonEntries = entriesOf(commonJar)
+        checkCommon("common", commonEntries)
+        if (!commonEntries.any { it.startsWith("io/github/jaredmdobson/concentus/") }) fail("common fat jar is missing bundled Concentus")
+
+        def fabricEntries = entriesOf(fabricJar)
+        checkCommon("fabric", fabricEntries)
+        if (!fabricEntries.any { it.startsWith("META-INF/jars/jna") }) fail("fabric jar is missing the JiJ'd JNA jar (META-INF/jars/jna-*.jar)")
+        if (fabricEntries.any { it.startsWith("com/sun/jna/") }) fail("fabric jar must not contain top-level JNA classes")
+
+        def forgeEntries = entriesOf(forgeJar)
+        checkCommon("forge", forgeEntries)
+        if (forgeEntries.any { it.startsWith("com/sun/jna/") }) fail("forge jar must not bundle JNA (Architectury provides it at runtime)")
+
+        logger.lifecycle("verifyFatJarPolicy: OK (common=${commonJar.name}, fabric=${fabricJar.name}, forge=${forgeJar.name})")
+    }
+}
+
+// Every subproject's `check` runs the packaging guard (cheap zip scans).
+gradle.projectsEvaluated {
+    subprojects { tasks.matching { it.name == "check" }.configureEach { dependsOn rootProject.tasks.named("verifyFatJarPolicy") } }
 }

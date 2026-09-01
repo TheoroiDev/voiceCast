@@ -25,3 +25,19 @@ displayURL=""
     versionRange="[1.20.1,1.21)"
     ordering="NONE"
     side="BOTH"
+
+# Optional coexistence integrations (M7b): present at runtime -> SVC plugin
+# observes transmit state; absent -> voicecast behaves exactly as before.
+[[dependencies.voicecast]]
+    modId="voicechat"
+    mandatory=false
+    versionRange="*"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.voicecast]]
+    modId="plasmo_voice"
+    mandatory=false
+    versionRange="*"
+    ordering="NONE"
+    side="BOTH"

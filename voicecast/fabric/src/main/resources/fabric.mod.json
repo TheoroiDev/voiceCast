@@ -19,7 +19,9 @@
     "fabric-api": "*"
   },
   "suggests": {
-    "modmenu": "*"
+    "modmenu": "*",
+    "voicechat": "*",
+    "plasmo_voice": "*"
   },
   "custom": {
     "modmenu": {

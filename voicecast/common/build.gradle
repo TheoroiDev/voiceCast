@@ -37,6 +37,12 @@ dependencies {
         transitive = false
     }
 
+    // Simple Voice Chat client-API integration (M7b). compileOnly + never
+    // bundled: SVC provides the API classes at runtime; our plugin class is
+    // loaded only via ServiceLoader when SVC is actually installed, so the
+    // dependency must stay out of every published artifact.
+    compileOnly("de.maxhenkel.voicechat:voicechat-api:2.5.27")
+
     // Opus audio codec (pure Java, Java 8 bytecode, non-modular). Used to
     // compress mic audio for the client->server audio channel. Kept at its
     // original org.concentus package (do NOT relocate).

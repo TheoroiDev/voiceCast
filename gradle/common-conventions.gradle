@@ -29,6 +29,8 @@ repositories {
     }
     // ModMenu (TerraformersMC) — dev-time config screen integration
     maven { url = "https://maven.terraformersmc.com/releases/" }
+    // Simple Voice Chat API (compileOnly in voicecast-common)
+    maven { url = "https://maven.maxhenkel.de/repository/public" }
 }
 
 tasks.withType(JavaCompile).configureEach {
