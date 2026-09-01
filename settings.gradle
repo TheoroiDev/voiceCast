@@ -9,6 +9,11 @@ pluginManagement {
     }
 }
 
+plugins {
+    // Toolchain provisioning for CI (runners ship JDK 21; the build pins a JDK 17 toolchain).
+    id "org.gradle.toolchains.foojay-resolver-convention" version "0.8.0"
+}
+
 rootProject.name = "voicecast"
 
 include("voicecast-common")
