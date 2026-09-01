@@ -10,7 +10,8 @@
   "entrypoints": {
     "main": ["com.theo.voicecast.fabric.VoiceCastFabric"],
     "client": ["com.theo.voicecast.fabric.VoiceCastFabricClient"],
-    "modmenu": ["com.theo.voicecast.fabric.VoiceCastModMenu"]
+    "modmenu": ["com.theo.voicecast.fabric.VoiceCastModMenu"],
+    "voicechat": ["com.theo.voicecast.compat.voicechat.VoiceCastSvcPlugin"]
   },
   "depends": {
     "fabricloader": ">=0.15.0",
