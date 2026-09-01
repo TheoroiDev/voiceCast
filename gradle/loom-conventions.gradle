@@ -1,0 +1,19 @@
+// Applied from every subproject (after `apply plugin: "dev.architectury.loom"`
+// in the subproject, or it applies Loom itself). Carries the shared Loom
+// settings and MC mapping coordinates: Mojang official mappings layered with
+// Parchment (parameter names + javadoc). The ForgeMappingsMerger regressions
+// that constrained Loom versions under Yarn-on-Forge do not apply to Mojmap.
+
+apply plugin: "dev.architectury.loom"
+
+loom {
+    setEnableTransitiveAccessWideners true
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+    mappings loom.layered {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${rootProject.minecraft_version}:${rootProject.parchment_version}@zip")
+    }
+}

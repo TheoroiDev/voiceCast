@@ -1,0 +1,19 @@
+// Root build: plugin classpath + Architectury minecraft version wiring only.
+// All shared subproject configuration lives in buildSrc convention plugins:
+//   wizardreal.common-conventions  — Java toolchain, repositories, naming
+//   wizardreal.loom-conventions    — Loom + minecraft/mappings (all subprojects)
+//   wizardreal.loader-conventions  — Loom runs (dev username / verbose bridge)
+// See workspace-root docs/build_layout.md for the rationale.
+
+plugins {
+    id "architectury-plugin" version "3.5.167"
+    // 1.17 requires architectury-plugin 3.5+ (3.4 bridges Loom <=1.11 internals).
+    id "dev.architectury.loom" version "1.17.491" apply false
+    id "com.gradleup.shadow" version "8.3.11" apply false
+}
+
+apply plugin: "architectury-plugin"
+
+architectury {
+    minecraft = rootProject.minecraft_version
+}

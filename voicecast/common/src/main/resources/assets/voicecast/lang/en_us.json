@@ -1,0 +1,23 @@
+{
+  "voicecast.engine.title": "VoiceCast - Choose Recognition Engine",
+  "voicecast.engine.subtitle": "The server loads the model once and shares it. Switch any time.",
+  "voicecast.engine.vosk": "Word recognition (Vosk, ~40 MB)",
+  "voicecast.engine.ipa": "Phoneme recognition (IPA, ~230 MB)",
+  "voicecast.engine.done": "Done",
+  "voicecast.engine.cmd.set": "VoiceCast engine requested: %s",
+  "voicecast.engine.cmd.current": "VoiceCast current engine: %s",
+  "voicecast.engine.cmd.unknown": "Unknown engine '%s' - use vosk or ipa",
+
+  "voicecast.state.preparing": "Preparing %s...",
+  "voicecast.state.downloading_ipa": "Downloading IPA model %s...",
+  "voicecast.state.downloading_vosk": "Downloading Vosk model %s...",
+  "voicecast.state.session_loading": "Loading %s model...",
+  "voicecast.state.ready": "VoiceCast ready (%s)",
+  "voicecast.state.listening": "Listening...",
+  "voicecast.state.no_model": "Engine %s failed: %s",
+  "voicecast.state.mic_unavailable": "Microphone unavailable",
+  "voicecast.state.error": "VoiceCast error: %s",
+  "voicecast.state.engine_not_allowed": "Engine not allowed by the server: %s",
+  "voicecast.state.denied": "VoiceCast: you are not allowed to use voice here",
+  "voicecast.state.disabled": "VoiceCast is disabled on this server"
+}

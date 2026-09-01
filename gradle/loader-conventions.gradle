@@ -1,0 +1,56 @@
+// Applied from the four platform subprojects only (fabric/forge x
+// voicecast/wizardreal). Loom run configurations:
+//   - fixed dev username instead of random "Player12345"
+//   - verbose bridge: `gradlew runClient -PvoicecastVerbose=true` injects
+//     -Dvoicecast.verbose=true into the forked game JVM (Gradle's own -D only
+//     reaches the Gradle JVM, not the game process).
+//   - dev-server auto-configuration: runServer writes eula=true and flips
+//     online-mode=false in the run dir before the JVM starts (other
+//     server.properties keys are preserved).
+
+def voicecastVerbose = project.findProperty("voicecastVerbose") == "true"
+
+loom {
+    runs {
+        client {
+            programArgs("--username", "dev")
+            if (voicecastVerbose) vmArgs "-Dvoicecast.verbose=true"
+        }
+        server {
+            if (voicecastVerbose) vmArgs "-Dvoicecast.verbose=true"
+        }
+    }
+}
+
+// Run the game on the Java 17 toolchain: Gradle 9 defaults JavaExec to the
+// daemon JVM (21), which makes Loom auto-upgrade LWJGL to 3.3.2-snapshot —
+// i.e. the game no longer runs on the exact vanilla 1.20.1 stack
+// (Java 17 + LWJGL 3.3.1). Pinning run tasks to 17 keeps the dev runtime
+// identical to what players use.
+tasks.matching { it.name in ["runClient", "runServer"] }.configureEach {
+    javaLauncher.set(javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(17)
+    })
+}
+
+// ---- dev run auto-configuration ------------------------------------------
+
+tasks.matching { it.name == "runServer" }.configureEach {
+    doFirst {
+        def runDir = project.file(loom.runs.server.runDir ?: "run")
+        runDir.mkdirs()
+        def eula = new File(runDir, "eula.txt")
+        if (!eula.exists() || !eula.readLines().any { it.trim() == "eula=true" }) {
+            eula.text = "# Auto-accepted by gradlew runServer (dev)\neula=true"
+            project.logger.lifecycle("runServer: wrote ${eula} (eula=true)")
+        }
+        def propsFile = new File(runDir, "server.properties")
+        def props = new Properties()
+        if (propsFile.exists()) propsFile.withInputStream { props.load(it) }
+        if (props.getProperty("online-mode") != "false") {
+            props.setProperty("online-mode", "false")
+            propsFile.withOutputStream { props.store(it, "dev run configuration (managed keys may be overwritten by gradlew runServer)") }
+            project.logger.lifecycle("runServer: set online-mode=false in ${propsFile}")
+        }
+    }
+}

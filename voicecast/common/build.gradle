@@ -1,0 +1,99 @@
+apply from: rootProject.file("gradle/common-conventions.gradle")
+apply from: rootProject.file("gradle/loom-conventions.gradle")
+apply plugin: "architectury-plugin"
+apply plugin: "com.gradleup.shadow"
+
+architectury {
+    common(["fabric", "forge"])
+}
+
+configurations {
+    voicecastFat
+}
+
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
+    modImplementation "dev.architectury:architectury:${rootProject.architectury_version}"
+
+    compileOnly("com.alphacephei:vosk:${rootProject.vosk_version}") {
+        transitive = true
+    }
+
+    // Vosk classes + libvosk native libraries only. Do NOT bundle JNA here:
+    // JNA cannot be relocated (its native methods are bound to the original
+    // com.sun.jna class names), and Forge/Architectury already provides JNA
+    // at runtime. Fabric gets JNA from its platform project.
+    voicecastFat("com.alphacephei:vosk:${rootProject.vosk_version}") {
+        exclude group: "net.java.dev.jna", module: "jna"
+        exclude group: "net.java.dev.jna", module: "jna-platform"
+        transitive = false
+    }
+
+    // ONNX Runtime for the IPA phoneme recognizer. compileOnly for the API;
+    // the classes + native libs are shaded into the dev jar via voicecastFat.
+    // All-platform natives are kept (server may run on Linux/arm64/macOS).
+    compileOnly("com.microsoft.onnxruntime:onnxruntime:${rootProject.onnxruntime_version}")
+    voicecastFat("com.microsoft.onnxruntime:onnxruntime:${rootProject.onnxruntime_version}") {
+        transitive = false
+    }
+
+    // Opus audio codec (pure Java, Java 8 bytecode, non-modular). Used to
+    // compress mic audio for the client->server audio channel. Kept at its
+    // original org.concentus package (do NOT relocate).
+    compileOnly("io.github.jaredmdobson:concentus:1.0.2")
+    voicecastFat("io.github.jaredmdobson:concentus:1.0.2") {
+        transitive = false
+    }
+
+    // The fat bundling above only applies to the jar task; unit tests run
+    // against build/classes/java/main, so libraries under test need to be on
+    // the test classpath explicitly.
+    testRuntimeOnly("io.github.jaredmdobson:concentus:1.0.2")
+}
+
+jar {
+    archiveClassifier = "dev"
+    from {
+        configurations.voicecastFat.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    exclude "module-info.class"
+    exclude "META-INF/versions/**/module-info.class"
+    exclude "META-INF/maven/**"
+    // ONNX Runtime ships native libs for every OS; keep them all so the
+    // server-side recognizer can run on Linux/arm64/macOS dedicated servers.
+}
+
+tasks.shadowJar {
+    enabled = false
+}
+
+tasks.remapJar {
+    enabled = false
+}
+
+tasks.assemble {
+    dependsOn tasks.jar
+}
+
+// ---- Maven publication --------------------------------------------------
+// The dev jar bundles Vosk/ONNX/Concentus (see the jar task above) and is
+// what consumers (wizardreal) compile/run against. Published UNCLASSIFIED so
+// the coordinate is group:artifactId:version without a classifier. Do NOT
+// publish via components.java: remapJar is disabled for common, so Loom's
+// default main artifact is the ghost unclassified jar that never exists.
+apply plugin: "maven-publish"
+
+publishing {
+    publications {
+        mavenCommon(MavenPublication) {
+            artifactId = "voicecast-common-${rootProject.minecraft_version}"
+            artifact(tasks.named("jar")) { classifier = "" }
+            artifact(tasks.named("sourcesJar")) { classifier = "sources" }
+            pom {
+                name = "VoiceCast Common (fat dev jar)"
+                description = "Server-side voice recognition library for Minecraft - platform-independent code with bundled Vosk/ONNX/Concentus."
+            }
+        }
+    }
+}

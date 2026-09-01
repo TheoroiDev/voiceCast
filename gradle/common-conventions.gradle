@@ -1,0 +1,58 @@
+// Applied to every subproject: Java toolchain, shared repositories, and
+// artifact naming/versioning ({mod}-{loader}-1.20.1 with a clean semver
+// version so Forge's version-range parser never sees a "+").
+// Does NOT apply architectury-plugin — each subproject declares it explicitly.
+
+apply plugin: "java"
+
+group = rootProject.voicecast_maven_group
+version = rootProject.voicecast_version
+
+def loader = project.name.endsWith("-fabric") ? "fabric"
+        : project.name.endsWith("-forge") ? "forge"
+        : "common"
+
+base {
+    archivesName = "voicecast-${loader}-${rootProject.minecraft_version}"
+}
+
+repositories {
+    mavenCentral()
+    maven { url = "https://maven.fabricmc.net/" }
+    maven { url = "https://maven.architectury.dev/" }
+    maven { url = "https://maven.minecraftforge.net/" }
+    maven { url = "https://maven.parchmentmc.org/" }
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+        content { includeGroup "maven.modrinth" }
+    }
+    // ModMenu (TerraformersMC) — dev-time config screen integration
+    maven { url = "https://maven.terraformersmc.com/releases/" }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+    options.release = 17
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+    withSourcesJar()
+}
+
+// Unit tests (JUnit 5) — repo-wide so any subproject can drop classes into
+// src/test/java without further build changes; NO-SOURCE subprojects skip it.
+dependencies {
+    testImplementation platform("org.junit:junit-bom:5.10.2")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+}

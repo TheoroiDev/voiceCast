@@ -1,0 +1,98 @@
+apply from: rootProject.file("gradle/common-conventions.gradle")
+apply from: rootProject.file("gradle/loom-conventions.gradle")
+apply from: rootProject.file("gradle/loader-conventions.gradle")
+apply plugin: "architectury-plugin"
+apply plugin: "com.gradleup.shadow"
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+configurations {
+    common
+    shadowCommon
+    voicecastRuntime
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
+    compileClasspath.extendsFrom voicecastRuntime
+    runtimeClasspath.extendsFrom voicecastRuntime
+    developmentFabric.extendsFrom voicecastRuntime
+}
+
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
+    modImplementation "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
+
+    // Mod Menu integration (dev-time only; not bundled - it's an optional mod).
+    modImplementation "com.terraformersmc:modmenu:${rootProject.modmenu_version}"
+
+    common(project(path: ":voicecast-common", configuration: "namedElements")) { transitive = false }
+    shadowCommon(project(path: ":voicecast-common", configuration: "transformProductionFabric")) { transitive = false }
+
+    // Forge/Architectury already provides JNA on Forge; on Fabric add it
+    // explicitly (not shaded/relocated - JNA native symbols must keep
+    // the original com.sun.jna package names). include() JiJ-bundles it so a
+    // production Fabric (dedicated server or client) has JNA without the
+    // platform fat jar.
+    voicecastRuntime("net.java.dev.jna:jna:5.12.1")
+    include("net.java.dev.jna:jna:5.12.1")
+}
+
+tasks.processResources {
+    inputs.property "version", project.version
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.compileJava.dependsOn(":voicecast-common:jar")
+tasks.classes.dependsOn(":voicecast-common:jar")
+tasks.remapSourcesJar.dependsOn(":voicecast-common:jar")
+
+tasks.jar {
+    archiveClassifier = "dev"
+}
+
+shadowJar {
+    exclude "architectury.common.json"
+    configurations = [project.configurations.shadowCommon]
+    archiveClassifier = "dev-shadow"
+    // Ship license/attribution inside the distributable jar (remapJar keeps
+    // everything that shadowJar produced).
+    with copySpec {
+        from(rootProject.file("LICENSE")) { into "META-INF" }
+        from(rootProject.file("legal")) { into "META-INF/legal" }
+    }
+}
+
+tasks.remapJar {
+    injectAccessWidener = true
+    inputFile = shadowJar.archiveFile
+    archiveClassifier = ""
+    dependsOn shadowJar
+}
+
+
+
+// ---- Maven publication --------------------------------------------------
+// Publishes the PRODUCTION (remapped) jar + remapped sources so downstream
+// mods (wizardreal) consume the mod via maven coordinates; Loom remaps it
+// to the dev mappings on the consumer side (standard modImplementation flow).
+apply plugin: "maven-publish"
+
+publishing {
+    publications {
+        mavenPlatform(MavenPublication) {
+            artifactId = "${project.name}-${rootProject.minecraft_version}"
+            artifact(tasks.named("remapJar").flatMap { it.archiveFile })
+            artifact(tasks.named("remapSourcesJar").flatMap { it.archiveFile }) { classifier = "sources" }
+            pom {
+                name = "VoiceCast (${project.name})"
+                description = "Server-side voice recognition library for Minecraft."
+            }
+        }
+    }
+}

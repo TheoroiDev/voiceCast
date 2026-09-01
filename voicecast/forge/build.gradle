@@ -1,0 +1,91 @@
+apply from: rootProject.file("gradle/common-conventions.gradle")
+apply from: rootProject.file("gradle/loom-conventions.gradle")
+apply from: rootProject.file("gradle/loader-conventions.gradle")
+apply plugin: "architectury-plugin"
+apply plugin: "com.gradleup.shadow"
+
+architectury {
+    platformSetupLoomIde()
+    forge()
+}
+
+loom {
+    forge {
+        convertAccessWideners = true
+    }
+}
+
+configurations {
+    common
+    shadowBundle
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentForge.extendsFrom common
+    // NOTE: do NOT add JNA here. Architectury/Forge already provides
+    // net.java.dev.jna:jna:5.12.1 on the runtime/module classpath; adding
+    // a second copy causes
+    //   Modules com.sun.jna and generated_xxx export package com.sun.jna.ptr
+    // at JVM startup before any mod loads.
+}
+
+dependencies {
+    forge "net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}"
+    modImplementation "dev.architectury:architectury-forge:${rootProject.architectury_version}"
+
+    common(project(path: ":voicecast-common", configuration: "namedElements")) { transitive = false }
+    shadowBundle(project(path: ":voicecast-common", configuration: "transformProductionForge")) { transitive = false }
+}
+
+tasks.processResources {
+    inputs.property "version", project.version
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version
+    }
+}
+
+tasks.compileJava.dependsOn(":voicecast-common:jar")
+tasks.classes.dependsOn(":voicecast-common:jar")
+tasks.remapSourcesJar.dependsOn(":voicecast-common:jar")
+
+tasks.jar {
+    archiveClassifier = "dev"
+}
+
+shadowJar {
+    archiveClassifier = "dev-shadow"
+    configurations = [project.configurations.shadowBundle]
+    // Ship license/attribution inside the distributable jar (remapJar keeps
+    // everything that shadowJar produced).
+    with copySpec {
+        from(rootProject.file("LICENSE")) { into "META-INF" }
+        from(rootProject.file("legal")) { into "META-INF/legal" }
+    }
+}
+
+tasks.remapJar {
+    inputFile = shadowJar.archiveFile
+    archiveClassifier = ""
+    dependsOn shadowJar
+}
+
+
+
+// ---- Maven publication --------------------------------------------------
+// Publishes the PRODUCTION (remapped) jar + remapped sources so downstream
+// mods (wizardreal) consume the mod via maven coordinates; Loom remaps it
+// to the dev mappings on the consumer side (standard modImplementation flow).
+apply plugin: "maven-publish"
+
+publishing {
+    publications {
+        mavenPlatform(MavenPublication) {
+            artifactId = "${project.name}-${rootProject.minecraft_version}"
+            artifact(tasks.named("remapJar").flatMap { it.archiveFile })
+            artifact(tasks.named("remapSourcesJar").flatMap { it.archiveFile }) { classifier = "sources" }
+            pom {
+                name = "VoiceCast (${project.name})"
+                description = "Server-side voice recognition library for Minecraft."
+            }
+        }
+    }
+}

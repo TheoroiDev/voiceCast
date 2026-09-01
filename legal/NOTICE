@@ -1,0 +1,24 @@
+Be a Real Wizard (wizardreal) + VoiceCast (voicecast)
+Copyright (c) 2026 theo — MIT licensed.
+
+This distribution bundles the following third-party components, used
+unmodified under their own licenses. Full attribution (including
+dependencies that are NOT bundled and the speech models downloaded at
+runtime) is maintained in CREDITS.md at
+https://github.com/Theoroi/wizardReal and in THIRD-PARTY-NOTICES.md
+located next to this file inside the jar.
+
+Bundled components (voicecast jars):
+  - Vosk 0.3.45 (Java bindings + libvosk native libraries, based on Kaldi)
+    Apache-2.0 — https://github.com/alphacephei/vosk-api
+  - ONNX Runtime 1.19.2 (Java API + all-platform native libraries)
+    MIT — https://onnxruntime.ai/
+  - Concentus 1.0.2 (pure-Java Opus codec, jaredmdobson fork)
+    MIT — https://github.com/jaredmdobson/concentus
+  - JNA 5.12.1 (Vosk native binding; JiJ'd into the Fabric jar, provided by
+    Architectury/Forge on Forge)
+    Apache-2.0 OR LGPL-2.1-or-later — https://github.com/java-native-access/jna
+
+Speech models (vosk-model-small-*, wav2vec2-espeak ONNX weights) are
+downloaded at runtime into the config directory and are NOT part of this
+distribution. See CREDITS.md for their licenses (Apache-2.0 / CC0).

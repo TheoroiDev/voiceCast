@@ -1,0 +1,23 @@
+{
+  "voicecast.engine.title": "VoiceCast - 选择识别引擎",
+  "voicecast.engine.subtitle": "服务器只需加载一次模型并共享，随时可切换。",
+  "voicecast.engine.vosk": "词语识别（Vosk，约 40 MB）",
+  "voicecast.engine.ipa": "音素识别（IPA，约 230 MB）",
+  "voicecast.engine.done": "完成",
+  "voicecast.engine.cmd.set": "已请求 VoiceCast 引擎：%s",
+  "voicecast.engine.cmd.current": "VoiceCast 当前引擎：%s",
+  "voicecast.engine.cmd.unknown": "未知引擎 '%s' - 可用：vosk 或 ipa",
+
+  "voicecast.state.preparing": "正在准备 %s……",
+  "voicecast.state.downloading_ipa": "正在下载 IPA 模型 %s……",
+  "voicecast.state.downloading_vosk": "正在下载 Vosk 模型 %s……",
+  "voicecast.state.session_loading": "正在加载 %s 模型……",
+  "voicecast.state.ready": "VoiceCast 已就绪（%s）",
+  "voicecast.state.listening": "聆听中……",
+  "voicecast.state.no_model": "引擎 %s 加载失败：%s",
+  "voicecast.state.mic_unavailable": "麦克风不可用",
+  "voicecast.state.error": "VoiceCast 错误：%s",
+  "voicecast.state.engine_not_allowed": "服务器不允许使用引擎：%s",
+  "voicecast.state.denied": "VoiceCast：你没有使用语音施法的权限",
+  "voicecast.state.disabled": "本服务器已禁用 VoiceCast"
+}
