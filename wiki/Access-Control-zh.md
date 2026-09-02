@@ -43,7 +43,7 @@ whitelist = [
 ## 引擎白名单与玩家白名单的关系
 
 - `[engines] allowed` 管**能用哪个引擎**（所有人统一），用于防止玩家选择大模型（如 IPA ~230 MB）；
-- `[players] whitelist` 管**能不能用**；
+- `[players] whitelist` 管**玩家**能否使用语音施法；
 - 两者独立生效：白名单玩家也只能选 `[engines] allowed` 里的引擎。
 
 ## 权限模组桥接（预留）
@@ -54,7 +54,7 @@ whitelist = [
 VoiceCastServer.INSTANCE.setAccessCheck(playerId -> permissionMod.has(playerId, "voicecast.use"));
 ```
 
-- 钩子**优先于** `[players] whitelist`，但 `[server] enabled=false` 仍然一票否决；
+- **优先级**：`[server] enabled=false` >> 钩子 >> `[players] whitelist`；
 - 设计上为 LuckPerms 等 Fabric permissions API / Forge permission 桥接预留（当前版本未内置具体桥接实现）。
 
 ## 完全禁用语音（保留玩法）
@@ -64,4 +64,6 @@ VoiceCastServer.INSTANCE.setAccessCheck(playerId -> permissionMod.has(playerId, 
 enabled = false
 ```
 
-服务器不预热任何模型、不加载识别器；玩法模组的卷轴施法不受影响（只是没有语音触发）。
+服务器不预热任何模型、不加载识别器；玩法模组的卷轴施法不受影响（只是不能使用法杖语音触发）。
+
+> [← 首页](Home-zh) · 上一篇：[配置参考](Configuration-zh) · 下一篇：[性能与容量](Performance-zh)

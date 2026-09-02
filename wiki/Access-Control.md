@@ -54,7 +54,7 @@ After startup a plugin can install `com.theo.voicecast.api.AccessCheck` (a SAM i
 VoiceCastServer.INSTANCE.setAccessCheck(playerId -> permissionMod.has(playerId, "voicecast.use"));
 ```
 
-- The hook **overrides** `[players] whitelist`, but `[server] enabled=false` still wins;
+- **Overrides**: `[server] enabled=false` >> The hook >> `[players] whitelist`;
 - Designed for LuckPerms-style bridges over the Fabric permissions API / Forge permissions (no concrete bridge ships in this version).
 
 ## Disabling voice while keeping the gameplay
@@ -64,4 +64,6 @@ VoiceCastServer.INSTANCE.setAccessCheck(playerId -> permissionMod.has(playerId, 
 enabled = false
 ```
 
-No models are loaded and no recognizers built; gameplay mods keep working (scroll-based casting in WizardReal is unaffected — there's just no voice trigger).
+No models are loaded and no recognizers built; gameplay mods keep working (scroll-based casting in WizardReal is unaffected — there's just no voice trigger through staves).
+
+> [← Home](Home) · Previous: [Configuration](Configuration) · Next: [Performance](Performance)

@@ -2,7 +2,7 @@
 
 # 入门（VoiceCast）
 
-> [← 首页](Home-zh) · 下一篇：[配置参考](Configuration-zh)
+> [← 首页](Home-zh) · 下一篇：[服务器搭建](Server-Setup-zh)
 
 VoiceCast 是**库模组**：识别在**服务器端**进行，客户端只推流音频。它驱动 [Be a Real Wizard](https://github.com/TheoroiDev/wizardReal)，也可以作为引擎宿主被任何 addon 模组使用。
 
@@ -54,3 +54,5 @@ VoiceCast 是**库模组**：识别在**服务器端**进行，客户端只推�
 - 服主必读：[服务器搭建](Server-Setup-zh)、[访问控制](Access-Control-zh)。
 - 性能规划：[性能与容量](Performance-zh)。
 - 问题排查：[排障](Troubleshooting-zh)。
+
+> [← 首页](Home-zh) · 下一篇：[服务器搭建](Server-Setup-zh)

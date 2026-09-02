@@ -2,7 +2,7 @@
 
 # 服务器搭建
 
-> [← 首页](Home-zh) · 下一篇：[配置参考](Configuration-zh)
+> [← 首页](Home-zh) · 上一篇：[入门](Getting-Started-zh) · 下一篇：[配置参考](Configuration-zh)
 
 ## 工作原理（先读这个）
 
@@ -14,7 +14,7 @@
 
 ## 安装
 
-把 `voicecast-forge-*.jar`（或 fabric 版）放入服务端 `mods/`。客户端与服务端都装。
+把 `voicecast-<loader>-*.jar`（或 fabric 版）放入 `mods/` 目录。客户端与服务端都必须。
 
 ## 模型下载
 
@@ -43,5 +43,6 @@
 
 ## 注意事项
 
-- **专用服务器安全**：voicecast 服务端代码不引用任何客户端/LWJGL 类；ONNX/Vosk 的全平台 natives 已内置（Linux x64/arm、macOS 可用）；
-- 升级模组：配置 schema 自动迁移（`config/voicecast/voicecast.toml` 带版本号），旧的 `server.properties`/`client.properties` 会被一次性导入并删除。
+- **专用服务器安全**：voicecast 服务端代码不引用任何客户端/LWJGL 类；ONNX/Vosk 的全平台 natives 已内置（Linux x64/arm、macOS 可用）。
+
+> [← 首页](Home-zh) · 上一篇：[入门](Getting-Started-zh) · 下一篇：[配置参考](Configuration-zh)

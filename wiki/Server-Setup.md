@@ -2,7 +2,7 @@
 
 # Server Setup
 
-> [← Home](Home) · Next: [Configuration](Configuration)
+> [← Home](Home) · Previous: [Getting Started](Getting-Started) · Next: [Configuration](Configuration)
 
 ## How it works (read this first)
 
@@ -14,13 +14,13 @@ Recognition runs **entirely on the server**:
 
 ## Install
 
-Drop `voicecast-forge-*.jar` (or the fabric build) into the server's `mods/`. Client and server both get the mod.
+Drop `voicecast-<loader>-*.jar` (or the fabric build) into the `mods/` folder. Required on both Client and Server.
 
 ## Model download
 
-- The server **pre-warms the default engine** at start (`[server] defaultEngine`, Vosk English ~40 MB by default); other engines download on first selection and are **shared server-wide**;
+- The server **pre-warms the default engine** at start (`[server] defaultEngine`, Vosk English ~40 MB by default); other engines download on first selection by player and are **shared server-wide**;
 - Downloads go over HTTPS with sha256 verification. Vosk models come from **alphacephei.com** by default; the **IPA (wav2vec2)** model uses the hf-mirror.com mirror — you can add extra mirrors for Vosk models in `models.json` (multiple `urls` are probed and downloaded fastest-first);
-- **No internet / slow link**:
+- **No internet / slow network**:
   - Proxy via JVM flags: `-Dhttps.proxyHost=<host> -Dhttps.proxyPort=<port>` (the downloader also detects the `HTTPS_PROXY` env var);
   - Or set `[server] autoDownload = false` and **place models manually** into `config/voicecast/models/<modelId>/` (extracted Vosk needs `am/ conf/ graph/` subdirectories);
 - Model catalog and checksums: [Configuration](Configuration).
@@ -43,5 +43,6 @@ Shared model layer: Vosk English ~150–250 MB; all four Vosk languages ~0.8–1
 
 ## Notes
 
-- **Dedicated-server safe**: the voicecast server code never references client/LWJGL classes; all-platform natives for Vosk/ONNX are bundled (Linux x64/arm, macOS work);
-- Upgrading: the config schema migrates automatically (versioned `config/voicecast/voicecast.toml`); legacy `server.properties`/`client.properties` are imported once and deleted.
+- **Dedicated-server safe**: the voicecast server code never references client/LWJGL classes; all-platform natives for Vosk/ONNX are bundled (Linux x64/arm, macOS work).
+
+> [← Home](Home) · Previous: [Getting Started](Getting-Started) · Next: [Configuration](Configuration)

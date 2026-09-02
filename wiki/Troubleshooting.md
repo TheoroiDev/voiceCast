@@ -35,7 +35,7 @@ Red = the model isn't ready. Read the **status line** above the waveform:
 ## Switching engines
 
 ```
-/voicecast engine vosk    # word recognition (English, vosk-en)
+/voicecast engine en      # word recognition (English, vosk-en)
 /voicecast engine zh      # word recognition (Chinese, vosk-cn)
 /voicecast engine ja      # word recognition (Japanese, vosk-jp)
 /voicecast engine ko      # word recognition (Korean, vosk-kr)

@@ -35,7 +35,7 @@
 ## 切换引擎
 
 ```
-/voicecast engine vosk    # 词语识别（英文，vosk-en）
+/voicecast engine en      # 词语识别（英文，vosk-en）
 /voicecast engine zh      # 词语识别（中文，vosk-cn）
 /voicecast engine ja      # 词语识别（日文，vosk-jp）
 /voicecast engine ko      # 词语识别（韩文，vosk-kr）

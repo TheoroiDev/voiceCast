@@ -2,7 +2,7 @@
 
 # Getting Started (VoiceCast)
 
-> [← Home](Home) · Next: [Configuration](Configuration)
+> [← Home](Home) · Next: [Server Setup](Server-Setup)
 
 VoiceCast is a **library mod**: recognition runs on the **server**, players only stream audio. It powers [Be a Real Wizard](https://github.com/TheoroiDev/wizardReal) — without a gameplay mod attached, it still runs as an engine host for addons.
 
@@ -54,3 +54,5 @@ The model downloads **once** on first selection into `config/voicecast/models/` 
 - Server admin? Read [Server Setup](Server-Setup) and [Access Control](Access-Control).
 - Performance planning: [Performance](Performance).
 - Problems: [Troubleshooting](Troubleshooting).
+
+> [← Home](Home) · Next: [Server Setup](Server-Setup)

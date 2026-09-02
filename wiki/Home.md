@@ -48,3 +48,5 @@ RecognizerRegistry.register("my-engine", MyEngine::new);
 > **Planned feature** — the registration interface exists, but server-side engine selection/creation is not yet wired to the registry: only built-in engine ids are selectable today (tracked in the voicecast issue tracker).
 
 The public API (`com.theo.voicecast.api`) never references `org.vosk` / `com.sun.jna` / `ai.onnxruntime` — compile against the published maven artifacts (`com.theo.voicecast:voicecast-common-1.20.1` etc.); the bundled implementation is provided at runtime.
+
+> Next: [Getting Started](Getting-Started)
