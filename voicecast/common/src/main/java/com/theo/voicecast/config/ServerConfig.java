@@ -23,17 +23,26 @@ public final class ServerConfig {
     public static final String SECTION = "server";
     public static final int SCHEMA_VERSION = 1;
 
-    public String engine = "vosk-text";      // vosk-text | vosk-en-us | ipa-phonemes | noop
+    public String engine = "vosk-text";      // vosk-text | vosk-en | vosk-cn | vosk-jp | vosk-kr | ipa-phonemes | noop
     public boolean autoDownload = true;
     public int maxFramesPerSecond = 15;
-    public List<String> allowedEngines = List.of("vosk-text", "vosk-en-us", "ipa-phonemes");
+    public List<String> allowedEngines = DEFAULT_ALLOWED_ENGINES;
     /** Master switch: when false, no player may stream audio (models stay unloaded). */
     public boolean enabled = true;
     /** {@code [players] whitelist} of raw UUID strings; empty = everyone. */
     public List<String> whitelist = List.of();
 
+    /** Full builtin engine whitelist (one-time upgrades of older default lists land here). */
+    public static final List<String> DEFAULT_ALLOWED_ENGINES = List.of(
+            "vosk-text", "vosk-en", "vosk-cn", "vosk-jp", "vosk-kr", "ipa-phonemes");
+
     /** Pre-vosk-en-us default whitelist; upgraded once on load. */
     private static final List<String> LEGACY_DEFAULT_ENGINES = List.of("vosk-text", "ipa-phonemes");
+    /** Pre-CJK default whitelist; upgraded once on load. Customized lists are left alone. */
+    private static final List<String> LEGACY_DEFAULT_PRE_CJK = List.of("vosk-text", "vosk-en-us", "ipa-phonemes");
+    /** Default whitelist using the pre-rename CJK ids (vosk-zh-cn/...); upgraded once on load. */
+    private static final List<String> LEGACY_DEFAULT_PRE_RENAME = List.of(
+            "vosk-text", "vosk-en-us", "vosk-zh-cn", "vosk-ja-jp", "vosk-ko-kr", "ipa-phonemes");
 
     private ServerConfig() {}
 
@@ -52,15 +61,32 @@ public final class ServerConfig {
         }
 
         String eng = toml.getString(SECTION, "defaultEngine", c.engine).trim();
-        if (eng.equals("vosk-text") || eng.equals("vosk-en-us") || eng.equals("ipa-phonemes") || eng.equals("noop"))
-            c.engine = eng;
+        String norm = ClientVoiceConfig.normalize(eng); // accepts pre-rename ids too
+        if (norm != null) c.engine = norm;
+        else if (eng.equals("noop")) c.engine = eng;
         c.autoDownload = toml.getBool(SECTION, "autoDownload", c.autoDownload);
         c.maxFramesPerSecond = (int) toml.getInt(SECTION, "maxFramesPerSecond", c.maxFramesPerSecond);
         c.allowedEngines = toml.getStringList("engines", "allowed", c.allowedEngines);
-        // One-time migration: an unedited pre-vosk-en-us whitelist gains the alias.
+        // One-time migrations: unedited default whitelists gain newer engines;
+        // deliberately customized whitelists are never added to. All migrations
+        // cascade (a pre-vosk-en-us file ends at the current default in one load).
         if (c.allowedEngines.equals(LEGACY_DEFAULT_ENGINES)) {
-            c.allowedEngines = List.of("vosk-text", "vosk-en-us", "ipa-phonemes");
+            c.allowedEngines = LEGACY_DEFAULT_PRE_CJK;
         }
+        if (c.allowedEngines.equals(LEGACY_DEFAULT_PRE_CJK)
+                || c.allowedEngines.equals(LEGACY_DEFAULT_PRE_RENAME)) {
+            c.allowedEngines = DEFAULT_ALLOWED_ENGINES;
+        }
+        // Ids were renamed (vosk-en-us -> vosk-en, vosk-zh-cn -> vosk-cn, ...):
+        // normalize every entry so whitelists written before the rename keep
+        // working. Unknown/custom ids pass through unchanged.
+        c.allowedEngines = c.allowedEngines.stream()
+                .map(id -> {
+                    String n = ClientVoiceConfig.normalize(id);
+                    return n != null ? n : id;
+                })
+                .distinct()
+                .toList();
         c.enabled = toml.getBool(SECTION, "enabled", c.enabled);
         c.whitelist = toml.getStringList("players", "whitelist", c.whitelist);
 

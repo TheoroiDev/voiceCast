@@ -11,21 +11,17 @@ import java.nio.file.Path;
  *
  * <p>Uses wav2vec2-lv-60-espeak-cv-ft (Meta/Apache-2.0), ONNX-converted by
  * onnx-community. CTC model emitting Unicode IPA phoneme tokens. Files are
- * loose (no archive): q4 weights (~230 MB) preferred, float32 (~1.3 GB) as
- * optional fallback, plus {@code vocab.json}. All URLs/constraints come from
- * {@link ModelConfig} ({@code config/voicecast/models.json}).
+ * loose (no archive): int4 q4 weights (~230 MB) plus {@code vocab.json}. All
+ * URLs/constraints come from {@link ModelConfig} ({@code config/voicecast/models.json}).
  */
 public final class IpaModel {
     public static final String MODEL_ID = ModelConfig.MODEL_IPA;
 
-    /** Preferred weights: block-wise int4 from the official repo (~230 MB). */
+    /** Required weights: block-wise int4 from the official repo (~230 MB). */
     public static final String Q4_FILE = "model_q4.onnx";
-    /** Fallback weights: full float32 (~1.26 GB). */
-    public static final String FLOAT_FILE = "model.onnx";
     public static final String VOCAB_FILE = "vocab.json";
 
     private static final long MIN_Q4_BYTES = 150L * 1024 * 1024;
-    private static final long MIN_FLOAT_BYTES = 900L * 1024 * 1024;
 
     private IpaModel() {}
 
@@ -33,12 +29,10 @@ public final class IpaModel {
         return gameDir.resolve("config/voicecast/models").resolve(modelId);
     }
 
-    /** The weights file actually present (q4 preferred), or null. */
+    /** The weights file actually present (q4), or null. */
     public static Path weightsFile(Path dir) {
         Path q4 = dir.resolve(Q4_FILE);
         if (isRegularFile(q4, MIN_Q4_BYTES)) return q4;
-        Path f32 = dir.resolve(FLOAT_FILE);
-        if (isRegularFile(f32, MIN_FLOAT_BYTES)) return f32;
         return null;
     }
 
@@ -83,32 +77,17 @@ public final class IpaModel {
             }
         }
 
-        // 2) weights: official int4 q4 first (~230 MB, speed-tested across
-        //    mirrors), float32 fallback (~1.3 GB) only if q4 unavailable.
-        boolean haveQ4 = weightsFile(target) != null
-                && weightsFile(target).getFileName().toString().equals(Q4_FILE);
-        if (!haveQ4) {
+        // 2) weights: official int4 q4 (~230 MB, speed-tested across mirrors).
+        //    No float32 fallback: only the q4 file is accepted.
+        if (weightsFile(target) == null) {
             ModelConfig.FileEntry q4 = null;
-            ModelConfig.FileEntry f32 = null;
             for (ModelConfig.FileEntry f : entry.files()) {
                 if (Q4_FILE.equals(f.name())) q4 = f;
-                if (FLOAT_FILE.equals(f.name())) f32 = f;
             }
-            boolean ok = true;
-            if (q4 != null) {
-                try {
-                    mgr.downloadFile(modelId, q4.name(), q4.urls(), q4.sha256(), progress, MIN_Q4_BYTES);
-                } catch (IOException e) {
-                    ok = false;
-                    VoiceCast.LOGGER.warn("q4 weights unavailable ({}); falling back to float32 (~1.3 GB)",
-                            e.getMessage());
-                }
-            } else {
-                ok = false;
+            if (q4 == null) {
+                throw new IOException("IPA model entry has no " + Q4_FILE + " file configured");
             }
-            if (!ok && f32 != null) {
-                mgr.downloadFile(modelId, f32.name(), f32.urls(), f32.sha256(), progress, MIN_FLOAT_BYTES);
-            }
+            mgr.downloadFile(modelId, q4.name(), q4.urls(), q4.sha256(), progress, MIN_Q4_BYTES);
         }
 
         if (!isValidModelDir(target)) {

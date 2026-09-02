@@ -32,10 +32,11 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Server-side orchestration. Runs recognizers on the server; each speaking
- * player gets a {@link ServerSpeechSession}. Engines (Vosk word model and the
- * IPA phoneme model) are loaded lazily and shared: a model is downloaded/loaded
- * once when the first player selects it, and reused by every session. Different
- * players can use different engines at the same time.
+ * player gets a {@link ServerSpeechSession}. Engines (Vosk word models — one
+ * per language — and the IPA phoneme model) are loaded lazily and shared: a
+ * model is downloaded/loaded once when the first player selects an engine using
+ * it, and reused by every session of that engine. Different players can use
+ * different engines at the same time.
  *
  * <p>All recognition runs on worker threads; the server main thread is only
  * used for downstream spell decisions.
@@ -50,7 +51,8 @@ public enum VoiceCastServer {
     private ModelConfig modelConfig;
     private Path runDir;
     private String defaultEngine = "vosk-text";
-    private volatile Model sharedVoskModel;
+    /** Shared Vosk models keyed by model id — one per language (vosk-en/zh/ja/ko); loaded lazily, closed on stop. */
+    private final Map<String, Model> sharedVoskModels = new ConcurrentHashMap<>();
 
     private final Map<String, EngineState> engineStates = new ConcurrentHashMap<>();
     private final Map<UUID, ServerSpeechSession> sessions = new ConcurrentHashMap<>();
@@ -58,7 +60,6 @@ public enum VoiceCastServer {
     private volatile Collection<Pronunciation> vocabulary = java.util.List.of();
     private volatile com.theo.voicecast.api.AccessCheck accessCheck;
     private ScheduledExecutorService scheduler;
-    private final Object voskModelLock = new Object();
 
     public synchronized void start(MinecraftServer mc) {
         if (this.server != null) return;
@@ -88,12 +89,10 @@ public enum VoiceCastServer {
         if (scheduler != null) { scheduler.shutdownNow(); scheduler = null; }
         sessions.values().forEach(ServerSpeechSession::dispose);
         sessions.clear();
-        synchronized (voskModelLock) {
-            if (sharedVoskModel != null) {
-                try { sharedVoskModel.close(); } catch (Throwable ignored) {}
-                sharedVoskModel = null;
-            }
-        }
+        sharedVoskModels.values().forEach(m -> {
+            try { m.close(); } catch (Throwable ignored) {}
+        });
+        sharedVoskModels.clear();
         try { IpaShared.shutdown(); } catch (Throwable ignored) {}
         engineStates.clear();
         server = null;
@@ -146,21 +145,29 @@ public enum VoiceCastServer {
                 IpaShared.getOrLoad(dir);
             } else {
                 ModelConfig.ModelEntry entry = modelConfig.modelForEngine(engine);
+                String modelId = entry != null ? entry.id() : VoskModel.DEFAULT_MODEL_ID;
                 Path dir;
                 if (config.autoDownload) {
                     if (entry == null) throw new java.io.IOException("No model configured for engine " + engine);
                     dir = VoskModel.resolveOrDownload(runDir, modelConfig, entry, (done, total) ->
                             broadcastState(RecognizerState.LOADING, "voicecast.state.downloading_vosk", VoskModel.describeSize(done)));
                 } else {
-                    String modelId = entry != null ? entry.id() : VoskModel.DEFAULT_MODEL_ID;
                     dir = runDir.resolve("config/voicecast/models").resolve(modelId);
                     if (!VoskModel.isValidModelDir(dir))
                         throw new java.io.IOException("Vosk model missing and autoDownload=false");
                 }
                 try { org.vosk.LibVosk.setLogLevel(org.vosk.LogLevel.WARNINGS); } catch (Throwable ignored) {}
-                synchronized (voskModelLock) {
-                    if (sharedVoskModel == null) sharedVoskModel = new Model(dir.toAbsolutePath().toString());
-                }
+                // One shared Model per language (keyed by model id): sessions of the
+                // same language reuse it, sessions of a different language get their
+                // own model instead of silently reusing whichever was loaded first.
+                sharedVoskModels.computeIfAbsent(modelId, id -> {
+                    try {
+                        VoiceCast.LOGGER.info("Loading shared Vosk model '{}' from {}", id, dir.toAbsolutePath());
+                        return new Model(dir.toAbsolutePath().toString());
+                    } catch (java.io.IOException e) {
+                        throw new RuntimeException("Failed to load shared Vosk model '" + id + "'", e);
+                    }
+                });
             }
             engineStates.put(engine, EngineState.READY);
             VoiceCast.LOGGER.info("Server voice engine ready: {}", engine);
@@ -197,8 +204,10 @@ public enum VoiceCastServer {
         }
     }
 
-    void attachSharedModel(VoskTextRecognizer r) {
-        Model m = sharedVoskModel;
+    /** Bind the engine's shared Vosk model (per model id) to a recognizer. */
+    void attachSharedModel(VoskTextRecognizer r, String engine) {
+        String modelId = modelConfig != null ? modelConfig.modelIdForEngine(engine) : null;
+        Model m = modelId == null ? null : sharedVoskModels.get(modelId);
         if (m != null) r.useSharedModel(m);
     }
 

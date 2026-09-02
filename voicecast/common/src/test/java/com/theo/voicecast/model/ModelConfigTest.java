@@ -27,10 +27,10 @@ class ModelConfigTest {
     void allBuiltinEnginesResolve() {
         ModelConfig cfg = ModelConfig.load(runDir);
         assertModel(cfg.modelForEngine("vosk-text"), ModelConfig.MODEL_VOSK_EN);
-        assertModel(cfg.modelForEngine("vosk-en-us"), ModelConfig.MODEL_VOSK_EN);
-        assertModel(cfg.modelForEngine("vosk-zh-cn"), ModelConfig.MODEL_VOSK_ZH);
-        assertModel(cfg.modelForEngine("vosk-ja-jp"), ModelConfig.MODEL_VOSK_JA);
-        assertModel(cfg.modelForEngine("vosk-ko-kr"), ModelConfig.MODEL_VOSK_KO);
+        assertModel(cfg.modelForEngine("vosk-en"), ModelConfig.MODEL_VOSK_EN);
+        assertModel(cfg.modelForEngine("vosk-cn"), ModelConfig.MODEL_VOSK_ZH);
+        assertModel(cfg.modelForEngine("vosk-jp"), ModelConfig.MODEL_VOSK_JA);
+        assertModel(cfg.modelForEngine("vosk-kr"), ModelConfig.MODEL_VOSK_KO);
         assertModel(cfg.modelForEngine("ipa-phonemes"), ModelConfig.MODEL_IPA);
     }
 
@@ -52,7 +52,7 @@ class ModelConfigTest {
                 + ModelConfig.MODEL_VOSK_EN + "\"}}}");
         ModelConfig cfg = ModelConfig.load(runDir);
         assertModel(cfg.modelForEngine("vosk-text"), ModelConfig.MODEL_VOSK_EN);
-        assertModel(cfg.modelForEngine("vosk-en-us"), ModelConfig.MODEL_VOSK_EN);
+        assertModel(cfg.modelForEngine("vosk-en"), ModelConfig.MODEL_VOSK_EN);
         assertModel(cfg.modelForEngine("ipa-phonemes"), ModelConfig.MODEL_IPA);
     }
 
@@ -67,6 +67,20 @@ class ModelConfigTest {
         ModelConfig.ModelEntry en = cfg.modelForEngine("vosk-text");
         assertModel(en, ModelConfig.MODEL_VOSK_EN);
         assertEquals(List.of(mirror), en.urls());
+    }
+
+    /** WR-22: the float32 model.onnx fallback is gone; only q4 weights ship. */
+    @Test
+    void ipaEntryHasNoFloat32Fallback() {
+        ModelConfig cfg = ModelConfig.load(runDir);
+        ModelConfig.ModelEntry ipa = cfg.modelForEngine("ipa-phonemes");
+        assertNotNull(ipa);
+        assertTrue(ipa.files().stream().noneMatch(f -> f.name().equals("model.onnx")),
+                "float32 model.onnx fallback must not be configured");
+        assertTrue(ipa.files().stream().anyMatch(f -> f.name().equals(IpaModel.Q4_FILE)),
+                "q4 weights must stay configured");
+        assertTrue(ipa.files().stream().anyMatch(f -> f.name().equals(IpaModel.VOCAB_FILE)),
+                "vocab must stay configured");
     }
 
     private static void assertModel(ModelConfig.ModelEntry entry, String expectedModelId) {

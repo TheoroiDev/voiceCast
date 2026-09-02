@@ -36,9 +36,13 @@ public final class VoiceCast {
 
         RecognizerRegistry.register("noop", NoopRecognizer::new);
         RecognizerRegistry.register("vosk-text", VoskTextRecognizer::new);
-        // en-us alias (canonical: vosk-text). Language-tagged ids (vosk-zh-cn, ...)
-        // will follow the same pattern when more Vosk models are wired up.
-        RecognizerRegistry.register("vosk-en-us", VoskTextRecognizer::new);
+        // All Vosk word engines share VoskTextRecognizer; the per-language model
+        // binding (vosk-en/cn/jp/kr) is resolved at configure time from models.json
+        // keyed by engine id (VoiceCastServer.attachSharedModel/configure).
+        RecognizerRegistry.register("vosk-en", VoskTextRecognizer::new);
+        RecognizerRegistry.register("vosk-cn", VoskTextRecognizer::new);
+        RecognizerRegistry.register("vosk-jp", VoskTextRecognizer::new);
+        RecognizerRegistry.register("vosk-kr", VoskTextRecognizer::new);
         RecognizerRegistry.register("ipa-phonemes", IpaPhonemeRecognizer::new);
         RecognizerRegistry.setDefault("vosk-text");
 

@@ -31,7 +31,7 @@ import java.util.Map;
  *     "vosk-model-small-en-us-0.15": { "kind": "vosk-archive", "sizeBytes": ..., "sha256": "...", "urls": [...] },
  *     "wav2vec2-espeak-ipa": { "kind": "loose-files", "files": [ { "name": ..., "urls": [...], "minBytes": ..., "optional": true } ] }
  *   },
- *   "engines": { "vosk-en-us": { "model": "vosk-model-small-en-us-0.15" }, ... }
+ *   "engines": { "vosk-en": { "model": "vosk-model-small-en-us-0.15" }, ... }
  * }
  * </pre>
  */
@@ -231,23 +231,17 @@ public final class ModelConfig {
         q4.put("minBytes", 150L * 1024 * 1024);
         q4.put("urls", List.of(hfMirror + "/onnx/model_q4.onnx", hf + "/onnx/model_q4.onnx"));
 
-        Map<String, Object> f32 = new LinkedHashMap<>();
-        f32.put("name", "model.onnx");
-        f32.put("minBytes", 900L * 1024 * 1024);
-        f32.put("optional", Boolean.TRUE); // q4 fallback (~1.3 GB), only if q4 missing
-        f32.put("urls", List.of(hfMirror + "/onnx/model.onnx", hf + "/onnx/model.onnx"));
-
         Map<String, Object> ipa = new LinkedHashMap<>();
         ipa.put("kind", KIND_LOOSE_FILES);
-        ipa.put("files", List.of(vocab, q4, f32));
+        ipa.put("files", List.of(vocab, q4));
         putModel(root, MODEL_IPA, ipa);
 
         Map<String, Object> engines = new LinkedHashMap<>();
-        engines.put("vosk-en-us", engineEntry(MODEL_VOSK_EN));
-        engines.put("vosk-zh-cn", engineEntry(MODEL_VOSK_ZH));
-        engines.put("vosk-ja-jp", engineEntry(MODEL_VOSK_JA));
-        engines.put("vosk-ko-kr", engineEntry(MODEL_VOSK_KO));
-        engines.put("vosk-text", engineEntry(MODEL_VOSK_EN)); // legacy alias of vosk-en-us
+        engines.put("vosk-en", engineEntry(MODEL_VOSK_EN));
+        engines.put("vosk-cn", engineEntry(MODEL_VOSK_ZH));
+        engines.put("vosk-jp", engineEntry(MODEL_VOSK_JA));
+        engines.put("vosk-kr", engineEntry(MODEL_VOSK_KO));
+        engines.put("vosk-text", engineEntry(MODEL_VOSK_EN)); // canonical default engine
         engines.put("ipa-phonemes", engineEntry(MODEL_IPA));
         root.put("engines", engines);
         return root;

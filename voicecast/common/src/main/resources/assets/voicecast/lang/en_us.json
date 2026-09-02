@@ -1,12 +1,15 @@
 {
   "voicecast.engine.title": "VoiceCast - Choose Recognition Engine",
   "voicecast.engine.subtitle": "The server loads the model once and shares it. Switch any time.",
-  "voicecast.engine.vosk": "Word recognition (Vosk, ~40 MB)",
+  "voicecast.engine.vosk": "Word recognition - English (Vosk, ~40 MB)",
+  "voicecast.engine.vosk_cn": "Word recognition - Chinese (Vosk, ~44 MB)",
+  "voicecast.engine.vosk_jp": "Word recognition - Japanese (Vosk, ~50 MB)",
+  "voicecast.engine.vosk_kr": "Word recognition - Korean (Vosk, ~87 MB)",
   "voicecast.engine.ipa": "Phoneme recognition (IPA, ~230 MB)",
   "voicecast.engine.done": "Done",
   "voicecast.engine.cmd.set": "VoiceCast engine requested: %s",
   "voicecast.engine.cmd.current": "VoiceCast current engine: %s",
-  "voicecast.engine.cmd.unknown": "Unknown engine '%s' - use vosk or ipa",
+  "voicecast.engine.cmd.unknown": "Unknown engine '%s' - use vosk, zh, ja, ko or ipa",
 
   "voicecast.state.preparing": "Preparing %s...",
   "voicecast.state.downloading_ipa": "Downloading IPA model %s...",

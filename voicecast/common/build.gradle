@@ -39,14 +39,16 @@ dependencies {
 
     // Simple Voice Chat client-API integration (M7b). compileOnly + never
     // bundled: SVC provides the API classes at runtime; our plugin class is
-    // loaded only via ServiceLoader when SVC is actually installed, so the
-    // dependency must stay out of every published artifact.
+    // loaded via the fabric.mod.json entrypoint key "voicechat" (Fabric) or
+    // the @ForgeVoicechatPlugin annotation scan (Forge) when SVC is actually
+    // installed - SVC 2.x does not use ServiceLoader - so the dependency must
+    // stay out of every published artifact.
     // 2.6.x = same API generation as SVC 1.20.1-2.6.22 (the latest 1.20.1 build).
     compileOnly("de.maxhenkel.voicechat:voicechat-api:2.6.20")
 
     // Opus audio codec (pure Java, Java 8 bytecode, non-modular). Used to
     // compress mic audio for the client->server audio channel. Kept at its
-    // original org.concentus package (do NOT relocate).
+    // original io.github.jaredmdobson.concentus package (do NOT relocate).
     compileOnly("io.github.jaredmdobson:concentus:1.0.2")
     voicecastFat("io.github.jaredmdobson:concentus:1.0.2") {
         transitive = false

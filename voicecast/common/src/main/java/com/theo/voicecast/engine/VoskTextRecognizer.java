@@ -25,8 +25,8 @@ import java.util.Locale;
  * words (Vosk's grammar is phonetic, so arbitrary ASCII spellings work as
  * long as they're in the phrase list).
  *
- * <p>The Vosk and JNA packages are relocated at build time to
- * {@code com.theo.voicecast.repack.*} to avoid clashing with other mods.
+ * <p>Vosk and JNA keep their original package names ({@code org.vosk} /
+ * {@code com.sun.jna}); nothing is relocated at build time.
  */
 public final class VoskTextRecognizer extends AbstractBufferedRecognizer {
 

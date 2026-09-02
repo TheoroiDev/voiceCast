@@ -60,6 +60,9 @@ public final class ServerSpeechSession {
                 // session must never grow memory on the server). A dropped
                 // FLUSH is recovered by the silence watchdog.
                 new ThreadPoolExecutor.DiscardPolicy());
+        // Let the idle core worker die after the 30s keepalive instead of
+        // lingering forever; the thread is recreated on the next submission.
+        worker.allowCoreThreadTimeOut(true);
         worker.submit(this::ensureReady);
     }
 
@@ -115,7 +118,7 @@ public final class ServerSpeechSession {
                 r = ipa;
             } else {
                 vosk = new VoskTextRecognizer();
-                VoiceCastServer.INSTANCE.attachSharedModel(vosk);
+                VoiceCastServer.INSTANCE.attachSharedModel(vosk, engine);
                 vosk.setResultSink(this::onResult);
                 VoiceCastServer.INSTANCE.configure(vosk, engine);
                 r = vosk;
