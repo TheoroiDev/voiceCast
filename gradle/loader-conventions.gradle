@@ -62,3 +62,50 @@ tasks.matching { it.name == "runServer" }.configureEach {
         }
     }
 }
+
+// ---- voice model pre-seed ----------------------------------------------------
+// The workspace root keeps the pre-downloaded voicecast models (../models
+// relative to this repo; see AGENTS.md). Seed them into each run dir's
+// config/voicecast/models before launch so the mod's model downloader never
+// re-fetches the same files. Files are HARDLINKED (java.nio Files.createLink —
+// same volume, zero extra space, transparent to Vosk/ONNX and to ModelManager's
+// isRegularFile/size/sha256 probes; deleting a run-side link never touches the
+// workspace copy), with a plain-copy fallback for cross-volume volumes. The
+// source is workspace-local (absent in CI / fresh clones) -> the task skips via
+// onlyIf. Existing dest files are left untouched (never downgraded), so run
+// dirs seeded by the older Copy implementation keep working as-is.
+def voiceModelsSource = rootProject.file("../models")
+def seedVoiceModels = { String kind, String dirName ->
+    def syncTask = tasks.register("syncVoiceModels${kind.capitalize()}") {
+        group = "wizard dev"
+        description = "Seed voicecast models from the workspace models/ dir into ${dirName}/config/voicecast/models as hardlinks (skips when the source is absent, e.g. CI)."
+        inputs.dir(voiceModelsSource)
+        outputs.dir(project.file("${dirName}/config/voicecast/models"))
+        onlyIf { voiceModelsSource.isDirectory() }
+        doLast {
+            def srcRoot = voiceModelsSource.toPath()
+            def destRoot = project.file("${dirName}/config/voicecast/models").toPath()
+            int linked = 0, copied = 0, kept = 0
+            java.nio.file.Files.walk(srcRoot).filter { java.nio.file.Files.isRegularFile(it) }.forEach { src ->
+                def dst = destRoot.resolve(srcRoot.relativize(src))
+                java.nio.file.Files.createDirectories(dst.getParent())
+                if (java.nio.file.Files.exists(dst)) { kept++; return }
+                try {
+                    java.nio.file.Files.createLink(dst, src)
+                    linked++
+                } catch (java.nio.file.FileAlreadyExistsException e) {
+                    kept++ // concurrent launcher got there first
+                } catch (IOException e) {
+                    java.nio.file.Files.copy(src, dst) // cross-volume / unsupported -> real copy
+                    copied++
+                }
+            }
+            project.logger.lifecycle("syncVoiceModels(${dirName}): ${linked} hardlinked, ${copied} copied, ${kept} already present")
+        }
+    }
+    tasks.matching { it.name == (kind == "client" ? "runClient" : "runServer") }.configureEach {
+        dependsOn syncTask
+    }
+}
+seedVoiceModels("client", loom.runs.client.runDir ?: "run")
+seedVoiceModels("server", loom.runs.server.runDir ?: "run-server")
