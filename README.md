@@ -44,9 +44,9 @@ Downstream consumption (wizardreal):
 
 ```gradle
 // repositories: mavenLocal() (+ CI maven repo later)
-modImplementation "com.theo.voicecast:voicecast-fabric-1.20.1:0.3.1"   // fabric
-modImplementation "com.theo.voicecast:voicecast-forge-1.20.1:0.3.1"    // forge
-compileOnly       "com.theo.voicecast:voicecast-common-1.20.1:0.3.1"   // common codegen
+modImplementation "com.theo.voicecast:voicecast-fabric-1.20.1:0.3.2"   // fabric
+modImplementation "com.theo.voicecast:voicecast-forge-1.20.1:0.3.2"    // forge
+compileOnly       "com.theo.voicecast:voicecast-common-1.20.1:0.3.2"   // common codegen
 ```
 
 ## Addon developers
