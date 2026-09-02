@@ -37,7 +37,7 @@ Shared model layer: Vosk English ~150–250 MB; all four Vosk languages ~0.8–1
 
 ## Verify
 
-1. The log shows `Server voice engine ready: <engine>` (`vosk-text` by default; other languages load lazily when a player selects them);
+1. The log shows `Server voice engine ready: <engine>` (`vosk-en` by default; other languages load lazily when a player selects them);
 2. A client with a gameplay mod attached streams audio and the server logs recognition activity;
 3. `/voicecast engine` shows the player's current engine.
 

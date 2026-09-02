@@ -35,7 +35,6 @@ public final class VoiceCast {
         LOGGER.info("VoiceCast common initializing");
 
         RecognizerRegistry.register("noop", NoopRecognizer::new);
-        RecognizerRegistry.register("vosk-text", VoskTextRecognizer::new);
         // All Vosk word engines share VoskTextRecognizer; the per-language model
         // binding (vosk-en/cn/jp/kr) is resolved at configure time from models.json
         // keyed by engine id (VoiceCastServer.attachSharedModel/configure).
@@ -44,7 +43,7 @@ public final class VoiceCast {
         RecognizerRegistry.register("vosk-jp", VoskTextRecognizer::new);
         RecognizerRegistry.register("vosk-kr", VoskTextRecognizer::new);
         RecognizerRegistry.register("ipa-phonemes", IpaPhonemeRecognizer::new);
-        RecognizerRegistry.setDefault("vosk-text");
+        RecognizerRegistry.setDefault("vosk-en");
 
         VoiceCastEvents.subscribe(RecognitionFinalEvent.class, e -> {
             String text = e.result() == null ? "" : e.result().text();

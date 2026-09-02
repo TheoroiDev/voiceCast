@@ -50,7 +50,7 @@ public enum VoiceCastServer {
     private ServerConfig config;
     private ModelConfig modelConfig;
     private Path runDir;
-    private String defaultEngine = "vosk-text";
+    private String defaultEngine = "vosk-en";
     /** Shared Vosk models keyed by model id — one per language (vosk-en/zh/ja/ko); loaded lazily, closed on stop. */
     private final Map<String, Model> sharedVoskModels = new ConcurrentHashMap<>();
 

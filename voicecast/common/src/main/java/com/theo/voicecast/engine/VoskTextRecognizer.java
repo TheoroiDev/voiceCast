@@ -50,9 +50,11 @@ public final class VoskTextRecognizer extends AbstractBufferedRecognizer {
         this.ownsModel = false;
     }
 
-    @Override public String id() { return "vosk-text"; }
+    /** Shared implementation id — all Vosk word engines (vosk-en/cn/jp/kr) use
+     * this class; the language comes from the configured model binding. */
+    @Override public String id() { return "vosk-en"; }
 
-    @Override public String displayName() { return "Vosk (offline text)"; }
+    @Override public String displayName() { return "Vosk (offline)"; }
 
     @Override
     public synchronized void start(SpeechOptions options) throws Exception {

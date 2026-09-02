@@ -11,9 +11,10 @@ class ClientVoiceConfigNormalizeTest {
 
     @Test
     void voskAliasesNormalizeToCanonicalId() {
+        // Legacy vosk-text (and its aliases) now normalize to vosk-en.
         for (String alias : new String[]{"vosk", "text", "vosk-text", "word",
-                "en-us", "en", "english"}) {
-            assertEquals(ClientVoiceConfig.ENGINE_VOSK, ClientVoiceConfig.normalize(alias), alias);
+                "en-us", "en", "english", "vosk-en", "vosk-en-us"}) {
+            assertEquals(ClientVoiceConfig.ENGINE_VOSK_EN, ClientVoiceConfig.normalize(alias), alias);
         }
     }
 
@@ -58,7 +59,7 @@ class ClientVoiceConfigNormalizeTest {
 
     @Test
     void caseInsensitive() {
-        assertEquals(ClientVoiceConfig.ENGINE_VOSK, ClientVoiceConfig.normalize("VOSK"));
+        assertEquals(ClientVoiceConfig.ENGINE_VOSK_EN, ClientVoiceConfig.normalize("VOSK"));
         assertEquals(ClientVoiceConfig.ENGINE_IPA, ClientVoiceConfig.normalize("IPA-Phonemes"));
         assertEquals(ClientVoiceConfig.ENGINE_VOSK_CN, ClientVoiceConfig.normalize("ZH-CN"));
         assertEquals(ClientVoiceConfig.ENGINE_VOSK_KR, ClientVoiceConfig.normalize("Korean"));

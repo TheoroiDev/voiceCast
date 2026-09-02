@@ -13,7 +13,7 @@ import java.util.Locale;
  * engine id -> model binding lives in the same file.
  */
 public final class VoskModel {
-    /** Legacy default (kept for existing installs and the {@code vosk-text} alias). */
+    /** Legacy default (kept for existing installs; the former {@code vosk-text} id now normalizes to {@code vosk-en}). */
     public static final String DEFAULT_MODEL_ID = ModelConfig.MODEL_VOSK_EN;
 
     private VoskModel() {}

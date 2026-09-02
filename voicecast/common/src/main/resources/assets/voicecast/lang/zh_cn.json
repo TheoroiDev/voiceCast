@@ -1,11 +1,11 @@
 {
   "voicecast.engine.title": "VoiceCast - 选择识别引擎",
   "voicecast.engine.subtitle": "服务器只需加载一次模型并共享，随时可切换。",
-  "voicecast.engine.vosk": "词语识别 - 英文（Vosk，约 40 MB）",
+  "voicecast.engine.vosk_en": "词语识别 - 英文（Vosk，约 40 MB）",
   "voicecast.engine.vosk_cn": "词语识别 - 中文（Vosk，约 44 MB）",
   "voicecast.engine.vosk_jp": "词语识别 - 日文（Vosk，约 50 MB）",
   "voicecast.engine.vosk_kr": "词语识别 - 韩文（Vosk，约 87 MB）",
-  "voicecast.engine.ipa": "音素识别（IPA，约 230 MB）",
+  "voicecast.engine.ipa": "音素识别（IPA，约 150 MB）",
   "voicecast.engine.done": "完成",
   "voicecast.engine.cmd.set": "已请求 VoiceCast 引擎：%s",
   "voicecast.engine.cmd.current": "VoiceCast 当前引擎：%s",

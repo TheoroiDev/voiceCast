@@ -28,14 +28,14 @@
 ## 识别不到触发词
 
 - **语速放慢、发音清晰**；
-- **`vosk-text` 只认英文**——中文/日文请用母语引擎 `vosk-cn` / `vosk-jp`（韩语 `vosk-kr`），IPA 引擎是按音素匹配的替代项；
+- **`vosk-en` 只认英文**——中文/日文请用母语引擎 `vosk-cn` / `vosk-jp`（韩语 `vosk-kr`），IPA 引擎是按音素匹配的替代项；
 - IPA 引擎按音素匹配，对非母语发音更宽容（自动容忍松紧元音偏移、吞掉音节尾的辅音）；
 - 准星下方的灰色文字是实时识别结果——如果显示的内容离触发词太远，先确认模型下载完整（红色状态行消失）。
 
 ## 切换引擎
 
 ```
-/voicecast engine vosk    # 词语识别（英文，vosk-text）
+/voicecast engine vosk    # 词语识别（英文，vosk-en）
 /voicecast engine zh      # 词语识别（中文，vosk-cn）
 /voicecast engine ja      # 词语识别（日文，vosk-jp）
 /voicecast engine ko      # 词语识别（韩文，vosk-kr）

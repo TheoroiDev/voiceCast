@@ -237,11 +237,10 @@ public final class ModelConfig {
         putModel(root, MODEL_IPA, ipa);
 
         Map<String, Object> engines = new LinkedHashMap<>();
-        engines.put("vosk-en", engineEntry(MODEL_VOSK_EN));
+        engines.put("vosk-en", engineEntry(MODEL_VOSK_EN)); // canonical default engine
         engines.put("vosk-cn", engineEntry(MODEL_VOSK_ZH));
         engines.put("vosk-jp", engineEntry(MODEL_VOSK_JA));
         engines.put("vosk-kr", engineEntry(MODEL_VOSK_KO));
-        engines.put("vosk-text", engineEntry(MODEL_VOSK_EN)); // canonical default engine
         engines.put("ipa-phonemes", engineEntry(MODEL_IPA));
         root.put("engines", engines);
         return root;

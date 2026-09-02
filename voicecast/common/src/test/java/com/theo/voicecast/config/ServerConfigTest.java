@@ -69,8 +69,25 @@ class ServerConfigTest {
     }
 
     @Test
+    void voskTextDefaultWhitelistIsUpgraded() {
+        // The default list that still carried the legacy vosk-text id.
+        seed(runDir, "engines", "allowed",
+                List.of("vosk-text", "vosk-en", "vosk-cn", "vosk-jp", "vosk-kr", "ipa-phonemes"));
+        ServerConfig c = ServerConfig.load(runDir);
+        assertEquals(ServerConfig.DEFAULT_ALLOWED_ENGINES, c.allowedEngines);
+    }
+
+    @Test
+    void voskTextEntryInCustomWhitelistNormalizes() {
+        // A customized list is kept as-is except legacy ids normalize (vosk-text -> vosk-en).
+        seed(runDir, "engines", "allowed", List.of("vosk-text", "ipa-phonemes", "my-custom-engine"));
+        ServerConfig c = ServerConfig.load(runDir);
+        assertEquals(List.of("vosk-en", "ipa-phonemes", "my-custom-engine"), c.allowedEngines);
+    }
+
+    @Test
     void customizedWhitelistIsLeftAlone() {
-        List<String> custom = List.of("vosk-text", "ipa-phonemes", "my-custom-engine");
+        List<String> custom = List.of("ipa-phonemes", "my-custom-engine");
         seed(runDir, "engines", "allowed", custom);
         ServerConfig c = ServerConfig.load(runDir);
         assertEquals(custom, c.allowedEngines);
@@ -105,6 +122,6 @@ class ServerConfigTest {
     void unknownDefaultEngineFallsBackToVoskText() {
         seedDefaultEngine(runDir, "vosk-ru-ru");
         ServerConfig c = ServerConfig.load(runDir);
-        assertEquals("vosk-text", c.engine);
+        assertEquals("vosk-en", c.engine);
     }
 }

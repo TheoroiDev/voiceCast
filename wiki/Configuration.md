@@ -18,13 +18,13 @@ The file is auto-created on first load and rewritten (versioned, missing keys ge
 version = 1
 
 [server]
-defaultEngine = "vosk-text"   # vosk-text | vosk-en | vosk-cn | vosk-jp | vosk-kr | ipa-phonemes | noop
+defaultEngine = "vosk-en"   # vosk-en | vosk-cn | vosk-jp | vosk-kr | ipa-phonemes | noop
 autoDownload = true           # allow server-side model downloads
 maxFramesPerSecond = 15       # per-session audio frame cap (abuse guard)
 enabled = true                # master switch: false = nobody may stream
 
 [engines]
-allowed = ["vosk-text", "vosk-en", "vosk-cn", "vosk-jp", "vosk-kr", "ipa-phonemes"]
+allowed = ["vosk-en", "vosk-cn", "vosk-jp", "vosk-kr", "ipa-phonemes"]
 
 [players]
 whitelist = []                # array of UUID strings; empty = everyone
@@ -33,7 +33,7 @@ whitelist = []                # array of UUID strings; empty = everyone
 svcCoexistence = "share"      # share | defer  (Simple Voice Chat coexistence)
 
 [client]                      # ← player-local section
-engine = "vosk-text"
+engine = "vosk-en"
 ```
 
 | Key | Meaning |
@@ -45,7 +45,7 @@ engine = "vosk-text"
 | `[engines] allowed` | Whitelist of selectable engines (rejected selections report "engine not allowed"). Use it to stop players from triggering big downloads |
 | `[players] whitelist` | UUID array (invalid UUIDs are skipped with a warning). **Empty = everyone**; non-empty = only listed players may stream. Order of checks: [Access Control](Access-Control) |
 | `[compat] svcCoexistence` | Simple Voice Chat coexistence mode (**client-local**: each player's own config; the server neither reads nor syncs it) — see [Simple Voice Chat Integration](Simple-Voice-Chat-Integration) |
-| `[client] engine` | Player-local engine preference. Valid: `vosk-text` / `vosk-en` / `vosk-cn` / `vosk-jp` / `vosk-kr` / `ipa-phonemes` (command aliases vosk/en/zh/ja/ko/ipa… are normalized) |
+| `[client] engine` | Player-local engine preference. Valid: `vosk-en` / `vosk-cn` / `vosk-jp` / `vosk-kr` / `ipa-phonemes` (command aliases vosk/en/zh/ja/ko/ipa… are normalized; legacy `vosk-text` maps to `vosk-en`) |
 
 > The former `[server] opusBitrate` key has been **removed**: the Opus encoder runs on the client, so a server-side key could never reach it (that would require a new sync channel). Bandwidth is ~3 KB/s per speaking player (see [Performance](Performance.md)). Stale `opusBitrate` entries in existing configs are ignored.
 
@@ -74,7 +74,7 @@ Auto-generated and **user-overridable** (merged per key; missing entries get def
     }
   },
   "engines": {
-    "vosk-text":   { "model": "vosk-model-small-en-us-0.15" },
+    "vosk-en":     { "model": "vosk-model-small-en-us-0.15" },
     "vosk-en":     { "model": "vosk-model-small-en-us-0.15" },
     "vosk-cn":     { "model": "vosk-model-small-cn-0.22" },
     "vosk-jp":     { "model": "vosk-model-small-ja-0.22" },

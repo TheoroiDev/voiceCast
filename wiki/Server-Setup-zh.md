@@ -37,7 +37,7 @@
 
 ## 验证
 
-1. 启动日志出现 `Server voice engine ready: <engine>`（默认 `vosk-text`；其余语种在玩家首次选择时懒加载）；
+1. 启动日志出现 `Server voice engine ready: <engine>`（默认 `vosk-en`；其余语种在玩家首次选择时懒加载）；
 2. 客户端进入世界推流后服务器日志出现识别活动；
 3. `/voicecast engine` 可查看玩家当前引擎。
 

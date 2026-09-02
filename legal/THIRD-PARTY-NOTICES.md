@@ -11,7 +11,7 @@ each subproject's build scripts and mod manifests.
 
 - License: Apache-2.0 (Vosk and the Kaldi toolkit it builds on)
 - Upstream: <https://github.com/alphacephei/vosk-api>, <https://github.com/kaldi-asr/kaldi>
-- Used by: the `vosk-text` engine (server-side offline word recognition).
+- Used by: the `vosk-en` engine (server-side offline word recognition).
 - Note: the Apache-2.0 license text is distributed by the upstream project;
   a copy can be obtained from the upstream repository (`LICENSE` file).
 

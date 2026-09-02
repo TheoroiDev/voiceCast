@@ -7,14 +7,14 @@ Platform-independent VoiceCast code. This module is the whole library: API, reco
 | Package/class | Purpose |
 |---------------|---------|
 | `api/SpeechRecognizer` | Engine SPI: `start`, `stop`, `acceptPcm`, `finishUtterance`, `setVocabulary`. |
-| `api/RecognizerRegistry` | Engines by id. Builtin: `noop`, `vosk-text` (default), `vosk-en`, `vosk-cn`, `vosk-jp`, `vosk-kr`, `ipa-phonemes`. Engine ids follow `vosk-<two-letter language>` for Vosk language engines. |
+| `api/RecognizerRegistry` | Engines by id. Builtin: `noop`, `vosk-en` (default), `vosk-cn`, `vosk-jp`, `vosk-kr`, `ipa-phonemes`. Engine ids follow `vosk-<two-letter language>` for Vosk language engines. |
 | `api/Pronunciation` | A recognized word: id, text aliases (Vosk grammar), IPA templates (phoneme matching). |
 | `api/RecognitionResult` / `SpeechOptions` | Result text + IPA tokens + confidence; engine configuration. |
 | `api/VoiceCastEvents` | Tiny pub/sub: partial/final result, audio level, recognizer state. |
 | `client/VoiceCastClient` | Client controller: mic capture gated by external PTT (WizardReal staff+right-click), Opus encode + streaming to the server. |
 | `client/EnginePicker`, `client/EngineSelectScreen` | Engine preference persisted in `voicecast.toml`, `/voicecast` client command, picker screen (Mod Menu / Forge Mods config). |
 | `client/hud/VoiceCastHud` | HUD rendering (waveform, transcript, localized status line); screen anchors are internal constants (configurable per-HUD anchors are a planned feature). |
-| `engine/VoskTextRecognizer` | Vosk word engine (grammar mode with full-graph fallback); ids `vosk-text` (default) and the CJK language variants `vosk-cn` / `vosk-jp` / `vosk-kr` (legacy ids `vosk-en-us` / `vosk-zh-cn` / `vosk-ja-jp` / `vosk-ko-kr` are auto-migrated by config normalize) — dispatch is by the models.json model kind, so all Vosk languages share this class. |
+| `engine/VoskTextRecognizer` | Vosk word engine (grammar mode with full-graph fallback); ids `vosk-en` (default) and the CJK language variants `vosk-cn` / `vosk-jp` / `vosk-kr` (legacy ids `vosk-text` / `vosk-en-us` / `vosk-zh-cn` / `vosk-ja-jp` / `vosk-ko-kr` are auto-migrated by config normalize) — dispatch is by the models.json model kind, so all Vosk languages share this class. |
 | `engine/IpaPhonemeRecognizer` | IPA phoneme engine (id `ipa-phonemes`): wav2vec2-lv-60-espeak-cv-ft via ONNX Runtime; buffers an utterance and decodes off-thread to IPA tokens. |
 | `engine/AbstractBufferedRecognizer`, `NoopRecognizer`, `MiniJson` | Shared engine scaffolding. |
 | `server/AccessPolicy` + `api/AccessCheck` | Pure access decision for voice streaming (master switch / UUID whitelist / pluggable permission hook); unit-tested. |

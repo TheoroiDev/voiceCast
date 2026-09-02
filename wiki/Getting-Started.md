@@ -21,7 +21,7 @@ Via the Mod Menu / Mods-list **config button**, or the `/voicecast settings` com
 
 | Engine | Size | Best for |
 |---|---|---|
-| **Word recognition - English (Vosk)** `vosk-text` | ~40 MB | Speaking English trigger words |
+| **Word recognition - English (Vosk)** `vosk-en` | ~40 MB | Speaking English trigger words |
 | **Word recognition - Chinese (Vosk)** `vosk-cn` | ~44 MB | Speaking Chinese trigger words |
 | **Word recognition - Japanese (Vosk)** `vosk-jp` | ~50 MB | Speaking Japanese trigger words (recognizes kana/kanji) |
 | **Word recognition - Korean (Vosk)** `vosk-kr` | ~87 MB | Speaking Korean trigger words |

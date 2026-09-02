@@ -11,7 +11,7 @@ import java.util.Collection;
  */
 public interface SpeechRecognizer {
 
-    /** Stable id, e.g. {@code "sherpa-ipa"} or {@code "vosk-text"}. */
+    /** Stable id, e.g. {@code "sherpa-ipa"} or {@code "vosk-en"}. */
     String id();
 
     /** Human-readable name shown in the config UI. */

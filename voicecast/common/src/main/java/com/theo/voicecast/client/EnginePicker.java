@@ -24,7 +24,7 @@ public final class EnginePicker {
 
     public static String preferred() {
         Minecraft mc = Minecraft.getInstance();
-        if (mc == null || mc.gameDirectory == null) return ClientVoiceConfig.ENGINE_VOSK;
+        if (mc == null || mc.gameDirectory == null) return ClientVoiceConfig.ENGINE_VOSK_EN;
         return ClientVoiceConfig.load(mc.gameDirectory.toPath()).engine;
     }
 

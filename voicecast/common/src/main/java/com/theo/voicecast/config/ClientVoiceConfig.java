@@ -19,8 +19,8 @@ import java.util.Properties;
 public final class ClientVoiceConfig {
     public static final String SECTION = "client";
     public static final String SECTION_COMPAT = "compat";
-    public static final String ENGINE_VOSK = "vosk-text";
-    /** English Vosk engine (models.json engine binding). */
+    /** English Vosk engine (models.json engine binding); canonical default. The
+     * legacy {@code vosk-text} id is an alias that normalizes to this. */
     public static final String ENGINE_VOSK_EN = "vosk-en";
     /** CJK Vosk engines (models.json engine bindings; native-language recognition). */
     public static final String ENGINE_VOSK_CN = "vosk-cn";
@@ -28,7 +28,7 @@ public final class ClientVoiceConfig {
     public static final String ENGINE_VOSK_KR = "vosk-kr";
     public static final String ENGINE_IPA = "ipa-phonemes";
 
-    public String engine = ENGINE_VOSK;
+    public String engine = ENGINE_VOSK_EN;
     /** How to coexist with Simple Voice Chat when both mods want the microphone. */
     public SvcCoexistence svcCoexistence = SvcCoexistence.SHARE;
 
@@ -52,20 +52,21 @@ public final class ClientVoiceConfig {
     }
 
     public static boolean isValidEngine(String e) {
-        return ENGINE_VOSK.equals(e) || ENGINE_VOSK_EN.equals(e) || ENGINE_IPA.equals(e)
+        return ENGINE_VOSK_EN.equals(e) || ENGINE_IPA.equals(e)
                 || ENGINE_VOSK_CN.equals(e) || ENGINE_VOSK_JP.equals(e) || ENGINE_VOSK_KR.equals(e);
     }
 
     /**
      * Accept vosk/ipa aliases incl. language tags; null if unknown.
-     * Pre-rename ids ({@code vosk-en-us}, {@code vosk-zh-cn}, {@code vosk-ja-jp},
-     * {@code vosk-ko-kr}) migrate to the renamed ids so saved configs keep working.
+     * Legacy ids ({@code vosk-text}, {@code vosk-en-us}, {@code vosk-zh-cn},
+     * {@code vosk-ja-jp}, {@code vosk-ko-kr}) migrate to the current ids so
+     * saved configs keep working.
      */
     public static String normalize(String s) {
         if (s == null) return null;
         return switch (s.toLowerCase(java.util.Locale.ROOT)) {
-            case "vosk", "text", "vosk-text", "word", "en-us", "en", "english" -> ENGINE_VOSK;
-            case "vosk-en", "vosk-en-us" -> ENGINE_VOSK_EN;
+            case "vosk", "text", "vosk-text", "word", "en-us", "en", "english",
+                 "vosk-en", "vosk-en-us" -> ENGINE_VOSK_EN;
             case "vosk-cn", "zh", "zh-cn", "chinese", "中文", "vosk-zh-cn" -> ENGINE_VOSK_CN;
             case "vosk-jp", "ja", "ja-jp", "japanese", "日本語", "vosk-ja-jp" -> ENGINE_VOSK_JP;
             case "vosk-kr", "ko", "ko-kr", "korean", "한국어", "vosk-ko-kr" -> ENGINE_VOSK_KR;

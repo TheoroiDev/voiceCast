@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * production failure: {@code defaultRoot()} used to attach model entries to a
  * detached map ({@code Json.getMap} returns a throwaway map for missing keys),
  * so the written models.json had no {@code models} section and every engine
- * binding resolved to null -> "No model configured for engine vosk-text".
+ * binding resolved to null -> "No model configured for engine vosk-en".
  */
 class ModelConfigTest {
 
@@ -26,7 +26,6 @@ class ModelConfigTest {
     @Test
     void allBuiltinEnginesResolve() {
         ModelConfig cfg = ModelConfig.load(runDir);
-        assertModel(cfg.modelForEngine("vosk-text"), ModelConfig.MODEL_VOSK_EN);
         assertModel(cfg.modelForEngine("vosk-en"), ModelConfig.MODEL_VOSK_EN);
         assertModel(cfg.modelForEngine("vosk-cn"), ModelConfig.MODEL_VOSK_ZH);
         assertModel(cfg.modelForEngine("vosk-jp"), ModelConfig.MODEL_VOSK_JA);
@@ -43,7 +42,9 @@ class ModelConfigTest {
         assertTrue(json.contains(ModelConfig.MODEL_IPA), "ipa model missing from saved file");
     }
 
-    /** A user file with the models section lost must still resolve via defaults. */
+    /** A user file with the models section lost must still resolve via defaults.
+     * The legacy {@code vosk-text} engine key (written by older versions) keeps
+     * resolving through the user-engines loop. */
     @Test
     void missingModelsSectionFallsBackToDefaults() throws Exception {
         Path file = runDir.resolve("config/voicecast/models.json");
@@ -64,7 +65,7 @@ class ModelConfigTest {
         Files.writeString(file, "{\"version\":1,\"models\":{\"" + ModelConfig.MODEL_VOSK_EN
                 + "\":{\"kind\":\"vosk-archive\",\"sizeBytes\":1,\"urls\":[\"" + mirror + "\"]}}}");
         ModelConfig cfg = ModelConfig.load(runDir);
-        ModelConfig.ModelEntry en = cfg.modelForEngine("vosk-text");
+        ModelConfig.ModelEntry en = cfg.modelForEngine("vosk-en");
         assertModel(en, ModelConfig.MODEL_VOSK_EN);
         assertEquals(List.of(mirror), en.urls());
     }

@@ -28,14 +28,14 @@ Red = the model isn't ready. Read the **status line** above the waveform:
 ## My trigger word doesn't match
 
 - Slow down and pronounce clearly;
-- **`vosk-text` only understands English** — for Chinese/Japanese use the native-language engines `vosk-cn` / `vosk-jp` (Korean: `vosk-kr`); the IPA engine is the phoneme-matching alternative;
+- **`vosk-en` only understands English** — for Chinese/Japanese use the native-language engines `vosk-cn` / `vosk-jp` (Korean: `vosk-kr`); the IPA engine is the phoneme-matching alternative;
 - The IPA engine matches by phonemes and is forgiving to non-native accents (tolerates tense/lax vowel shifts, dropped syllable-final consonants);
 - The gray text under the crosshair is the live recognition — if it's far from any trigger word, first confirm the model finished loading (red status line gone).
 
 ## Switching engines
 
 ```
-/voicecast engine vosk    # word recognition (English, vosk-text)
+/voicecast engine vosk    # word recognition (English, vosk-en)
 /voicecast engine zh      # word recognition (Chinese, vosk-cn)
 /voicecast engine ja      # word recognition (Japanese, vosk-jp)
 /voicecast engine ko      # word recognition (Korean, vosk-kr)

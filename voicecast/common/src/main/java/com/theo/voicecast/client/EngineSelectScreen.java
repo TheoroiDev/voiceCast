@@ -33,8 +33,8 @@ public final class EngineSelectScreen extends Screen {
         int x = this.width / 2 - w / 2;
         int y = this.height / 2 - 44;
 
-        addRenderableWidget(Button.builder(label("voicecast.engine.vosk", current.equals(ClientVoiceConfig.ENGINE_VOSK)),
-                b -> pick(ClientVoiceConfig.ENGINE_VOSK)).bounds(x, y, w, h).build());
+        addRenderableWidget(Button.builder(label("voicecast.engine.vosk_en", current.equals(ClientVoiceConfig.ENGINE_VOSK_EN)),
+                b -> pick(ClientVoiceConfig.ENGINE_VOSK_EN)).bounds(x, y, w, h).build());
         addRenderableWidget(Button.builder(label("voicecast.engine.vosk_cn", current.equals(ClientVoiceConfig.ENGINE_VOSK_CN)),
                 b -> pick(ClientVoiceConfig.ENGINE_VOSK_CN)).bounds(x, y + 24, w, h).build());
         addRenderableWidget(Button.builder(label("voicecast.engine.vosk_jp", current.equals(ClientVoiceConfig.ENGINE_VOSK_JP)),
