@@ -1,9 +1,9 @@
 # Third-Party Notices
 
 Components **bundled** inside the distributable jars of this project. Each is
-used unmodified under its own license. The complete dependency list — including
-runtime dependencies that are NOT bundled (Fabric Loader/API, Forge,
-Architectury) and dev-only tooling — lives in [`CREDITS.md`](../../CREDITS.md).
+used unmodified under its own license. The non-bundled runtime dependencies
+(Fabric Loader/API, Forge, Architectury) and dev-only tooling are declared in
+each subproject's build scripts and mod manifests.
 
 ## Bundled into the voicecast jars
 

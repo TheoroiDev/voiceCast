@@ -19,7 +19,7 @@ Drop `voicecast-forge-*.jar` (or the fabric build) into the server's `mods/`. Cl
 ## Model download
 
 - The server **pre-warms the default engine** at start (`[server] defaultEngine`, Vosk English ~40 MB by default); other engines download on first selection and are **shared server-wide**;
-- Downloads go over HTTPS with built-in mirror probing (**hf-mirror.com first**, huggingface.co fallback) and sha256 verification;
+- Downloads go over HTTPS with sha256 verification. Vosk models come from **alphacephei.com** by default; the **IPA (wav2vec2)** model uses the hf-mirror.com mirror — you can add extra mirrors for Vosk models in `models.json` (multiple `urls` are probed and downloaded fastest-first);
 - **No internet / slow link**:
   - Proxy via JVM flags: `-Dhttps.proxyHost=<host> -Dhttps.proxyPort=<port>` (the downloader also detects the `HTTPS_PROXY` env var);
   - Or set `[server] autoDownload = false` and **place models manually** into `config/voicecast/models/<modelId>/` (extracted Vosk needs `am/ conf/ graph/` subdirectories);
@@ -37,7 +37,7 @@ Shared model layer: Vosk English ~150–250 MB; all four Vosk languages ~0.8–1
 
 ## Verify
 
-1. The log shows `Server voice engine ready: vosk-text`;
+1. The log shows `Server voice engine ready: <engine>` (`vosk-text` by default; other languages load lazily when a player selects them);
 2. A client with a gameplay mod attached streams audio and the server logs recognition activity;
 3. `/voicecast engine` shows the player's current engine.
 

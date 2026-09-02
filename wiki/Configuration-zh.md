@@ -18,13 +18,13 @@ VoiceCast 使用**一个共享配置文件**（客户端/服务器各读自己�
 version = 1
 
 [server]
-defaultEngine = "vosk-text"   # vosk-text | vosk-en-us | ipa-phonemes | noop
+defaultEngine = "vosk-text"   # vosk-text | vosk-en | vosk-cn | vosk-jp | vosk-kr | ipa-phonemes | noop
 autoDownload = true           # 允许服务器自动下载模型
 maxFramesPerSecond = 15       # 每会话音频帧速率上限（防滥用）
 enabled = true                # 总开关：false 时任何玩家都无法使用语音
 
 [engines]
-allowed = ["vosk-text", "vosk-en-us", "ipa-phonemes"]
+allowed = ["vosk-text", "vosk-en", "vosk-cn", "vosk-jp", "vosk-kr", "ipa-phonemes"]
 
 [players]
 whitelist = []                # UUID 字符串数组；空 = 所有人可用
@@ -44,12 +44,12 @@ engine = "vosk-text"
 | `[server] enabled` | **总开关**。`false`：不预热模型，所有音频帧静默丢弃，玩家收到一次性"已禁用"提示 |
 | `[engines] allowed` | 玩家可选引擎白名单（`audio/select` 被拒会提示 "engine not allowed"）。用于阻止玩家触发大模型下载 |
 | `[players] whitelist` | UUID 数组（非法 UUID 跳过并告警）。**空 = 所有人可用**；非空则仅名单内玩家可推流。判定顺序见[访问控制](Access-Control-zh) |
-| `[compat] svcCoexistence` | Simple Voice Chat 共存模式 — 见 [SVC 集成](Simple-Voice-Chat-Integration-zh) |
-| `[client] engine` | 玩家本地引擎偏好。合法值：`vosk-text` / `vosk-en-us` / `ipa-phonemes`（命令别名 vosk/en/ipa 等会归一化） |
+| `[compat] svcCoexistence` | Simple Voice Chat 共存模式（**客户端本地设置**：每个玩家各自的配置，服务端不读取也不同步）— 见 [SVC 集成](Simple-Voice-Chat-Integration-zh) |
+| `[client] engine` | 玩家本地引擎偏好。合法值：`vosk-text` / `vosk-en` / `vosk-cn` / `vosk-jp` / `vosk-kr` / `ipa-phonemes`（命令别名 vosk/en/zh/ja/ko/ipa 等会归一化） |
 
-> 原 `[server] opusBitrate` 键已在 v0.3.2 **移除**：Opus 编码器运行在客户端，服务端键无法触达（那需要新增同步通道）。带宽约 3 KB/s 每个说话玩家（见 [Performance](Performance-zh.md)）。旧配置文件里遗留的 `opusBitrate` 会被忽略。
+> 原 `[server] opusBitrate` 键已**移除**：Opus 编码器运行在客户端，服务端键无法触达（那需要新增同步通道）。带宽约 3 KB/s 每个说话玩家（见 [Performance](Performance-zh.md)）。旧配置文件里遗留的 `opusBitrate` 会被忽略。
 
-> CJK 注意：`models.json` 中已预置 `vosk-zh-cn` / `vosk-ja-jp` / `vosk-ko-kr` 模型条目，但对应引擎**尚未注册**（当前版本不可选）；中文/日语咏唱请用 `ipa-phonemes`。
+> CJK 引擎：`vosk-cn` / `vosk-jp` / `vosk-kr` 已完整注册（母语 Vosk 识别）。每个被选中的语种会下载并常驻一份自己的共享模型（磁盘约 40–90 MB，加载后内存约 150–250 MB）——懒加载，只有玩家实际使用的语种才付费。日语注意：ja 模型输出假名/汉字文本，罗马音拼写的咒语别名在文本路径可能不命中；建议用假名别名或改用 `ipa-phonemes` 引擎。
 
 ## models.json（模型目录）
 
@@ -75,10 +75,10 @@ engine = "vosk-text"
   },
   "engines": {
     "vosk-text":   { "model": "vosk-model-small-en-us-0.15" },
-    "vosk-en-us":  { "model": "vosk-model-small-en-us-0.15" },
-    "vosk-zh-cn":  { "model": "vosk-model-small-cn-0.22" },
-    "vosk-ja-jp":  { "model": "vosk-model-small-ja-0.22" },
-    "vosk-ko-kr":  { "model": "vosk-model-small-ko-0.22" },
+    "vosk-en":     { "model": "vosk-model-small-en-us-0.15" },
+    "vosk-cn":     { "model": "vosk-model-small-cn-0.22" },
+    "vosk-jp":     { "model": "vosk-model-small-ja-0.22" },
+    "vosk-kr":     { "model": "vosk-model-small-ko-0.22" },
     "ipa-phonemes": { "model": "wav2vec2-espeak-ipa" }
   },
   "mirrorProbe": { "enabled": true, "probeBytes": 262144, "timeoutMs": 5000, "minFileSizeBytes": 8388608 }
@@ -89,7 +89,7 @@ engine = "vosk-text"
 
 - **多镜像测速**：每个文件配多个 URL 时，服务器会并发 Range-GET 探测各镜像吞吐，**最快者先下载**、其余作回退；小于 8 MB 的文件跳过探测；
 - **自托管模型**：把 `urls` 换成你自己的 HTTP 地址即可（内网镜像、对象存储都行）；
-- **IPA q4 模型**约 230 MB（`model_q4.onnx`）；1.3 GB 的 `model.onnx` 为可选回退；
+- **IPA 模型**仅提供 q4 量化版 `model_q4.onnx`（约 150 MB）——没有 f32 兜底；
 - 手动放置：`autoDownload=false` 时把文件放到 `config/voicecast/models/<模型id>/`，Vosk 需解压后含 `am/ conf/ graph/`。
 
 ## 玩家可调项

@@ -23,16 +23,16 @@ VoiceCast 对 [Simple Voice Chat](https://modrinth.com/mod/simple-voice-chat)（
 
 麦克风设备被独占（打开失败）时，VoiceCast 记录明确日志（"Simple Voice Chat is active and may hold the device"）并在 **500ms 后重试一次**——瞬时占用通常瞬间恢复。下一次按键仍会重试。
 
-## 服务器配置
+## 设置
 
-无需任何操作——共存自动生效。需要更严格行为的服务器设置：
+无需任何操作——共存自动生效。想要更严格行为的玩家，在**自己的** `config/voicecast/voicecast.toml` 中设置：
 
 ```toml
 [compat]
 svcCoexistence = "defer"
 ```
 
-按服务器生效，对所有玩家适用。
+这是**客户端本地设置**：每个玩家各自的配置文件，只作用于本人——服务端不读取也不同步。
 
 ## 已知交互（设计如此）
 

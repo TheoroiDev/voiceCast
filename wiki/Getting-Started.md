@@ -21,13 +21,19 @@ Via the Mod Menu / Mods-list **config button**, or the `/voicecast settings` com
 
 | Engine | Size | Best for |
 |---|---|---|
-| **Word recognition (Vosk)** `vosk-text` | ~40 MB | Speaking English trigger words |
-| **Phoneme recognition (IPA)** `ipa-phonemes` | ~230 MB | Pronouncing Latin/English/Chinese/Japanese incantations |
+| **Word recognition - English (Vosk)** `vosk-text` | ~40 MB | Speaking English trigger words |
+| **Word recognition - Chinese (Vosk)** `vosk-cn` | ~44 MB | Speaking Chinese trigger words |
+| **Word recognition - Japanese (Vosk)** `vosk-jp` | ~50 MB | Speaking Japanese trigger words (recognizes kana/kanji) |
+| **Word recognition - Korean (Vosk)** `vosk-kr` | ~87 MB | Speaking Korean trigger words |
+| **Phoneme recognition (IPA)** `ipa-phonemes` | ~150 MB | Pronouncing Latin/English/Chinese/Japanese incantations |
 
-The model downloads **once** on first selection (hf-mirror.com first, huggingface.co fallback, sha256-verified) into `config/voicecast/models/`. Switch any time:
+The model downloads **once** on first selection into `config/voicecast/models/` (sha256-verified). Vosk models come from **alphacephei.com** by default; the **IPA (wav2vec2)** model uses the hf-mirror.com mirror — you can add your own mirrors in `models.json`. Switch any time:
 
 ```
-/voicecast engine vosk    # word recognition
+/voicecast engine vosk    # word recognition (English)
+/voicecast engine zh      # word recognition (Chinese)
+/voicecast engine ja      # word recognition (Japanese)
+/voicecast engine ko      # word recognition (Korean)
 /voicecast engine ipa     # phoneme recognition
 ```
 

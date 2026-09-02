@@ -8,11 +8,11 @@
 
 ## 核心特性
 
-- **双引擎**：Vosk 词语识别（~40 MB）/ wav2vec2-espeak IPA 音素识别（~230 MB）
-- **模型托管**：自动下载 + 镜像回退（hf-mirror.com）+ sha256 校验，支持完全自托管
+- **双引擎**：Vosk 词语识别（~40 MB）/ wav2vec2-espeak IPA 音素识别（~150 MB q4）
+- **模型托管**：自动下载 + sha256 校验，支持完全自托管——Vosk 模型默认仅从 alphacephei.com 下载，IPA（wav2vec2）模型走 hf-mirror.com 镜像，也可在 `models.json` 自行追加镜像
 - **服务器访问控制**：`[server] enabled` 总开关 + `[players]` UUID 白名单 + 可插拔 `AccessCheck` 钩子
-- **Simple Voice Chat 集成**：感知/共享/暂缓三种共存模式 — 见 [SVC 集成](Simple-Voice-Chat-Integration-zh)
-- **引擎 SPI**：注册自定义识别器（Whisper、云端 STT…），不碰玩法代码
+- **Simple Voice Chat 集成**：共享/暂缓（share/defer）两种共存模式 — 见 [SVC 集成](Simple-Voice-Chat-Integration-zh)
+- **引擎 SPI**（计划中）：`RecognizerRegistry.register(...)` 接口已就绪，但服务端引擎选择/创建尚未接入注册表——当前仅内置引擎 id 可选（见 voicecast 仓库 issue）
 
 ## 文档（中文）
 

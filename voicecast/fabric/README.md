@@ -25,5 +25,5 @@ Dependencies: Fabric Loader, Fabric API, Architectury. JNA (`net.java.dev.jna:jn
 ## Resources
 
 - `fabric.mod.json` — entrypoints `main` / `client`; `environment: "*"`.
-- `assets/voicecast/lang/en_us.json` — keybind and (future) config names.
+- Language files are provided by common (`assets/voicecast/lang/` — engine names and status messages); this subproject's resources contain only `fabric.mod.json` and `pack.mcmeta`.
 - `pack.mcmeta` — pack format 15 (1.20.1).

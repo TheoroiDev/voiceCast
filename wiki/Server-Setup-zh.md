@@ -19,7 +19,7 @@
 ## 模型下载
 
 - 服务器启动时**预热默认引擎**（`[server] defaultEngine`，默认 Vosk 英文 ~40 MB），玩家首次选用其他引擎时按需下载并**全服共享**；
-- 下载走 HTTPS，内置镜像测速（**hf-mirror.com 优先**，huggingface.co 回退），sha256 校验；
+- 下载走 HTTPS + sha256 校验。Vosk 模型默认**仅从 alphacephei.com** 下载；**IPA（wav2vec2）** 模型走 hf-mirror.com 镜像——也可在 `models.json` 为 Vosk 模型自行追加镜像（多个 `urls` 会并发测速、最快者优先）；
 - **无外网/下载慢**的服务器：
   - JVM 代理参数：`-Dhttps.proxyHost=<host> -Dhttps.proxyPort=<port>`（下载器也会探测 `HTTPS_PROXY` 环境变量）；
   - 或设 `[server] autoDownload = false` 并**手动放置**模型到 `config/voicecast/models/<模型id>/`（Vosk 解压后需含 `am/ conf/ graph/` 子目录）；
@@ -37,7 +37,7 @@
 
 ## 验证
 
-1. 启动日志出现 `Server voice engine ready: vosk-text`；
+1. 启动日志出现 `Server voice engine ready: <engine>`（默认 `vosk-text`；其余语种在玩家首次选择时懒加载）；
 2. 客户端进入世界推流后服务器日志出现识别活动；
 3. `/voicecast engine` 可查看玩家当前引擎。
 

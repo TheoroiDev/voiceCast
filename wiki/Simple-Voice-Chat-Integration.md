@@ -23,16 +23,16 @@ VoiceCast ships a **first-class coexistence integration** with [Simple Voice Cha
 
 If the microphone device is exclusively held (open fails), VoiceCast logs a clear message ("Simple Voice Chat is active and may hold the device") and retries **once after 500 ms** — transiently busy devices recover within moments. The next push-to-talk press retries again.
 
-## Server setup
+## Setup
 
-Nothing to do — coexistence is automatic. Servers that want the stricter behavior set:
+Nothing to do — coexistence is automatic. Players who want the stricter behavior set it in **their own** `config/voicecast/voicecast.toml`:
 
 ```toml
 [compat]
 svcCoexistence = "defer"
 ```
 
-This is per-server and applies to every player.
+This is a **client-local setting**: each player's own config on their own machine — the server neither reads nor syncs it.
 
 ## Known interaction (by design)
 

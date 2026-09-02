@@ -40,4 +40,4 @@ Full math in the project's internal capacity analysis — this page is the cheat
 
 - After startup, confirm `Server voice engine ready: <engine>` in the log;
 - `-Dvoicecast.verbose=true` logs per-frame/per-utterance pipeline details (troubleshooting only — keep off in production);
-- Session queues are bounded (32 frames, discard-oldest when full): overload manifests as "occasionally dropped sentences", never as lag spikes or crashes.
+- Session queues are bounded (32 frames; when full, **newly arriving frames are dropped** — the older frame sequence is preserved): overload manifests as "occasionally dropped sentences", never as lag spikes or crashes.

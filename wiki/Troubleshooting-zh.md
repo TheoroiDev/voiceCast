@@ -14,7 +14,7 @@
 
 红色 = 模型尚未就绪。看波形上方的**状态行**：
 
-- **金色**"正在下载/准备模型"：首次下载，耐心等待（Vosk ~40 MB / IPA ~230 MB）；
+- **金色**"正在下载/准备模型"：首次下载，耐心等待（Vosk ~40 MB / IPA ~150 MB）；
 - **红色**"引擎加载失败/模型缺失"：看 `logs/latest.log`。若服务器设置了 `autoDownload = false`，需要管理员手动放置模型文件（见[配置参考](Configuration-zh)）；
 - **红色**"麦克风不可用"：见下一条。
 
@@ -28,15 +28,18 @@
 ## 识别不到触发词
 
 - **语速放慢、发音清晰**；
-- **Vosk 引擎只认英文发音**——念拼音/中文请切换 `/voicecast engine ipa`；
+- **`vosk-text` 只认英文**——中文/日文请用母语引擎 `vosk-cn` / `vosk-jp`（韩语 `vosk-kr`），IPA 引擎是按音素匹配的替代项；
 - IPA 引擎按音素匹配，对非母语发音更宽容（自动容忍松紧元音偏移、吞掉音节尾的辅音）；
 - 准星下方的灰色文字是实时识别结果——如果显示的内容离触发词太远，先确认模型下载完整（红色状态行消失）。
 
 ## 切换引擎
 
 ```
-/voicecast engine vosk    # 词语识别（英文单词）
-/voicecast engine ipa     # 音素识别（按发音，支持中/日）
+/voicecast engine vosk    # 词语识别（英文，vosk-text）
+/voicecast engine zh      # 词语识别（中文，vosk-cn）
+/voicecast engine ja      # 词语识别（日文，vosk-jp）
+/voicecast engine ko      # 词语识别（韩文，vosk-kr）
+/voicecast engine ipa     # 音素识别
 /voicecast settings       # 打开选择界面
 ```
 

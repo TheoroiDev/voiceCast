@@ -4,9 +4,8 @@ Copyright (c) 2026 theo — MIT licensed.
 This distribution bundles the following third-party components, used
 unmodified under their own licenses. Full attribution (including
 dependencies that are NOT bundled and the speech models downloaded at
-runtime) is maintained in CREDITS.md at
-https://github.com/Theoroi/wizardReal and in THIRD-PARTY-NOTICES.md
-located next to this file inside the jar.
+runtime) is maintained in THIRD-PARTY-NOTICES.md located next to this
+file inside the jar and on https://github.com/TheoroiDev/wizardReal.
 
 Bundled components (voicecast jars):
   - Vosk 0.3.45 (Java bindings + libvosk native libraries, based on Kaldi)
@@ -21,4 +20,4 @@ Bundled components (voicecast jars):
 
 Speech models (vosk-model-small-*, wav2vec2-espeak ONNX weights) are
 downloaded at runtime into the config directory and are NOT part of this
-distribution. See CREDITS.md for their licenses (Apache-2.0 / CC0).
+distribution. See THIRD-PARTY-NOTICES.md for their licenses (Apache-2.0 / CC0).
