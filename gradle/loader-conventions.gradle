@@ -17,6 +17,14 @@ loom {
             if (voicecastVerbose) vmArgs "-Dvoicecast.verbose=true"
         }
         server {
+            // Separate run dir from the client: two live JVMs on one `run/`
+            // collide on Windows file locks (log4j latest.log deletion,
+            // FabricLoader run/.fabric/processedMods remap cache) and die
+            // with "Failed to remap mods!" / AccessDenied. The runServer
+            // eula/online-mode auto-config below follows this dir.
+            // (Reproduced in wizardpedia joint testing 2026-09-02; synced to
+            // all repos per AGENTS.md.)
+            runDir "run-server"
             if (voicecastVerbose) vmArgs "-Dvoicecast.verbose=true"
         }
     }
