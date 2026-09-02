@@ -18,8 +18,8 @@ import de.maxhenkel.voicechat.api.events.MicrophoneMuteEvent;
  * </ul>
  * The class is only instantiated by SVC when SVC is installed — never touches
  * SVC classes otherwise. This side is pure observation: we track SVC's
- * transmit state so {@code VoiceCastClient} can apply the configured
- * coexistence mode (share / defer). We never cancel or modify SVC audio.
+ * transmit state so {@code VoiceCastClient} can log the mic-sharing overlap
+ * (coexistence is share-only). We never cancel or modify SVC audio.
  */
 @ForgeVoicechatPlugin
 public class VoiceCastSvcPlugin implements VoicechatPlugin {

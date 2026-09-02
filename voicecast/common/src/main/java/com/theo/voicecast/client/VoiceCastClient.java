@@ -11,7 +11,6 @@ import com.theo.voicecast.audio.MicCapture;
 import com.theo.voicecast.audio.WavDumper;
 import com.theo.voicecast.client.hud.VoiceCastHud;
 import com.theo.voicecast.compat.ModDetection;
-import com.theo.voicecast.compat.voicechat.DeferPolicy;
 import com.theo.voicecast.compat.voicechat.SvcState;
 import com.theo.voicecast.config.ClientVoiceConfig;
 import com.theo.voicecast.config.VoiceCastConfig;
@@ -44,9 +43,6 @@ public enum VoiceCastClient {
     private long speechLastLoudMs;
 
     // ---- SVC coexistence (M7b) ----
-    private ClientVoiceConfig.SvcCoexistence compatMode = ClientVoiceConfig.SvcCoexistence.SHARE;
-    private long deferStartedMs;          // when the current PTT press began deferring (0 = not deferring)
-    private boolean deferFallbackLogged;  // fallback notice logged for this press
     private boolean svcOpenNoteLogged;    // share-mode coexistence note logged for this press
     private long micRetryAtMs;            // >0 = retry startMic at this time (one shot per press)
     private boolean micRetryUsed;
@@ -59,7 +55,9 @@ public enum VoiceCastClient {
         started = true;
         try {
             Path gameDir = Minecraft.getInstance().gameDirectory.toPath();
-            compatMode = ClientVoiceConfig.load(gameDir).svcCoexistence;
+            // Kept for config compatibility: the only remaining coexistence mode
+            // is share (defer was removed); parsing "defer" warns and falls back.
+            ClientVoiceConfig.load(gameDir);
         } catch (Throwable t) {
             com.theo.voicecast.VoiceCast.LOGGER.warn("Could not read [compat] svcCoexistence; using share", t);
         }
@@ -139,33 +137,16 @@ public enum VoiceCastClient {
         }
 
         if (want && !micWanted) {
-            // Opening the mic fresh: apply the configured SVC coexistence mode.
-            DeferPolicy.Decision d = DeferPolicy.decide(
-                    compatMode == ClientVoiceConfig.SvcCoexistence.DEFER,
-                    SvcState.transmittingWithin(DeferPolicy.SVC_DEFER_WINDOW_MS),
-                    deferStartedMs == 0 ? 0 : System.currentTimeMillis() - deferStartedMs,
-                    DeferPolicy.SVC_DEFER_TIMEOUT_MS);
-            if (d == DeferPolicy.Decision.DEFER) {
-                if (deferStartedMs == 0) deferStartedMs = System.currentTimeMillis();
-                want = false; // postpone the open; tick() retries while pttHeld stays true
-            } else {
-                if (d == DeferPolicy.Decision.FALLBACK_OPEN && !deferFallbackLogged) {
-                    deferFallbackLogged = true;
-                    com.theo.voicecast.VoiceCast.LOGGER.info("SVC is still transmitting; defer timeout ({} ms) reached — sharing the microphone",
-                            DeferPolicy.SVC_DEFER_TIMEOUT_MS);
-                }
-                deferStartedMs = 0;
-                if (SvcState.transmittingWithin(DeferPolicy.SVC_DEFER_WINDOW_MS) && !svcOpenNoteLogged) {
-                    svcOpenNoteLogged = true;
-                    com.theo.voicecast.VoiceCast.LOGGER.info("Opening mic while Simple Voice Chat is transmitting (svcCoexistence=share)");
-                }
+            // Opening the mic fresh: coexistence with SVC is share-only (defer
+            // was removed). Log the overlap once per press for diagnostics.
+            if (SvcState.transmittingWithin(300) && !svcOpenNoteLogged) {
+                svcOpenNoteLogged = true;
+                com.theo.voicecast.VoiceCast.LOGGER.info("Opening mic while Simple Voice Chat is transmitting (coexistence: share)");
             }
         }
 
         if (!want) {
             // press released / disabled: reset all per-press coexistence state
-            deferStartedMs = 0;
-            deferFallbackLogged = false;
             svcOpenNoteLogged = false;
             micRetryAtMs = 0;
             micRetryUsed = false;

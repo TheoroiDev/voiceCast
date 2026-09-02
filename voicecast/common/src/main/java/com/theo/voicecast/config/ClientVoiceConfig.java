@@ -29,21 +29,26 @@ public final class ClientVoiceConfig {
     public static final String ENGINE_IPA = "ipa-phonemes";
 
     public String engine = ENGINE_VOSK_EN;
-    /** How to coexist with Simple Voice Chat when both mods want the microphone. */
+    /** How to coexist with Simple Voice Chat when both mods want the microphone.
+     * Only {@link SvcCoexistence#SHARE} exists; the former defer mode was removed
+     * (see voicecast#27) — parsing {@code defer} falls back to SHARE with a warn. */
     public SvcCoexistence svcCoexistence = SvcCoexistence.SHARE;
 
     public enum SvcCoexistence {
         /** Coexist: open the mic even while SVC is transmitting (devices are shared). */
-        SHARE,
-        /** Postpone opening while SVC transmits recently; falls back after a timeout. */
-        DEFER;
+        SHARE;
+
+        private static boolean deferWarned;
 
         public static SvcCoexistence parse(String raw) {
             if (raw == null) return SHARE;
-            return switch (raw.trim().toLowerCase(java.util.Locale.ROOT)) {
-                case "defer" -> DEFER;
-                default -> SHARE;
-            };
+            String v = raw.trim().toLowerCase(java.util.Locale.ROOT);
+            if (v.equals("defer") && !deferWarned) {
+                deferWarned = true;
+                com.theo.voicecast.VoiceCast.LOGGER.info(
+                        "[compat] svcCoexistence=defer is no longer supported (removed in voicecast#27); using share");
+            }
+            return SHARE;
         }
     }
 

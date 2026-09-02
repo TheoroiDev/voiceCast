@@ -30,7 +30,7 @@ allowed = ["vosk-en", "vosk-cn", "vosk-jp", "vosk-kr", "ipa-phonemes"]
 whitelist = []                # UUID 字符串数组；空 = 所有人可用
 
 [compat]
-svcCoexistence = "share"      # share | defer（Simple Voice Chat 共存模式）
+svcCoexistence = "share"      # 仅 share（写 "defer" 兼容接受，回落 share）
 
 [client]                      # ← 玩家本地设置
 engine = "vosk-en"

@@ -12,12 +12,11 @@ VoiceCast ships a **first-class coexistence integration** with [Simple Voice Cha
 - The plugin **observes** SVC's client state (connection, microphone mute, mic packets) and feeds a lock-free snapshot;
 - VoiceCast **never cancels or modifies** SVC audio, and SVC never touches VoiceCast's pipeline.
 
-## Coexistence modes (`voicecast.toml [compat] svcCoexistence`)
+## Coexistence (share only)
 
-| Mode | Behavior |
-|---|---|
-| `share` (default) | VoiceCast opens its mic as usual; if SVC captured audio within the last 250 ms, one info line is logged. Devices are normally shareable (SVC uses OpenAL capture, VoiceCast uses Java Sound), and VoiceCast releases its line the moment push-to-talk ends. |
-| `defer` | While SVC transmitted recently, VoiceCast **postpones opening** its mic (retried every tick). If the wait exceeds 2 s (e.g. SVC runs in voice-activation mode and the user never stops talking), it **falls back to sharing** instead of blocking forever — the fallback is logged once per push. |
+VoiceCast **shares** the microphone with SVC: it opens its mic as usual; if SVC captured audio within the last 300 ms, one info line is logged. Devices are normally shareable (SVC uses OpenAL capture, VoiceCast uses Java Sound), and VoiceCast releases its line the moment push-to-talk ends.
+
+> The former `defer` mode (postponing the mic open while SVC transmits) was **removed** — it only ever delayed a deliberate cast while the chant still reached the voice channel through SVC's own capture. Configs with `svcCoexistence = "defer"` fall back to `share` with a one-time log line (voicecast#27).
 
 ## Failure resilience
 
@@ -25,14 +24,7 @@ If the microphone device is exclusively held (open fails), VoiceCast logs a clea
 
 ## Setup
 
-Nothing to do — coexistence is automatic. Players who want the stricter behavior set it in **their own** `config/voicecast/voicecast.toml`:
-
-```toml
-[compat]
-svcCoexistence = "defer"
-```
-
-This is a **client-local setting**: each player's own config on their own machine — the server neither reads nor syncs it.
+Nothing to do — coexistence is automatic and always share. The `[compat] svcCoexistence` key still exists for config compatibility (`"defer"` is accepted but falls back to share), and it is a **client-local setting**: each player's own config on their own machine — the server neither reads nor syncs it.
 
 ## Known interaction (by design)
 

@@ -11,7 +11,7 @@ A reusable, offline **voice-recognition library mod** for Minecraft 1.20.1 (Fabr
 - **Engines**: Vosk word recognition (~40 MB) / wav2vec2-espeak IPA phoneme recognition (~150 MB q4)
 - **Model hosting**: auto-download, sha256-verified, fully self-hostable — Vosk models come from alphacephei.com by default, the IPA (wav2vec2) model uses the hf-mirror.com mirror, and you can add your own mirrors in `models.json`
 - **Server access control**: `[server] enabled` + `[players]` UUID whitelist + pluggable `AccessCheck` hook
-- **Simple Voice Chat**: first-class coexistence integration (share/defer) — see [Simple Voice Chat Integration](Simple-Voice-Chat-Integration)
+- **Simple Voice Chat**: first-class coexistence integration (share) — see [Simple Voice Chat Integration](Simple-Voice-Chat-Integration)
 - **Engine SPI** (planned): the `RecognizerRegistry.register(...)` hook is ready, but server-side engine selection is not yet wired to the registry — only built-in engine ids are selectable today (see the voicecast issue tracker)
 
 ## Documentation (English)
@@ -23,7 +23,7 @@ A reusable, offline **voice-recognition library mod** for Minecraft 1.20.1 (Fabr
 | [Configuration](Configuration) | Full `voicecast.toml` + `models.json` reference |
 | [Access Control](Access-Control) | Master switch, UUID whitelist, permission hook |
 | [Performance](Performance) | Capacity cheat sheet, memory/CPU profile |
-| [Simple Voice Chat Integration](Simple-Voice-Chat-Integration) | Coexistence modes (share/defer), plugin architecture |
+| [Simple Voice Chat Integration](Simple-Voice-Chat-Integration) | Microphone coexistence (share), plugin architecture |
 | [Troubleshooting](Troubleshooting) | Microphone, red waveform, downloads, engine switching |
 
 ## Documentation (中文)
