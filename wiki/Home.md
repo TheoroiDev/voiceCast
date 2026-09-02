@@ -1,8 +1,10 @@
+# [English](Home) | [中文](Home-zh)
+
 # VoiceCast — Wiki
 
 A reusable, offline **voice-recognition library mod** for Minecraft 1.20.1 (Fabric + Forge). It powers [Be a Real Wizard](https://github.com/TheoroiDev/wizardReal) and can be embedded by any addon mod.
 
-> 中文文档：[首页-zh](Home-zh) · Recognition runs **server-side** — players never download models.
+> Recognition runs **server-side** — players never download models.
 
 ## Quick facts
 

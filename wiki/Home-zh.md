@@ -31,5 +31,20 @@
 | Page | Contents |
 |---|---|
 | [Home](Home) | Overview & quick facts |
-| [Getting Started](Getting-Started) | Install, engine choice, first recognition |
+| [Getting Started](Getting-Started) | Install, engine choice, model download, first recognition |
+| [Server Setup](Server-Setup) | How server-side recognition works, proxies, memory sizing |
+| [Configuration](Configuration) | Full `voicecast.toml` + `models.json` reference |
+| [Access Control](Access-Control) | Master switch, UUID whitelist, permission hook |
+| [Performance](Performance) | Capacity cheat sheet, memory/CPU profile |
 | [Simple Voice Chat Integration](Simple-Voice-Chat-Integration) | Coexistence modes |
+| [Troubleshooting](Troubleshooting) | Microphone, red waveform, downloads, engine switching |
+
+## 面向 addon 开发者
+
+```java
+RecognizerRegistry.register("my-engine", MyEngine::new);
+```
+
+> **计划中特性**——注册接口已就绪，但服务端的引擎选择/创建尚未接入注册表：当前仅内置引擎 id 可选（见 voicecast 仓库 issue 跟踪）。
+
+公共 API（`com.theo.voicecast.api`）不引用 `org.vosk` / `com.sun.jna` / `ai.onnxruntime`——请针对发布的 maven 产物编译（`com.theo.voicecast:voicecast-common-1.20.1` 等），捆绑实现在运行时提供。
