@@ -30,7 +30,7 @@ allowed = ["vosk-en", "vosk-cn", "vosk-jp", "vosk-kr", "ipa-phonemes"]
 whitelist = []                # array of UUID strings; empty = everyone
 
 [compat]
-svcCoexistence = "share"      # share only ("defer" accepted for compatibility, falls back to share)
+svcCoexistence = "share"      # Simple Voice Chat coexistence (client-local)
 
 [client]                      # ← player-local section
 engine = "vosk-en"

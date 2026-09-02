@@ -16,15 +16,13 @@ VoiceCast ships a **first-class coexistence integration** with [Simple Voice Cha
 
 VoiceCast **shares** the microphone with SVC: it opens its mic as usual; if SVC captured audio within the last 300 ms, one info line is logged. Devices are normally shareable (SVC uses OpenAL capture, VoiceCast uses Java Sound), and VoiceCast releases its line the moment push-to-talk ends.
 
-> The former `defer` mode (postponing the mic open while SVC transmits) was **removed** — it only ever delayed a deliberate cast while the chant still reached the voice channel through SVC's own capture. Configs with `svcCoexistence = "defer"` fall back to `share` with a one-time log line (voicecast#27).
-
 ## Failure resilience
 
 If the microphone device is exclusively held (open fails), VoiceCast logs a clear message ("Simple Voice Chat is active and may hold the device") and retries **once after 500 ms** — transiently busy devices recover within moments. The next push-to-talk press retries again.
 
 ## Setup
 
-Nothing to do — coexistence is automatic and always share. The `[compat] svcCoexistence` key still exists for config compatibility (`"defer"` is accepted but falls back to share), and it is a **client-local setting**: each player's own config on their own machine — the server neither reads nor syncs it.
+Nothing to do — coexistence is automatic. `[compat] svcCoexistence` is a **client-local setting**: each player's own config on their own machine — the server neither reads nor syncs it.
 
 ## Known interaction (by design)
 
