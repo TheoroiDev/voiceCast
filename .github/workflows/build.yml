@@ -1,4 +1,4 @@
-name: CI
+name: build
 
 # Trigger policy (synced with wizardpedia/wizardreal): tags (v*) = release
 # gate; PRs = pre-merge checks; push is intentionally NOT a trigger (local
