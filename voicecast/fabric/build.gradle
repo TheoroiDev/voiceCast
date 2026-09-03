@@ -39,6 +39,10 @@ dependencies {
     // platform fat jar.
     voicecastRuntime("net.java.dev.jna:jna:5.12.1")
     include("net.java.dev.jna:jna:5.12.1")
+
+    // ===== Dev-only testing mods (modLocalRuntime = dev run only, NOT bundled) =====
+    // Carpet - testing utilities (fake players, /carpet rules) for dev runs
+    modLocalRuntime "maven.modrinth:carpet:1.4.112"
 }
 
 tasks.processResources {

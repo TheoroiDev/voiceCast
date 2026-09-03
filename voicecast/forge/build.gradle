@@ -34,6 +34,13 @@ dependencies {
 
     common(project(path: ":voicecast-common", configuration: "namedElements")) { transitive = false }
     shadowBundle(project(path: ":voicecast-common", configuration: "transformProductionForge")) { transitive = false }
+
+    // NOTE: Carpet on Forge dev is deliberately NOT wired. The "Carpet:
+    // NeoForged" 1.20.1 build (beta) assumes platform-shipped MixinExtras
+    // (NeoForge bundles it; Forge 1.20.1 does not) and its jarJar carries
+    // only the slim forge variant, so the mixin config crashes at load in
+    // dev runs. Fabric subprojects use fabric-carpet instead. Revisit if the
+    // fork ships a self-contained jar (see voicecast#38).
 }
 
 tasks.processResources {
