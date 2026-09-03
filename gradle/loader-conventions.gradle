@@ -64,8 +64,9 @@ tasks.matching { it.name == "runServer" }.configureEach {
 }
 
 // ---- voice model pre-seed ----------------------------------------------------
-// The workspace root keeps the pre-downloaded voicecast models (../models
-// relative to this repo; see AGENTS.md). Seed them into each run dir's
+// The workspace root keeps the pre-downloaded voicecast models under
+// resources/models (../resources/models relative to this repo; see
+// AGENTS.md). Seed them into each run dir's
 // config/voicecast/models before launch so the mod's model downloader never
 // re-fetches the same files. Files are HARDLINKED (java.nio Files.createLink —
 // same volume, zero extra space, transparent to Vosk/ONNX and to ModelManager's
@@ -74,7 +75,7 @@ tasks.matching { it.name == "runServer" }.configureEach {
 // source is workspace-local (absent in CI / fresh clones) -> the task skips via
 // onlyIf. Existing dest files are left untouched (never downgraded), so run
 // dirs seeded by the older Copy implementation keep working as-is.
-def voiceModelsSource = rootProject.file("../models")
+def voiceModelsSource = rootProject.file("../resources/models")
 def seedVoiceModels = { String kind, String dirName ->
     def syncTask = tasks.register("syncVoiceModels${kind.capitalize()}") {
         group = "wizard dev"
@@ -109,3 +110,80 @@ def seedVoiceModels = { String kind, String dirName ->
 }
 seedVoiceModels("client", loom.runs.client.runDir ?: "run")
 seedVoiceModels("server", loom.runs.server.runDir ?: "run-server")
+
+// ---- dev mods (workspace resources/devmods/<loader>) ----------------------
+// Testing/compatibility mods are NOT gradle dependencies: release jars are
+// pre-downloaded into the workspace resources/devmods/<loader>/ dir and
+// selected per run target by manifest.txt (mapping constraints documented
+// per loader in the manifest):
+//   - fabric: hardlinked into the run dir's mods/ folder — Fabric Loader
+//     remaps production (intermediary) jars at dev launch.
+//   - forge: production jars are SRG-mapped and crash when loaded from a
+//     loom dev mods folder, so manifest jars are wired as plain FILE
+//     dependencies (Loom remaps them into the dev runtime).
+// Either way gradle carries no mod names/versions and no remote resolution;
+// CI / fresh clones without the workspace dir simply skip everything.
+def devModsDir = rootProject.file("../resources/devmods/${project.name.endsWith("-fabric") ? "fabric" : "forge"}")
+def devModsManifest = new File(devModsDir, "manifest.txt")
+def devModLines = []
+if (devModsManifest.isFile()) {
+    devModsManifest.eachLine { line ->
+        def t = line.trim()
+        if (t && !t.startsWith("#")) {
+            def parts = t.split(/\s+/)
+            if (parts.length >= 2) devModLines << [file: parts[0], target: parts[1].toLowerCase()]
+        }
+    }
+}
+
+def linkDevMod = { java.nio.file.Path src, java.nio.file.Path dst ->
+    if (java.nio.file.Files.exists(dst) && java.nio.file.Files.isSameFile(dst, src)) return "kept"
+    if (java.nio.file.Files.exists(dst)) java.nio.file.Files.delete(dst)
+    try {
+        java.nio.file.Files.createLink(dst, src)
+        return "linked"
+    } catch (IOException e) {
+        java.nio.file.Files.copy(src, dst, java.nio.file.StandardCopyOption.REPLACE_EXISTING)
+        return "copied"
+    }
+}
+
+if (project.name.endsWith("-fabric")) {
+    def seedDevMods = { String kind, String dirName ->
+        def syncTask = tasks.register("syncDevMods${kind.capitalize()}") {
+            group = "wizard dev"
+            description = "Hardlink pre-downloaded dev mods (resources/devmods/fabric per manifest.txt) into ${dirName}/mods."
+            onlyIf { devModsDir.isDirectory() && !devModLines.isEmpty() }
+            doLast {
+                def modsDir = project.file("${dirName}/mods").toPath()
+                java.nio.file.Files.createDirectories(modsDir)
+                int linked = 0, kept = 0, missing = 0
+                devModLines.findAll { it.target == "both" || it.target == kind }.each { entry ->
+                    def src = new File(devModsDir, entry.file).toPath()
+                    if (!java.nio.file.Files.isRegularFile(src)) {
+                        missing++
+                        project.logger.warn("syncDevMods: manifest jar missing, skipping: ${src}")
+                        return
+                    }
+                    def dst = modsDir.resolve(entry.file)
+                    if (linkDevMod(src, dst) == "kept") kept++ else linked++
+                }
+                project.logger.lifecycle("syncDevMods(${dirName}): ${linked} linked, ${kept} already in place, ${missing} missing")
+            }
+        }
+        tasks.matching { it.name == (kind == "client" ? "runClient" : "runServer") }.configureEach {
+            dependsOn syncTask
+        }
+    }
+    seedDevMods("client", loom.runs.client.runDir ?: "run")
+    seedDevMods("server", loom.runs.server.runDir ?: "run-server")
+} else if (!devModLines.isEmpty()) {
+    // forge: manifest jars as file dependencies (Loom remaps them into the
+    // dev runtime; see the mapping constraint note in the forge manifest).
+    def devModJars = devModLines.collect { new File(devModsDir, it.file) }.findAll { it.isFile() }
+    if (!devModJars.isEmpty()) {
+        dependencies {
+            modLocalRuntime files(devModJars)
+        }
+    }
+}

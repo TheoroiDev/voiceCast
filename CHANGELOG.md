@@ -6,7 +6,7 @@ English primary; Chinese mirror: [CHANGELOG.zh.md](CHANGELOG.zh.md) (keep both i
 
 ### Infrastructure
 
-- Fabric dev runs bundle a Carpet testing mod for in-dev voice testing (Forge port blocked; voicecast#38)
+- Dev-only testing mods moved out of gradle: release jars are pre-downloaded under workspace `resources/devmods/<loader>/` and wired from `manifest.txt` (fabric: hardlinked into the run mods folder; forge: file dependency so Loom remaps the SRG jar; Forge port of Carpet stays blocked, voicecast#38); voice-model fact source moved to `resources/models/`
 
 ## 0.3.2 — 2026-09-02
 
