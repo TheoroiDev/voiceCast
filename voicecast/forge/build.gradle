@@ -35,12 +35,19 @@ dependencies {
     common(project(path: ":voicecast-common", configuration: "namedElements")) { transitive = false }
     shadowBundle(project(path: ":voicecast-common", configuration: "transformProductionForge")) { transitive = false }
 
-    // NOTE: Carpet on Forge dev is deliberately NOT wired. The "Carpet:
-    // NeoForged" 1.20.1 build (beta) assumes platform-shipped MixinExtras
-    // (NeoForge bundles it; Forge 1.20.1 does not) and its jarJar carries
-    // only the slim forge variant, so the mixin config crashes at load in
-    // dev runs. Fabric subprojects use fabric-carpet instead. Revisit if the
-    // fork ships a self-contained jar (see voicecast#38).
+    // NOTE: Carpet on Forge dev is deliberately NOT wired. Two stacked
+    // blockers, both documented in voicecast#38:
+    //   1. MixinExtras: the fork assumes platform-shipped MixinExtras
+    //      (NeoForge bundles it; Forge 1.20.1 does not). A hand-merged fat
+    //      jar fixed the dev init but was removed (2026-09-03) - in
+    //      production it collides with carpet's own jarJar payload at module
+    //      level (ResolutionException); fork packaging defect.
+    //   2. SRG mixin bodies (dev only): loom does not rewrite SRG method
+    //      calls inside mixin class bodies of foreign forge jars (verified
+    //      for BOTH files() and maven wiring - SRG m_129960_ survives in the
+    //      remapped jar), so carpet's tick-loop mixin crashes the dev server
+    //      with NoSuchMethodError. Same wall as canary/spark. Fabric
+    //      subprojects use fabric-carpet instead.
 }
 
 tasks.processResources {
