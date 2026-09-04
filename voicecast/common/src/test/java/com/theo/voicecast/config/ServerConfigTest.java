@@ -11,13 +11,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Server config loading: {@code [engines].allowed} migrations and engine id
- * validation. Stale default whitelists must upgrade to the current builtin set
- * (cascade: a pre-vosk-en-us file lands at the current default in one load),
- * while deliberately customized whitelists are left untouched (but legacy ids
- * inside them are normalized to the renamed ids). CJK engine ids are valid
- * values for {@code [server] defaultEngine}.
+ * validation. All vosk-family legacy whitelists upgrade to the sherpa builtin
+ * set in one cascade. Customized whitelists keep their custom ids but vosk
+ * family ids inside them normalize to sherpa equivalents.
  */
-@org.junit.jupiter.api.Disabled("TODO(#42): update vosk id expectations to sherpa after engine removal")
 class ServerConfigTest {
 
     @TempDir
@@ -44,42 +41,25 @@ class ServerConfigTest {
         ServerConfig c = ServerConfig.load(runDir);
         assertEquals(ServerConfig.DEFAULT_ALLOWED_ENGINES, c.allowedEngines);
         assertTrue(c.allowedEngines.containsAll(java.util.List.of(
-                "sherpa-zh-en", "sherpa-sensevoice")));
+                "sherpa-zh-en", "sherpa-sensevoice", "ipa-phonemes")));
     }
 
-    /** The 0.3.x default whitelist (old vosk-cn/jp/kr ids) upgrades to the two-letter-code ids. */
+    /** All pre-0.4.0 vosk-family default whitelists cascade to the sherpa set. */
     @Test
-    void pre03xDefaultWhitelistIsUpgraded() {
+    void preSherpaDefaultWhitelistsAreUpgraded() {
+        // 0.3.x ids
         seed(runDir, "engines", "allowed", List.of("vosk-en", "vosk-cn", "vosk-jp", "vosk-kr", "ipa-phonemes"));
         ServerConfig c = ServerConfig.load(runDir);
         assertEquals(ServerConfig.DEFAULT_ALLOWED_ENGINES, c.allowedEngines);
-    }
 
-    @Test
-    void preCjkDefaultWhitelistIsUpgraded() {
-        seed(runDir, "engines", "allowed", List.of("vosk-text", "vosk-en-us", "ipa-phonemes"));
-        ServerConfig c = ServerConfig.load(runDir);
-        assertEquals(ServerConfig.DEFAULT_ALLOWED_ENGINES, c.allowedEngines);
-    }
-
-    @Test
-    void preRenameDefaultWhitelistIsUpgraded() {
-        seed(runDir, "engines", "allowed",
-                List.of("vosk-text", "vosk-en-us", "vosk-zh-cn", "vosk-ja-jp", "vosk-ko-kr", "ipa-phonemes"));
-        ServerConfig c = ServerConfig.load(runDir);
-        assertEquals(ServerConfig.DEFAULT_ALLOWED_ENGINES, c.allowedEngines);
-    }
-
-    @Test
-    void preVoskEnUsDefaultWhitelistCascadesToCurrentDefault() {
-        seed(runDir, "engines", "allowed", List.of("vosk-text", "ipa-phonemes"));
-        ServerConfig c = ServerConfig.load(runDir);
+        // 0.4.0 intermediate (two-letter vosk codes)
+        seed(runDir, "engines", "allowed", List.of("vosk-en", "vosk-zh", "vosk-ja", "vosk-ko", "ipa-phonemes"));
+        c = ServerConfig.load(runDir);
         assertEquals(ServerConfig.DEFAULT_ALLOWED_ENGINES, c.allowedEngines);
     }
 
     @Test
     void voskTextDefaultWhitelistIsUpgraded() {
-        // The default list that still carried the legacy vosk-text id.
         seed(runDir, "engines", "allowed",
                 List.of("vosk-text", "vosk-en", "vosk-cn", "vosk-jp", "vosk-kr", "ipa-phonemes"));
         ServerConfig c = ServerConfig.load(runDir);
@@ -87,11 +67,10 @@ class ServerConfigTest {
     }
 
     @Test
-    void voskTextEntryInCustomWhitelistNormalizes() {
-        // A customized list is kept as-is except legacy ids normalize (vosk-text -> vosk-en).
+    void customizedWhitelistKeepsCustomButNormalizesVosk() {
         seed(runDir, "engines", "allowed", List.of("vosk-text", "ipa-phonemes", "my-custom-engine"));
         ServerConfig c = ServerConfig.load(runDir);
-        assertEquals(List.of("vosk-en", "ipa-phonemes", "my-custom-engine"), c.allowedEngines);
+        assertEquals(List.of("sherpa-zh-en", "ipa-phonemes", "my-custom-engine"), c.allowedEngines);
     }
 
     @Test
@@ -102,26 +81,22 @@ class ServerConfigTest {
         assertEquals(custom, c.allowedEngines);
     }
 
-    /** Legacy ids inside a customized whitelist migrate to the two-letter-code ids. */
     @Test
-    void customizedWhitelistLegacyIdsAreNormalized() {
+    void voskIdsInCustomWhitelistNormalizeToSherpa() {
         seed(runDir, "engines", "allowed", List.of("vosk-en-us", "vosk-zh-cn", "vosk-cn", "ipa-phonemes"));
         ServerConfig c = ServerConfig.load(runDir);
-        assertEquals(List.of("sherpa-zh-en", "sherpa-sensevoice", "ipa-phonemes"), c.allowedEngines);
-        assertTrue(c.engineAllowed("sherpa-zh-en"));
+        assertEquals(List.of("sherpa-zh-en", "ipa-phonemes"), c.allowedEngines);
         assertTrue(c.engineAllowed("sherpa-zh-en"));
     }
 
-    /** A 0.3.x CJK defaultEngine value migrates to the two-letter-code id. */
     @Test
-    void cjkDefaultEngineIsAccepted() {
+    void voskDefaultEngineMigratesToSherpa() {
         seedDefaultEngine(runDir, "vosk-cn");
         ServerConfig c = ServerConfig.load(runDir);
         assertEquals("sherpa-zh-en", c.engine);
         assertTrue(c.engineAllowed("sherpa-zh-en"));
     }
 
-    /** A pre-rename defaultEngine value migrates to the two-letter-code id. */
     @Test
     void legacyDefaultEngineIsNormalized() {
         seedDefaultEngine(runDir, "vosk-zh-cn");
@@ -130,9 +105,9 @@ class ServerConfigTest {
     }
 
     @Test
-    void unknownDefaultEngineFallsBackToVoskText() {
+    void unknownDefaultEngineFallsBackToSherpa() {
         seedDefaultEngine(runDir, "vosk-ru-ru");
         ServerConfig c = ServerConfig.load(runDir);
-        assertEquals("vosk-en", c.engine);
+        assertEquals("sherpa-zh-en", c.engine);
     }
 }

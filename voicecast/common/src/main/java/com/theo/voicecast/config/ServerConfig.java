@@ -50,6 +50,9 @@ public final class ServerConfig {
     /** 0.3.x default whitelist (old vosk-cn/jp/kr ids); upgraded once on load to the two-letter-code ids. */
     private static final List<String> LEGACY_DEFAULT_0_3_X = List.of(
             "vosk-en", "vosk-cn", "vosk-jp", "vosk-kr", "ipa-phonemes");
+    /** Pre-sherpa 0.4.0 default (vosk two-letter codes, before vosk removal). */
+    private static final List<String> LEGACY_DEFAULT_0_4_0_PRE = List.of(
+            "vosk-en", "vosk-zh", "vosk-ja", "vosk-ko", "ipa-phonemes");
 
     private ServerConfig() {}
 
@@ -83,7 +86,8 @@ public final class ServerConfig {
         if (c.allowedEngines.equals(LEGACY_DEFAULT_PRE_CJK)
                 || c.allowedEngines.equals(LEGACY_DEFAULT_PRE_RENAME)
                 || c.allowedEngines.equals(LEGACY_DEFAULT_WITH_VOSK_TEXT)
-                || c.allowedEngines.equals(LEGACY_DEFAULT_0_3_X)) {
+                || c.allowedEngines.equals(LEGACY_DEFAULT_0_3_X)
+                || c.allowedEngines.equals(LEGACY_DEFAULT_0_4_0_PRE)) {
             c.allowedEngines = DEFAULT_ALLOWED_ENGINES;
         }
         // Ids were renamed (vosk-text -> vosk-en, vosk-en-us -> vosk-en,
