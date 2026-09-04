@@ -4,6 +4,15 @@
 
 ## Unreleased（未发布）
 
+### Changes
+
+- 引擎 id 统一为两位语言码：`vosk-en`、`vosk-zh`、`vosk-ja`、`vosk-ko`、`ipa-phonemes`；0.3.x 的 `vosk-cn`/`vosk-jp`/`vosk-kr` 退役，配置与 models.json 中的旧 id 自动迁移（voicecast#39）
+
+### Modding/API
+
+- breaking：`Pronunciation` 新增按语言分桶的别名（`languages()`，两位码 en/zh/ja/ko）；平铺构造器保留（deprecated），其别名构成 legacy 桶、进入所有引擎 grammar；服务端按会话选中引擎的语言路由词表——引擎决定桶
+- breaking：引擎 id 改用两位语言码——引用 `vosk-cn`/`vosk-jp`/`vosk-kr` 的配置需改为 `vosk-zh`/`vosk-ja`/`vosk-ko`（配置 normalize 自动迁移存量值；deprecated 常量 `ENGINE_VOSK_CN/JP/KR` 别名指向新 id）
+
 ### Infrastructure
 
 - 纯开发测试 mod 移出 gradle 依赖：release jar 预下载到工作区 `resources/devmods/<loader>/`，由 `manifest.txt` 驱动接线（fabric 硬链接进 run mods 目录；forge 作为文件依赖由 Loom 重映射；Carpet 的 Forge 移植仍受阻，voicecast#38）；语音模型事实源移至 `resources/models/`

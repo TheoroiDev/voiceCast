@@ -27,10 +27,31 @@ class ModelConfigTest {
     void allBuiltinEnginesResolve() {
         ModelConfig cfg = ModelConfig.load(runDir);
         assertModel(cfg.modelForEngine("vosk-en"), ModelConfig.MODEL_VOSK_EN);
-        assertModel(cfg.modelForEngine("vosk-cn"), ModelConfig.MODEL_VOSK_ZH);
-        assertModel(cfg.modelForEngine("vosk-jp"), ModelConfig.MODEL_VOSK_JA);
-        assertModel(cfg.modelForEngine("vosk-kr"), ModelConfig.MODEL_VOSK_KO);
+        assertModel(cfg.modelForEngine("vosk-zh"), ModelConfig.MODEL_VOSK_ZH);
+        assertModel(cfg.modelForEngine("vosk-ja"), ModelConfig.MODEL_VOSK_JA);
+        assertModel(cfg.modelForEngine("vosk-ko"), ModelConfig.MODEL_VOSK_KO);
         assertModel(cfg.modelForEngine("ipa-phonemes"), ModelConfig.MODEL_IPA);
+        // 0.4.0: two-letter language codes ride along on the engine entries.
+        assertEquals("en", cfg.languageForEngine("vosk-en"));
+        assertEquals("zh", cfg.languageForEngine("vosk-zh"));
+        assertEquals("ja", cfg.languageForEngine("vosk-ja"));
+        assertEquals("ko", cfg.languageForEngine("vosk-ko"));
+        assertEquals(null, cfg.languageForEngine("ipa-phonemes"));
+    }
+
+    /** User overrides written under the 0.3.x engine keys (vosk-cn/...) carry
+     * over to the renamed two-letter-code keys and survive the rewrite. */
+    @Test
+    void oldEngineKeyOverridesMigrateToRenamedKeys() throws Exception {
+        Path file = runDir.resolve("config/voicecast/models.json");
+        Files.createDirectories(file.getParent());
+        String mirror = "https://example.com/vosk-model-small-cn-0.22.zip";
+        Files.writeString(file, "{\"version\":1,\"engines\":{\"vosk-cn\":{\"model\":\""
+                + ModelConfig.MODEL_VOSK_ZH + "\",\"urls_note\":\"x\"}}}");
+        ModelConfig cfg = ModelConfig.load(runDir);
+        assertModel(cfg.modelForEngine("vosk-zh"), ModelConfig.MODEL_VOSK_ZH);
+        String saved = Files.readString(file);
+        assertTrue(saved.contains("\"vosk-zh\""), "renamed key must be persisted");
     }
 
     @Test

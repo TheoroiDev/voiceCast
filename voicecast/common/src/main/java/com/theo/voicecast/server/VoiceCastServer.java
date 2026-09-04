@@ -186,6 +186,22 @@ public enum VoiceCastServer {
         sessions.values().forEach(s -> s.setVocabulary(this.vocabulary));
     }
 
+    /**
+     * Language bucket served by an engine (two-letter code, e.g. "en"/"zh"),
+     * or null for language-agnostic engines (ipa-phonemes/noop). Resolution:
+     * models.json {@code engines.<id>.language} first, then the unified
+     * {@code vosk-<langcode>} id suffix (0.4.0 two-letter codes).
+     */
+    public String engineLanguage(String engine) {
+        String lang = modelConfig != null ? modelConfig.languageForEngine(engine) : null;
+        if (lang != null && !lang.isBlank()) return lang.trim().toLowerCase(java.util.Locale.ROOT);
+        if (engine != null && engine.startsWith("vosk-")) {
+            String suffix = engine.substring("vosk-".length()).toLowerCase(java.util.Locale.ROOT);
+            if (suffix.length() == 2 && suffix.chars().allMatch(c -> c >= 'a' && c <= 'z')) return suffix;
+        }
+        return null;
+    }
+
     /** Build/start a recognizer for a session, wiring shared engine resources. */
     void configure(SpeechRecognizer r, String engine) {
         try {
@@ -197,7 +213,9 @@ public enum VoiceCastServer {
                     ? IpaModel.directory(runDir, modelId)
                     : runDir.resolve("config/voicecast/models").resolve(modelId);
             SpeechOptions opts = new SpeechOptions(true, 0.65f, modelPath.toString(), true);
-            r.setVocabulary(vocabulary);
+            // Route the vocabulary to this engine's language bucket (D-A2):
+            // the selected engine decides which aliases it can hear.
+            r.setVocabulary(VocabularyRouter.forLanguage(vocabulary, engineLanguage(engine)));
             r.start(opts);
         } catch (Throwable t) {
             VoiceCast.LOGGER.warn("recognizer start failed for engine {}", engine, t);

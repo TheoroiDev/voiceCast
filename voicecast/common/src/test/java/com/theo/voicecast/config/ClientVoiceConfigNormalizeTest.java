@@ -27,14 +27,14 @@ class ClientVoiceConfigNormalizeTest {
 
     @Test
     void cjkAliasesNormalizeToCanonicalId() {
-        for (String alias : new String[]{"zh", "zh-cn", "chinese", "中文", "vosk-cn"}) {
-            assertEquals(ClientVoiceConfig.ENGINE_VOSK_CN, ClientVoiceConfig.normalize(alias), alias);
+        for (String alias : new String[]{"zh", "zh-cn", "cn", "chinese", "中文", "vosk-zh"}) {
+            assertEquals(ClientVoiceConfig.ENGINE_VOSK_ZH, ClientVoiceConfig.normalize(alias), alias);
         }
-        for (String alias : new String[]{"ja", "ja-jp", "japanese", "日本語", "vosk-jp"}) {
-            assertEquals(ClientVoiceConfig.ENGINE_VOSK_JP, ClientVoiceConfig.normalize(alias), alias);
+        for (String alias : new String[]{"ja", "ja-jp", "jp", "japanese", "日本語", "vosk-ja"}) {
+            assertEquals(ClientVoiceConfig.ENGINE_VOSK_JA, ClientVoiceConfig.normalize(alias), alias);
         }
-        for (String alias : new String[]{"ko", "ko-kr", "korean", "한국어", "vosk-kr"}) {
-            assertEquals(ClientVoiceConfig.ENGINE_VOSK_KR, ClientVoiceConfig.normalize(alias), alias);
+        for (String alias : new String[]{"ko", "ko-kr", "kr", "korean", "한국어", "vosk-ko"}) {
+            assertEquals(ClientVoiceConfig.ENGINE_VOSK_KO, ClientVoiceConfig.normalize(alias), alias);
         }
     }
 
@@ -42,27 +42,31 @@ class ClientVoiceConfigNormalizeTest {
     @Test
     void legacyIdsMigrateToRenamedIds() {
         assertEquals(ClientVoiceConfig.ENGINE_VOSK_EN, ClientVoiceConfig.normalize("vosk-en-us"));
-        assertEquals(ClientVoiceConfig.ENGINE_VOSK_CN, ClientVoiceConfig.normalize("vosk-zh-cn"));
-        assertEquals(ClientVoiceConfig.ENGINE_VOSK_JP, ClientVoiceConfig.normalize("vosk-ja-jp"));
-        assertEquals(ClientVoiceConfig.ENGINE_VOSK_KR, ClientVoiceConfig.normalize("vosk-ko-kr"));
+        assertEquals(ClientVoiceConfig.ENGINE_VOSK_ZH, ClientVoiceConfig.normalize("vosk-zh-cn"));
+        assertEquals(ClientVoiceConfig.ENGINE_VOSK_JA, ClientVoiceConfig.normalize("vosk-ja-jp"));
+        assertEquals(ClientVoiceConfig.ENGINE_VOSK_KO, ClientVoiceConfig.normalize("vosk-ko-kr"));
+        // 0.3.x engine ids (old cn/jp/kr codes) migrate to the two-letter codes.
+        assertEquals(ClientVoiceConfig.ENGINE_VOSK_ZH, ClientVoiceConfig.normalize("vosk-cn"));
+        assertEquals(ClientVoiceConfig.ENGINE_VOSK_JA, ClientVoiceConfig.normalize("vosk-jp"));
+        assertEquals(ClientVoiceConfig.ENGINE_VOSK_KO, ClientVoiceConfig.normalize("vosk-kr"));
         // Case-insensitive migration too.
         assertEquals(ClientVoiceConfig.ENGINE_VOSK_EN, ClientVoiceConfig.normalize("VOSK-EN-US"));
     }
 
     @Test
-    void renamedIdsAreIdempotent() {
+    void twoLetterCodeIdsAreIdempotent() {
         assertEquals(ClientVoiceConfig.ENGINE_VOSK_EN, ClientVoiceConfig.normalize("vosk-en"));
-        assertEquals(ClientVoiceConfig.ENGINE_VOSK_CN, ClientVoiceConfig.normalize("vosk-cn"));
-        assertEquals(ClientVoiceConfig.ENGINE_VOSK_JP, ClientVoiceConfig.normalize("vosk-jp"));
-        assertEquals(ClientVoiceConfig.ENGINE_VOSK_KR, ClientVoiceConfig.normalize("vosk-kr"));
+        assertEquals(ClientVoiceConfig.ENGINE_VOSK_ZH, ClientVoiceConfig.normalize("vosk-zh"));
+        assertEquals(ClientVoiceConfig.ENGINE_VOSK_JA, ClientVoiceConfig.normalize("vosk-ja"));
+        assertEquals(ClientVoiceConfig.ENGINE_VOSK_KO, ClientVoiceConfig.normalize("vosk-ko"));
     }
 
     @Test
     void caseInsensitive() {
         assertEquals(ClientVoiceConfig.ENGINE_VOSK_EN, ClientVoiceConfig.normalize("VOSK"));
         assertEquals(ClientVoiceConfig.ENGINE_IPA, ClientVoiceConfig.normalize("IPA-Phonemes"));
-        assertEquals(ClientVoiceConfig.ENGINE_VOSK_CN, ClientVoiceConfig.normalize("ZH-CN"));
-        assertEquals(ClientVoiceConfig.ENGINE_VOSK_KR, ClientVoiceConfig.normalize("Korean"));
+        assertEquals(ClientVoiceConfig.ENGINE_VOSK_ZH, ClientVoiceConfig.normalize("ZH-CN"));
+        assertEquals(ClientVoiceConfig.ENGINE_VOSK_KO, ClientVoiceConfig.normalize("Korean"));
     }
 
     @Test
@@ -76,16 +80,17 @@ class ClientVoiceConfigNormalizeTest {
     void normalizedValuesAreValidEngines() {
         for (String alias : new String[]{"vosk", "ipa", "en", "english", "word",
                 "zh", "chinese", "ja", "japanese", "ko", "korean",
-                "vosk-en", "vosk-cn", "vosk-jp", "vosk-kr",
-                "vosk-en-us", "vosk-zh-cn", "vosk-ja-jp", "vosk-ko-kr"}) {
+                "vosk-en", "vosk-zh", "vosk-ja", "vosk-ko",
+                "vosk-en-us", "vosk-zh-cn", "vosk-ja-jp", "vosk-ko-kr",
+                "vosk-cn", "vosk-jp", "vosk-kr"}) {
             String norm = ClientVoiceConfig.normalize(alias);
             assertTrue(ClientVoiceConfig.isValidEngine(norm), alias + " -> " + norm);
         }
         assertTrue(ClientVoiceConfig.isValidEngine(ClientVoiceConfig.ENGINE_VOSK_EN));
-        assertTrue(ClientVoiceConfig.isValidEngine(ClientVoiceConfig.ENGINE_VOSK_CN));
-        assertTrue(ClientVoiceConfig.isValidEngine(ClientVoiceConfig.ENGINE_VOSK_JP));
-        assertTrue(ClientVoiceConfig.isValidEngine(ClientVoiceConfig.ENGINE_VOSK_KR));
+        assertTrue(ClientVoiceConfig.isValidEngine(ClientVoiceConfig.ENGINE_VOSK_ZH));
+        assertTrue(ClientVoiceConfig.isValidEngine(ClientVoiceConfig.ENGINE_VOSK_JA));
+        assertTrue(ClientVoiceConfig.isValidEngine(ClientVoiceConfig.ENGINE_VOSK_KO));
         assertFalse(ClientVoiceConfig.isValidEngine("vosk-ru-ru"));
-        assertFalse(ClientVoiceConfig.isValidEngine("vosk-zh"));
+        assertFalse(ClientVoiceConfig.isValidEngine("vosk-cnn"));
     }
 }

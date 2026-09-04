@@ -43,7 +43,15 @@ class ServerConfigTest {
         ServerConfig c = ServerConfig.load(runDir);
         assertEquals(ServerConfig.DEFAULT_ALLOWED_ENGINES, c.allowedEngines);
         assertTrue(c.allowedEngines.containsAll(java.util.List.of(
-                "vosk-en", "vosk-cn", "vosk-jp", "vosk-kr")));
+                "vosk-en", "vosk-zh", "vosk-ja", "vosk-ko")));
+    }
+
+    /** The 0.3.x default whitelist (old vosk-cn/jp/kr ids) upgrades to the two-letter-code ids. */
+    @Test
+    void pre03xDefaultWhitelistIsUpgraded() {
+        seed(runDir, "engines", "allowed", List.of("vosk-en", "vosk-cn", "vosk-jp", "vosk-kr", "ipa-phonemes"));
+        ServerConfig c = ServerConfig.load(runDir);
+        assertEquals(ServerConfig.DEFAULT_ALLOWED_ENGINES, c.allowedEngines);
     }
 
     @Test
@@ -93,29 +101,31 @@ class ServerConfigTest {
         assertEquals(custom, c.allowedEngines);
     }
 
-    /** Legacy ids inside a customized whitelist migrate to the renamed ids. */
+    /** Legacy ids inside a customized whitelist migrate to the two-letter-code ids. */
     @Test
     void customizedWhitelistLegacyIdsAreNormalized() {
-        seed(runDir, "engines", "allowed", List.of("vosk-en-us", "vosk-zh-cn", "ipa-phonemes"));
+        seed(runDir, "engines", "allowed", List.of("vosk-en-us", "vosk-zh-cn", "vosk-cn", "ipa-phonemes"));
         ServerConfig c = ServerConfig.load(runDir);
-        assertEquals(List.of("vosk-en", "vosk-cn", "ipa-phonemes"), c.allowedEngines);
+        assertEquals(List.of("vosk-en", "vosk-zh", "ipa-phonemes"), c.allowedEngines);
         assertTrue(c.engineAllowed("vosk-en"));
-        assertTrue(c.engineAllowed("vosk-cn"));
+        assertTrue(c.engineAllowed("vosk-zh"));
     }
 
+    /** A 0.3.x CJK defaultEngine value migrates to the two-letter-code id. */
     @Test
     void cjkDefaultEngineIsAccepted() {
         seedDefaultEngine(runDir, "vosk-cn");
         ServerConfig c = ServerConfig.load(runDir);
-        assertEquals("vosk-cn", c.engine);
+        assertEquals("vosk-zh", c.engine);
+        assertTrue(c.engineAllowed("vosk-zh"));
     }
 
-    /** A pre-rename defaultEngine value migrates to the renamed id. */
+    /** A pre-rename defaultEngine value migrates to the two-letter-code id. */
     @Test
     void legacyDefaultEngineIsNormalized() {
         seedDefaultEngine(runDir, "vosk-zh-cn");
         ServerConfig c = ServerConfig.load(runDir);
-        assertEquals("vosk-cn", c.engine);
+        assertEquals("vosk-zh", c.engine);
     }
 
     @Test

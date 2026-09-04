@@ -90,8 +90,14 @@ public final class ServerSpeechSession {
         this.vocabulary = vocab == null ? java.util.List.of() : vocab;
         worker.submit(() -> {
             SpeechRecognizer r = recognizer();
-            if (r != null) r.setVocabulary(this.vocabulary);
+            if (r != null) r.setVocabulary(routedVocabulary());
         });
+    }
+
+    /** Vocabulary routed for this session's engine language: bucket ∪ legacy
+     * (D-A2 — the selected engine decides which aliases it can hear). */
+    private Collection<Pronunciation> routedVocabulary() {
+        return VocabularyRouter.forLanguage(vocabulary, VoiceCastServer.INSTANCE.engineLanguage(engine));
     }
 
     private void ensureReady() {
@@ -130,7 +136,7 @@ public final class ServerSpeechSession {
                         player.getName().getString(), engine);
                 return;
             }
-            r.setVocabulary(vocabulary);
+            r.setVocabulary(routedVocabulary());
             active = true;
             activeEngine = engine;
             VoiceCastServer.INSTANCE.sendState(player, RecognizerState.READY, "voicecast.state.ready", engine);

@@ -23,7 +23,7 @@ public final class ServerConfig {
     public static final String SECTION = "server";
     public static final int SCHEMA_VERSION = 1;
 
-    public String engine = "vosk-en";        // vosk-en | vosk-cn | vosk-jp | vosk-kr | ipa-phonemes | noop
+    public String engine = "vosk-en";        // vosk-en | vosk-zh | vosk-ja | vosk-ko | ipa-phonemes | noop
     public boolean autoDownload = true;
     public int maxFramesPerSecond = 15;
     public List<String> allowedEngines = DEFAULT_ALLOWED_ENGINES;
@@ -32,9 +32,10 @@ public final class ServerConfig {
     /** {@code [players] whitelist} of raw UUID strings; empty = everyone. */
     public List<String> whitelist = List.of();
 
-    /** Full builtin engine whitelist (one-time upgrades of older default lists land here). */
+    /** Full builtin engine whitelist (one-time upgrades of older default lists land here).
+     * 0.4.0: engine ids use two-letter language codes (vosk-en/zh/ja/ko). */
     public static final List<String> DEFAULT_ALLOWED_ENGINES = List.of(
-            "vosk-en", "vosk-cn", "vosk-jp", "vosk-kr", "ipa-phonemes");
+            "vosk-en", "vosk-zh", "vosk-ja", "vosk-ko", "ipa-phonemes");
 
     /** Pre-vosk-en-us default whitelist (legacy: vosk-text was the default id); upgraded once on load. */
     private static final List<String> LEGACY_DEFAULT_ENGINES = List.of("vosk-text", "ipa-phonemes");
@@ -46,6 +47,9 @@ public final class ServerConfig {
     /** Default whitelist that still used the legacy vosk-text id alongside the renamed CJK ids. */
     private static final List<String> LEGACY_DEFAULT_WITH_VOSK_TEXT = List.of(
             "vosk-text", "vosk-en", "vosk-cn", "vosk-jp", "vosk-kr", "ipa-phonemes");
+    /** 0.3.x default whitelist (old vosk-cn/jp/kr ids); upgraded once on load to the two-letter-code ids. */
+    private static final List<String> LEGACY_DEFAULT_0_3_X = List.of(
+            "vosk-en", "vosk-cn", "vosk-jp", "vosk-kr", "ipa-phonemes");
 
     private ServerConfig() {}
 
@@ -78,13 +82,14 @@ public final class ServerConfig {
         }
         if (c.allowedEngines.equals(LEGACY_DEFAULT_PRE_CJK)
                 || c.allowedEngines.equals(LEGACY_DEFAULT_PRE_RENAME)
-                || c.allowedEngines.equals(LEGACY_DEFAULT_WITH_VOSK_TEXT)) {
+                || c.allowedEngines.equals(LEGACY_DEFAULT_WITH_VOSK_TEXT)
+                || c.allowedEngines.equals(LEGACY_DEFAULT_0_3_X)) {
             c.allowedEngines = DEFAULT_ALLOWED_ENGINES;
         }
         // Ids were renamed (vosk-text -> vosk-en, vosk-en-us -> vosk-en,
-        // vosk-zh-cn -> vosk-cn, ...): normalize every entry so whitelists
-        // written before the renames keep working. Unknown/custom ids pass
-        // through unchanged.
+        // vosk-zh-cn -> vosk-zh, 0.3.x vosk-cn/jp/kr -> vosk-zh/ja/ko, ...):
+        // normalize every entry so whitelists written before the renames keep
+        // working. Unknown/custom ids pass through unchanged.
         c.allowedEngines = c.allowedEngines.stream()
                 .map(id -> {
                     String n = ClientVoiceConfig.normalize(id);

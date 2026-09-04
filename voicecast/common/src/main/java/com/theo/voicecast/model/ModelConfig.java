@@ -59,6 +59,8 @@ public final class ModelConfig {
 
     private final Map<String, ModelEntry> models = new LinkedHashMap<>();
     private final Map<String, String> engineModel = new LinkedHashMap<>();
+    /** engines.<id>.language (two-letter code); absent for language-agnostic engines. */
+    private final Map<String, String> engineLanguage = new LinkedHashMap<>();
     private MirrorProbe probe = MirrorProbe.DEFAULT;
     private final Path file;
 
@@ -70,6 +72,10 @@ public final class ModelConfig {
     }
 
     public String modelIdForEngine(String engineId) { return engineModel.get(engineId); }
+
+    /** Language bucket served by an engine (two-letter code), or null when the
+     * entry declares none (language-agnostic engines like ipa-phonemes). */
+    public String languageForEngine(String engineId) { return engineLanguage.get(engineId); }
 
     public ModelEntry model(String modelId) { return models.get(modelId); }
 
@@ -126,17 +132,41 @@ public final class ModelConfig {
             if (entry != null) models.put(entry.id(), entry);
         }
 
-        Map<String, Object> enginesMap = Json.getMap(root, "engines");
+        Map<String, Object> enginesMap = new LinkedHashMap<>(Json.getMap(root, "engines"));
+        // 0.4.0 renamed the builtin engine keys to two-letter language codes
+        // (vosk-cn -> vosk-zh, vosk-jp -> vosk-ja, vosk-kr -> vosk-ko): carry
+        // user overrides of the old keys over to the new keys so customized
+        // model bindings survive the rewrite.
+        for (Map.Entry<String, String> ren : ENGINE_KEY_RENAMES.entrySet()) {
+            if (enginesMap.containsKey(ren.getKey()) && !enginesMap.containsKey(ren.getValue())) {
+                enginesMap.put(ren.getValue(), enginesMap.get(ren.getKey()));
+            }
+            enginesMap.remove(ren.getKey());
+        }
         Map<String, Object> defaultEngines = Json.getMap(defaults, "engines");
         for (Map.Entry<String, Object> e : defaultEngines.entrySet()) {
-            String modelId = Json.getString(Json.asMap(e.getValue()), "model", null);
-            String user = Json.getString(Json.asMap(enginesMap.get(e.getKey())), "model", modelId);
-            if (user != null && models.containsKey(user)) engineModel.put(e.getKey(), user);
+            Map<String, Object> def = Json.asMap(e.getValue());
+            Map<String, Object> user = Json.asMap(enginesMap.get(e.getKey()));
+            String modelId = Json.getString(user, "model", Json.getString(def, "model", null));
+            String language = Json.getString(user, "language", Json.getString(def, "language", null));
+            if (modelId != null && models.containsKey(modelId)) {
+                engineModel.put(e.getKey(), modelId);
+                if (language != null && !language.isBlank()) {
+                    engineLanguage.put(e.getKey(), language.trim().toLowerCase(java.util.Locale.ROOT));
+                }
+            }
         }
         for (Map.Entry<String, Object> e : enginesMap.entrySet()) {
             if (engineModel.containsKey(e.getKey())) continue;
-            String modelId = Json.getString(Json.asMap(e.getValue()), "model", null);
-            if (modelId != null && models.containsKey(modelId)) engineModel.put(e.getKey(), modelId);
+            Map<String, Object> m = Json.asMap(e.getValue());
+            String modelId = Json.getString(m, "model", null);
+            String language = Json.getString(m, "language", null);
+            if (modelId != null && models.containsKey(modelId)) {
+                engineModel.put(e.getKey(), modelId);
+                if (language != null && !language.isBlank()) {
+                    engineLanguage.put(e.getKey(), language.trim().toLowerCase(java.util.Locale.ROOT));
+                }
+            }
         }
     }
 
@@ -237,14 +267,20 @@ public final class ModelConfig {
         putModel(root, MODEL_IPA, ipa);
 
         Map<String, Object> engines = new LinkedHashMap<>();
-        engines.put("vosk-en", engineEntry(MODEL_VOSK_EN)); // canonical default engine
-        engines.put("vosk-cn", engineEntry(MODEL_VOSK_ZH));
-        engines.put("vosk-jp", engineEntry(MODEL_VOSK_JA));
-        engines.put("vosk-kr", engineEntry(MODEL_VOSK_KO));
-        engines.put("ipa-phonemes", engineEntry(MODEL_IPA));
+        engines.put("vosk-en", engineEntry(MODEL_VOSK_EN, "en")); // canonical default engine
+        engines.put("vosk-zh", engineEntry(MODEL_VOSK_ZH, "zh"));
+        engines.put("vosk-ja", engineEntry(MODEL_VOSK_JA, "ja"));
+        engines.put("vosk-ko", engineEntry(MODEL_VOSK_KO, "ko"));
+        engines.put("ipa-phonemes", engineEntry(MODEL_IPA, null));
         root.put("engines", engines);
         return root;
     }
+
+    /** Builtin engine keys renamed in 0.4.0 to two-letter language codes. */
+    private static final Map<String, String> ENGINE_KEY_RENAMES = Map.of(
+            "vosk-cn", "vosk-zh",
+            "vosk-jp", "vosk-ja",
+            "vosk-kr", "vosk-ko");
 
     private static void putModel(Map<String, Object> root, String id, Map<String, Object> entry) {
         // NB: Json.getMap returns a THROWAWAY empty map for missing keys, so the
@@ -260,9 +296,10 @@ public final class ModelConfig {
         ((Map<String, Object>) models).put(id, entry);
     }
 
-    private static Map<String, Object> engineEntry(String modelId) {
+    private static Map<String, Object> engineEntry(String modelId, String language) {
         Map<String, Object> m = new LinkedHashMap<>();
         m.put("model", modelId);
+        if (language != null && !language.isBlank()) m.put("language", language);
         return m;
     }
 }

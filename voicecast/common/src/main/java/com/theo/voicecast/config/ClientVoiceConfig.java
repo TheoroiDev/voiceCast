@@ -22,10 +22,18 @@ public final class ClientVoiceConfig {
     /** English Vosk engine (models.json engine binding); canonical default. The
      * legacy {@code vosk-text} id is an alias that normalizes to this. */
     public static final String ENGINE_VOSK_EN = "vosk-en";
-    /** CJK Vosk engines (models.json engine bindings; native-language recognition). */
-    public static final String ENGINE_VOSK_CN = "vosk-cn";
-    public static final String ENGINE_VOSK_JP = "vosk-jp";
-    public static final String ENGINE_VOSK_KR = "vosk-kr";
+    /** CJK Vosk engines (models.json engine bindings; native-language recognition).
+     * Ids use two-letter language codes (unified in 0.4.0; old vosk-cn/jp/kr ids
+     * migrate via {@link #normalize}). */
+    public static final String ENGINE_VOSK_ZH = "vosk-zh";
+    public static final String ENGINE_VOSK_JA = "vosk-ja";
+    public static final String ENGINE_VOSK_KO = "vosk-ko";
+    /** @deprecated renamed in 0.4.0 (two-letter language codes); use {@link #ENGINE_VOSK_ZH}. */
+    @Deprecated public static final String ENGINE_VOSK_CN = ENGINE_VOSK_ZH;
+    /** @deprecated renamed in 0.4.0 (two-letter language codes); use {@link #ENGINE_VOSK_JA}. */
+    @Deprecated public static final String ENGINE_VOSK_JP = ENGINE_VOSK_JA;
+    /** @deprecated renamed in 0.4.0 (two-letter language codes); use {@link #ENGINE_VOSK_KO}. */
+    @Deprecated public static final String ENGINE_VOSK_KR = ENGINE_VOSK_KO;
     public static final String ENGINE_IPA = "ipa-phonemes";
 
     public String engine = ENGINE_VOSK_EN;
@@ -58,23 +66,26 @@ public final class ClientVoiceConfig {
 
     public static boolean isValidEngine(String e) {
         return ENGINE_VOSK_EN.equals(e) || ENGINE_IPA.equals(e)
-                || ENGINE_VOSK_CN.equals(e) || ENGINE_VOSK_JP.equals(e) || ENGINE_VOSK_KR.equals(e);
+                || ENGINE_VOSK_ZH.equals(e) || ENGINE_VOSK_JA.equals(e) || ENGINE_VOSK_KO.equals(e);
     }
 
     /**
      * Accept vosk/ipa aliases incl. language tags; null if unknown.
      * Legacy ids ({@code vosk-text}, {@code vosk-en-us}, {@code vosk-zh-cn},
-     * {@code vosk-ja-jp}, {@code vosk-ko-kr}) migrate to the current ids so
-     * saved configs keep working.
+     * {@code vosk-ja-jp}, {@code vosk-ko-kr} and the 0.3.x {@code vosk-cn/jp/kr})
+     * migrate to the current two-letter-code ids so saved configs keep working.
      */
     public static String normalize(String s) {
         if (s == null) return null;
         return switch (s.toLowerCase(java.util.Locale.ROOT)) {
             case "vosk", "text", "vosk-text", "word", "en-us", "en", "english",
                  "vosk-en", "vosk-en-us" -> ENGINE_VOSK_EN;
-            case "vosk-cn", "zh", "zh-cn", "chinese", "中文", "vosk-zh-cn" -> ENGINE_VOSK_CN;
-            case "vosk-jp", "ja", "ja-jp", "japanese", "日本語", "vosk-ja-jp" -> ENGINE_VOSK_JP;
-            case "vosk-kr", "ko", "ko-kr", "korean", "한국어", "vosk-ko-kr" -> ENGINE_VOSK_KR;
+            case "zh", "zh-cn", "cn", "chinese", "中文",
+                 "vosk-zh", "vosk-cn", "vosk-zh-cn" -> ENGINE_VOSK_ZH;
+            case "ja", "ja-jp", "jp", "japanese", "日本語",
+                 "vosk-ja", "vosk-jp", "vosk-ja-jp" -> ENGINE_VOSK_JA;
+            case "ko", "ko-kr", "kr", "korean", "한국어",
+                 "vosk-ko", "vosk-kr", "vosk-ko-kr" -> ENGINE_VOSK_KO;
             case "ipa", "phoneme", "phonemes", "ipa-phonemes" -> ENGINE_IPA;
             default -> null;
         };

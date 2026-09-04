@@ -4,6 +4,15 @@ English primary; Chinese mirror: [CHANGELOG.zh.md](CHANGELOG.zh.md) (keep both i
 
 ## Unreleased
 
+### Changes
+
+- Engine ids unified to two-letter language codes: `vosk-en`, `vosk-zh`, `vosk-ja`, `vosk-ko`, `ipa-phonemes`; the 0.3.x ids `vosk-cn`/`vosk-jp`/`vosk-kr` are retired and migrate automatically in configs and models.json (voicecast#39)
+
+### Modding/API
+
+- breaking: `Pronunciation` gained per-language alias buckets (`languages()`, two-letter codes en/zh/ja/ko); the flat constructor still works (deprecated) and its aliases form the legacy bucket routed into every engine's grammar; the server routes each session's vocabulary by the selected engine's language — the engine decides the bucket
+- breaking: engine ids use two-letter language codes — configs referencing `vosk-cn`/`vosk-jp`/`vosk-kr` must switch to `vosk-zh`/`vosk-ja`/`vosk-ko` (config normalize migrates saved values automatically; deprecated constants `ENGINE_VOSK_CN/JP/KR` alias the new ids)
+
 ### Infrastructure
 
 - Dev-only testing mods moved out of gradle: release jars are pre-downloaded under workspace `resources/devmods/<loader>/` and wired from `manifest.txt` (fabric: hardlinked into the run mods folder; forge: file dependency so Loom remaps the SRG jar; Forge port of Carpet stays blocked, voicecast#38); voice-model fact source moved to `resources/models/`
