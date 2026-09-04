@@ -9,11 +9,12 @@
 //     server.properties keys are preserved).
 
 def voicecastVerbose = project.findProperty("voicecastVerbose") == "true"
+def devUsername = project.findProperty("devUsername") ?: "dev"
 
 loom {
     runs {
         client {
-            programArgs("--username", "dev")
+            programArgs("--username", devUsername)
             if (voicecastVerbose) vmArgs "-Dvoicecast.verbose=true"
         }
         server {
