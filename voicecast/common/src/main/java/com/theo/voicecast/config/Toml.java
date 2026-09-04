@@ -87,6 +87,16 @@ public final class Toml {
         return dflt;
     }
 
+    /** Reads integers and floats alike (0.4.0: wizardreal [chant] darkness tuning). */
+    public double getDouble(String section, String key, double dflt) {
+        Object v = section(section).get(key);
+        if (v instanceof Number n) return n.doubleValue();
+        if (v instanceof String s) {
+            try { return Double.parseDouble(s.trim()); } catch (NumberFormatException e) { return dflt; }
+        }
+        return dflt;
+    }
+
     @SuppressWarnings("unchecked")
     public List<String> getStringList(String section, String key, List<String> dflt) {
         Object v = section(section).get(key);
