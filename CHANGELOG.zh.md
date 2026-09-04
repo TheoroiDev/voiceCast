@@ -15,6 +15,7 @@
 
 ### Infrastructure
 
+- 引擎类（IpaShared/IpaPhonemeRecognizer/VoskTextRecognizer 等）不再经 mod 主类路由日志——自持 slf4j logger，引擎可独立运行（voicecast fat jar），供 wizardreal ipa 回测工具使用
 - 纯开发测试 mod 移出 gradle 依赖：release jar 预下载到工作区 `resources/devmods/<loader>/`，由 `manifest.txt` 驱动接线（fabric 硬链接进 run mods 目录；forge 作为文件依赖由 Loom 重映射；Carpet 的 Forge 移植仍受阻，voicecast#38）；语音模型事实源移至 `resources/models/`
 
 ## 0.3.2 — 2026-09-02

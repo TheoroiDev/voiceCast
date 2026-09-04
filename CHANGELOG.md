@@ -15,6 +15,7 @@ English primary; Chinese mirror: [CHANGELOG.zh.md](CHANGELOG.zh.md) (keep both i
 
 ### Infrastructure
 
+- Engine classes (IpaShared/IpaPhonemeRecognizer/VoskTextRecognizer/AbstractBufferedRecognizer/MiniJson/NoopRecognizer) no longer route logging through the mod class - they carry their own slf4j loggers, so the engine runs standalone (voicecast fat jar) for the wizardreal ipa backtest tools
 - Dev-only testing mods moved out of gradle: release jars are pre-downloaded under workspace `resources/devmods/<loader>/` and wired from `manifest.txt` (fabric: hardlinked into the run mods folder; forge: file dependency so Loom remaps the SRG jar; Forge port of Carpet stays blocked, voicecast#38); voice-model fact source moved to `resources/models/`
 
 ## 0.3.2 — 2026-09-02
