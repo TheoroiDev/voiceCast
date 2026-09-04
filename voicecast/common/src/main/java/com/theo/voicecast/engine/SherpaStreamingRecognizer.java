@@ -54,6 +54,11 @@ public final class SherpaStreamingRecognizer implements SpeechRecognizer {
         this.spec = spec;
     }
 
+    /** Registry stub — real creation goes through EngineFamilies (needs EngineSpec). */
+    public SherpaStreamingRecognizer() {
+        this(EngineSpec.EMPTY);
+    }
+
     @Override public String id() { return spec.engineId(); }
     @Override public String displayName() { return "sherpa streaming (" + spec.type() + ")"; }
 

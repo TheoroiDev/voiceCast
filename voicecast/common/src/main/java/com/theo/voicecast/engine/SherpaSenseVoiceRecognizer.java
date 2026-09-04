@@ -48,6 +48,11 @@ public final class SherpaSenseVoiceRecognizer extends AbstractBufferedRecognizer
         this.spec = spec;
     }
 
+    /** Registry stub — real creation goes through EngineFamilies (needs EngineSpec). */
+    public SherpaSenseVoiceRecognizer() {
+        this(EngineSpec.EMPTY);
+    }
+
     @Override public String id() { return spec.engineId(); }
     @Override public String displayName() { return "sherpa SenseVoice (offline, 5-language)"; }
 

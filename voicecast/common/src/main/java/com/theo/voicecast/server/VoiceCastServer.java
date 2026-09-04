@@ -7,20 +7,19 @@ import com.theo.voicecast.api.SpeechOptions;
 import com.theo.voicecast.api.SpeechRecognizer;
 import com.theo.voicecast.api.event.RecognizerState;
 import com.theo.voicecast.config.ServerConfig;
+import com.theo.voicecast.api.engine.EngineFamilies;
+import com.theo.voicecast.api.engine.EngineSpec;
 import com.theo.voicecast.engine.IpaPhonemeRecognizer;
 import com.theo.voicecast.engine.IpaShared;
-import com.theo.voicecast.engine.VoskTextRecognizer;
 import com.theo.voicecast.model.IpaModel;
 import com.theo.voicecast.model.ModelConfig;
 import com.theo.voicecast.model.ModelManager;
-import com.theo.voicecast.model.VoskModel;
+import com.theo.voicecast.model.SherpaModel;
 import com.theo.voicecast.net.VoiceCastNetwork;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import org.vosk.Model;
-
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -53,9 +52,7 @@ public enum VoiceCastServer {
     private ServerConfig config;
     private ModelConfig modelConfig;
     private Path runDir;
-    private String defaultEngine = "vosk-en";
-    /** Shared Vosk models keyed by model id — one per language (vosk-en/zh/ja/ko); loaded lazily, closed on stop. */
-    private final Map<String, Model> sharedVoskModels = new ConcurrentHashMap<>();
+    private String defaultEngine = "sherpa-zh-en";
 
     private final Map<String, EngineState> engineStates = new ConcurrentHashMap<>();
     private final Map<UUID, ServerSpeechSession> sessions = new ConcurrentHashMap<>();
@@ -92,10 +89,6 @@ public enum VoiceCastServer {
         if (scheduler != null) { scheduler.shutdownNow(); scheduler = null; }
         sessions.values().forEach(ServerSpeechSession::dispose);
         sessions.clear();
-        sharedVoskModels.values().forEach(m -> {
-            try { m.close(); } catch (Throwable ignored) {}
-        });
-        sharedVoskModels.clear();
         try { IpaShared.shutdown(); } catch (Throwable ignored) {}
         engineStates.clear();
         server = null;
@@ -187,6 +180,58 @@ public enum VoiceCastServer {
         return "ipa-phonemes".equals(engine); // legacy fallback before models.json existed
     }
 
+    /** Language buckets for an engine (two-letter codes; empty = language-agnostic). */
+    public List<String> engineLanguages(String engine) {
+        if (modelConfig != null) {
+            List<String> declared = modelConfig.languagesForEngine(engine);
+            if (!declared.isEmpty()) return declared;
+            String single = modelConfig.languageForEngine(engine);
+            if (single != null && !single.isBlank()) return List.of(single);
+        }
+        return List.of();
+    }
+
+    /**
+     * Resolve the model directory for an engine (download/extract when needed).
+     * Dispatch by the configured model kind — vosk-archive is no longer a
+     * builtin family (vosk removed in 0.4.0).
+     */
+    Path resolveEngineModelDir(String engine) throws Exception, InterruptedException {
+        ModelConfig.ModelEntry entry = modelConfig == null ? null : modelConfig.modelForEngine(engine);
+        String kind = entry == null ? null : entry.kind();
+        if (ModelConfig.KIND_LOOSE_FILES.equals(kind)) {
+            return IpaModel.directory(runDir, entry != null ? entry.id() : ModelConfig.MODEL_IPA);
+        }
+        if (ModelConfig.KIND_SHERPA_ARCHIVE.equals(kind)) {
+            return SherpaModel.resolveOrDownload(runDir, modelConfig, entry,
+                    (done, total) -> broadcastState(RecognizerState.LOADING,
+                            "voicecast.state.downloading_vosk", SherpaModel.describeSize(done)));
+        }
+        throw new java.io.IOException("Unsupported model kind for engine '"
+                + engine + "': " + kind);
+    }
+
+    /** Family-lookup recognizer creation for a session (voiceCast#42 §2.3). */
+    SpeechRecognizer createRecognizer(String engine) {
+        String type = modelConfig == null ? null : modelConfig.typeForEngine(engine);
+        if (type == null) type = isLooseFilesEngine(engine) ? "ipa" : null;
+        EngineSpec.RecognizerFactory factory = type == null ? null : EngineFamilies.get(type);
+        if (factory == null) {
+            throw new IllegalStateException("Unsupported engine family for '" + engine
+                    + "' (type=" + type + "; registered families: "
+                    + EngineFamilies.types() + ")");
+        }
+        try {
+            Path modelDir = resolveEngineModelDir(engine);
+            EngineSpec spec = new EngineSpec(type, engine, modelDir,
+                    modelConfig != null ? modelConfig.languagesForEngine(engine) : List.of(),
+                    modelConfig != null ? modelConfig.optionsForEngine(engine) : Map.of());
+            return factory.create(spec);
+        } catch (Exception e) {
+            throw new RuntimeException("Recognizer creation failed for engine '" + engine + "'", e);
+        }
+    }
+
     /** Make an engine available (download + load), sharing resources server-wide. */
     public void requestEngine(String engine) {
         if (config == null) return;
@@ -202,46 +247,36 @@ public enum VoiceCastServer {
 
     private void loadEngine(String engine) {
         try {
-            // Dispatch by the configured model kind (models.json), not by engine id,
-            // so any engine bound to a vosk archive or loose files just works.
+            // Dispatch by the configured model kind (models.json): loose-files
+            // (IPA ONNX) or sherpa-archive (tar.bz2 with tokens + onnx files).
             if (isLooseFilesEngine(engine)) {
                 ModelConfig.ModelEntry entry = modelConfig.modelForEngine(engine);
                 Path dir;
                 if (config.autoDownload) {
                     if (entry == null) throw new java.io.IOException("No model configured for engine " + engine);
                     dir = IpaModel.resolveOrDownload(runDir, modelConfig, entry, (done, total) ->
-                            broadcastState(RecognizerState.LOADING, "voicecast.state.downloading_ipa", VoskModel.describeSize(done)));
+                            broadcastState(RecognizerState.LOADING, "voicecast.state.downloading_ipa", SherpaModel.describeSize(done)));
                 } else {
                     dir = IpaModel.directory(runDir, entry != null ? entry.id() : ModelConfig.MODEL_IPA);
                     if (!IpaModel.isValidModelDir(dir))
                         throw new java.io.IOException("IPA model missing and autoDownload=false");
                 }
                 IpaShared.getOrLoad(dir);
-            } else {
+            } else if (modelConfig != null
+                    && ModelConfig.KIND_SHERPA_ARCHIVE.equals(
+                        modelConfig.entryKind(engine))) {
                 ModelConfig.ModelEntry entry = modelConfig.modelForEngine(engine);
-                String modelId = entry != null ? entry.id() : VoskModel.DEFAULT_MODEL_ID;
-                Path dir;
                 if (config.autoDownload) {
                     if (entry == null) throw new java.io.IOException("No model configured for engine " + engine);
-                    dir = VoskModel.resolveOrDownload(runDir, modelConfig, entry, (done, total) ->
-                            broadcastState(RecognizerState.LOADING, "voicecast.state.downloading_vosk", VoskModel.describeSize(done)));
+                    SherpaModel.resolveOrDownload(runDir, modelConfig, entry, (done, total) ->
+                            broadcastState(RecognizerState.LOADING, "voicecast.state.downloading_vosk", SherpaModel.describeSize(done)));
                 } else {
-                    dir = runDir.resolve("config/voicecast/models").resolve(modelId);
-                    if (!VoskModel.isValidModelDir(dir))
-                        throw new java.io.IOException("Vosk model missing and autoDownload=false");
+                    Path dir = runDir.resolve("config/voicecast/models").resolve(entry.id());
+                    if (!SherpaModel.isValidModelDir(dir))
+                        throw new java.io.IOException("sherpa model missing and autoDownload=false");
                 }
-                try { org.vosk.LibVosk.setLogLevel(org.vosk.LogLevel.WARNINGS); } catch (Throwable ignored) {}
-                // One shared Model per language (keyed by model id): sessions of the
-                // same language reuse it, sessions of a different language get their
-                // own model instead of silently reusing whichever was loaded first.
-                sharedVoskModels.computeIfAbsent(modelId, id -> {
-                    try {
-                        VoiceCast.LOGGER.info("Loading shared Vosk model '{}' from {}", id, dir.toAbsolutePath());
-                        return new Model(dir.toAbsolutePath().toString());
-                    } catch (java.io.IOException e) {
-                        throw new RuntimeException("Failed to load shared Vosk model '" + id + "'", e);
-                    }
-                });
+            } else {
+                throw new java.io.IOException("Unsupported model kind for engine '" + engine + "'");
             }
             engineStates.put(engine, EngineState.READY);
             VoiceCast.LOGGER.info("Server voice engine ready: {}", engine);
@@ -266,42 +301,21 @@ public enum VoiceCastServer {
      * models.json {@code engines.<id>.language} first, then the unified
      * {@code vosk-<langcode>} id suffix (0.4.0 two-letter codes).
      */
-    public String engineLanguage(String engine) {
-        String lang = modelConfig != null ? modelConfig.languageForEngine(engine) : null;
-        if (lang != null && !lang.isBlank()) return lang.trim().toLowerCase(java.util.Locale.ROOT);
-        if (engine != null && engine.startsWith("vosk-")) {
-            String suffix = engine.substring("vosk-".length()).toLowerCase(java.util.Locale.ROOT);
-            if (suffix.length() == 2 && suffix.chars().allMatch(c -> c >= 'a' && c <= 'z')) return suffix;
-        }
-        return null;
-    }
 
     /** Build/start a recognizer for a session, wiring shared engine resources. */
     void configure(SpeechRecognizer r, String engine) {
         try {
-            String modelId = modelConfig != null ? modelConfig.modelIdForEngine(engine) : null;
-            if (modelId == null) {
-                modelId = isLooseFilesEngine(engine) ? ModelConfig.MODEL_IPA : VoskModel.DEFAULT_MODEL_ID;
-            }
-            Path modelPath = isLooseFilesEngine(engine)
-                    ? IpaModel.directory(runDir, modelId)
-                    : runDir.resolve("config/voicecast/models").resolve(modelId);
-            SpeechOptions opts = new SpeechOptions(true, 0.65f, modelPath.toString(), true);
-            // Route the vocabulary to this engine's language bucket (D-A2):
+            Path modelDir = resolveEngineModelDir(engine);
+            SpeechOptions opts = new SpeechOptions(true, 0.65f, modelDir.toString(), true);
+            // Route the vocabulary to this engine's language bucket(s) (D-A2):
             // the selected engine decides which aliases it can hear.
-            r.setVocabulary(VocabularyRouter.forLanguage(vocabulary, engineLanguage(engine)));
+            r.setVocabulary(VocabularyRouter.forLanguages(vocabulary, engineLanguages(engine)));
             r.start(opts);
         } catch (Throwable t) {
             VoiceCast.LOGGER.warn("recognizer start failed for engine {}", engine, t);
         }
     }
 
-    /** Bind the engine's shared Vosk model (per model id) to a recognizer. */
-    void attachSharedModel(VoskTextRecognizer r, String engine) {
-        String modelId = modelConfig != null ? modelConfig.modelIdForEngine(engine) : null;
-        Model m = modelId == null ? null : sharedVoskModels.get(modelId);
-        if (m != null) r.useSharedModel(m);
-    }
 
     // ---- packet handlers (called on server main thread via ctx.queue) ----
 

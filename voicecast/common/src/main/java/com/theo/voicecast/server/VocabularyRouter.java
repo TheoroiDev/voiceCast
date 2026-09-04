@@ -24,6 +24,30 @@ final class VocabularyRouter {
      * fully-legacy vocabularies).
      */
     static Collection<Pronunciation> forLanguage(Collection<Pronunciation> vocabulary, String language) {
+        if (language != null && language.isBlank()) language = null;
+        return forLanguages(vocabulary, language == null ? List.of() : List.of(language));
+    }
+
+    /** Multi-bucket routing (bilingual/multilingual engines): the session hears
+     * the union of its language buckets plus the legacy bucket. */
+    static Collection<Pronunciation> forLanguages(Collection<Pronunciation> vocabulary, List<String> languages) {
+        if (vocabulary.isEmpty()) return vocabulary;
+        if (languages == null || languages.isEmpty()) return vocabulary;
+        List<Pronunciation> out = new ArrayList<>(vocabulary.size());
+        boolean anyChanged = false;
+        for (Pronunciation p : vocabulary) {
+            List<String> routed = p.aliasesForLanguages(languages);
+            if (routed.equals(p.aliases())) {
+                out.add(p);
+            } else {
+                out.add(new Pronunciation(p.id(), p.ipa(), routed, Map.of()));
+                anyChanged = true;
+            }
+        }
+        return anyChanged ? List.copyOf(out) : vocabulary;
+    }
+
+    static Collection<Pronunciation> forLanguage0(Collection<Pronunciation> vocabulary, String language) {
         if (vocabulary.isEmpty()) return vocabulary;
         if (language == null || language.isBlank()) return vocabulary;
         List<Pronunciation> out = new ArrayList<>(vocabulary.size());

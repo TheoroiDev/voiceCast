@@ -26,6 +26,8 @@ public record EngineSpec(
         List<String> languages,
         Map<String, String> options
 ) {
+    public static final EngineSpec EMPTY = new EngineSpec("", "", Path.of(""), List.of(), Map.of());
+
     public EngineSpec {
         type = type == null ? "" : type;
         engineId = engineId == null ? "" : engineId;

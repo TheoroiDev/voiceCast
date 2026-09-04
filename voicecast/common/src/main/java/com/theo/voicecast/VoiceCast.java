@@ -3,9 +3,11 @@ package com.theo.voicecast;
 import com.theo.voicecast.api.RecognizerRegistry;
 import com.theo.voicecast.api.VoiceCastEvents;
 import com.theo.voicecast.api.event.RecognitionFinalEvent;
+import com.theo.voicecast.api.engine.EngineFamilies;
 import com.theo.voicecast.engine.IpaPhonemeRecognizer;
 import com.theo.voicecast.engine.NoopRecognizer;
-import com.theo.voicecast.engine.VoskTextRecognizer;
+import com.theo.voicecast.engine.SherpaSenseVoiceRecognizer;
+import com.theo.voicecast.engine.SherpaStreamingRecognizer;
 import com.theo.voicecast.server.VoiceCastServerCommands;
 import com.theo.voicecast.net.VoiceCastNetwork;
 import com.theo.voicecast.server.VoiceCastServer;
@@ -41,12 +43,16 @@ public final class VoiceCast {
         // 0.4.0; legacy vosk-cn/jp/kr ids migrate via config normalize) and is
         // resolved at configure time from models.json (VoiceCastServer.
         // attachSharedModel/configure + engineLanguage routing).
-        RecognizerRegistry.register("vosk-en", VoskTextRecognizer::new);
-        RecognizerRegistry.register("vosk-zh", VoskTextRecognizer::new);
-        RecognizerRegistry.register("vosk-ja", VoskTextRecognizer::new);
-        RecognizerRegistry.register("vosk-ko", VoskTextRecognizer::new);
+        RecognizerRegistry.register("sherpa-zh-en", SherpaStreamingRecognizer::new);
+        RecognizerRegistry.register("sherpa-sensevoice", SherpaSenseVoiceRecognizer::new);
         RecognizerRegistry.register("ipa-phonemes", IpaPhonemeRecognizer::new);
-        RecognizerRegistry.setDefault("vosk-en");
+        RecognizerRegistry.setDefault("sherpa-zh-en");
+
+        // Builtin engine families (voiceCast#42): addon mods register theirs in
+        // their own init via EngineFamilies.register(type, factory).
+        EngineFamilies.register("ipa", spec -> new com.theo.voicecast.engine.IpaPhonemeRecognizer());
+        EngineFamilies.register("sherpa-streaming", com.theo.voicecast.engine.SherpaStreamingRecognizer::new);
+        EngineFamilies.register("sherpa-sensevoice", com.theo.voicecast.engine.SherpaSenseVoiceRecognizer::new);
 
         VoiceCastServerCommands.register(); // /voicecast status|engine|enabled|whitelist|reload (#29)
 

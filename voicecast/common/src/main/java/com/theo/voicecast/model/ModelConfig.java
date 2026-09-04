@@ -39,13 +39,11 @@ public final class ModelConfig {
     public static final String FILE_NAME = "models.json";
     public static final int SCHEMA_VERSION = 1;
 
-    public static final String KIND_VOSK_ARCHIVE = "vosk-archive";
+    public static final String KIND_SHERPA_ARCHIVE = "sherpa-archive";
     public static final String KIND_LOOSE_FILES = "loose-files";
 
-    public static final String MODEL_VOSK_EN = "vosk-model-small-en-us-0.15";
-    public static final String MODEL_VOSK_ZH = "vosk-model-small-cn-0.22";
-    public static final String MODEL_VOSK_JA = "vosk-model-small-ja-0.22";
-    public static final String MODEL_VOSK_KO = "vosk-model-small-ko-0.22";
+    public static final String MODEL_SHERPA_ZH_EN = "sherpa-zipformer-bilingual-zh-en-int8";
+    public static final String MODEL_SHERPA_SENSEVOICE = "sherpa-sensevoice-small-int8";
     public static final String MODEL_IPA = "wav2vec2-espeak-ipa";
 
     public record FileEntry(String name, List<String> urls, String sha256, long minBytes, boolean optional) {}
@@ -97,6 +95,12 @@ public final class ModelConfig {
     }
 
     public ModelEntry model(String modelId) { return models.get(modelId); }
+
+    /** Kind for an engine's bound model, or null (unknown/unbound). */
+    public String entryKind(String engineId) {
+        ModelEntry e = modelForEngine(engineId);
+        return e == null ? null : e.kind();
+    }
 
     public MirrorProbe probe() { return probe; }
 
@@ -152,16 +156,6 @@ public final class ModelConfig {
         }
 
         Map<String, Object> enginesMap = new LinkedHashMap<>(Json.getMap(root, "engines"));
-        // 0.4.0 renamed the builtin engine keys to two-letter language codes
-        // (vosk-cn -> vosk-zh, vosk-jp -> vosk-ja, vosk-kr -> vosk-ko): carry
-        // user overrides of the old keys over to the new keys so customized
-        // model bindings survive the rewrite.
-        for (Map.Entry<String, String> ren : ENGINE_KEY_RENAMES.entrySet()) {
-            if (enginesMap.containsKey(ren.getKey()) && !enginesMap.containsKey(ren.getValue())) {
-                enginesMap.put(ren.getValue(), enginesMap.get(ren.getKey()));
-            }
-            enginesMap.remove(ren.getKey());
-        }
         Map<String, Object> defaultEngines = Json.getMap(defaults, "engines");
         for (Map.Entry<String, Object> e : defaultEngines.entrySet()) {
             Map<String, Object> def = Json.asMap(e.getValue());
@@ -238,7 +232,7 @@ public final class ModelConfig {
     }
 
     private ModelEntry readModelEntry(String id, Map<String, Object> m) {
-        String kind = Json.getString(m, "kind", KIND_VOSK_ARCHIVE);
+            String kind = Json.getString(m, "kind", KIND_SHERPA_ARCHIVE);
         List<String> urls = Json.getStringList(m, "urls");
         List<FileEntry> files = new ArrayList<>();
         for (Object o : Json.getList(m, "files")) {
@@ -288,33 +282,19 @@ public final class ModelConfig {
         probe.put("minFileSizeBytes", MirrorProbe.DEFAULT.minFileSizeBytes());
         root.put("mirrorProbe", probe);
 
-        Map<String, Object> voskEn = new LinkedHashMap<>();
-        voskEn.put("kind", KIND_VOSK_ARCHIVE);
-        voskEn.put("sizeBytes", 41_205_931L);
-        voskEn.put("sha256", "30f26242c4eb449f948e42cb302dd7a686cb29a3423a8367f99ff41780942498");
-        voskEn.put("urls", List.of("https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip"));
-        putModel(root, MODEL_VOSK_EN, voskEn);
+        // SHA-256/size: TODO fill from the actual release archives (verification
+        // is skipped while null); both archives live on the k2-fsa GitHub release.
+        Map<String, Object> sherpaZhEn = new LinkedHashMap<>();
+        sherpaZhEn.put("kind", KIND_SHERPA_ARCHIVE);
+        sherpaZhEn.put("urls", List.of(
+                "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-streaming-zipformer-bilingual-zh-en-2023-02-20.tar.bz2"));
+        putModel(root, MODEL_SHERPA_ZH_EN, sherpaZhEn);
 
-        Map<String, Object> voskZh = new LinkedHashMap<>();
-        voskZh.put("kind", KIND_VOSK_ARCHIVE);
-        voskZh.put("sizeBytes", 43_898_754L);
-        voskZh.put("sha256", "3af8b0e7e0f835ae9d414ce5df580237a3cfb08d586c9fbbb0f7ff29ad5b14ba");
-        voskZh.put("urls", List.of("https://alphacephei.com/vosk/models/vosk-model-small-cn-0.22.zip"));
-        putModel(root, MODEL_VOSK_ZH, voskZh);
-
-        Map<String, Object> voskJa = new LinkedHashMap<>();
-        voskJa.put("kind", KIND_VOSK_ARCHIVE);
-        voskJa.put("sizeBytes", 49_704_573L);
-        voskJa.put("sha256", "efa092d280153a77615e9e0c7d7283e93e600de3d19d3bec686c57ef19d52eac");
-        voskJa.put("urls", List.of("https://alphacephei.com/vosk/models/vosk-model-small-ja-0.22.zip"));
-        putModel(root, MODEL_VOSK_JA, voskJa);
-
-        Map<String, Object> voskKo = new LinkedHashMap<>();
-        voskKo.put("kind", KIND_VOSK_ARCHIVE);
-        voskKo.put("sizeBytes", 86_914_329L);
-        voskKo.put("sha256", "eea36124087fed26c59996a4761519458e3bd185e8ea9d9865ad8760c4a1d989");
-        voskKo.put("urls", List.of("https://alphacephei.com/vosk/models/vosk-model-small-ko-0.22.zip"));
-        putModel(root, MODEL_VOSK_KO, voskKo);
+        Map<String, Object> senseVoice = new LinkedHashMap<>();
+        senseVoice.put("kind", KIND_SHERPA_ARCHIVE);
+        senseVoice.put("urls", List.of(
+                "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17.tar.bz2"));
+        putModel(root, MODEL_SHERPA_SENSEVOICE, senseVoice);
 
         String hfMirror = "https://hf-mirror.com/onnx-community/wav2vec2-lv-60-espeak-cv-ft-ONNX/resolve/main";
         String hf = "https://huggingface.co/onnx-community/wav2vec2-lv-60-espeak-cv-ft-ONNX/resolve/main";
@@ -334,20 +314,25 @@ public final class ModelConfig {
         putModel(root, MODEL_IPA, ipa);
 
         Map<String, Object> engines = new LinkedHashMap<>();
-        engines.put("vosk-en", engineEntry(MODEL_VOSK_EN, "en")); // canonical default engine
-        engines.put("vosk-zh", engineEntry(MODEL_VOSK_ZH, "zh"));
-        engines.put("vosk-ja", engineEntry(MODEL_VOSK_JA, "ja"));
-        engines.put("vosk-ko", engineEntry(MODEL_VOSK_KO, "ko"));
-        engines.put("ipa-phonemes", engineEntry(MODEL_IPA, null));
+        engines.put("sherpa-zh-en", engineEntry(MODEL_SHERPA_ZH_EN, "sherpa-streaming",
+                Map.of("languages", List.of("zh", "en"),
+                        "encoder", "encoder-epoch-99-avg-1.int8.onnx",
+                        "decoder", "decoder-epoch-99-avg-1.int8.onnx",
+                        "joiner", "joiner-epoch-99-avg-1.int8.onnx",
+                        "tokens", "tokens.txt",
+                        "modeling_unit", "cjkchar+bpe",
+                        "decoding_method", "modified_beam_search",
+                        "num_threads", "2", "hotwords_score", "1.5")));
+        engines.put("sherpa-sensevoice", engineEntry(MODEL_SHERPA_SENSEVOICE, "sherpa-sensevoice",
+                Map.of("languages", List.of("zh", "en", "ja", "ko"),
+                        "model", "model.int8.onnx",
+                        "tokens", "tokens.txt",
+                        "language", "auto", "itn", "true",
+                        "num_threads", "2")));
+        engines.put("ipa-phonemes", engineEntry(MODEL_IPA, "ipa", null));
         root.put("engines", engines);
         return root;
     }
-
-    /** Builtin engine keys renamed in 0.4.0 to two-letter language codes. */
-    private static final Map<String, String> ENGINE_KEY_RENAMES = Map.of(
-            "vosk-cn", "vosk-zh",
-            "vosk-jp", "vosk-ja",
-            "vosk-kr", "vosk-ko");
 
     private static void putModel(Map<String, Object> root, String id, Map<String, Object> entry) {
         // NB: Json.getMap returns a THROWAWAY empty map for missing keys, so the
@@ -363,10 +348,11 @@ public final class ModelConfig {
         ((Map<String, Object>) models).put(id, entry);
     }
 
-    private static Map<String, Object> engineEntry(String modelId, String language) {
+    private static Map<String, Object> engineEntry(String modelId, String type, Map<String, Object> extras) {
         Map<String, Object> m = new LinkedHashMap<>();
         m.put("model", modelId);
-        if (language != null && !language.isBlank()) m.put("language", language);
+        if (type != null && !type.isBlank()) m.put("type", type);
+        if (extras != null) m.putAll(extras);
         return m;
     }
 }

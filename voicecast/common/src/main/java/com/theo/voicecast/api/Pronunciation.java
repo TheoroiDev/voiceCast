@@ -64,6 +64,20 @@ public record Pronunciation(
         return List.copyOf(out);
     }
 
+    /** Aliases heard by engines serving any of the given language buckets:
+     * union of the buckets plus the legacy bucket. */
+    public List<String> aliasesForLanguages(List<String> languageCodes) {
+        if (languages.isEmpty()) return aliases;
+        LinkedHashSet<String> out = new LinkedHashSet<>();
+        for (String code : languageCodes) {
+            if (code == null) continue;
+            List<String> bucket = languages.get(code.trim().toLowerCase(Locale.ROOT));
+            if (bucket != null) out.addAll(bucket);
+        }
+        out.addAll(legacyAliases());
+        return List.copyOf(out);
+    }
+
     /** Flat aliases not claimed by any language bucket (routed to every engine). */
     private List<String> legacyAliases() {
         if (aliases.isEmpty()) return List.of();

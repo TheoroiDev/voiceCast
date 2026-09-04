@@ -8,8 +8,7 @@ import com.theo.voicecast.api.VoiceCastEvents;
 import com.theo.voicecast.api.event.RecognizerState;
 import com.theo.voicecast.api.event.ServerRecognitionFinalEvent;
 import com.theo.voicecast.audio.OpusAudioCodec;
-import com.theo.voicecast.engine.IpaPhonemeRecognizer;
-import com.theo.voicecast.engine.VoskTextRecognizer;
+import com.theo.voicecast.api.engine.EngineFamilies;
 import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Deque;
@@ -35,8 +34,7 @@ public final class ServerSpeechSession {
     private final ThreadPoolExecutor worker;
     private final OpusAudioCodec codec = new OpusAudioCodec();
     private volatile String engine;
-    private VoskTextRecognizer vosk;
-    private IpaPhonemeRecognizer ipa;
+    private SpeechRecognizer recognizer;
     private Collection<Pronunciation> vocabulary = java.util.List.of();
     private long lastFrameMs;
     private boolean active; // recognizer built and live for the current engine
@@ -97,7 +95,7 @@ public final class ServerSpeechSession {
     /** Vocabulary routed for this session's engine language: bucket ∪ legacy
      * (D-A2 — the selected engine decides which aliases it can hear). */
     private Collection<Pronunciation> routedVocabulary() {
-        return VocabularyRouter.forLanguage(vocabulary, VoiceCastServer.INSTANCE.engineLanguage(engine));
+        return VocabularyRouter.forLanguages(vocabulary, VoiceCastServer.INSTANCE.engineLanguages(engine));
     }
 
     private void ensureReady() {
@@ -116,34 +114,22 @@ public final class ServerSpeechSession {
     private void buildRecognizer() {
         disposeRecognizer();
         try {
-            SpeechRecognizer r;
-            if (VoiceCastServer.INSTANCE.isLooseFilesEngine(engine)) {
-                ipa = new IpaPhonemeRecognizer();
-                ipa.setResultSink(this::onResult);
-                VoiceCastServer.INSTANCE.configure(ipa, engine);
-                r = ipa;
-            } else {
-                vosk = new VoskTextRecognizer();
-                VoiceCastServer.INSTANCE.attachSharedModel(vosk, engine);
-                vosk.setResultSink(this::onResult);
-                VoiceCastServer.INSTANCE.configure(vosk, engine);
-                r = vosk;
-            }
+            SpeechRecognizer r = VoiceCastServer.INSTANCE.createRecognizer(engine);
+            r.setResultSink(this::onResult);
+            VoiceCastServer.INSTANCE.configure(r, engine);
             if (r == null || !r.isActive()) {
-                vosk = null;
-                ipa = null;
                 VoiceCast.LOGGER.warn("Recognizer not active for {} ({}), will retry",
                         player.getName().getString(), engine);
                 return;
             }
             r.setVocabulary(routedVocabulary());
+            recognizer = r;
             active = true;
             activeEngine = engine;
             VoiceCastServer.INSTANCE.sendState(player, RecognizerState.READY, "voicecast.state.ready", engine);
             VoiceCast.LOGGER.info("Speech session ready for {} ({})", player.getName().getString(), engine);
         } catch (Throwable t) {
-            vosk = null;
-            ipa = null;
+            recognizer = null;
             active = false;
             VoiceCast.LOGGER.warn("Failed to build recognizer for {} ({})", player.getName().getString(), engine, t);
             VoiceCastServer.INSTANCE.sendState(player, RecognizerState.ERROR,
@@ -154,15 +140,12 @@ public final class ServerSpeechSession {
     private void disposeRecognizer() {
         active = false;
         activeEngine = null;
-        try { if (vosk != null) vosk.stop(); } catch (Throwable ignored) {}
-        try { if (ipa != null) ipa.stop(); } catch (Throwable ignored) {}
-        vosk = null;
-        ipa = null;
+        if (recognizer != null) { try { recognizer.stop(); } catch (Throwable ignored) {} }
+        recognizer = null;
     }
 
     private SpeechRecognizer recognizer() {
-        if (ipa != null) return ipa;
-        return vosk;
+        return recognizer;
     }
 
     void onAudioFrame(byte type, byte[] data) {
