@@ -29,6 +29,8 @@ import java.util.Map;
  * the emitted utterance (no cross-thread logits races between sessions).
  */
 public final class IpaPhonemeRecognizer extends AbstractBufferedRecognizer {
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger("VoiceCast");
+
 
     // Growable primitive buffer: a long chant can be hundreds of thousands of
     // samples, so boxing into ArrayList<Short> would churn megabytes of garbage
@@ -54,7 +56,7 @@ public final class IpaPhonemeRecognizer extends AbstractBufferedRecognizer {
         IpaShared.getOrLoad(java.nio.file.Path.of(options.modelPath()));
         prepared = null; // rebuild against the now-available vocabulary mapping
         super.start(options);
-        VoiceCast.LOGGER.info("IPA phoneme recognizer ready (shared tokens={})",
+        LOGGER.info("IPA phoneme recognizer ready (shared tokens={})",
                 IpaShared.get().idToToken.size());
     }
 
@@ -91,14 +93,14 @@ public final class IpaPhonemeRecognizer extends AbstractBufferedRecognizer {
         IpaShared shared = IpaShared.get();
         if (shared == null) {
             synchronized (this) { decoding = false; }
-            VoiceCast.LOGGER.warn("IPA decode requested but shared engine is not loaded");
+            LOGGER.warn("IPA decode requested but shared engine is not loaded");
             return;
         }
         shared.submit(() -> {
             try {
                 runDecode(shared, audio, startMs);
             } catch (Throwable t) {
-                VoiceCast.LOGGER.warn("IPA decode failed", t);
+                LOGGER.warn("IPA decode failed", t);
             } finally {
                 synchronized (this) { decoding = false; }
             }
@@ -108,7 +110,7 @@ public final class IpaPhonemeRecognizer extends AbstractBufferedRecognizer {
     private void runDecode(IpaShared shared, short[] audio, long startMs) throws Exception {
         long minSamples = (long) (16_000 * 0.25); // ignore <250ms of audio
         if (audio.length < minSamples) {
-            VoiceCast.LOGGER.debug("[IPA] utterance too short ({} samples), skipping", audio.length);
+            LOGGER.debug("[IPA] utterance too short ({} samples), skipping", audio.length);
             return;
         }
         float[] wave = new float[audio.length];
@@ -121,25 +123,25 @@ public final class IpaPhonemeRecognizer extends AbstractBufferedRecognizer {
         if (com.theo.voicecast.config.VoiceCastConfig.INSTANCE.verboseLogging) {
             // Token-level debug (code points included) for diagnosing phoneme
             // mismatches such as dark-L ɫ vs clear-l — see workspace-root docs/IPA识别问题.md.
-            VoiceCast.LOGGER.info("[IPA DEBUG] raw tokens ({}): {}", tokens.size(), tokens);
+            LOGGER.info("[IPA DEBUG] raw tokens ({}): {}", tokens.size(), tokens);
             for (int i = 0; i < tokens.size(); i++) {
                 String tok = tokens.get(i);
                 StringBuilder sb = new StringBuilder();
                 for (int j = 0; j < tok.length(); j++) {
                     sb.append(String.format(java.util.Locale.ROOT, "U+%04X ", (int) tok.charAt(j)));
                 }
-                VoiceCast.LOGGER.info("[IPA DEBUG]   [{}] '{}' = {}", i, tok, sb);
+                LOGGER.info("[IPA DEBUG]   [{}] '{}' = {}", i, tok, sb);
             }
         }
         Map<String, Float> scores = scoreVocabulary(shared, decoded.logProb());
         if (tokens.isEmpty()) {
-            VoiceCast.LOGGER.debug("[IPA] decoded no phonemes in {} ms", dt);
+            LOGGER.debug("[IPA] decoded no phonemes in {} ms", dt);
             if (!scores.isEmpty()) emit("", tokens, decoded.greedy().confidence(), startMs, scores);
             return;
         }
         String text = String.join(" ", tokens);
         float confidence = decoded.greedy().confidence();
-        VoiceCast.LOGGER.info("[IPA] '{}' ({} phonemes, conf={}, {} ms)",
+        LOGGER.info("[IPA] '{}' ({} phonemes, conf={}, {} ms)",
                 text, tokens.size(), String.format(java.util.Locale.ROOT, "%.2f", confidence), dt);
         emit(text, tokens, confidence, startMs, scores);
     }
@@ -175,12 +177,12 @@ public final class IpaPhonemeRecognizer extends AbstractBufferedRecognizer {
                 out.put(e.getKey(), (float) (Math.exp(e.getValue() - max) / denom));
             }
             if (com.theo.voicecast.config.VoiceCastConfig.INSTANCE.verboseLogging) {
-                VoiceCast.LOGGER.info("[IPA CTC] null={} {}", String.format(java.util.Locale.ROOT, "%.3f",
+                LOGGER.info("[IPA CTC] null={} {}", String.format(java.util.Locale.ROOT, "%.3f",
                         Math.exp(nullLp - max) / denom), out);
             }
             return out;
         } catch (Throwable t) {
-            VoiceCast.LOGGER.warn("IPA CTC vocabulary scoring failed", t);
+            LOGGER.warn("IPA CTC vocabulary scoring failed", t);
             return Map.of();
         }
     }
@@ -202,7 +204,7 @@ public final class IpaPhonemeRecognizer extends AbstractBufferedRecognizer {
             }
             prepared = List.copyOf(out);
             if (!out.isEmpty()) {
-                VoiceCast.LOGGER.info("IPA CTC scoring enabled for {} vocabulary entries", out.size());
+                LOGGER.info("IPA CTC scoring enabled for {} vocabulary entries", out.size());
             }
             return prepared;
         }
@@ -221,7 +223,7 @@ public final class IpaPhonemeRecognizer extends AbstractBufferedRecognizer {
             for (String tok : IpaText.tokenize(part)) {
                 int id = shared.tokenId(tok);
                 if (id < 0) {
-                    VoiceCast.LOGGER.debug("IPA template '{}' token '{}' not in model vocab; skipping template",
+                    LOGGER.debug("IPA template '{}' token '{}' not in model vocab; skipping template",
                             template, tok);
                     return new int[0];
                 }

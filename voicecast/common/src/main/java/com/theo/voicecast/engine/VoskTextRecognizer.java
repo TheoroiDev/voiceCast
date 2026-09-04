@@ -29,6 +29,8 @@ import java.util.Locale;
  * {@code com.sun.jna}); nothing is relocated at build time.
  */
 public final class VoskTextRecognizer extends AbstractBufferedRecognizer {
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger("VoiceCast");
+
 
     private Model model;
     private Model sharedModel;
@@ -73,13 +75,13 @@ public final class VoskTextRecognizer extends AbstractBufferedRecognizer {
             } catch (Throwable ignored) {
                 // older Vosk versions may not expose setLogLevel
             }
-            VoiceCast.LOGGER.info("Loading Vosk model from {}", modelDir.toAbsolutePath());
+            LOGGER.info("Loading Vosk model from {}", modelDir.toAbsolutePath());
             this.model = new Model(modelDir.toAbsolutePath().toString());
             this.ownsModel = true;
         }
         rebuildRecognizer();
         super.start(options);
-        VoiceCast.LOGGER.info("Vosk recognizer ready (grammarOnly={}, phrases={}, shared={})",
+        LOGGER.info("Vosk recognizer ready (grammarOnly={}, phrases={}, shared={})",
                 options.grammarOnly(), grammar.size(), sharedModel != null);
     }
 
@@ -97,7 +99,7 @@ public final class VoskTextRecognizer extends AbstractBufferedRecognizer {
         grammar.addAll(phrases);
         if (model != null) {
             try { rebuildRecognizer(); } catch (Throwable t) {
-                VoiceCast.LOGGER.warn("Failed to rebuild Vosk recognizer with grammar", t);
+                LOGGER.warn("Failed to rebuild Vosk recognizer with grammar", t);
             }
         }
     }
@@ -109,11 +111,11 @@ public final class VoskTextRecognizer extends AbstractBufferedRecognizer {
                 String json = buildGrammarJson(grammar);
                 try {
                     recognizer = new Recognizer(model, 16_000f, json);
-                    VoiceCast.LOGGER.debug("Vosk grammar applied: {}", json);
+                    LOGGER.debug("Vosk grammar applied: {}", json);
                 } catch (Throwable t) {
                     // HCLG ("big") models don't support grammar mode. Fall back to
                     // the full graph and filter results post-hoc.
-                    VoiceCast.LOGGER.warn("Vosk model does not support grammar, "
+                    LOGGER.warn("Vosk model does not support grammar, "
                             + "falling back to full-vocab mode (results will be filtered)", t);
                     recognizer = new Recognizer(model, 16_000f);
                 }
@@ -187,13 +189,13 @@ public final class VoskTextRecognizer extends AbstractBufferedRecognizer {
         }
         boolean endpoint = recognizer.acceptWaveForm(buf, length);
         if (com.theo.voicecast.config.VoiceCastConfig.INSTANCE.verboseLogging) {
-            VoiceCast.LOGGER.info("[Vosk] fed {} samples, endpoint={}", length, endpoint);
+            LOGGER.info("[Vosk] fed {} samples, endpoint={}", length, endpoint);
         }
         if (endpoint) {
             String json = recognizer.getResult();
             String text = clean(MiniJson.getString(json, "text"));
             if (com.theo.voicecast.config.VoiceCastConfig.INSTANCE.verboseLogging) {
-                VoiceCast.LOGGER.info("[Vosk] RESULT json={} text='{}'", json, text);
+                LOGGER.info("[Vosk] RESULT json={} text='{}'", json, text);
             }
             if (!text.isEmpty()) {
                 emit(text, List.of(), 1.0f, utteranceStart);
@@ -203,7 +205,7 @@ public final class VoskTextRecognizer extends AbstractBufferedRecognizer {
             String partialJson = recognizer.getPartialResult();
             String partial = clean(MiniJson.getString(partialJson, "partial"));
             if (com.theo.voicecast.config.VoiceCastConfig.INSTANCE.verboseLogging && !partial.isEmpty()) {
-                VoiceCast.LOGGER.info("[Vosk] partial='{}'", partial);
+                LOGGER.info("[Vosk] partial='{}'", partial);
             }
             if (!partial.isEmpty()) {
                 emitPartial(partial, List.of(), 0.6f);
@@ -218,7 +220,7 @@ public final class VoskTextRecognizer extends AbstractBufferedRecognizer {
             String json = recognizer.getFinalResult();
             String text = clean(MiniJson.getString(json, "text"));
             if (com.theo.voicecast.config.VoiceCastConfig.INSTANCE.verboseLogging) {
-                VoiceCast.LOGGER.info("[Vosk] FINAL json={} text='{}'", json, text);
+                LOGGER.info("[Vosk] FINAL json={} text='{}'", json, text);
             }
             if (!text.isEmpty()) {
                 emit(text, List.of(), 1.0f,
@@ -226,7 +228,7 @@ public final class VoskTextRecognizer extends AbstractBufferedRecognizer {
             }
             recognizer.reset();
         } catch (Throwable t) {
-            VoiceCast.LOGGER.warn("finishUtterance failed", t);
+            LOGGER.warn("finishUtterance failed", t);
         } finally {
             utteranceStart = 0;
         }
@@ -240,7 +242,7 @@ public final class VoskTextRecognizer extends AbstractBufferedRecognizer {
             recognizer = null;
         }
         if (model != null && ownsModel) {
-            try { model.close(); } catch (Throwable t) { VoiceCast.LOGGER.warn("model close failed", t); }
+            try { model.close(); } catch (Throwable t) { LOGGER.warn("model close failed", t); }
         }
         model = null;
         sharedModel = null;

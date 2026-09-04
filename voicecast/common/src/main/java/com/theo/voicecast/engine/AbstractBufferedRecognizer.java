@@ -23,6 +23,8 @@ import java.util.List;
  * </ul>
  */
 public abstract class AbstractBufferedRecognizer implements SpeechRecognizer {
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger("VoiceCast");
+
     /** Routes results instead of posting to the global VoiceCastEvents bus (server sessions). */
     public interface ResultSink {
         void onResult(RecognitionResult result);
@@ -83,7 +85,7 @@ public abstract class AbstractBufferedRecognizer implements SpeechRecognizer {
     protected abstract void decode(short[] samples, int offset, int length) throws Exception;
 
     protected void onError(Throwable t) {
-        com.theo.voicecast.VoiceCast.LOGGER.warn("{} decode error", id(), t);
+        LOGGER.warn("{} decode error", id(), t);
     }
 
     /** Emit a final result to the per-instance sink, or the global bus by default. */

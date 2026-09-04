@@ -24,6 +24,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * per-player session shares this instead of loading the model N times.
  */
 public final class IpaShared {
+    private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger("VoiceCast");
+
     private static volatile IpaShared INSTANCE;
 
     public final OrtEnvironment env;
@@ -79,7 +81,7 @@ public final class IpaShared {
         so.setIntraOpNumThreads(Math.min(2, cores));
         so.setInterOpNumThreads(1);
         try { so.setOptimizationLevel(OrtSession.SessionOptions.OptLevel.BASIC_OPT); } catch (Throwable ignored) {}
-        VoiceCast.LOGGER.info("Loading shared IPA ONNX model from {}", onnx.toAbsolutePath());
+        LOGGER.info("Loading shared IPA ONNX model from {}", onnx.toAbsolutePath());
         OrtSession session = env.createSession(onnx.toString(), so);
         String inputName = session.getInputNames().iterator().next();
 
@@ -91,7 +93,7 @@ public final class IpaShared {
             return t;
         };
         ExecutorService pool = Executors.newFixedThreadPool(poolSize, tf);
-        VoiceCast.LOGGER.info("Shared IPA engine ready (tokens={}, decode threads={})", tokens.size(), poolSize);
+        LOGGER.info("Shared IPA engine ready (tokens={}, decode threads={})", tokens.size(), poolSize);
         return new IpaShared(env, session, inputName, tokens, pool);
     }
 
