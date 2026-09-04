@@ -2,6 +2,7 @@ package com.theo.voicecast.server;
 
 import com.theo.voicecast.VoiceCast;
 import com.theo.voicecast.api.Pronunciation;
+import com.theo.voicecast.api.RecognizerRegistry;
 import com.theo.voicecast.api.SpeechOptions;
 import com.theo.voicecast.api.SpeechRecognizer;
 import com.theo.voicecast.api.event.RecognizerState;
@@ -21,7 +22,9 @@ import net.minecraft.world.entity.player.Player;
 import org.vosk.Model;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -103,6 +106,77 @@ public enum VoiceCastServer {
     public int maxFramesPerSecond() { return config == null ? 15 : config.maxFramesPerSecond; }
     public boolean isEngineReady(String engine) {
         return engineStates.getOrDefault(engine, EngineState.UNLOADED) == EngineState.READY;
+    }
+
+    // ---- /voicecast server command surface (voiceCast#29) ----------------
+
+    /** Master switch as currently configured. */
+    public boolean enabled() { return config == null || config.enabled; }
+
+    /** Live session count (for /voicecast status). */
+    public int sessionCount() { return sessions.size(); }
+
+    /** Engine id -> state name snapshot (for /voicecast status). */
+    public Map<String, String> engineStateSnapshot() {
+        Map<String, String> out = new java.util.HashMap<>();
+        engineStates.forEach((k, v) -> out.put(k, v.name()));
+        return out;
+    }
+
+    /** Whether an id is a registered engine (registry + noop). */
+    public boolean isValidEngineId(String id) {
+        return "noop".equals(id) || RecognizerRegistry.ids().contains(id);
+    }
+
+    /** Runtime default-engine change (persists to voicecast.toml). */
+    public synchronized void setDefaultEngine(String engine) {
+        if (config == null || runDir == null) return;
+        this.config.engine = engine;
+        this.config.save(runDir);
+        this.defaultEngine = engine;
+        VoiceCast.LOGGER.info("/voicecast: default engine set to '{}'", engine);
+    }
+
+    /** Runtime master-switch change (persists; broadcasts the disabled state). */
+    public synchronized void setEnabled(boolean value) {
+        if (config == null || runDir == null) return;
+        this.config.enabled = value;
+        this.config.save(runDir);
+        if (!value) broadcastState(RecognizerState.ERROR, "voicecast.state.disabled");
+        VoiceCast.LOGGER.info("/voicecast: enabled={}", value);
+    }
+
+    /** Add a UUID to the {@code [players] whitelist}; false when already present. */
+    public synchronized boolean whitelistAdd(UUID uuid) {
+        if (config == null || runDir == null) return false;
+        List<String> updated = new ArrayList<>(config.whitelist);
+        boolean changed = updated.add(uuid.toString());
+        if (changed) { config.whitelist = List.copyOf(updated); config.save(runDir); }
+        return changed;
+    }
+
+    /** Remove a UUID from the {@code [players] whitelist}; false when absent. */
+    public synchronized boolean whitelistRemove(UUID uuid) {
+        if (config == null || runDir == null) return false;
+        List<String> updated = new ArrayList<>(config.whitelist);
+        boolean changed = updated.remove(uuid.toString());
+        if (changed) { config.whitelist = List.copyOf(updated); config.save(runDir); }
+        return changed;
+    }
+
+    /** Raw whitelist entries (for /voicecast whitelist list). */
+    public List<String> whitelistEntries() {
+        return config == null ? List.of() : config.whitelist;
+    }
+
+    /** Re-read voicecast.toml (default engine / enabled / whitelist / limits). */
+    public synchronized void reloadConfig() {
+        if (server == null || runDir == null) return;
+        this.config = ServerConfig.load(runDir);
+        this.defaultEngine = config.engine;
+        VoiceCast.LOGGER.info("/voicecast: config reloaded (default engine '{}', enabled={})",
+                defaultEngine, config.enabled);
+        if (!config.enabled) broadcastState(RecognizerState.ERROR, "voicecast.state.disabled");
     }
 
     /** Whether the engine's configured model is a loose-files model (e.g. the IPA ONNX). */

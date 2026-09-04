@@ -109,6 +109,8 @@ public enum VoiceCastClient {
         updateMicWanted();
     }
 
+    public boolean isPttHeld() { return pttHeld; }
+    public boolean isMicWanted() { return micWanted; }
     public boolean isEnabled() {
         return enabled;
     }

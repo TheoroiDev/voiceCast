@@ -6,6 +6,7 @@ import com.theo.voicecast.api.event.RecognitionFinalEvent;
 import com.theo.voicecast.engine.IpaPhonemeRecognizer;
 import com.theo.voicecast.engine.NoopRecognizer;
 import com.theo.voicecast.engine.VoskTextRecognizer;
+import com.theo.voicecast.server.VoiceCastServerCommands;
 import com.theo.voicecast.net.VoiceCastNetwork;
 import com.theo.voicecast.server.VoiceCastServer;
 import dev.architectury.event.events.common.LifecycleEvent;
@@ -46,6 +47,8 @@ public final class VoiceCast {
         RecognizerRegistry.register("vosk-ko", VoskTextRecognizer::new);
         RecognizerRegistry.register("ipa-phonemes", IpaPhonemeRecognizer::new);
         RecognizerRegistry.setDefault("vosk-en");
+
+        VoiceCastServerCommands.register(); // /voicecast status|engine|enabled|whitelist|reload (#29)
 
         VoiceCastEvents.subscribe(RecognitionFinalEvent.class, e -> {
             String text = e.result() == null ? "" : e.result().text();

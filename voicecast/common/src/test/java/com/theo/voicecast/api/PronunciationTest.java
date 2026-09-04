@@ -24,9 +24,11 @@ class PronunciationTest {
 
     @Test
     void bucketsFlattenIntoAliasesView() {
-        Pronunciation p = new Pronunciation("s", List.of(),
-                List.of(), // no legacy extras
-                Map.of("en", List.of("ignis", "fire"), "zh", List.of("火球")));
+        // LinkedHashMap: flatten preserves bucket insertion order (normalizeLanguages keeps it).
+        java.util.Map<String, List<String>> buckets = new java.util.LinkedHashMap<>();
+        buckets.put("en", List.of("ignis", "fire"));
+        buckets.put("zh", List.of("火球"));
+        Pronunciation p = new Pronunciation("s", List.of(), List.of(), buckets);
         // Flat view = union of buckets in map order (non-routing consumers unchanged).
         assertEquals(List.of("ignis", "fire", "火球"), p.aliases());
     }
