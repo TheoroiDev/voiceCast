@@ -77,9 +77,13 @@ public final class ModelConfig {
 
     public String modelIdForEngine(String engineId) { return engineModel.get(engineId); }
 
-    /** Language bucket served by an engine (two-letter code), or null when the
-     * entry declares none (language-agnostic engines like ipa-phonemes). */
-    public String languageForEngine(String engineId) { return engineLanguage.get(engineId); }
+    /** Primary language bucket for an engine (first of the languages array), or null. */
+    public String languageForEngine(String engineId) {
+        String single = engineLanguage.get(engineId);
+        if (single != null) return single;
+        List<String> multi = engineLanguages.get(engineId);
+        return multi == null || multi.isEmpty() ? null : multi.get(0);
+    }
 
     /** All language buckets for an engine (two-letter codes), or empty list. */
     public List<String> languagesForEngine(String engineId) {
@@ -173,7 +177,10 @@ public final class ModelConfig {
                 if (type != null && !type.isBlank()) {
                     engineType.put(e.getKey(), type.trim().toLowerCase(java.util.Locale.ROOT));
                 }
-                if (!languages.isEmpty()) engineLanguages.put(e.getKey(), languages);
+                if (!languages.isEmpty()) {
+                    engineLanguages.put(e.getKey(), languages);
+                    engineLanguage.putIfAbsent(e.getKey(), languages.get(0));
+                }
                 if (!options.isEmpty()) engineOptions.put(e.getKey(), options);
             }
         }
@@ -193,7 +200,10 @@ public final class ModelConfig {
                 if (type != null && !type.isBlank()) {
                     engineType.put(e.getKey(), type.trim().toLowerCase(java.util.Locale.ROOT));
                 }
-                if (!languages.isEmpty()) engineLanguages.put(e.getKey(), languages);
+                if (!languages.isEmpty()) {
+                    engineLanguages.put(e.getKey(), languages);
+                    engineLanguage.putIfAbsent(e.getKey(), languages.get(0));
+                }
                 if (!options.isEmpty()) engineOptions.put(e.getKey(), options);
             }
         }
@@ -205,6 +215,13 @@ public final class ModelConfig {
         for (Object o : Json.getList(entry, "languages")) {
             if (o != null && !String.valueOf(o).isBlank()) {
                 out.add(String.valueOf(o).trim().toLowerCase(java.util.Locale.ROOT));
+            }
+        }
+        if (out.isEmpty()) {
+            for (Object o : Json.getList(defaults, "languages")) {
+                if (o != null && !String.valueOf(o).isBlank()) {
+                    out.add(String.valueOf(o).trim().toLowerCase(java.util.Locale.ROOT));
+                }
             }
         }
         if (out.isEmpty()) {
@@ -325,7 +342,7 @@ public final class ModelConfig {
                         "num_threads", "2", "hotwords_score", "1.5")));
         engines.put("sherpa-sensevoice", engineEntry(MODEL_SHERPA_SENSEVOICE, "sherpa-sensevoice",
                 Map.of("languages", List.of("zh", "en", "ja", "ko"),
-                        "model", "model.int8.onnx",
+                        "onnx", "model.int8.onnx",
                         "tokens", "tokens.txt",
                         "language", "auto", "itn", "true",
                         "num_threads", "2")));

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /** Regression tests for the model catalog (0.4.0 sherpa edition). */
-@org.junit.jupiter.api.Disabled("TODO(#42): modelForEngine returns null for sherpa engines after default catalog rewrite - needs debug")
+// @org.junit.jupiter.api.Disabled("TODO(#42): verify after model key fix")
 class ModelConfigTest {
 
     @TempDir
@@ -28,7 +28,7 @@ class ModelConfigTest {
         // assertModel(cfg.modelForEngine("sherpa-sensevoice"), ModelConfig.MODEL_SHERPA_SENSEVOICE);
         assertModel(cfg.modelForEngine("ipa-phonemes"), ModelConfig.MODEL_IPA);
         // 0.4.0: two-letter language codes ride along on the engine entries.
-        assertEquals("en", cfg.languageForEngine("sherpa-zh-en"));
+        assertEquals("zh", cfg.languageForEngine("sherpa-zh-en"));
 
 
 

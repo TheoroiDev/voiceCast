@@ -60,7 +60,7 @@ public final class SherpaSenseVoiceRecognizer extends AbstractBufferedRecognizer
         return SHARED.computeIfAbsent(modelDir.toAbsolutePath().normalize().toString(), dir -> {
             try {
                 OfflineSenseVoiceModelConfig sv = OfflineSenseVoiceModelConfig.builder()
-                        .setModel(modelDir.resolve(spec.option("model", "model.int8.onnx")).toString())
+                        .setModel(modelDir.resolve(spec.option("onnx", "model.int8.onnx")).toString())
                         .setLanguage(spec.option("language", "auto"))
                         .setInverseTextNormalization(
                                 Boolean.parseBoolean(spec.option("itn", "true")))
