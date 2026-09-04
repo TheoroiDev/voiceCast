@@ -59,8 +59,14 @@ public final class ModelConfig {
 
     private final Map<String, ModelEntry> models = new LinkedHashMap<>();
     private final Map<String, String> engineModel = new LinkedHashMap<>();
-    /** engines.<id>.language (two-letter code); absent for language-agnostic engines. */
+    /** engines.<id>.type — engine family key (EngineFamilies lookup); inferred when absent. */
+    private final Map<String, String> engineType = new LinkedHashMap<>();
+    /** engines.<id>.language — two-letter code (legacy single-value form). */
     private final Map<String, String> engineLanguage = new LinkedHashMap<>();
+    /** engines.<id>.languages — multi-bucket engines (bilingual/multilingual models). */
+    private final Map<String, List<String>> engineLanguages = new LinkedHashMap<>();
+    /** engines.<id>.options — raw per-engine option map passed to the family factory. */
+    private final Map<String, Map<String, String>> engineOptions = new LinkedHashMap<>();
     private MirrorProbe probe = MirrorProbe.DEFAULT;
     private final Path file;
 
@@ -76,6 +82,19 @@ public final class ModelConfig {
     /** Language bucket served by an engine (two-letter code), or null when the
      * entry declares none (language-agnostic engines like ipa-phonemes). */
     public String languageForEngine(String engineId) { return engineLanguage.get(engineId); }
+
+    /** All language buckets for an engine (two-letter codes), or empty list. */
+    public List<String> languagesForEngine(String engineId) {
+        return engineLanguages.getOrDefault(engineId, List.of());
+    }
+
+    /** Engine family type, or null when not declared (caller infers from kind). */
+    public String typeForEngine(String engineId) { return engineType.get(engineId); }
+
+    /** Raw per-engine option map (string→string), or empty. */
+    public Map<String, String> optionsForEngine(String engineId) {
+        return engineOptions.getOrDefault(engineId, Map.of());
+    }
 
     public ModelEntry model(String modelId) { return models.get(modelId); }
 
@@ -149,11 +168,19 @@ public final class ModelConfig {
             Map<String, Object> user = Json.asMap(enginesMap.get(e.getKey()));
             String modelId = Json.getString(user, "model", Json.getString(def, "model", null));
             String language = Json.getString(user, "language", Json.getString(def, "language", null));
+            String type = Json.getString(user, "type", Json.getString(def, "type", null));
+            List<String> languages = readLanguages(user, def);
+            Map<String, String> options = userOptions(user, def);
             if (modelId != null && models.containsKey(modelId)) {
                 engineModel.put(e.getKey(), modelId);
                 if (language != null && !language.isBlank()) {
                     engineLanguage.put(e.getKey(), language.trim().toLowerCase(java.util.Locale.ROOT));
                 }
+                if (type != null && !type.isBlank()) {
+                    engineType.put(e.getKey(), type.trim().toLowerCase(java.util.Locale.ROOT));
+                }
+                if (!languages.isEmpty()) engineLanguages.put(e.getKey(), languages);
+                if (!options.isEmpty()) engineOptions.put(e.getKey(), options);
             }
         }
         for (Map.Entry<String, Object> e : enginesMap.entrySet()) {
@@ -161,13 +188,53 @@ public final class ModelConfig {
             Map<String, Object> m = Json.asMap(e.getValue());
             String modelId = Json.getString(m, "model", null);
             String language = Json.getString(m, "language", null);
+            String type = Json.getString(m, "type", null);
+            List<String> languages = readLanguages(m, Map.of());
+            Map<String, String> options = userOptions(m, Map.of());
             if (modelId != null && models.containsKey(modelId)) {
                 engineModel.put(e.getKey(), modelId);
                 if (language != null && !language.isBlank()) {
                     engineLanguage.put(e.getKey(), language.trim().toLowerCase(java.util.Locale.ROOT));
                 }
+                if (type != null && !type.isBlank()) {
+                    engineType.put(e.getKey(), type.trim().toLowerCase(java.util.Locale.ROOT));
+                }
+                if (!languages.isEmpty()) engineLanguages.put(e.getKey(), languages);
+                if (!options.isEmpty()) engineOptions.put(e.getKey(), options);
             }
         }
+    }
+
+    /** engines.<id>.languages array ∪ legacy language single value (deduped). */
+    private static List<String> readLanguages(Map<String, Object> entry, Map<String, Object> defaults) {
+        java.util.LinkedHashSet<String> out = new java.util.LinkedHashSet<>();
+        for (Object o : Json.getList(entry, "languages")) {
+            if (o != null && !String.valueOf(o).isBlank()) {
+                out.add(String.valueOf(o).trim().toLowerCase(java.util.Locale.ROOT));
+            }
+        }
+        if (out.isEmpty()) {
+            String single = Json.getString(entry, "language", Json.getString(defaults, "language", null));
+            if (single != null && !single.isBlank()) {
+                out.add(single.trim().toLowerCase(java.util.Locale.ROOT));
+            }
+        }
+        return List.copyOf(out);
+    }
+
+    /** engines.<id>.options merged over defaults (string values only). */
+    private static Map<String, String> userOptions(Map<String, Object> entry, Map<String, Object> defaults) {
+        Map<String, String> out = new LinkedHashMap<>();
+        for (Map.Entry<String, Object> d : defaults.entrySet()) {
+            if (d.getValue() != null) out.put(d.getKey(), String.valueOf(d.getValue()));
+        }
+        for (Map.Entry<String, Object> e : entry.entrySet()) {
+            if (e.getValue() != null && !"language".equals(e.getKey()) && !"model".equals(e.getKey())
+                    && !"type".equals(e.getKey()) && !"languages".equals(e.getKey())) {
+                out.put(e.getKey(), String.valueOf(e.getValue()));
+            }
+        }
+        return out.isEmpty() ? Map.of() : Map.copyOf(out);
     }
 
     private ModelEntry readModelEntry(String id, Map<String, Object> m) {

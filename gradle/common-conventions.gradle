@@ -22,6 +22,9 @@ repositories {
     maven { url = "https://maven.architectury.dev/" }
     maven { url = "https://maven.minecraftforge.net/" }
     maven { url = "https://maven.parchmentmc.org/" }
+    // sherpa-onnx runtime (voiceCast#42): Java API + JNI natives, JitPack build
+    // of the k2-fsa tag. Version locked in root gradle.properties (sherpa_version).
+    maven { url = "https://jitpack.io/" }
     maven {
         name = "Modrinth"
         url = "https://api.modrinth.com/maven"

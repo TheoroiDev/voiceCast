@@ -35,8 +35,10 @@ public abstract class AbstractBufferedRecognizer implements SpeechRecognizer {
     protected long utteranceStartMs;
     private volatile ResultSink sink;
 
-    /** Set a per-instance result target; null restores the global event bus. */
-    public void setResultSink(ResultSink s) { this.sink = s; }
+    @Override
+    public void setResultSink(java.util.function.Consumer<RecognitionResult> sink) {
+        this.sink = sink == null ? null : sink::accept;
+    }
 
     @Override
     public synchronized void start(SpeechOptions options) throws Exception {

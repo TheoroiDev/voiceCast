@@ -29,6 +29,13 @@ public interface SpeechRecognizer {
     void setVocabulary(Collection<Pronunciation> vocabulary);
 
     /**
+     * Route results to a specific target instead of the global event bus
+     * (server sessions use this). Default: ignore (implementations that only
+     * support the global bus keep their existing behavior).
+     */
+    default void setResultSink(java.util.function.Consumer<RecognitionResult> sink) {}
+
+    /**
      * Feed a block of 16 kHz, 16-bit, mono signed PCM samples. Called on the
      * mic thread, so implementations should return quickly and decode on a
      * worker thread when needed.

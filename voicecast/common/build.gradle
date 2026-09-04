@@ -15,6 +15,22 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
     modImplementation "dev.architectury:architectury:${rootProject.architectury_version}"
 
+    // sherpa-onnx runtime (voiceCast#42): Java API + JNI natives, JitPack build
+    // of the k2-fsa tag. Same pattern as ONNX: compileOnly for the API, classes
+    // + per-platform natives shaded into the dev fat jar via voicecastFat (the
+    // LibraryUtils chain loads natives from classpath resources
+    // sherpa-onnx/native/<os-arch>/ automatically).
+    compileOnly("com.github.k2-fsa.sherpa-onnx:sherpa-onnx-jvm:${rootProject.sherpa_version}")
+    voicecastFat("com.github.k2-fsa.sherpa-onnx:sherpa-onnx-jvm:${rootProject.sherpa_version}") {
+        transitive = false
+    }
+    voicecastFat("com.github.k2-fsa.sherpa-onnx:sherpa-onnx-native-lib-win-x64:${rootProject.sherpa_version}") { transitive = false }
+    voicecastFat("com.github.k2-fsa.sherpa-onnx:sherpa-onnx-native-lib-linux-x64:${rootProject.sherpa_version}") { transitive = false }
+    voicecastFat("com.github.k2-fsa.sherpa-onnx:sherpa-onnx-native-lib-win-arm64:${rootProject.sherpa_version}") { transitive = false }
+    voicecastFat("com.github.k2-fsa.sherpa-onnx:sherpa-onnx-native-lib-linux-aarch64:${rootProject.sherpa_version}") { transitive = false }
+    voicecastFat("com.github.k2-fsa.sherpa-onnx:sherpa-onnx-native-lib-osx-x64:${rootProject.sherpa_version}") { transitive = false }
+    voicecastFat("com.github.k2-fsa.sherpa-onnx:sherpa-onnx-native-lib-osx-aarch64:${rootProject.sherpa_version}") { transitive = false }
+
     compileOnly("com.alphacephei:vosk:${rootProject.vosk_version}") {
         transitive = true
     }
