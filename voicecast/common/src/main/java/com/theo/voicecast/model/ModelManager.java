@@ -398,34 +398,92 @@ public final class ModelManager {
         }
         if (!fetched) throw last != null ? last : new IOException("No mirror succeeded");
 
-        if (archive.getFileName().toString().toLowerCase(Locale.ROOT).endsWith(".zip")) {
-            unzip(archive, dir);
-            Files.deleteIfExists(archive);
-        }
+        extractArchive(archive, dir);
 
-        if (!probe.isValid(dir)) {
-            try (var entries = Files.list(dir)) {
-                var nested = entries
-                        .filter(Files::isDirectory)
-                        .filter(probe::isValid)
-                        .findFirst()
-                        .orElse(null);
-                if (nested != null) {
-                    Path tmp = dir.resolveSibling(dir.getFileName() + ".flatten");
-                    if (Files.exists(tmp)) deleteRecursively(tmp);
-                    Files.move(nested, tmp);
-                    deleteRecursively(dir);
-                    Files.move(tmp, dir);
-                    VoiceCast.LOGGER.info("Flattened nested model directory {}", nested.getFileName());
-                }
-            }
-        }
+        flattenNested(dir, probe);
 
         boolean ok = probe.isValid(dir);
         if (!ok) {
             throw new IOException("Downloaded model is missing expected files in " + dir);
         }
         return new DownloadResult(dir, true, "ok");
+    }
+
+    /** Extract a downloaded archive into {@code dir} (zip / tar / tar.bz2 / tgz). */
+    static void extractArchive(Path archive, Path dir) throws IOException {
+        String name = archive.getFileName().toString().toLowerCase(Locale.ROOT);
+        if (name.endsWith(".zip")) {
+            unzip(archive, dir);
+            Files.deleteIfExists(archive);
+        } else if (name.endsWith(".tar") || name.endsWith(".tar.bz2") || name.endsWith(".tbz2")
+                || name.endsWith(".tar.gz") || name.endsWith(".tgz")) {
+            untar(archive, dir);
+            Files.deleteIfExists(archive);
+        }
+        // Unknown suffixes (e.g. bare .onnx payloads fetched directly) are left
+        // in place for the probe to judge.
+    }
+
+    /**
+     * sherpa-onnx (and other) archives often nest everything one level deep
+     * ({@code <model-id>/<top-dir>/tokens.txt ...}); when the model root itself
+     * does not validate but a single child directory does, hoist that child
+     * into the model root.
+     */
+    static void flattenNested(Path dir, ModelProbe probe) throws IOException {
+        if (probe.isValid(dir)) return;
+        try (var entries = Files.list(dir)) {
+            var nested = entries
+                    .filter(Files::isDirectory)
+                    .filter(probe::isValid)
+                    .findFirst()
+                    .orElse(null);
+            if (nested != null) {
+                Path tmp = dir.resolveSibling(dir.getFileName() + ".flatten");
+                if (Files.exists(tmp)) deleteRecursively(tmp);
+                Files.move(nested, tmp);
+                deleteRecursively(dir);
+                Files.move(tmp, dir);
+                VoiceCast.LOGGER.info("Flattened nested model directory {}", nested.getFileName());
+            }
+        }
+    }
+
+    private static void untar(Path archive, Path dest) throws IOException {
+        Path destAbs = dest.toAbsolutePath().normalize();
+        try (InputStream fin = Files.newInputStream(archive);
+             InputStream decompressed = openDecompressed(fin, archive);
+             org.apache.commons.compress.archivers.tar.TarArchiveInputStream tis =
+                     new org.apache.commons.compress.archivers.tar.TarArchiveInputStream(decompressed)) {
+            org.apache.commons.compress.archivers.tar.TarArchiveEntry e;
+            while ((e = tis.getNextTarEntry()) != null) {
+                String name = e.getName().replace('\\', '/');
+                if (name.isBlank()) continue;
+                Path out = destAbs.resolve(name).normalize();
+                if (!out.startsWith(destAbs)) {
+                    throw new IOException("Bad tar entry " + e.getName());
+                }
+                if (e.isDirectory()) {
+                    Files.createDirectories(out);
+                } else if (e.isFile()) {
+                    // links / sparse specials are skipped - model archives
+                    // never need them
+                    Files.createDirectories(out.getParent());
+                    Files.copy(tis, out, StandardCopyOption.REPLACE_EXISTING);
+                }
+            }
+        }
+    }
+
+    private static InputStream openDecompressed(InputStream raw, Path archive) throws IOException {
+        String name = archive.getFileName().toString().toLowerCase(Locale.ROOT);
+        if (name.endsWith(".bz2") || name.endsWith(".tbz2")) {
+            return new org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream(raw, true);
+        }
+        if (name.endsWith(".gz") || name.endsWith(".tgz")) {
+            return new java.util.zip.GZIPInputStream(raw);
+        }
+        return raw;
     }
 
     private static String archiveName(String url) {

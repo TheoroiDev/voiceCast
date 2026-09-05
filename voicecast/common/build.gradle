@@ -31,17 +31,22 @@ dependencies {
     voicecastFat("com.github.k2-fsa.sherpa-onnx:sherpa-onnx-native-lib-osx-x64:${rootProject.sherpa_version}") { transitive = false }
     voicecastFat("com.github.k2-fsa.sherpa-onnx:sherpa-onnx-native-lib-osx-aarch64:${rootProject.sherpa_version}") { transitive = false }
 
-    compileOnly("com.alphacephei:vosk:${rootProject.vosk_version}") {
-        transitive = true
-    }
+    // tar.bz2/tgz model-archive extraction (sherpa downloads, voiceCast#42).
+    // compile-only against the version the Minecraft runtime itself ships
+    // (1.21 on 1.20.1) — never bundled, so no relocation or license payload.
+    compileOnly("org.apache.commons:commons-compress:1.21")
+    // The fat bundling above only applies to the jar task; unit tests run
+    // against build/classes/java/main, so libraries under test need to be on
+    // the test classpath explicitly.
+    testImplementation("org.apache.commons:commons-compress:1.21")
 
-    // Vosk classes + libvosk native libraries only. Do NOT bundle JNA here:
-    // JNA cannot be relocated (its native methods are bound to the original
-    // com.sun.jna class names), and Forge/Architectury already provides JNA
-    // at runtime. Fabric gets JNA from its platform project.
-    voicecastFat("com.alphacephei:vosk:${rootProject.vosk_version}") {
-        exclude group: "net.java.dev.jna", module: "jna"
-        exclude group: "net.java.dev.jna", module: "jna-platform"
+    // sherpa-onnx for the opt-in recognizer e2e test (natives auto-extract
+    // from the classpath via sherpa's own LibraryUtils; win-x64 covers the
+    // dev machine — other platforms skip the test via its guard property).
+    testImplementation("com.github.k2-fsa.sherpa-onnx:sherpa-onnx-jvm:${rootProject.sherpa_version}") {
+        transitive = false
+    }
+    testRuntimeOnly("com.github.k2-fsa.sherpa-onnx:sherpa-onnx-native-lib-win-x64:${rootProject.sherpa_version}") {
         transitive = false
     }
 
@@ -76,6 +81,15 @@ dependencies {
     testRuntimeOnly("io.github.jaredmdobson:concentus:1.0.2")
 }
 
+// Opt-in network tests (SherpaDownloadE2E) are guarded by this system
+// property; -D on the gradlew command line must be forwarded to the test JVM
+// explicitly or JUnit's EnabledIfSystemProperty never sees it.
+tasks.withType(Test).configureEach {
+    systemProperty "voicecast.e2eDownload", System.getProperty("voicecast.e2eDownload", "false")
+    systemProperty "voicecast.e2eRecognizer", System.getProperty("voicecast.e2eRecognizer", "false")
+    systemProperty "voicecast.e2eDenoiser", System.getProperty("voicecast.e2eDenoiser", "false")
+}
+
 jar {
     archiveClassifier = "dev"
     from {
@@ -102,8 +116,8 @@ tasks.assemble {
 }
 
 // ---- Maven publication --------------------------------------------------
-// The dev jar bundles Vosk/ONNX/Concentus (see the jar task above) and is
-// what consumers (wizardreal) compile/run against. Published UNCLASSIFIED so
+// The dev jar bundles sherpa-onnx/ONNX/Concentus (see the jar task above) and
+// is what consumers (wizardreal) compile/run against. Published UNCLASSIFIED so
 // the coordinate is group:artifactId:version without a classifier. Do NOT
 // publish via components.java: remapJar is disabled for common, so Loom's
 // default main artifact is the ghost unclassified jar that never exists.
@@ -117,7 +131,7 @@ publishing {
             artifact(tasks.named("sourcesJar")) { classifier = "sources" }
             pom {
                 name = "VoiceCast Common (fat dev jar)"
-                description = "Server-side voice recognition library for Minecraft - platform-independent code with bundled Vosk/ONNX/Concentus."
+                description = "Server-side voice recognition library for Minecraft - platform-independent code with bundled sherpa-onnx/ONNX/Concentus."
             }
         }
     }

@@ -7,11 +7,13 @@ each subproject's build scripts and mod manifests.
 
 ## Bundled into the voicecast jars
 
-### Vosk 0.3.45 — Java bindings + `libvosk` native libraries
+### sherpa-onnx v1.13.7 — Java API + all-platform native libraries
 
-- License: Apache-2.0 (Vosk and the Kaldi toolkit it builds on)
-- Upstream: <https://github.com/alphacephei/vosk-api>, <https://github.com/kaldi-asr/kaldi>
-- Used by: the `vosk-en` engine (server-side offline word recognition).
+- License: Apache-2.0 — Copyright k2-fsa contributors
+- Upstream: <https://github.com/k2-fsa/sherpa-onnx>
+- Used by: the streaming/offline speech recognition engines (zipformer,
+  SenseVoice) and the streaming GTCRN noise suppression
+  (`OnlineSpeechDenoiser`).
 - Note: the Apache-2.0 license text is distributed by the upstream project;
   a copy can be obtained from the upstream repository (`LICENSE` file).
 
@@ -19,7 +21,8 @@ each subproject's build scripts and mod manifests.
 
 - License: MIT — Copyright (c) Microsoft Corporation
 - Upstream: <https://onnxruntime.ai/>, <https://github.com/microsoft/onnxruntime>
-- Used by: the `ipa-phonemes` engine (wav2vec2-espeak phoneme inference on CPU).
+- Used by: the `ipa-phonemes` engine (wav2vec2-espeak phoneme inference on CPU)
+  and as sherpa-onnx's inference backend.
 - MIT text:
 
 > Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -48,16 +51,21 @@ each subproject's build scripts and mod manifests.
 
 - License: dual-licensed, choose one: Apache-2.0 OR LGPL-2.1-or-later
 - Upstream: <https://github.com/java-native-access/jna>
-- Used by: Vosk native binding. JiJ'd into the Fabric jar; on Forge it is
-  provided at runtime by Architectury/Forge and is deliberately NOT bundled.
+- Used by: native library binding support. JiJ'd into the Fabric jar; on Forge
+  it is provided at runtime by Architectury/Forge and is deliberately NOT
+  bundled.
 - Note: JNA is kept at its original `com.sun.jna` package (never relocated) —
   its native `jnidispatch` binds to the original symbol names.
 
 ## Related but NOT bundled
 
-- **Speech models** (`vosk-model-small-*` zips, `wav2vec2-lv-60-espeak-cv-ft`
-  ONNX q4/float32 weights + vocab): downloaded at runtime into
-  `config/voicecast/models/`, never shipped inside the jars. Apache-2.0
-  (Vosk models, wav2vec2, ONNX conversion) / CC0 (Mozilla Common Voice data).
+- **Speech models** (sherpa-onnx zipformer bilingual / SenseVoice GTCRN
+  archives, `wav2vec2-lv-60-espeak-cv-ft` ONNX q4 weights + vocab): downloaded
+  at runtime into `config/voicecast/models/`, never shipped inside the jars.
+  Apache-2.0 (sherpa-onnx released models, wav2vec2 ONNX conversion) /
+  CC0 (Mozilla Common Voice data).
+- **GTCRN noise-suppression model** (`gtcrn_simple.onnx`, ~523 KB): downloaded
+  at runtime when `[client] noiseSuppression` is enabled. MIT — Copyright (c)
+  2024 Xiaobin Rong (see <https://github.com/Xiaobin-Rong/gtcrn>).
 - **Opus**: BSD-3-Clause (specification / reference implementation that
   Concentus ports) — <https://opus-codec.org/>.
