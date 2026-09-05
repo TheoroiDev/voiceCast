@@ -54,7 +54,7 @@ public final class VoiceCastNetwork {
                     .onControl(ctx.getPlayer(), action));
         });
         NetworkManager.registerReceiver(NetworkManager.c2s(), CHANNEL_SELECT, (buf, ctx) -> {
-            String engine = buf.readUtf(32);
+            String engine = buf.readUtf(256);
             ctx.queue(() -> com.theo.voicecast.server.VoiceCastServer.INSTANCE
                     .onSelect(ctx.getPlayer(), engine));
         });
@@ -82,7 +82,7 @@ public final class VoiceCastNetwork {
     /** Client -> server: request this recognizer engine for the speaker. */
     public static void sendSelect(String engineId) {
         FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
-        buf.writeUtf(engineId == null ? "" : engineId, 32);
+        buf.writeUtf(engineId == null ? "" : engineId, 256); // v2 model names are long (43+ chars)
         NetworkManager.sendToServer(CHANNEL_SELECT, buf);
     }
 
