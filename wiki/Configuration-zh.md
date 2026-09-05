@@ -7,10 +7,10 @@
 VoiceCast 使用**一个共享配置文件**（客户端/服务器各读自己的节）：
 
 - `<游戏目录>/config/voicecast/voicecast.toml` — 开关、引擎、白名单
-- `<游戏目录>/config/voicecast/models.json` — 模型目录与镜像
-- 模型实体文件：`config/voicecast/models/<模型id>/`
+- `<游戏目录>/config/voicecast/models.json` — 模型目录（v2）与镜像
+- 模型实体文件：`config/voicecast/models/<模型名>/`
 
-文件在首次加载时自动创建并写回（带版本号，缺失键自动补默认值）。修改后重启服务器生效。
+两个文件在首次加载时自动创建并写回（带版本号，缺失键自动补默认值）。修改后重启服务器生效。
 
 ## voicecast.toml
 
@@ -18,13 +18,13 @@ VoiceCast 使用**一个共享配置文件**（客户端/服务器各读自己�
 version = 1
 
 [server]
-defaultEngine = "vosk-en"     # vosk-en | vosk-cn | vosk-jp | vosk-kr | ipa-phonemes | noop
+defaultEngine = ""            # 模型名或语言码；留空 = 目录默认（第一个声明支持 zh 的模型）
 autoDownload = true           # 允许服务器自动下载模型
 maxFramesPerSecond = 15       # 每会话音频帧速率上限（防滥用）
 enabled = true                # 总开关：false 时任何玩家都无法使用语音
 
 [engines]
-allowed = ["vosk-en", "vosk-cn", "vosk-jp", "vosk-kr", "ipa-phonemes"]
+allowed = []                  # 引擎 id；留空 = 允许目录中全部模型
 
 [players]
 whitelist = []                # UUID 字符串数组；空 = 所有人可用
@@ -33,52 +33,53 @@ whitelist = []                # UUID 字符串数组；空 = 所有人可用
 svcCoexistence = "share"      # Simple Voice Chat 共存（客户端本地设置）
 
 [client]                      # ← 玩家本地设置
-engine = "vosk-en"
+engine = ""                   # 模型名 / 语言码；留空 = 目录默认
+noiseSuppression = false      # 识别通路麦克风采播降噪（GTCRN）；见下表说明
 ```
 
 | 键 | 说明 |
 |---|---|
-| `[server] defaultEngine` | 启动时预热的引擎；玩家未选择语音引擎时也用它 |
+| `[server] defaultEngine` | 启动时预热的引擎。接受模型名或两位语言码；留空/无法解析 = 目录默认（第一个声明支持 zh 的模型） |
 | `[server] autoDownload` | `false` 时服务器不下载任何模型，缺失即报 `NO_MODEL`（需手动放置） |
 | `[server] maxFramesPerSecond` | 单个玩家每秒最多发送的音频帧数，超出部分丢弃（防刷包） |
 | `[server] enabled` | **总开关**。`false`：不预热模型，所有音频帧静默丢弃，玩家收到一次性"已禁用"提示 |
-| `[engines] allowed` | 玩家可选引擎白名单（`audio/select` 被拒会提示 "engine not allowed"） |
+| `[engines] allowed` | 可选引擎白名单。**留空 = 允许目录中全部模型**；非空则仅列出的 id 可用 |
 | `[players] whitelist` | UUID 数组（非法 UUID 跳过并告警）。**空 = 所有人可用**；非空则仅名单内玩家可推流。判定顺序见[访问控制](Access-Control-zh) |
 | `[compat] svcCoexistence` | Simple Voice Chat 共存模式（**客户端本地设置**：每个玩家各自的配置，服务端不读取也不同步）— 见 [SVC 集成](Simple-Voice-Chat-Integration-zh) |
-| `[client] engine` | 玩家本地引擎偏好。合法值：`vosk-en` / `vosk-cn` / `vosk-jp` / `vosk-kr` / `ipa-phonemes`（游戏中可通过命令调整，别名 vosk/en/zh/ja/ko/ipa） |
+| `[client] engine` | 玩家本地引擎偏好：模型名、语言码（`en`/`zh`/`ja`/`ko`…）或留空取目录默认。可通过 `/voicecast engine <参数>` 与 `/voicecast settings` 调整 |
+| `[client] noiseSuppression` | 麦克风采播降噪（sherpa-onnx GTCRN），**只影响施法识别通路**——默认关。其他玩家听到的声音走 Simple Voice Chat 的独立采集，请使用 SVC 自带的降噪 |
 
-> CJK 引擎：`vosk-cn` / `vosk-jp` / `vosk-kr` 已完整注册（母语 Vosk 识别）。每个被选中的语种会下载并常驻一份自己的共享模型（磁盘约 40–90 MB，加载后内存约 150–250 MB）——懒加载，只有玩家实际使用的语种才加载。日语注意：ja 模型输出假名/汉字文本，罗马音拼写的咒语别名在文本路径可能不命中；建议用假名别名或改用 `ipa-phonemes` 引擎。
-> `ipa-phonemes` 引擎正在优化中。
+> 引擎 id 即 `models.json` 中的**模型名**（一个模型 = 一个引擎）。默认目录：`sherpa-zipformer-bilingual-zh-en-int8`（流式中英双语，默认）、`sherpa-sensevoice-small-int8`（离线 zh/yue/en/ja/ko）、`wav2vec2-espeak-ipa`（音素）。每个模型服务端只下载一次并全服共享。
 
-## models.json（模型目录）
+## models.json（模型目录，v2）
 
-自动生成、支持**用户覆盖合并**（按键合并，缺的补默认值）。结构：
+首次自动生成默认目录，之后**完全由用户所有**（按解析结果原样写回；无迁移——非 v2 形态的文件会按默认重写）。一个模型 = 一个引擎：模型名兼作引擎 id 与模型目录名。
 
 ```json
 {
-  "version": 1,
+  "version": 2,
+  "$schema": "docs/schemas/voicecast-models-v2.schema.json",
   "models": {
-    "vosk-model-small-en-us-0.15": {
-      "kind": "vosk-archive",
-      "sizeBytes": 41205931,
-      "sha256": "30f26242c4eb...",
-      "urls": ["https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip"]
+    "sherpa-zipformer-bilingual-zh-en-int8": {
+      "properties": {
+        "lang": ["zh", "en"], "type": "stream",
+        "encoder": "encoder-epoch-99-avg-1.int8.onnx",
+        "decoder": "decoder-epoch-99-avg-1.int8.onnx",
+        "joiner": "joiner-epoch-99-avg-1.int8.onnx",
+        "tokens": "tokens.txt", "bpe_vocab": "bpe.vocab",
+        "modeling_unit": "cjkchar+bpe", "decoding_method": "modified_beam_search",
+        "num_threads": "2", "hotwords_score": "1.5"
+      },
+      "source": { "kind": "sherpa-archive", "urls": ["https://github.com/k2-fsa/sherpa-onnx/releases/download/...tar.bz2"] }
     },
     "wav2vec2-espeak-ipa": {
-      "kind": "loose-files",
-      "files": {
-        "vocab.json":    { "minBytes": 1,       "urls": ["https://hf-mirror.com/...", "https://huggingface.co/..."] },
-        "model_q4.onnx": { "minBytes": 150000000, "urls": [".../model_q4.onnx", ".../model_q4.onnx"] }
-      }
+      "properties": { "type": "ipa" },
+      "source": { "kind": "loose-files", "files": [ { "name": "vocab.json", "urls": ["..."] }, { "name": "model_q4.onnx", "minBytes": 150000000, "urls": ["..."] } ] }
+    },
+    "gtcrn-simple-denoiser": {
+      "properties": { "type": "denoiser" },
+      "source": { "kind": "loose-files", "files": [ { "name": "gtcrn_simple.onnx", "minBytes": 400000, "urls": ["..."] } ] }
     }
-  },
-  "engines": {
-    "vosk-en":     { "model": "vosk-model-small-en-us-0.15" },
-    "vosk-en":     { "model": "vosk-model-small-en-us-0.15" },
-    "vosk-cn":     { "model": "vosk-model-small-cn-0.22" },
-    "vosk-jp":     { "model": "vosk-model-small-ja-0.22" },
-    "vosk-kr":     { "model": "vosk-model-small-ko-0.22" },
-    "ipa-phonemes": { "model": "wav2vec2-espeak-ipa" }
   },
   "mirrorProbe": { "enabled": true, "probeBytes": 262144, "timeoutMs": 5000, "minFileSizeBytes": 8388608 }
 }
@@ -86,13 +87,15 @@ engine = "vosk-en"
 
 要点：
 
-- **多镜像测速**：每个模型配多个 URL 时，服务器会并发 Range-GET 探测各镜像吞吐，**最快者先下载**、其余作回退；小于 8 MB 的文件跳过探测；
+- **一个模型 = 一个引擎**：模型名兼作引擎 id 与模型目录名；没有独立的 `engines` 节；
+- **语言默认按声明顺序**：第一个 `lang` 包含某语言的模型即为该语言默认（`/voicecast engine en` 选中它）；
+- **`properties.type`**：`stream`（流式 ASR）、`offline`（整句 ASR）、`ipa`（音素）、`denoiser`（辅助增强模型——走同一下载管线但绝不作为引擎列出/选择）；`properties.family` 可为附属自定义引擎族显式覆盖；
+- **多镜像测速**：`source.urls` 配多个地址时并发 Range-GET 探测吞吐，**最快者先下载**；小文件跳过探测；
 - **自托管模型**：把 `urls` 换成你自己的 HTTP 地址即可（内网镜像、对象存储都行）；
-- **IPA 模型**仅提供 q4 量化版 `model_q4.onnx`（约 150 MB）；
-- 手动放置：`autoDownload=false` 时把文件放到 `config/voicecast/models/<模型id>/`，Vosk 需解压后含 `am/ conf/ graph/`。
+- 手动放置：`autoDownload=false` 时把解压后的文件放到 `config/voicecast/models/<模型名>/`（sherpa 归档需 `tokens.txt` 与 `.onnx` 文件位于模型根目录）。
 
 ## 诊断
 
-诊断可用 JVM 参数 `-Dvoicecast.verbose=true` 输出识别管线日志。
+诊断可用 JVM 参数 `-Dvoicecast.verbose=true`（或 `-PvoicecastVerbose=true` 启动）输出识别管线日志，或使用 `/voicecast status` / `/voicecast engine list`。
 
 > [← 首页](Home-zh) · 上一篇：[服务器搭建](Server-Setup-zh) · 下一篇：[访问控制](Access-Control-zh)

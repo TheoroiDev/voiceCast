@@ -7,10 +7,10 @@
 VoiceCast uses **one shared config file** (client/server read their own sections):
 
 - `<gameDir>/config/voicecast/voicecast.toml` — switches, engines, whitelist
-- `<gameDir>/config/voicecast/models.json` — model catalog & mirrors
-- Model files: `config/voicecast/models/<modelId>/`
+- `<gameDir>/config/voicecast/models.json` — model catalog (v2) & mirrors
+- Model files: `config/voicecast/models/<modelName>/`
 
-The file is auto-created on first load and rewritten (versioned, missing keys get defaults). Restart the server after edits.
+Both files are auto-created on first load and rewritten (versioned; missing keys get defaults). Restart the server after edits.
 
 ## voicecast.toml
 
@@ -18,13 +18,13 @@ The file is auto-created on first load and rewritten (versioned, missing keys ge
 version = 1
 
 [server]
-defaultEngine = "vosk-en"     # vosk-en | vosk-cn | vosk-jp | vosk-kr | ipa-phonemes | noop
+defaultEngine = ""            # model name or language code; empty = catalog default (first declared zh model)
 autoDownload = true           # allow server-side model downloads
 maxFramesPerSecond = 15       # per-session audio frame cap (abuse guard)
 enabled = true                # master switch: false = nobody may stream
 
 [engines]
-allowed = ["vosk-en", "vosk-cn", "vosk-jp", "vosk-kr", "ipa-phonemes"]
+allowed = []                  # engine ids; empty = every catalog model is allowed
 
 [players]
 whitelist = []                # array of UUID strings; empty = everyone
@@ -33,52 +33,53 @@ whitelist = []                # array of UUID strings; empty = everyone
 svcCoexistence = "share"      # Simple Voice Chat coexistence (client-local)
 
 [client]                      # ← player-local section
-engine = "vosk-en"
+engine = ""                   # model name / language code; empty = catalog default
+noiseSuppression = false      # recognition-path mic denoising (GTCRN); see note below
 ```
 
 | Key | Meaning |
 |---|---|
-| `[server] defaultEngine` | Engine pre-warmed at startup; also the fallback for players who haven't chosen specific models |
+| `[server] defaultEngine` | Engine pre-warmed at startup. Accepts a model name or a two-letter language code; empty/unknown = catalog default (first declared model supporting zh) |
 | `[server] autoDownload` | `false` disables all downloads; a missing model reports `NO_MODEL` (requires placing files manually) |
 | `[server] maxFramesPerSecond` | Max audio frames per player per second; excess frames are dropped (anti-spam) |
 | `[server] enabled` | **Master switch**. `false`: no model warm-up, all audio frames silently dropped, players get a one-time "disabled" notice |
-| `[engines] allowed` | Whitelist of selectable engines (rejected selections report "engine not allowed") |
+| `[engines] allowed` | Whitelist of selectable engines. **Empty = every catalog model is allowed**; non-empty = exactly those ids |
 | `[players] whitelist` | UUID array (invalid UUIDs are skipped with a warning). **Empty = everyone**; non-empty = only listed players may stream. Order of checks: [Access Control](Access-Control) |
-| `[compat] svcCoexistence` | Simple Voice Chat coexistence mode (**client-local**: each player's own config; the server neither reads nor syncs it) — see [Simple Voice Chat Integration](Simple-Voice-Chat-Integration) |
-| `[client] engine` | Player-local engine preference. Valid: `vosk-en` / `vosk-cn` / `vosk-jp` / `vosk-kr` / `ipa-phonemes` (Adjustable in game via command. Aliases vosk/en/zh/ja/ko/ipa) |
+| `[compat] svcCoexistence` | Simple Voice Chat coexistence mode (**client-local**) — see [Simple Voice Chat Integration](Simple-Voice-Chat-Integration) |
+| `[client] engine` | Player-local engine preference: a model name, a language code (`en`/`zh`/`ja`/`ko`...), or empty for the catalog default. Adjustable via `/voicecast engine <arg>` and `/voicecast settings` |
+| `[client] noiseSuppression` | Microphone noise suppression (GTCRN via sherpa-onnx) for the **recognition path only** — default off. What other players hear through Simple Voice Chat is a separate capture: use SVC's own noise suppression for that channel |
 
-> CJK engines: `vosk-cn` / `vosk-jp` / `vosk-kr` are fully registered (native-language Vosk recognition). Each selected language downloads and keeps its own shared model (~40–90 MB disk, ~150–250 MB RAM while loaded) — they load lazily, only for languages players actually use. Note for Japanese: the ja model outputs kana/kanji text, so spell aliases written in romaji may not match on the text path; prefer kana aliases or the `ipa-phonemes` engine.
-> `ipa-phonemes` is under optimization.
+> Engine ids are **model names** from `models.json` (one model = one engine). Default catalog: `sherpa-zipformer-bilingual-zh-en-int8` (streaming zh/en, default), `sherpa-sensevoice-small-int8` (offline zh/yue/en/ja/ko), `wav2vec2-espeak-ipa` (phonemes). Each model downloads once, server-side, and is shared by every session using it.
 
-## models.json (model catalog)
+## models.json (model catalog, v2)
 
-Auto-generated and **user-overridable** (merged per key; missing entries get defaults). Structure:
+Auto-created with defaults and **fully user-owned** (saved back as-parsed; there are no migrations — a file not in v2 shape is rewritten with defaults). One model = one engine: the model name is the engine id and the model directory.
 
 ```json
 {
-  "version": 1,
+  "version": 2,
+  "$schema": "docs/schemas/voicecast-models-v2.schema.json",
   "models": {
-    "vosk-model-small-en-us-0.15": {
-      "kind": "vosk-archive",
-      "sizeBytes": 41205931,
-      "sha256": "30f26242c4eb...",
-      "urls": ["https://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip"]
+    "sherpa-zipformer-bilingual-zh-en-int8": {
+      "properties": {
+        "lang": ["zh", "en"], "type": "stream",
+        "encoder": "encoder-epoch-99-avg-1.int8.onnx",
+        "decoder": "decoder-epoch-99-avg-1.int8.onnx",
+        "joiner": "joiner-epoch-99-avg-1.int8.onnx",
+        "tokens": "tokens.txt", "bpe_vocab": "bpe.vocab",
+        "modeling_unit": "cjkchar+bpe", "decoding_method": "modified_beam_search",
+        "num_threads": "2", "hotwords_score": "1.5"
+      },
+      "source": { "kind": "sherpa-archive", "urls": ["https://github.com/k2-fsa/sherpa-onnx/releases/download/...tar.bz2"] }
     },
     "wav2vec2-espeak-ipa": {
-      "kind": "loose-files",
-      "files": {
-        "vocab.json":    { "minBytes": 1,       "urls": ["https://hf-mirror.com/...", "https://huggingface.co/..."] },
-        "model_q4.onnx": { "minBytes": 150000000, "urls": [".../model_q4.onnx", ".../model_q4.onnx"] }
-      }
+      "properties": { "type": "ipa" },
+      "source": { "kind": "loose-files", "files": [ { "name": "vocab.json", "urls": ["..."] }, { "name": "model_q4.onnx", "minBytes": 150000000, "urls": ["..."] } ] }
+    },
+    "gtcrn-simple-denoiser": {
+      "properties": { "type": "denoiser" },
+      "source": { "kind": "loose-files", "files": [ { "name": "gtcrn_simple.onnx", "minBytes": 400000, "urls": ["..."] } ] }
     }
-  },
-  "engines": {
-    "vosk-en":     { "model": "vosk-model-small-en-us-0.15" },
-    "vosk-en":     { "model": "vosk-model-small-en-us-0.15" },
-    "vosk-cn":     { "model": "vosk-model-small-cn-0.22" },
-    "vosk-jp":     { "model": "vosk-model-small-ja-0.22" },
-    "vosk-kr":     { "model": "vosk-model-small-ko-0.22" },
-    "ipa-phonemes": { "model": "wav2vec2-espeak-ipa" }
   },
   "mirrorProbe": { "enabled": true, "probeBytes": 262144, "timeoutMs": 5000, "minFileSizeBytes": 8388608 }
 }
@@ -86,13 +87,15 @@ Auto-generated and **user-overridable** (merged per key; missing entries get def
 
 Key points:
 
-- **Mirror probing**: with multiple `urls` per model the server probes them concurrently (ranged GET, throughput-ranked), downloads **fastest-first** with the rest as fallbacks; files under 8 MB skip probing;
+- **One model = one engine**: the model name doubles as the engine id and the model directory; there is no separate `engines` section;
+- **Per-language defaults follow declaration order**: the first declared model whose `lang` contains a language wins for that language (`/voicecast engine en` picks it);
+- **`properties.type`**: `stream` (streaming ASR), `offline` (utterance ASR), `ipa` (phonemes), `denoiser` (auxiliary enhancement model — downloadable but never listed/selected as an engine); `properties.family` overrides the engine family for addons;
+- **Mirror probing**: with multiple `source.urls` the server probes them concurrently (ranged GET, throughput-ranked) and downloads **fastest-first**; small files skip probing;
 - **Self-hosting**: point `urls` at your own HTTP endpoints (LAN mirror, object storage);
-- The **IPA model** ships as the q4-quantized `model_q4.onnx` only (~150 MB);
-- Manual placement: with `autoDownload=false` put files under `config/voicecast/models/<modelId>/`; extracted Vosk needs `am/ conf/ graph/`.
+- Manual placement: with `autoDownload=false` put extracted files under `config/voicecast/models/<modelName>/` (sherpa archives need `tokens.txt` + the `.onnx` files at the model root).
 
 ## Diagnostics
 
-For diagnostics add `-Dvoicecast.verbose=true` to log the recognition pipeline.
+For diagnostics add `-Dvoicecast.verbose=true` (or run with `-PvoicecastVerbose=true`) to log the recognition pipeline, or use `/voicecast status` / `/voicecast engine list`.
 
 > [← Home](Home) · Previous: [Server Setup](Server-Setup) · Next: [Access Control](Access-Control)
