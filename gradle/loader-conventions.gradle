@@ -15,6 +15,7 @@ loom {
     runs {
         client {
             programArgs("--username", devUsername)
+            vmArgs "-Xmx8G" // unset, the JVM defaults to 1/4 of physical RAM
             if (voicecastVerbose) vmArgs "-Dvoicecast.verbose=true"
         }
         server {
@@ -26,6 +27,7 @@ loom {
             // (Reproduced in wizardpedia joint testing 2026-09-02; synced to
             // all repos per AGENTS.md.)
             runDir "run-server"
+            vmArgs "-Xmx8G" // unset, the JVM defaults to 1/4 of physical RAM
             if (voicecastVerbose) vmArgs "-Dvoicecast.verbose=true"
         }
     }
@@ -40,6 +42,32 @@ tasks.matching { it.name in ["runClient", "runServer"] }.configureEach {
     javaLauncher.set(javaToolchains.launcherFor {
         languageVersion = JavaLanguageVersion.of(17)
     })
+}
+
+// ---- loom remapped-cache wipe ---------------------------------------------
+// Loom caches remapped mavenLocal jars under <repo>/.gradle/loom-cache/
+// remapped_mods keyed by coordinates — republishing voicecast to mavenLocal
+// does NOT invalidate them, so dev runs silently keep using the old jar
+// (AGENTS.md troubleshooting entry). -PwipeRemappedCache=true registers a
+// task that deletes remapped/com/theo before build/runClient/runServer;
+// without the property nothing changes.
+if (project.findProperty("wipeRemappedCache") == "true") {
+    def wipeRemappedDir = rootProject.file(".gradle/loom-cache/remapped_mods/remapped/com/theo")
+    def wipeRemappedTask = tasks.register("wipeRemappedCache") {
+        group = "wizard dev"
+        description = "Delete the loom remapped_mods cache for com.theo (stale mavenLocal remaps)."
+        doLast {
+            if (wipeRemappedDir.isDirectory()) {
+                project.delete(wipeRemappedDir)
+                project.logger.lifecycle("wipeRemappedCache: deleted ${wipeRemappedDir}")
+            } else {
+                project.logger.lifecycle("wipeRemappedCache: nothing to delete at ${wipeRemappedDir}")
+            }
+        }
+    }
+    tasks.matching { it.name in ["build", "runClient", "runServer"] }.configureEach {
+        dependsOn wipeRemappedTask
+    }
 }
 
 // ---- dev run auto-configuration ------------------------------------------
@@ -77,32 +105,57 @@ tasks.matching { it.name == "runServer" }.configureEach {
 // onlyIf. Existing dest files are left untouched (never downgraded), so run
 // dirs seeded by the older Copy implementation keep working as-is.
 def voiceModelsSource = rootProject.file("../resources/models")
+// Manifest-driven selection, same pattern as devmods manifest.txt: one model
+// dir per line, '#' comments / blank lines ignored, a commented-out line
+// disables the model without deleting it from the workspace cache. When the
+// manifest is absent (CI / fresh clones) every model dir is seeded, matching
+// the pre-manifest behavior.
+def voiceModelManifest = new File(voiceModelsSource, "manifest.txt")
+def voiceModelNames = []
+if (voiceModelManifest.isFile()) {
+    voiceModelManifest.eachLine { line ->
+        def t = line.trim()
+        if (t && !t.startsWith("#")) voiceModelNames << t
+    }
+} else {
+    if (voiceModelsSource.isDirectory()) {
+        voiceModelsSource.listFiles({ it.isDirectory() } as FileFilter).each { voiceModelNames << it.name }
+    }
+}
 def seedVoiceModels = { String kind, String dirName ->
     def syncTask = tasks.register("syncVoiceModels${kind.capitalize()}") {
         group = "wizard dev"
-        description = "Seed voicecast models from the workspace models/ dir into ${dirName}/config/voicecast/models as hardlinks (skips when the source is absent, e.g. CI)."
+        description = "Seed voicecast models (resources/models per manifest.txt) into ${dirName}/config/voicecast/models as hardlinks (skips when the source is absent, e.g. CI)."
         inputs.dir(voiceModelsSource)
         outputs.dir(project.file("${dirName}/config/voicecast/models"))
         onlyIf { voiceModelsSource.isDirectory() }
         doLast {
             def srcRoot = voiceModelsSource.toPath()
             def destRoot = project.file("${dirName}/config/voicecast/models").toPath()
-            int linked = 0, copied = 0, kept = 0
-            java.nio.file.Files.walk(srcRoot).filter { java.nio.file.Files.isRegularFile(it) }.forEach { src ->
-                def dst = destRoot.resolve(srcRoot.relativize(src))
-                java.nio.file.Files.createDirectories(dst.getParent())
-                if (java.nio.file.Files.exists(dst)) { kept++; return }
-                try {
-                    java.nio.file.Files.createLink(dst, src)
-                    linked++
-                } catch (java.nio.file.FileAlreadyExistsException e) {
-                    kept++ // concurrent launcher got there first
-                } catch (IOException e) {
-                    java.nio.file.Files.copy(src, dst) // cross-volume / unsupported -> real copy
-                    copied++
+            int linked = 0, copied = 0, kept = 0, missing = 0
+            voiceModelNames.each { name ->
+                def modelDir = srcRoot.resolve(name)
+                if (!java.nio.file.Files.isDirectory(modelDir)) {
+                    missing++
+                    project.logger.warn("syncVoiceModels: manifest model dir missing, skipping: ${modelDir}")
+                    return
+                }
+                java.nio.file.Files.walk(modelDir).filter { java.nio.file.Files.isRegularFile(it) }.forEach { src ->
+                    def dst = destRoot.resolve(srcRoot.relativize(src))
+                    java.nio.file.Files.createDirectories(dst.getParent())
+                    if (java.nio.file.Files.exists(dst)) { kept++; return }
+                    try {
+                        java.nio.file.Files.createLink(dst, src)
+                        linked++
+                    } catch (java.nio.file.FileAlreadyExistsException e) {
+                        kept++ // concurrent launcher got there first
+                    } catch (IOException e) {
+                        java.nio.file.Files.copy(src, dst) // cross-volume / unsupported -> real copy
+                        copied++
+                    }
                 }
             }
-            project.logger.lifecycle("syncVoiceModels(${dirName}): ${linked} hardlinked, ${copied} copied, ${kept} already present")
+            project.logger.lifecycle("syncVoiceModels(${dirName}): ${linked} hardlinked, ${copied} copied, ${kept} already present, ${missing} missing (${voiceModelNames.size()} manifest entries)")
         }
     }
     tasks.matching { it.name == (kind == "client" ? "runClient" : "runServer") }.configureEach {
