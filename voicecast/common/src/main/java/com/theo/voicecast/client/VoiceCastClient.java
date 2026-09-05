@@ -183,7 +183,7 @@ public enum VoiceCastClient {
             try { recognizer.start(SpeechOptions.defaults()); }
             catch (Throwable t) { com.theo.voicecast.VoiceCast.LOGGER.warn("remote start failed", t); }
         }
-        mic = new MicCapture(this::onPcm);
+        mic = new MicCapture(this::onPcm, createNoiseSuppression());
         mic.start();
         if (!mic.isRunning()) {
             VoiceCastEvents.post(new RecognizerStateEvent(RecognizerState.MICROPHONE_UNAVAILABLE,
@@ -213,6 +213,21 @@ public enum VoiceCastClient {
                     com.theo.voicecast.VoiceCast.LOGGER.info("Shriek detected — VoiceCast holds the mic only during push-to-talk");
                 }
             }
+        }
+    }
+
+    /** Build the recognition-path denoiser when enabled, else null (never throws). */
+    private com.theo.voicecast.audio.NoiseSuppression createNoiseSuppression() {
+        try {
+            if (Minecraft.getInstance() == null || Minecraft.getInstance().gameDirectory == null) return null;
+            var dir = Minecraft.getInstance().gameDirectory.toPath();
+            var cfg = com.theo.voicecast.config.ClientVoiceConfig.load(dir);
+            if (!cfg.noiseSuppression) return null;
+            return com.theo.voicecast.audio.NoiseSuppression.create(
+                    dir, com.theo.voicecast.model.ModelConfig.load(dir));
+        } catch (Throwable t) {
+            com.theo.voicecast.VoiceCast.LOGGER.warn("Noise suppression unavailable (continuing without)", t);
+            return null;
         }
     }
 

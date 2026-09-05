@@ -24,6 +24,8 @@ public final class MicCapture {
     private final AudioFormat format;
     private final int frameMs;
     private final Listener listener;
+    /** Optional recognition-path noise suppression (null = off). */
+    private final NoiseSuppression noiseSuppression;
     private final AtomicBoolean running = new AtomicBoolean(false);
 
     private volatile TargetDataLine line;
@@ -34,13 +36,22 @@ public final class MicCapture {
     }
 
     public MicCapture(Listener listener) {
-        this(FORMAT, 200, listener);
+        this(FORMAT, 200, listener, null);
+    }
+
+    public MicCapture(Listener listener, NoiseSuppression noiseSuppression) {
+        this(FORMAT, 200, listener, noiseSuppression);
     }
 
     public MicCapture(AudioFormat format, int frameMs, Listener listener) {
+        this(format, frameMs, listener, null);
+    }
+
+    public MicCapture(AudioFormat format, int frameMs, Listener listener, NoiseSuppression noiseSuppression) {
         this.format = format;
         this.frameMs = frameMs;
         this.listener = listener;
+        this.noiseSuppression = noiseSuppression;
     }
 
     public boolean isRunning() {
@@ -76,6 +87,9 @@ public final class MicCapture {
             thread = null;
         }
         closeQuietly();
+        if (noiseSuppression != null) {
+            noiseSuppression.release();
+        }
     }
 
     private void loop() {
@@ -112,6 +126,12 @@ public final class MicCapture {
                                 chunks, samples, String.format(java.util.Locale.ROOT, "%.4f", rms), Math.round(elapsedMs));
                     }
                 }
+            // Recognition-path DSP goes here: after the level meter (raw
+            // signal), before the recognizer consumer. stop() releases the
+            // denoiser, so no filter state leaks between PTT sessions.
+            if (noiseSuppression != null) {
+                noiseSuppression.process(pcm, 0, samples);
+            }
             try {
                 listener.onPcm(pcm, 0, samples);
             } catch (Throwable t) {
