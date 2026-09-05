@@ -10,6 +10,7 @@ import com.theo.voicecast.api.RecognitionResult;
 import com.theo.voicecast.api.SpeechOptions;
 import com.theo.voicecast.api.SpeechRecognizer;
 import com.theo.voicecast.api.engine.EngineSpec;
+import com.theo.voicecast.config.VoiceCastConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -75,19 +76,30 @@ public final class SherpaStreamingRecognizer implements SpeechRecognizer {
                 .setDecoder(modelDir.resolve(spec.option("decoder", "decoder.onnx")).toString())
                 .setJoiner(modelDir.resolve(spec.option("joiner", "joiner.onnx")).toString())
                 .build();
-        OnlineModelConfig model = OnlineModelConfig.builder()
+        String modelingUnit = spec.option("modeling_unit", "cjkchar+bpe");
+        Path bpeVocab = modelDir.resolve(spec.option("bpe_vocab", "bpe.vocab"));
+        // Hotwords are decided first: cjkchar+bpe hotword encoding needs the
+        // model's bpe vocabulary — without it the native recognizer creation
+        // fails outright, so writeHotwords degrades to no-hotwords instead.
+        Path hotwords = writeHotwords(modelingUnit, bpeVocab);
+
+        OnlineModelConfig.Builder model = OnlineModelConfig.builder()
                 .setTransducer(transducer)
                 .setTokens(modelDir.resolve(spec.option("tokens", "tokens.txt")).toString())
                 .setNumThreads(spec.intOption("num_threads", 2))
-                .setModelingUnit(spec.option("modeling_unit", "cjkchar+bpe"))
-                .build();
+                .setModelingUnit(modelingUnit)
+                // sherpa's builder defaults debug=true (dumps config/state);
+                // tie it to the dev verbosity channel instead (-PvoicecastVerbose
+                // → -Dvoicecast.verbose, or /voicecast verbose in game)
+                .setDebug(VoiceCastConfig.INSTANCE.verboseLogging);
+        if (hotwords != null && modelingUnit.contains("bpe")) {
+            model.setBpeVocab(bpeVocab.toString());
+        }
 
         OnlineRecognizerConfig.Builder cfg = OnlineRecognizerConfig.builder()
-                .setOnlineModelConfig(model)
+                .setOnlineModelConfig(model.build())
                 .setDecodingMethod(spec.option("decoding_method", "modified_beam_search"))
                 .setEnableEndpoint(false); // utterance lifecycle is driven by finishUtterance
-
-        Path hotwords = writeHotwords();
         if (hotwords != null) {
             cfg.setHotwordsFile(hotwords.toString());
             cfg.setHotwordsScore((float) doubleOption("hotwords_score", 1.5));
@@ -100,8 +112,13 @@ public final class SherpaStreamingRecognizer implements SpeechRecognizer {
                 spec.engineId(), hotwords != null);
     }
 
-    /** Spell aliases as hotword entries (one per line) in a stable temp path. */
-    private Path writeHotwords() {
+    /**
+     * Spell aliases as hotword entries (one per line) in a stable temp path.
+     * Returns null when there is nothing to boost or when the modeling unit
+     * needs a bpe vocabulary that is not present (hotwords would break the
+     * native recognizer creation — plain open-vocabulary decoding still works).
+     */
+    private Path writeHotwords(String modelingUnit, Path bpeVocab) {
         List<String> aliases = new ArrayList<>();
         for (Pronunciation p : vocabulary) {
             for (String a : p.aliases()) {
@@ -110,6 +127,11 @@ public final class SherpaStreamingRecognizer implements SpeechRecognizer {
             }
         }
         if (aliases.isEmpty()) return null;
+        if (modelingUnit.contains("bpe") && !Files.isRegularFile(bpeVocab)) {
+            LOGGER.warn("modeling_unit '{}' hotwords require {} (missing) - hotwords disabled, "
+                    + "open-vocabulary decoding continues", modelingUnit, bpeVocab);
+            return null;
+        }
         try {
             Path file = Path.of(System.getProperty("java.io.tmpdir"),
                     "voicecast-hotwords-" + Integer.toUnsignedString(spec.engineId().hashCode()) + ".txt");

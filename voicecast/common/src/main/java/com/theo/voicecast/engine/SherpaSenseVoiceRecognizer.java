@@ -7,6 +7,7 @@ import com.k2fsa.sherpa.onnx.OfflineModelConfig;
 import com.theo.voicecast.api.Pronunciation;
 import com.theo.voicecast.api.SpeechOptions;
 import com.theo.voicecast.api.engine.EngineSpec;
+import com.theo.voicecast.config.VoiceCastConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -70,6 +71,9 @@ public final class SherpaSenseVoiceRecognizer extends AbstractBufferedRecognizer
                                 .setSenseVoice(sv)
                                 .setTokens(modelDir.resolve(spec.option("tokens", "tokens.txt")).toString())
                                 .setNumThreads(spec.intOption("num_threads", 2))
+                                // sherpa's builder defaults debug=true; tie it to
+                                // -Dvoicecast.verbose / /voicecast verbose
+                                .setDebug(VoiceCastConfig.INSTANCE.verboseLogging)
                                 .build())
                         .build();
                 LOGGER.info("Loading shared SenseVoice model from {}", modelDir);
