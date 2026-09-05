@@ -25,8 +25,6 @@ public final class ClientNet {
         if (initialized) return;
         initialized = true;
 
-        EnginePicker.registerCommands();
-
         // On (re)joining a world, tell the server which engine the player wants.
         ClientPlayerEvent.CLIENT_PLAYER_JOIN.register(player -> EnginePicker.onJoin());
 

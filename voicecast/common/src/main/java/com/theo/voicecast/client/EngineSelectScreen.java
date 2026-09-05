@@ -1,21 +1,28 @@
 package com.theo.voicecast.client;
 
-import com.theo.voicecast.config.ClientVoiceConfig;
+import com.theo.voicecast.model.ModelConfig;
+import java.util.List;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 
 /**
- * Picker for which recognizer engine the server should run for you (a sherpa-onnx
- * model per language — en ~40 MB, zh ~44 MB, ja ~50 MB, ko ~87 MB — or IPA
- * phonemes ~230 MB). Opened from Mod Menu's Config button (Fabric), the
+ * Picker for which recognizer engine the server should run for you. Buttons
+ * are generated from the models.json v2 catalog in declaration order (one
+ * model = one engine), so server operators control what players can pick by
+ * editing the catalog. Opened from Mod Menu's Config button (Fabric), the
  * mod-list config button (Forge), or {@code /voicecast settings}. Supports a
  * parent screen so closing returns to Mod Menu / the mods list.
  */
 public final class EngineSelectScreen extends Screen {
+    /** 6 model buttons fit the fixed layout; catalogs beyond that need scrolling (not built yet). */
+    private static final int MAX_BUTTONS = 6;
     private final Screen parent;
+    private List<String> modelIds = List.of();
 
     public EngineSelectScreen() {
         this(null);
@@ -28,23 +35,32 @@ public final class EngineSelectScreen extends Screen {
 
     @Override
     protected void init() {
-        String current = EnginePicker.preferred();
+        Minecraft mc = this.minecraft;
+        ModelConfig catalog = mc != null && mc.gameDirectory != null
+                ? ModelConfig.load(mc.gameDirectory.toPath())
+                : null;
+        modelIds = catalog == null ? List.of() : catalog.modelIds();
+
+        String current = EnginePicker.effectiveEngine();
         int w = 260, h = 20;
         int x = this.width / 2 - w / 2;
         int y = this.height / 2 - 44;
 
-        addRenderableWidget(Button.builder(label("voicecast.engine.sherpa_zh_en", current.equals(ClientVoiceConfig.ENGINE_SHERPA_ZH_EN)),
-                b -> pick(ClientVoiceConfig.ENGINE_SHERPA_ZH_EN)).bounds(x, y, w, h).build());
-        addRenderableWidget(Button.builder(label("voicecast.engine.sherpa_sensevoice", current.equals(ClientVoiceConfig.ENGINE_SHERPA_SENSEVOICE)),
-                b -> pick(ClientVoiceConfig.ENGINE_SHERPA_SENSEVOICE)).bounds(x, y + 24, w, h).build());
-        addRenderableWidget(Button.builder(label("voicecast.engine.ipa", current.equals(ClientVoiceConfig.ENGINE_IPA)),
-                b -> pick(ClientVoiceConfig.ENGINE_IPA)).bounds(x, y + 48, w, h).build());
+        int shown = Math.min(modelIds.size(), MAX_BUTTONS);
+        for (int i = 0; i < shown; i++) {
+            String id = modelIds.get(i);
+            addRenderableWidget(Button.builder(label(id, id.equals(current)),
+                    b -> pick(id)).bounds(x, y + i * 24, w, h).build());
+        }
         addRenderableWidget(Button.builder(Component.translatable("gui.done"),
-                b -> this.onClose()).bounds(x, y + 72, w, h).build());
+                b -> this.onClose()).bounds(x, y + Math.max(shown, 1) * 24, w, h).build());
     }
 
-    private Component label(String key, boolean active) {
-        return Component.translatable(key).withStyle(active ? ChatFormatting.BOLD : ChatFormatting.RESET);
+    /** Catalog lang key with graceful fallback to the raw model id. */
+    private Component label(String modelId, boolean active) {
+        String key = "voicecast.engine." + modelId.replace('-', '_');
+        String text = Language.getInstance().getOrDefault(key, modelId);
+        return Component.literal(text).withStyle(active ? ChatFormatting.BOLD : ChatFormatting.RESET);
     }
 
     private void pick(String engine) {

@@ -7,7 +7,6 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.theo.voicecast.VoiceCast;
-import com.theo.voicecast.api.RecognizerRegistry;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
 import net.minecraft.commands.CommandBuildContext;
 import net.minecraft.commands.CommandSourceStack;
@@ -44,6 +43,14 @@ public final class VoiceCastServerCommands {
     private static void build(CommandDispatcher<CommandSourceStack> dispatcher,
                               CommandBuildContext buildContext, Commands.CommandSelection selection) {
         dispatcher.register(Commands.literal("voicecast")
+                // Client-only commands: executed by the client dispatcher (which
+                // intercepts before the packet is sent). These level-0 stubs
+                // exist so the server-synced completion tree offers them too —
+                // without them the client-only children are executable but
+                // invisible in chat autocomplete.
+                .then(Commands.literal("settings").executes(VoiceCastServerCommands::clientOnly))
+                .then(Commands.literal("verbose").executes(VoiceCastServerCommands::clientOnly))
+                .then(Commands.literal("debugwav").executes(VoiceCastServerCommands::clientOnly))
                 .then(Commands.literal("status").executes(VoiceCastServerCommands::status))
                 .then(Commands.literal("engine")
                         .then(Commands.literal("list").executes(VoiceCastServerCommands::engineList))
@@ -69,6 +76,12 @@ public final class VoiceCastServerCommands {
                         .executes(VoiceCastServerCommands::reload)));
     }
 
+    /** Reached only from a server console (clients intercept these locally). */
+    private static int clientOnly(CommandContext<CommandSourceStack> ctx) {
+        ctx.getSource().sendFailure(Component.translatable("voicecast.cmd.client_only"));
+        return 0;
+    }
+
     private static VoiceCastServer server() {
         return VoiceCastServer.INSTANCE;
     }
@@ -82,13 +95,18 @@ public final class VoiceCastServerCommands {
         for (Map.Entry<String, String> e : s.engineStateSnapshot().entrySet()) {
             lines.add("  engine " + e.getKey() + " = " + e.getValue());
         }
-        lines.add("registered engines: " + String.join(", ", RecognizerRegistry.ids()));
+        lines.add("catalog: " + s.catalogModelIds().size() + " model(s)");
         send(ctx, lines);
         return Command.SINGLE_SUCCESS;
     }
 
     private static int engineList(CommandContext<CommandSourceStack> ctx) {
-        send(ctx, List.of("engines: " + String.join(", ", RecognizerRegistry.ids())));
+        List<String> lines = new ArrayList<>();
+        lines.add("models (declaration order = language-default precedence):");
+        for (String line : server().catalogSummary()) {
+            lines.add("  " + line);
+        }
+        send(ctx, lines);
         return Command.SINGLE_SUCCESS;
     }
 
@@ -96,7 +114,7 @@ public final class VoiceCastServerCommands {
         String id = StringArgumentType.getString(ctx, "id");
         if (!server().isValidEngineId(id)) {
             ctx.getSource().sendFailure(Component.literal("Unknown engine '" + id
-                    + "' (registered: " + String.join(", ", RecognizerRegistry.ids()) + ")"));
+                    + "' (catalog: " + String.join(", ", server().catalogModelIds()) + ")"));
             return 0;
         }
         server().setDefaultEngine(id);

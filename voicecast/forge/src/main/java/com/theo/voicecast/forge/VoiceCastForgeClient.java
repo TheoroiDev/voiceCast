@@ -1,7 +1,9 @@
 package com.theo.voicecast.forge;
 
 import com.mojang.brigadier.Command;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import com.theo.voicecast.VoiceCast;
+import com.theo.voicecast.client.EnginePicker;
 import com.theo.voicecast.client.VoiceCastClient;
 import com.theo.voicecast.client.VoiceCastClientDebug;
 import com.theo.voicecast.client.hud.VoiceCastHud;
@@ -21,8 +23,8 @@ import java.util.List;
  * Client wiring on Forge. PTT is now driven externally (WizardReal: hold a
  * staff and right-click), so no key binding is registered here. We init
  * the client, tick the pipeline, render the waveform HUD, and register the
- * client debug commands ({@code /voicecast verbose|debugwav|status|engine list},
- * voiceCast#28).
+ * client command tree ({@code /voicecast settings|verbose|debugwav|status|
+ * engine [id|language]}, voiceCast#28).
  */
 @Mod.EventBusSubscriber(modid = VoiceCast.MOD_ID, value = Dist.CLIENT)
 public final class VoiceCastForgeClient {
@@ -45,6 +47,11 @@ public final class VoiceCastForgeClient {
     @SubscribeEvent
     public static void onRegisterClientCommands(RegisterClientCommandsEvent event) {
         event.getDispatcher().register(Commands.literal("voicecast")
+                .then(Commands.literal("settings")
+                        .executes(ctx -> {
+                            EnginePicker.openScreen();
+                            return Command.SINGLE_SUCCESS;
+                        }))
                 .then(Commands.literal("verbose")
                         .executes(ctx -> send(ctx.getSource(), VoiceCastClientDebug.toggleVerbose())))
                 .then(Commands.literal("debugwav")
@@ -52,8 +59,18 @@ public final class VoiceCastForgeClient {
                 .then(Commands.literal("status")
                         .executes(ctx -> send(ctx.getSource(), VoiceCastClientDebug.status())))
                 .then(Commands.literal("engine")
+                        .executes(ctx -> {
+                            EnginePicker.currentEngineFeedback();
+                            return Command.SINGLE_SUCCESS;
+                        })
                         .then(Commands.literal("list")
-                                .executes(ctx -> send(ctx.getSource(), VoiceCastClientDebug.engines())))));
+                                .executes(ctx -> send(ctx.getSource(), VoiceCastClientDebug.engines())))
+                        .then(Commands.argument("engine", StringArgumentType.word())
+                                .executes(ctx -> {
+                                    EnginePicker.requestResolved(
+                                            StringArgumentType.getString(ctx, "engine"));
+                                    return Command.SINGLE_SUCCESS;
+                                }))));
     }
 
     private static int send(CommandSourceStack source, List<String> lines) {

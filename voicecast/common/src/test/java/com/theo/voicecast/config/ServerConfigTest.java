@@ -7,13 +7,14 @@ import java.nio.file.Path;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Server config loading: {@code [engines].allowed} migrations and engine id
- * validation. All vosk-family legacy whitelists upgrade to the sherpa builtin
- * set in one cascade. Customized whitelists keep their custom ids but vosk
- * family ids inside them normalize to sherpa equivalents.
+ * Server config loading, v0 semantics: no migrations (AGENTS §3). Engine ids
+ * are models.json v2 model names; an empty {@code [engines] allowed} list
+ * means every catalog model is allowed; unknown entries are kept verbatim
+ * (they simply never match a catalog model).
  */
 class ServerConfigTest {
 
@@ -24,90 +25,49 @@ class ServerConfigTest {
         return runDir.resolve("config/voicecast/voicecast.toml");
     }
 
-    private static void seed(Path runDir, String section, String key, List<String> values) {
+    private static void seedAllowed(Path runDir, List<String> values) {
         Toml toml = Toml.load(tomlFile(runDir));
-        toml.setStringList(section, key, values);
-        toml.save(tomlFile(runDir));
-    }
-
-    private static void seedDefaultEngine(Path runDir, String engine) {
-        Toml toml = Toml.load(tomlFile(runDir));
-        toml.setString("server", "defaultEngine", engine);
+        toml.setStringList("engines", "allowed", values);
         toml.save(tomlFile(runDir));
     }
 
     @Test
-    void freshInstallGetsFullWhitelist() {
+    void freshInstallAllowsEverythingViaEmptyList() {
         ServerConfig c = ServerConfig.load(runDir);
-        assertEquals(ServerConfig.DEFAULT_ALLOWED_ENGINES, c.allowedEngines);
-        assertTrue(c.allowedEngines.containsAll(java.util.List.of(
-                "sherpa-zh-en", "sherpa-sensevoice", "ipa-phonemes")));
+        assertTrue(c.allowedEngines.isEmpty(), "default whitelist is empty (= all catalog models)");
+        assertTrue(c.engineAllowed("any-model-name"));
+        assertTrue(c.engineAllowed("sherpa-zipformer-bilingual-zh-en-int8"));
     }
 
-    /** All pre-0.4.0 vosk-family default whitelists cascade to the sherpa set. */
     @Test
-    void preSherpaDefaultWhitelistsAreUpgraded() {
-        // 0.3.x ids
-        seed(runDir, "engines", "allowed", List.of("vosk-en", "vosk-cn", "vosk-jp", "vosk-kr", "ipa-phonemes"));
+    void customAllowlistIsExact() {
+        seedAllowed(runDir, List.of("my-small", "wav2vec2-espeak-ipa"));
         ServerConfig c = ServerConfig.load(runDir);
-        assertEquals(ServerConfig.DEFAULT_ALLOWED_ENGINES, c.allowedEngines);
+        assertEquals(List.of("my-small", "wav2vec2-espeak-ipa"), c.allowedEngines);
+        assertTrue(c.engineAllowed("my-small"));
+        assertFalse(c.engineAllowed("my-other"), "non-listed engines are refused");
+    }
 
-        // 0.4.0 intermediate (two-letter vosk codes)
-        seed(runDir, "engines", "allowed", List.of("vosk-en", "vosk-zh", "vosk-ja", "vosk-ko", "ipa-phonemes"));
+    @Test
+    void unknownIdsPassThroughUnchanged() {
+        seedAllowed(runDir, List.of("vosk-en", "whatever-id"));
+        ServerConfig c = ServerConfig.load(runDir);
+        assertEquals(List.of("vosk-en", "whatever-id"), c.allowedEngines,
+                "v0: entries are kept verbatim, no normalization");
+    }
+
+    @Test
+    void defaultEngineKeptVerbatimAndBlankBecomesEmpty() {
+        Toml toml = Toml.load(tomlFile(runDir));
+        toml.setString("server", "defaultEngine", "  My-Small  ");
+        toml.save(tomlFile(runDir));
+        ServerConfig c = ServerConfig.load(runDir);
+        assertEquals("my-small", c.engine, "trimmed + lowercased, resolution happens against the catalog");
+
+        Toml t2 = Toml.load(tomlFile(runDir));
+        t2.setString("server", "defaultEngine", "   ");
+        t2.save(tomlFile(runDir));
         c = ServerConfig.load(runDir);
-        assertEquals(ServerConfig.DEFAULT_ALLOWED_ENGINES, c.allowedEngines);
-    }
-
-    @Test
-    void voskTextDefaultWhitelistIsUpgraded() {
-        seed(runDir, "engines", "allowed",
-                List.of("vosk-text", "vosk-en", "vosk-cn", "vosk-jp", "vosk-kr", "ipa-phonemes"));
-        ServerConfig c = ServerConfig.load(runDir);
-        assertEquals(ServerConfig.DEFAULT_ALLOWED_ENGINES, c.allowedEngines);
-    }
-
-    @Test
-    void customizedWhitelistKeepsCustomButNormalizesVosk() {
-        seed(runDir, "engines", "allowed", List.of("vosk-text", "ipa-phonemes", "my-custom-engine"));
-        ServerConfig c = ServerConfig.load(runDir);
-        assertEquals(List.of("sherpa-zh-en", "ipa-phonemes", "my-custom-engine"), c.allowedEngines);
-    }
-
-    @Test
-    void customizedWhitelistIsLeftAlone() {
-        List<String> custom = List.of("ipa-phonemes", "my-custom-engine");
-        seed(runDir, "engines", "allowed", custom);
-        ServerConfig c = ServerConfig.load(runDir);
-        assertEquals(custom, c.allowedEngines);
-    }
-
-    @Test
-    void voskIdsInCustomWhitelistNormalizeToSherpa() {
-        seed(runDir, "engines", "allowed", List.of("vosk-en-us", "vosk-zh-cn", "vosk-cn", "ipa-phonemes"));
-        ServerConfig c = ServerConfig.load(runDir);
-        assertEquals(List.of("sherpa-zh-en", "ipa-phonemes"), c.allowedEngines);
-        assertTrue(c.engineAllowed("sherpa-zh-en"));
-    }
-
-    @Test
-    void voskDefaultEngineMigratesToSherpa() {
-        seedDefaultEngine(runDir, "vosk-cn");
-        ServerConfig c = ServerConfig.load(runDir);
-        assertEquals("sherpa-zh-en", c.engine);
-        assertTrue(c.engineAllowed("sherpa-zh-en"));
-    }
-
-    @Test
-    void legacyDefaultEngineIsNormalized() {
-        seedDefaultEngine(runDir, "vosk-zh-cn");
-        ServerConfig c = ServerConfig.load(runDir);
-        assertEquals("sherpa-zh-en", c.engine);
-    }
-
-    @Test
-    void unknownDefaultEngineFallsBackToSherpa() {
-        seedDefaultEngine(runDir, "vosk-ru-ru");
-        ServerConfig c = ServerConfig.load(runDir);
-        assertEquals("sherpa-zh-en", c.engine);
+        assertEquals("", c.engine, "blank defaultEngine = catalog default");
     }
 }

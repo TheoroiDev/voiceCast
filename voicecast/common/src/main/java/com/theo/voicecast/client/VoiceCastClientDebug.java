@@ -1,7 +1,8 @@
 package com.theo.voicecast.client;
 
-import com.theo.voicecast.api.RecognizerRegistry;
 import com.theo.voicecast.config.VoiceCastConfig;
+import com.theo.voicecast.model.ModelConfig;
+import net.minecraft.client.Minecraft;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,10 @@ public final class VoiceCastClientDebug {
     }
 
     public static List<String> engines() {
-        return lines("engines: " + String.join(", ", RecognizerRegistry.ids()));
+        Minecraft mc = Minecraft.getInstance();
+        if (mc == null || mc.gameDirectory == null) return lines("models: (catalog unavailable)");
+        ModelConfig catalog = ModelConfig.load(mc.gameDirectory.toPath());
+        return lines("models: " + String.join(", ", catalog.modelIds()));
     }
 
     private static List<String> lines(String status) {

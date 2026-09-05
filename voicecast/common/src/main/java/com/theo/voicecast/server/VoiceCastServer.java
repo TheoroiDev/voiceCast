@@ -2,7 +2,6 @@ package com.theo.voicecast.server;
 
 import com.theo.voicecast.VoiceCast;
 import com.theo.voicecast.api.Pronunciation;
-import com.theo.voicecast.api.RecognizerRegistry;
 import com.theo.voicecast.api.SpeechOptions;
 import com.theo.voicecast.api.SpeechRecognizer;
 import com.theo.voicecast.api.event.RecognizerState;
@@ -52,7 +51,7 @@ public enum VoiceCastServer {
     private ServerConfig config;
     private ModelConfig modelConfig;
     private Path runDir;
-    private String defaultEngine = "sherpa-zh-en";
+    private String defaultEngine = "";
 
     private final Map<String, EngineState> engineStates = new ConcurrentHashMap<>();
     private final Map<UUID, ServerSpeechSession> sessions = new ConcurrentHashMap<>();
@@ -67,7 +66,7 @@ public enum VoiceCastServer {
         this.runDir = mc.getServerDirectory().toPath();
         this.config = ServerConfig.load(runDir);
         this.modelConfig = ModelConfig.load(runDir);
-        this.defaultEngine = config.engine;
+        this.defaultEngine = resolveDefaultEngine();
         scheduler = Executors.newSingleThreadScheduledExecutor(r -> {
             Thread t = new Thread(r, "VoiceCast-Server-Watchdog");
             t.setDaemon(true);
@@ -116,9 +115,47 @@ public enum VoiceCastServer {
         return out;
     }
 
-    /** Whether an id is a registered engine (registry + noop). */
+    /** Whether an id selects a catalog model (or the noop pseudo-engine). */
     public boolean isValidEngineId(String id) {
-        return "noop".equals(id) || RecognizerRegistry.ids().contains(id);
+        return "noop".equals(id) || (modelConfig != null && modelConfig.resolveModel(id) != null);
+    }
+
+    /** Catalog engine ids in declaration order (for /voicecast engine list). */
+    public List<String> catalogModelIds() {
+        return modelConfig == null ? List.of() : modelConfig.engineIds();
+    }
+
+    /** One-line-per-engine catalog summary (id [lang=[...], family=...]). */
+    public List<String> catalogSummary() {
+        if (modelConfig == null) return List.of();
+        List<String> out = new ArrayList<>();
+        for (String id : modelConfig.engineIds()) {
+            out.add(id + " [lang=" + modelConfig.languagesFor(id)
+                    + ", family=" + modelConfig.familyFor(id) + "]");
+        }
+        return out;
+    }
+
+    /**
+     * Effective default engine: the configured {@code [server] defaultEngine}
+     * (model name or language code) when it resolves against the catalog,
+     * else the catalog default — the first declared model supporting zh, or
+     * simply the first declared model.
+     */
+    private String resolveDefaultEngine() {
+        String configured = config == null ? "" : config.engine.trim().toLowerCase(java.util.Locale.ROOT);
+        if (modelConfig != null) {
+            if (!configured.isEmpty() && !"noop".equals(configured)) {
+                ModelConfig.ModelEntry m = modelConfig.resolveModel(configured);
+                if (m != null) return m.id();
+                VoiceCast.LOGGER.warn("Configured defaultEngine '{}' matches no catalog model; using the catalog default", configured);
+            }
+            ModelConfig.ModelEntry zh = modelConfig.resolveModel("zh");
+            if (zh != null) return zh.id();
+            List<String> ids = modelConfig.modelIds();
+            if (!ids.isEmpty()) return ids.get(0);
+        }
+        return configured.isEmpty() ? "noop" : configured;
     }
 
     /** Runtime default-engine change (persists to voicecast.toml). */
@@ -126,8 +163,8 @@ public enum VoiceCastServer {
         if (config == null || runDir == null) return;
         this.config.engine = engine;
         this.config.save(runDir);
-        this.defaultEngine = engine;
-        VoiceCast.LOGGER.info("/voicecast: default engine set to '{}'", engine);
+        this.defaultEngine = resolveDefaultEngine();
+        VoiceCast.LOGGER.info("/voicecast: default engine set to '{}' (resolved '{}')", engine, defaultEngine);
     }
 
     /** Runtime master-switch change (persists; broadcasts the disabled state). */
@@ -166,7 +203,8 @@ public enum VoiceCastServer {
     public synchronized void reloadConfig() {
         if (server == null || runDir == null) return;
         this.config = ServerConfig.load(runDir);
-        this.defaultEngine = config.engine;
+        this.modelConfig = ModelConfig.load(runDir);
+        this.defaultEngine = resolveDefaultEngine();
         VoiceCast.LOGGER.info("/voicecast: config reloaded (default engine '{}', enabled={})",
                 defaultEngine, config.enabled);
         if (!config.enabled) broadcastState(RecognizerState.ERROR, "voicecast.state.disabled");
@@ -174,38 +212,29 @@ public enum VoiceCastServer {
 
     /** Whether the engine's configured model is a loose-files model (e.g. the IPA ONNX). */
     boolean isLooseFilesEngine(String engine) {
-        if (modelConfig == null) return "ipa-phonemes".equals(engine);
-        ModelConfig.ModelEntry e = modelConfig.modelForEngine(engine);
-        if (e != null) return ModelConfig.KIND_LOOSE_FILES.equals(e.kind());
-        return "ipa-phonemes".equals(engine); // legacy fallback before models.json existed
+        return modelConfig != null && ModelConfig.KIND_LOOSE_FILES.equals(modelConfig.kindFor(engine));
     }
 
     /** Language buckets for an engine (two-letter codes; empty = language-agnostic). */
     public List<String> engineLanguages(String engine) {
-        if (modelConfig != null) {
-            List<String> declared = modelConfig.languagesForEngine(engine);
-            if (!declared.isEmpty()) return declared;
-            String single = modelConfig.languageForEngine(engine);
-            if (single != null && !single.isBlank()) return List.of(single);
-        }
-        return List.of();
+        return modelConfig == null ? List.of() : modelConfig.languagesFor(engine);
     }
 
     /**
      * Resolve the model directory for an engine (download/extract when needed).
-     * Dispatch by the configured model kind — vosk-archive is no longer a
-     * builtin family (vosk removed in 0.4.0).
+     * Dispatch by the configured model kind — loose-files (IPA) or
+     * sherpa-archive (tar.bz2 with tokens + onnx files).
      */
     Path resolveEngineModelDir(String engine) throws Exception, InterruptedException {
-        ModelConfig.ModelEntry entry = modelConfig == null ? null : modelConfig.modelForEngine(engine);
+        ModelConfig.ModelEntry entry = modelConfig == null ? null : modelConfig.model(engine);
         String kind = entry == null ? null : entry.kind();
         if (ModelConfig.KIND_LOOSE_FILES.equals(kind)) {
-            return IpaModel.directory(runDir, entry != null ? entry.id() : ModelConfig.MODEL_IPA);
+            return IpaModel.directory(runDir, entry.id());
         }
         if (ModelConfig.KIND_SHERPA_ARCHIVE.equals(kind)) {
             return SherpaModel.resolveOrDownload(runDir, modelConfig, entry,
                     (done, total) -> broadcastState(RecognizerState.LOADING,
-                            "voicecast.state.downloading_vosk", SherpaModel.describeSize(done)));
+                            "voicecast.state.downloading_model", SherpaModel.describeSize(done)));
         }
         throw new java.io.IOException("Unsupported model kind for engine '"
                 + engine + "': " + kind);
@@ -213,19 +242,18 @@ public enum VoiceCastServer {
 
     /** Family-lookup recognizer creation for a session (voiceCast#42 §2.3). */
     SpeechRecognizer createRecognizer(String engine) {
-        String type = modelConfig == null ? null : modelConfig.typeForEngine(engine);
-        if (type == null) type = isLooseFilesEngine(engine) ? "ipa" : null;
-        EngineSpec.RecognizerFactory factory = type == null ? null : EngineFamilies.get(type);
+        String family = modelConfig == null ? null : modelConfig.familyFor(engine);
+        EngineSpec.RecognizerFactory factory = family == null ? null : EngineFamilies.get(family);
         if (factory == null) {
             throw new IllegalStateException("Unsupported engine family for '" + engine
-                    + "' (type=" + type + "; registered families: "
+                    + "' (family=" + family + "; registered families: "
                     + EngineFamilies.types() + ")");
         }
         try {
             Path modelDir = resolveEngineModelDir(engine);
-            EngineSpec spec = new EngineSpec(type, engine, modelDir,
-                    modelConfig != null ? modelConfig.languagesForEngine(engine) : List.of(),
-                    modelConfig != null ? modelConfig.optionsForEngine(engine) : Map.of());
+            EngineSpec spec = new EngineSpec(family, engine, modelDir,
+                    modelConfig != null ? modelConfig.languagesFor(engine) : List.of(),
+                    modelConfig != null ? modelConfig.optionsFor(engine) : Map.of());
             return factory.create(spec);
         } catch (Exception e) {
             throw new RuntimeException("Recognizer creation failed for engine '" + engine + "'", e);
@@ -250,26 +278,25 @@ public enum VoiceCastServer {
             // Dispatch by the configured model kind (models.json): loose-files
             // (IPA ONNX) or sherpa-archive (tar.bz2 with tokens + onnx files).
             if (isLooseFilesEngine(engine)) {
-                ModelConfig.ModelEntry entry = modelConfig.modelForEngine(engine);
+                ModelConfig.ModelEntry entry = modelConfig.model(engine);
                 Path dir;
                 if (config.autoDownload) {
                     if (entry == null) throw new java.io.IOException("No model configured for engine " + engine);
                     dir = IpaModel.resolveOrDownload(runDir, modelConfig, entry, (done, total) ->
                             broadcastState(RecognizerState.LOADING, "voicecast.state.downloading_ipa", SherpaModel.describeSize(done)));
                 } else {
-                    dir = IpaModel.directory(runDir, entry != null ? entry.id() : ModelConfig.MODEL_IPA);
+                    dir = IpaModel.directory(runDir, entry.id());
                     if (!IpaModel.isValidModelDir(dir))
                         throw new java.io.IOException("IPA model missing and autoDownload=false");
                 }
                 IpaShared.getOrLoad(dir);
             } else if (modelConfig != null
-                    && ModelConfig.KIND_SHERPA_ARCHIVE.equals(
-                        modelConfig.entryKind(engine))) {
-                ModelConfig.ModelEntry entry = modelConfig.modelForEngine(engine);
+                    && ModelConfig.KIND_SHERPA_ARCHIVE.equals(modelConfig.kindFor(engine))) {
+                ModelConfig.ModelEntry entry = modelConfig.model(engine);
                 if (config.autoDownload) {
                     if (entry == null) throw new java.io.IOException("No model configured for engine " + engine);
                     SherpaModel.resolveOrDownload(runDir, modelConfig, entry, (done, total) ->
-                            broadcastState(RecognizerState.LOADING, "voicecast.state.downloading_vosk", SherpaModel.describeSize(done)));
+                            broadcastState(RecognizerState.LOADING, "voicecast.state.downloading_model", SherpaModel.describeSize(done)));
                 } else {
                     Path dir = runDir.resolve("config/voicecast/models").resolve(entry.id());
                     if (!SherpaModel.isValidModelDir(dir))
@@ -347,7 +374,7 @@ public enum VoiceCastServer {
             notifyDenied(sp);
             return;
         }
-        if (!com.theo.voicecast.config.ClientVoiceConfig.isValidEngine(engine)) {
+        if (!"noop".equals(engine) && (modelConfig == null || modelConfig.resolveModel(engine) == null)) {
             VoiceCast.LOGGER.warn("Ignoring invalid engine '{}' from {}", engine, player.getName().getString());
             return;
         }

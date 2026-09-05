@@ -15,8 +15,6 @@ import java.nio.file.Path;
  * URLs/constraints come from {@link ModelConfig} ({@code config/voicecast/models.json}).
  */
 public final class IpaModel {
-    public static final String MODEL_ID = ModelConfig.MODEL_IPA;
-
     /** Required weights: block-wise int4 from the official repo (~230 MB). */
     public static final String Q4_FILE = "model_q4.onnx";
     public static final String VOCAB_FILE = "vocab.json";
