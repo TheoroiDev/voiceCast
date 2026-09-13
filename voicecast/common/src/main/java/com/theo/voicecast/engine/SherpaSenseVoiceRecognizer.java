@@ -58,7 +58,10 @@ public final class SherpaSenseVoiceRecognizer extends AbstractBufferedRecognizer
     @Override public String displayName() { return "sherpa SenseVoice (offline, 5-language)"; }
 
     private static OfflineRecognizer shared(Path modelDir, EngineSpec spec) {
-        return SHARED.computeIfAbsent(modelDir.toAbsolutePath().normalize().toString(), dir -> {
+        // cache key includes the language option: a pinned language loads its
+        // own shared instance (auto and pinned variants coexist)
+        String lang = spec.option("language", "auto");
+        return SHARED.computeIfAbsent(modelDir.toAbsolutePath().normalize() + "#" + lang, dir -> {
             try {
                 OfflineSenseVoiceModelConfig sv = OfflineSenseVoiceModelConfig.builder()
                         .setModel(modelDir.resolve(spec.option("onnx", "model.int8.onnx")).toString())
@@ -123,7 +126,9 @@ public final class SherpaSenseVoiceRecognizer extends AbstractBufferedRecognizer
         }
         try {
             var stream = shared.createStream();
-            stream.acceptWaveform(floats, floats.length);
+            // true capture rate (16 kHz) — declaring a wrong rate makes the
+            // stream resample and time-warp the utterance
+            stream.acceptWaveform(floats, 16_000);
             shared.decode(stream);
             String text = shared.getResult(stream).getText();
             stream.release();

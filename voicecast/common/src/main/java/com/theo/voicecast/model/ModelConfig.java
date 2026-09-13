@@ -1,6 +1,7 @@
 package com.theo.voicecast.model;
 
-import com.theo.voicecast.VoiceCast;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -59,6 +60,7 @@ import java.util.Map;
  * that is not valid v2 is replaced with the default catalog.
  */
 public final class ModelConfig {
+    private static final Logger LOGGER = LoggerFactory.getLogger("VoiceCast");
     public static final String FILE_NAME = "models.json";
     public static final int SCHEMA_VERSION = 2;
     /** JSON Schema artifact documenting the v2 catalog (workspace-relative). */
@@ -186,13 +188,13 @@ public final class ModelConfig {
             try {
                 loaded = cfg.read(Json.parseObject(Files.readString(file, StandardCharsets.UTF_8)));
             } catch (Exception e) {
-                VoiceCast.LOGGER.error("Failed to parse {} ({}); rewriting with defaults", file, e.toString());
+                LOGGER.error("Failed to parse {} ({}); rewriting with defaults", file, e.toString());
             }
             if (!loaded) {
-                VoiceCast.LOGGER.error("{} is not a valid v2 catalog (no migrations in v0); rewriting with defaults", file);
+                LOGGER.error("{} is not a valid v2 catalog (no migrations in v0); rewriting with defaults", file);
             }
         } else {
-            VoiceCast.LOGGER.info("No {} found; creating with default model catalog", file);
+            LOGGER.info("No {} found; creating with default model catalog", file);
         }
         if (!loaded) cfg.readDefaults();
         cfg.save();
@@ -235,7 +237,7 @@ public final class ModelConfig {
                         Json.getBool(f, "optional", false)));
             }
             if (urls.isEmpty() && files.isEmpty()) {
-                VoiceCast.LOGGER.warn("Model '{}' has no urls/files; ignoring", id);
+                LOGGER.warn("Model '{}' has no urls/files; ignoring", id);
                 continue;
             }
 
@@ -325,7 +327,7 @@ public final class ModelConfig {
             Files.createDirectories(file.getParent());
             Files.writeString(file, Json.write(root), StandardCharsets.UTF_8);
         } catch (IOException e) {
-            VoiceCast.LOGGER.warn("Failed to write {}", file, e);
+            LOGGER.warn("Failed to write {}", file, e);
         }
     }
 

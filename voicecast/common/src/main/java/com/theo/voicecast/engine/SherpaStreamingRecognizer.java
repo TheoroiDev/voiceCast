@@ -42,6 +42,8 @@ import java.util.Locale;
  */
 public final class SherpaStreamingRecognizer implements SpeechRecognizer {
     private static final Logger LOGGER = LoggerFactory.getLogger("VoiceCast");
+    /** Capture sample rate — MUST be passed as the true rate to acceptWaveform. */
+    public static final int SAMPLE_RATE = 16_000;
 
     private final EngineSpec spec;
     private final List<Pronunciation> vocabulary = new ArrayList<>();
@@ -166,7 +168,11 @@ public final class SherpaStreamingRecognizer implements SpeechRecognizer {
         for (int i = 0; i < length; i++) {
             floats[i] = samples[offset + i] / 32768.0f;
         }
-        stream.acceptWaveform(floats, length);
+        // Second arg is the SAMPLE RATE, not the length: declaring the chunk
+        // size here made sherpa resample every 200 ms chunk (3200 "Hz") into
+        // 1 s of slowed audio (production) / whole files into speed-up audio
+        // (bench) — transcripts truncated or missing entirely.
+        stream.acceptWaveform(floats, (int) SAMPLE_RATE);
         while (recognizer.isReady(stream)) {
             recognizer.decode(stream);
         }

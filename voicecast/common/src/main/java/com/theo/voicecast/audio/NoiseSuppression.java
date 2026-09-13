@@ -5,8 +5,9 @@ import com.k2fsa.sherpa.onnx.OfflineSpeechDenoiserGtcrnModelConfig;
 import com.k2fsa.sherpa.onnx.OfflineSpeechDenoiserModelConfig;
 import com.k2fsa.sherpa.onnx.OnlineSpeechDenoiser;
 import com.k2fsa.sherpa.onnx.OnlineSpeechDenoiserConfig;
-import com.theo.voicecast.VoiceCast;
 import com.theo.voicecast.model.ModelConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.theo.voicecast.model.ModelManager;
 
 import java.nio.file.Files;
@@ -29,6 +30,7 @@ import java.util.Deque;
  * (warned once) so casting never breaks because of the denoiser.
  */
 public final class NoiseSuppression {
+    private static final Logger LOGGER = LoggerFactory.getLogger("VoiceCast");
     /** Utility models are tiny; a stalled download should not block PTT long. */
     private static final int SR = 16_000;
 
@@ -49,7 +51,7 @@ public final class NoiseSuppression {
     public static NoiseSuppression create(Path gameDir, ModelConfig config) {
         ModelConfig.ModelEntry entry = config.denoiserModel();
         if (entry == null) {
-            VoiceCast.LOGGER.info("noiseSuppression enabled but the catalog has no denoiser model");
+            LOGGER.info("noiseSuppression enabled but the catalog has no denoiser model");
             return null;
         }
         try {
@@ -76,10 +78,10 @@ public final class NoiseSuppression {
                                     .setProvider("cpu")
                                     .build())
                             .build());
-            VoiceCast.LOGGER.info("Noise suppression ready (model {})", entry.id());
+            LOGGER.info("Noise suppression ready (model {})", entry.id());
             return new NoiseSuppression(denoiser);
         } catch (Throwable t) {
-            VoiceCast.LOGGER.warn("Failed to initialize noise suppression (continuing without)", t);
+            LOGGER.warn("Failed to initialize noise suppression (continuing without)", t);
             return null;
         }
     }
@@ -109,7 +111,7 @@ public final class NoiseSuppression {
             }
         } catch (Throwable t) {
             degraded = true;
-            VoiceCast.LOGGER.warn("Noise suppression failed; passing mic audio through unprocessed", t);
+            LOGGER.warn("Noise suppression failed; passing mic audio through unprocessed", t);
         }
     }
 
@@ -121,7 +123,7 @@ public final class NoiseSuppression {
                 denoiser.reset();
             } catch (Throwable t) {
                 degraded = true;
-                VoiceCast.LOGGER.warn("Noise suppression reset failed; passing through", t);
+                LOGGER.warn("Noise suppression reset failed; passing through", t);
             }
         }
     }
