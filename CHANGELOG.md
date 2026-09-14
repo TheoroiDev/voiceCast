@@ -6,6 +6,8 @@ English primary; Chinese mirror: [CHANGELOG.zh.md](CHANGELOG.zh.md) (keep both i
 
 ### Features
 
+- breaking: IPA CTC posterior calibration (R3/R5 port): vocabulary templates score forward-log-prob per token (lp/L) against a raw frame-sum null competitor, and multi-word templates concatenate instead of being dropped when the model vocab has no word-marker token — on the production-scale vocabulary this cuts non-spell false-accepts from 82% to 2.6% at the retuned default threshold (0.6 semantics are void under the new per-token scale; downstream `FORWARD_MATCH_THRESHOLD` moves 0.6 -> 0.10 and pre-existing per-spell threshold overrides must be re-tuned)
+
 - Optional microphone noise suppression (`[client] noiseSuppression`, default off): streaming GTCRN speech enhancement (sherpa-onnx, 16 kHz native, ~523 KB model auto-downloaded through the catalog) applied to the recognition path only — what other players hear through Simple Voice Chat is unaffected; any denoiser failure degrades to clean passthrough
 - models.json v2 catalog — the model catalog IS the engine list (voicecast#42): one model = one engine, the model name doubles as the engine id and the model directory name; per-language defaults follow declaration order (the first declared model supporting a language wins); selection accepts model names and two-letter language codes / common language names (`/voicecast engine en`, `zh`, `japanese`); addons can declare custom engine families via `properties.family` + the engine family SPI; the engine selection screen and `/voicecast engine list` are generated from the catalog
 

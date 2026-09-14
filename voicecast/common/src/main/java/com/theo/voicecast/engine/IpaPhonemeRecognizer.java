@@ -150,31 +150,48 @@ public final class IpaPhonemeRecognizer extends AbstractBufferedRecognizer {
      * CTC forward score of every vocabulary template against this utterance,
      * softmaxed (with the "nothing said" null path as a competitor) into
      * posterior probabilities keyed by pronunciation id.
+     *
+     * <p>Token-length calibration (R3, docs/ipa/ipa-backtest.md 2026-09-13/15):
+     * each template's score is its forward log-prob DIVIDED by the mapped
+     * target token count L (the quantity the automaton actually scored); the
+     * null competitor stays a raw frame-sum (it emits zero tokens, per-token
+     * division is undefined). Without this, frame-sum scores saturate: on the
+     * production-scale vocabulary, non-spell speech false-accepted at 82% and
+     * the threshold had no usable operating point. With it (threshold 0.10):
+     * 2.6% false-accept, positive recall +1.5pp.
      */
     private Map<String, Float> scoreVocabulary(IpaShared shared, float[][] logProb) {
         List<Prepared> templates = ensurePrepared(shared);
         if (templates.isEmpty()) return Map.of();
         try {
             double nullLp = IpaShared.nullLogProb(logProb);
-            Map<String, Double> bestLp = new LinkedHashMap<>();
+            Map<String, double[]> best = new LinkedHashMap<>(); // id -> {bestLp, bestLen}
             for (Prepared p : templates) {
-                double best = Double.NEGATIVE_INFINITY;
+                double bestLp = Double.NEGATIVE_INFINITY;
+                int bestLen = 0;
                 for (int[] target : p.targets()) {
                     double lp = IpaShared.targetLogProb(logProb, target);
-                    if (lp > best) best = lp;
+                    if (lp > bestLp) {
+                        bestLp = lp;
+                        bestLen = target.length;
+                    }
                 }
-                if (best != Double.NEGATIVE_INFINITY) {
-                    bestLp.merge(p.id(), best, Math::max);
+                if (bestLp != Double.NEGATIVE_INFINITY) {
+                    best.merge(p.id(), new double[]{bestLp, bestLen},
+                            (a, b) -> a[0] >= b[0] ? a : b);
                 }
             }
-            if (bestLp.isEmpty()) return Map.of();
+            if (best.isEmpty()) return Map.of();
             double max = nullLp;
-            for (double v : bestLp.values()) if (v > max) max = v;
+            for (double[] v : best.values()) {
+                double norm = v[0] / Math.max(1, v[1]);
+                if (norm > max) max = norm;
+            }
             double denom = Math.exp(nullLp - max);
-            for (double v : bestLp.values()) denom += Math.exp(v - max);
+            for (double[] v : best.values()) denom += Math.exp(v[0] / Math.max(1, v[1]) - max);
             Map<String, Float> out = new LinkedHashMap<>();
-            for (Map.Entry<String, Double> e : bestLp.entrySet()) {
-                out.put(e.getKey(), (float) (Math.exp(e.getValue() - max) / denom));
+            for (Map.Entry<String, double[]> e : best.entrySet()) {
+                out.put(e.getKey(), (float) (Math.exp(e.getValue()[0] / Math.max(1, e.getValue()[1]) - max) / denom));
             }
             if (com.theo.voicecast.config.VoiceCastConfig.INSTANCE.verboseLogging) {
                 LOGGER.info("[IPA CTC] null={} {}", String.format(java.util.Locale.ROOT, "%.3f",
@@ -210,16 +227,20 @@ public final class IpaPhonemeRecognizer extends AbstractBufferedRecognizer {
         }
     }
 
-    /** Template IPA string -> model token ids; whitespace becomes the '|' word marker. */
-    private static int[] mapTemplate(IpaShared shared, String template) {
+    /**
+     * Template IPA string -> model token ids. With a word-marker token in the
+     * model vocab, whitespace maps to it; WITHOUT one (the current espeak
+     * vocab.json has no "|"), multi-word templates are CONCATENATED into a
+     * continuous stream instead of dropped — the CTC automaton absorbs
+     * inter-word transitions via blanks (R3 前置条件①, unlocks the G2P chant
+     * drafts: mappable templates 18 -> 880 on the lab bench).
+     */
+    static int[] mapTemplate(IpaShared shared, String template) {
         List<Integer> ids = new ArrayList<>();
+        int sep = shared.tokenId("|");
         for (String part : template.split("\\s+")) {
             if (part.isBlank()) continue;
-            if (!ids.isEmpty()) {
-                int sep = shared.tokenId("|");
-                if (sep < 0) break; // no word marker in vocab: drop multi-part templates
-                ids.add(sep);
-            }
+            if (!ids.isEmpty() && sep >= 0) ids.add(sep);
             for (String tok : IpaText.tokenize(part)) {
                 int id = shared.tokenId(tok);
                 if (id < 0) {
