@@ -55,6 +55,10 @@ public enum VoiceCastServer {
 
     private final Map<String, EngineState> engineStates = new ConcurrentHashMap<>();
     private final Map<UUID, ServerSpeechSession> sessions = new ConcurrentHashMap<>();
+    /** Casting-time mode declarations (0.5.0, issue #30/D-1) for players
+     *  whose session does not exist yet (declared before the first voice
+     *  packet); applied when the session is created, dropped on quit. */
+    private final Map<UUID, ModeDeclaration> castModes = new ConcurrentHashMap<>();
     private final Set<UUID> deniedNotified = ConcurrentHashMap.newKeySet();
     private volatile Collection<Pronunciation> vocabulary = java.util.List.of();
     private volatile com.theo.voicecast.api.AccessCheck accessCheck;
@@ -399,7 +403,29 @@ public enum VoiceCastServer {
         if (!(player instanceof ServerPlayer sp)) return;
         ServerSpeechSession s = sessions.remove(sp.getUUID());
         if (s != null) s.dispose();
+        castModes.remove(sp.getUUID());
     }
+
+    /** Casting-time mode declaration (0.5.0, issue #30/D-1): the game-side
+     *  integration (wizardreal) declares the player's routing mode through
+     *  this entry — free casting = {@link CastMode#OPEN}, ladder chant =
+     *  {@link CastMode#CHANT_CONFIRM} + the current spell. {@code mode ==
+     *  null} clears the declaration (full vocabulary). The declaration
+     *  outlives session rebuilds (engine switches; reconnects until quit)
+     *  and reaches sessions that are created later. Safe from any thread. */
+    public void setCastMode(Player player, CastMode mode, Collection<String> spellIds) {
+        if (!(player instanceof ServerPlayer sp)) return;
+        List<String> ids = spellIds == null ? List.of() : List.copyOf(spellIds);
+        if (mode == null) {
+            castModes.remove(sp.getUUID());
+        } else {
+            castModes.put(sp.getUUID(), new ModeDeclaration(mode, ids));
+        }
+        ServerSpeechSession s = sessions.get(sp.getUUID());
+        if (s != null) s.setCastMode(mode, ids);
+    }
+
+    private record ModeDeclaration(CastMode mode, List<String> spellIds) {}
 
     /**
      * Install a pluggable access decision (permission-mod bridge). When set it
@@ -431,6 +457,8 @@ public enum VoiceCastServer {
         return sessions.computeIfAbsent(player.getUUID(), id -> {
             VoiceCast.LOGGER.info("Creating speech session for {}", player.getName().getString());
             ServerSpeechSession s = new ServerSpeechSession(player, defaultEngine);
+            ModeDeclaration mode = castModes.get(id);
+            if (mode != null) s.setCastMode(mode.mode(), mode.spellIds());
             s.setVocabulary(vocabulary);
             return s;
         });

@@ -35,6 +35,8 @@
 - breaking：`Pronunciation` 新增按语言分桶的别名（`languages()`，两位码 en/zh/ja/ko）；平铺构造器保留（deprecated），其别名构成 legacy 桶、进入所有引擎 grammar；服务端按会话选中引擎的语言路由词表——引擎决定桶
 - breaking：引擎 id 即目录模型名；deprecated 的 `ENGINE_*` 常量与 normalize 别名表已移除——请改用 `ModelConfig.resolveModel(...)`（精确名，其次按声明序的语言码）
 - 新增：引擎族 SPI——`EngineFamilies.register(type, RecognizerFactory)`（`com.theo.voicecast.api.engine`），附属 mod 可注册自己的识别族，经 models.json 的 `properties.family` 选用；内置族：`sherpa-streaming`、`sherpa-sensevoice`、`ipa`（voicecast#19）
+- 新增：施法期词表路由 API（D-15 四模式定稿，wizardreal#30）：`CastMode`（OPEN / CHANT_CONFIRM / PRACTICE_CONFIRM / GRAY_NARROW）与 `VoiceCastServer.setCastMode(player, mode, spellIds)`，玩法侧集成据此声明玩家识别 grammar 的内容——OPEN = 全词表（保留该模式 id，供集成显式声明自由施法）；CHANT_CONFIRM = 声明法术的全部别名（阶梯咏唱进行中）；PRACTICE_CONFIRM = 同形态，供练习入口（M4）；GRAY_NARROW = 声明 + top-3 混淆邻居（随包资产 `assets/voicecast/confusion_neighbors.tsv`，源自 M2E 红黄账本）；per-mode CTC forward 阈值随包为 `assets/voicecast/mode_thresholds.tsv`（首批镜像出厂 0.10 常数，重标定行落盘即生效、不改代码）。无语言引擎（ipa-phonemes、noop）永不参与模式路由——IPA 线维持全词表；未声明任何模式的会话与 0.5.0 前路由逐位一致
+- OPEN 维持全词表（P30 复验后监工裁决）：0.5.0 的候选集定义"触发语 + 释放语别名"已回退——生产语义复验（S9ProductionRematch harness）表明 SpellMatcher 的 Phonetics 层会把缩圈后的 OPEN 误触发"重排"而非消除；四模式机制本身不变
 
 ### Protocol
 

@@ -12,6 +12,7 @@ import com.theo.voicecast.api.engine.EngineFamilies;
 import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Deque;
+import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -36,6 +37,11 @@ public final class ServerSpeechSession {
     private volatile String engine;
     private SpeechRecognizer recognizer;
     private Collection<Pronunciation> vocabulary = java.util.List.of();
+    // Casting-time mode (0.5.0, issue #30/D-15): null = no declaration, the
+    // pre-#30 full-vocabulary routing. Declared by the game-side integration
+    // (free casting = OPEN, ladder chant = CHANT_CONFIRM + the spell).
+    private volatile CastMode castMode;
+    private volatile List<String> castSpellIds = java.util.List.of();
     private long lastFrameMs;
     private boolean active; // recognizer built and live for the current engine
     private String activeEngine; // engine the current recognizer was built for
@@ -92,10 +98,30 @@ public final class ServerSpeechSession {
         });
     }
 
-    /** Vocabulary routed for this session's engine language: bucket ∪ legacy
-     * (D-A2 — the selected engine decides which aliases it can hear). */
+    /**
+     * Declare the player's casting-time mode (issue #30/D-1): the recognizer
+     * grammar is re-routed to the mode's candidate set. {@code null} mode =
+     * no declaration (full vocabulary, the pre-#30 behavior). Safe from any
+     * thread; the re-route runs on the session worker.
+     */
+    void setCastMode(CastMode mode, Collection<String> spellIds) {
+        this.castMode = mode;
+        this.castSpellIds = spellIds == null ? java.util.List.of() : List.copyOf(spellIds);
+        worker.submit(() -> {
+            SpeechRecognizer r = recognizer();
+            if (r != null) r.setVocabulary(routedVocabulary());
+        });
+    }
+
+    /** Vocabulary routed for this session: the cast-mode candidate set
+     *  (0.5.0) intersected with the engine's language buckets (D-A2).
+     *  Language-agnostic engines (ipa-phonemes, noop) are never mode-routed —
+     *  the IPA line stays full-vocabulary (issue #30 D5). */
     private Collection<Pronunciation> routedVocabulary() {
-        return VocabularyRouter.forLanguages(vocabulary, VoiceCastServer.INSTANCE.engineLanguages(engine));
+        List<String> languages = VoiceCastServer.INSTANCE.engineLanguages(engine);
+        if (languages.isEmpty()) return vocabulary;
+        Collection<Pronunciation> modeRouted = VocabularyRouter.forSpells(vocabulary, castMode, castSpellIds);
+        return VocabularyRouter.forLanguages(modeRouted, languages);
     }
 
     private void ensureReady() {

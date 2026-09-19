@@ -1,0 +1,82 @@
+# confusion_neighbors.tsv - GRAY_NARROW cast-mode neighbor lists for VocabularyRouter (issue #30, D-15 mode 4).
+# Source: ipa/out.confusion_empirical/red_yellow.tsv (M2E E-2 red/yellow grading, nod-primary rate=max(critT,critM);
+#   red>5%, yellow>=1%). Project-internal calibration artifact, same provenance as assets/wizardreal/phoneme_costs.tsv;
+#   regenerate from the lab ledger, do not hand-edit the data rows.
+# Derivation (S9 harness load_neighbors, K=3): per source spell, judged ids of red+yellow pairs sorted by
+#   rate descending then judged id ascending; top-3 kept (direction: source -> the spell it is misjudged as).
+# Format: one row per source spell, tab-separated: <source spell id> <neighbor spell id up to 3>.
+wizardreal:aduro	wizardreal:silva_voco	wizardreal:anima	wizardreal:aqua_vitae
+wizardreal:aegis	wizardreal:chaos	wizardreal:falsum	wizardreal:judicium
+wizardreal:anemos	wizardreal:blade	wizardreal:aegis	wizardreal:ossum
+wizardreal:angelus	wizardreal:letum	wizardreal:silva_voco	wizardreal:anima
+wizardreal:anima	wizardreal:ferae_vocatus	wizardreal:sanare	wizardreal:silva_voco
+wizardreal:aqua_vitae	wizardreal:sanare	wizardreal:vincula	wizardreal:aegis
+wizardreal:aurae_levitas	wizardreal:volatus	wizardreal:fulmen	wizardreal:spina
+wizardreal:blade	wizardreal:silva_voco	wizardreal:aegis	wizardreal:telum
+wizardreal:carnifex	wizardreal:judicium	wizardreal:fulmen	wizardreal:procella
+wizardreal:celere	wizardreal:fulmen	wizardreal:semina	wizardreal:fulgur
+wizardreal:chaos	wizardreal:falsum	wizardreal:anima	wizardreal:blade
+wizardreal:concoctio	wizardreal:anima	wizardreal:silva_voco	wizardreal:mentis
+wizardreal:diluvium	wizardreal:mentis	wizardreal:blade	wizardreal:domain
+wizardreal:domain	wizardreal:mentis	wizardreal:blade	wizardreal:letum
+wizardreal:explosion	wizardreal:anima	wizardreal:silva_voco	wizardreal:falsum
+wizardreal:fallax	wizardreal:spina	wizardreal:terra	wizardreal:telum
+wizardreal:falsum	wizardreal:telum	wizardreal:fulmen	wizardreal:blade
+wizardreal:ferae_vocatus	wizardreal:falsum	wizardreal:sanare	wizardreal:telum
+wizardreal:flamma	wizardreal:chaos	wizardreal:blade	wizardreal:falsum
+wizardreal:flatu_signum	wizardreal:silva_voco	wizardreal:ignis	wizardreal:explosion
+wizardreal:floris	wizardreal:falsum	wizardreal:chaos	wizardreal:telum
+wizardreal:fluctus	wizardreal:blade	wizardreal:explosion	wizardreal:gurges
+wizardreal:fodere	wizardreal:blade	wizardreal:spina	wizardreal:suctus
+wizardreal:fulgur	wizardreal:aegis	wizardreal:rift	wizardreal:fulmen
+wizardreal:fulmen	wizardreal:anima	wizardreal:falsum	wizardreal:gravitas
+wizardreal:galvanum	wizardreal:fulmen	wizardreal:flamma	wizardreal:nubes
+wizardreal:glacies	wizardreal:aqua_vitae	wizardreal:fulmen	wizardreal:murus
+wizardreal:gravitas	wizardreal:lapides	wizardreal:saxum	wizardreal:tonitrus
+wizardreal:gurges	wizardreal:anima	wizardreal:sanare	wizardreal:silva_voco
+wizardreal:ignis	wizardreal:vestibulum	wizardreal:spectra	wizardreal:galvanum
+wizardreal:incendo	wizardreal:terra	wizardreal:incursus	wizardreal:vestibulum
+wizardreal:incursus	wizardreal:volatus	wizardreal:spectra	wizardreal:nubes
+wizardreal:judicium	wizardreal:mentis	wizardreal:nubes	wizardreal:sagitta
+wizardreal:lapides	wizardreal:chaos	wizardreal:nubes	wizardreal:rift
+wizardreal:letum	wizardreal:fulmen	wizardreal:spina	wizardreal:aegis
+wizardreal:lithos	wizardreal:sanare	wizardreal:vireo	wizardreal:telum
+wizardreal:lumen	wizardreal:aegis	wizardreal:anima	wizardreal:chaos
+wizardreal:lux	wizardreal:sanare	wizardreal:vireo	wizardreal:falsum
+wizardreal:mare_gradus	wizardreal:incursus	wizardreal:terra	wizardreal:letum
+wizardreal:mentis	wizardreal:semina	wizardreal:sanare	wizardreal:telum
+wizardreal:metus	wizardreal:siphon	wizardreal:spectra	wizardreal:sagitta
+wizardreal:murus	wizardreal:aduro	wizardreal:volatus	wizardreal:petra_catena
+wizardreal:mutatio	wizardreal:mentis	wizardreal:telum	wizardreal:tonitrus
+wizardreal:nubes	wizardreal:telum	wizardreal:anima	wizardreal:incursus
+wizardreal:ossum	wizardreal:anima	wizardreal:murus	wizardreal:sanare
+wizardreal:petra_catena	wizardreal:chaos	wizardreal:concoctio	wizardreal:mentis
+wizardreal:portus	wizardreal:falsum	wizardreal:spiritus	wizardreal:spectra
+wizardreal:procella	wizardreal:aegis	wizardreal:spina	wizardreal:falsum
+wizardreal:radix	wizardreal:falsum	wizardreal:spectra	wizardreal:blade
+wizardreal:rift	wizardreal:aqua_vitae	wizardreal:telum	wizardreal:blade
+wizardreal:sagitta	wizardreal:lumen	wizardreal:falsum	wizardreal:concoctio
+wizardreal:sanare	wizardreal:mentis	wizardreal:blade	wizardreal:concoctio
+wizardreal:saxum	wizardreal:anima	wizardreal:semina	wizardreal:flamma
+wizardreal:semina	wizardreal:volatus	wizardreal:explosion	wizardreal:falsum
+wizardreal:silva_voco	wizardreal:anima	wizardreal:telum
+wizardreal:siphon	wizardreal:volatus	wizardreal:semina	wizardreal:anima
+wizardreal:somnus	wizardreal:semina	wizardreal:fulmen	wizardreal:silva_voco
+wizardreal:spectra	wizardreal:falsum	wizardreal:anima	wizardreal:explosion
+wizardreal:spina	wizardreal:mentis	wizardreal:semina	wizardreal:aegis
+wizardreal:spiritus	wizardreal:falsum	wizardreal:telum	wizardreal:aqua_vitae
+wizardreal:suctus	wizardreal:blade	wizardreal:spina	wizardreal:sagitta
+wizardreal:telum	wizardreal:siphon	wizardreal:lumen	wizardreal:anima
+wizardreal:tempestas	wizardreal:silva_voco	wizardreal:falsum	wizardreal:anima
+wizardreal:terra	wizardreal:blade	wizardreal:lithos	wizardreal:fodere
+wizardreal:tonitrus	wizardreal:telum	wizardreal:ignis	wizardreal:falsum
+wizardreal:torpor	wizardreal:suctus	wizardreal:glacies	wizardreal:sanare
+wizardreal:turbo	wizardreal:aduro	wizardreal:ignis	wizardreal:telum
+wizardreal:umbra_mortis	wizardreal:mentis	wizardreal:spina	wizardreal:terra
+wizardreal:unda	wizardreal:falsum	wizardreal:spectra	wizardreal:spina
+wizardreal:velum	wizardreal:telum	wizardreal:anima	wizardreal:mentis
+wizardreal:ventus	wizardreal:falsum	wizardreal:fulmen	wizardreal:spina
+wizardreal:vestibulum	wizardreal:incursus	wizardreal:murus	wizardreal:falsum
+wizardreal:vincula	wizardreal:ventus	wizardreal:blade	wizardreal:judicium
+wizardreal:vireo	wizardreal:vincula	wizardreal:anima	wizardreal:chaos
+wizardreal:volatus	wizardreal:aurae_levitas	wizardreal:ventus	wizardreal:falsum
