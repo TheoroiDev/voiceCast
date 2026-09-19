@@ -92,7 +92,7 @@ public final class ServerSpeechSession {
 
     void setVocabulary(Collection<Pronunciation> vocab) {
         this.vocabulary = vocab == null ? java.util.List.of() : vocab;
-        worker.submit(() -> {
+        submit(() -> {
             SpeechRecognizer r = recognizer();
             if (r != null) r.setVocabulary(routedVocabulary());
         });
@@ -102,12 +102,14 @@ public final class ServerSpeechSession {
      * Declare the player's casting-time mode (issue #30/D-1): the recognizer
      * grammar is re-routed to the mode's candidate set. {@code null} mode =
      * no declaration (full vocabulary, the pre-#30 behavior). Safe from any
-     * thread; the re-route runs on the session worker.
+     * thread; the re-route runs on the session worker — after {@link #dispose()}
+     * the submission is silently dropped (same REE-tolerant path as
+     * {@link #onAudioFrame}), never thrown back at the game-thread caller.
      */
     void setCastMode(CastMode mode, Collection<String> spellIds) {
         this.castMode = mode;
         this.castSpellIds = spellIds == null ? java.util.List.of() : List.copyOf(spellIds);
-        worker.submit(() -> {
+        submit(() -> {
             SpeechRecognizer r = recognizer();
             if (r != null) r.setVocabulary(routedVocabulary());
         });
@@ -142,13 +144,15 @@ public final class ServerSpeechSession {
         try {
             SpeechRecognizer r = VoiceCastServer.INSTANCE.createRecognizer(engine);
             r.setResultSink(this::onResult);
-            VoiceCastServer.INSTANCE.configure(r, engine);
+            // configure seeds the ROUTED vocabulary before start (single
+            // setVocabulary per build — sherpa bakes hotwords at construction,
+            // a post-start set would stop+rebuild the recognizer).
+            VoiceCastServer.INSTANCE.configure(r, engine, routedVocabulary());
             if (r == null || !r.isActive()) {
                 VoiceCast.LOGGER.warn("Recognizer not active for {} ({}), will retry",
                         player.getName().getString(), engine);
                 return;
             }
-            r.setVocabulary(routedVocabulary());
             recognizer = r;
             active = true;
             activeEngine = engine;

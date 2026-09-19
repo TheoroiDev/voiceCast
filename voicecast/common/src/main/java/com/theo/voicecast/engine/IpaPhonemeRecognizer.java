@@ -261,6 +261,16 @@ public final class IpaPhonemeRecognizer extends AbstractBufferedRecognizer {
             if (!e.getKey().equals(top1Id) && e.getValue() > top2) top2 = e.getValue();
         }
         if (top1 - top2 < CTC_MARGIN) {
+            // Rejection observability (verbose only, never a decision input):
+            // the actual gap values behind a silent all-zero templateScores map.
+            if (com.theo.voicecast.config.VoiceCastConfig.INSTANCE.verboseLogging) {
+                LOGGER.info("[IPA CTC] margin reject: top1 '{}'={} top2={} gap={} < margin={}",
+                        top1Id,
+                        String.format(java.util.Locale.ROOT, "%.4f", top1),
+                        String.format(java.util.Locale.ROOT, "%.4f", top2),
+                        String.format(java.util.Locale.ROOT, "%.4f", top1 - top2),
+                        String.format(java.util.Locale.ROOT, "%.4f", CTC_MARGIN));
+            }
             posteriors.replaceAll((k, v) -> 0.0f);
         }
     }

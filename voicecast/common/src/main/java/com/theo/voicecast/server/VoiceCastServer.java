@@ -333,14 +333,18 @@ public enum VoiceCastServer {
      * {@code vosk-<langcode>} id suffix (0.4.0 two-letter codes).
      */
 
-    /** Build/start a recognizer for a session, wiring shared engine resources. */
-    void configure(SpeechRecognizer r, String engine) {
+    /** Build/start a recognizer for a session, wiring shared engine resources.
+     *  The session passes its fully ROUTED vocabulary (cast-mode candidate set
+     *  ∩ engine language buckets): it is seeded before {@link SpeechRecognizer#start}
+     *  because grammar-based engines (sherpa) bake hotwords in at construction —
+     *  a second setVocabulary after start would stop+rebuild the recognizer
+     *  (double construction; the pre-0.5.x seed was also mode-blind, i.e. a
+     *  "half-wrong" grammar that the routed call then had to replace). */
+    void configure(SpeechRecognizer r, String engine, Collection<Pronunciation> routedVocabulary) {
         try {
             Path modelDir = resolveEngineModelDir(engine);
             SpeechOptions opts = new SpeechOptions(true, 0.65f, modelDir.toString(), true);
-            // Route the vocabulary to this engine's language bucket(s) (D-A2):
-            // the selected engine decides which aliases it can hear.
-            r.setVocabulary(VocabularyRouter.forLanguages(vocabulary, engineLanguages(engine)));
+            r.setVocabulary(routedVocabulary);
             r.start(opts);
         } catch (Throwable t) {
             VoiceCast.LOGGER.warn("recognizer start failed for engine {}", engine, t);

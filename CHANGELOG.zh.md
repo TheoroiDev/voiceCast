@@ -17,10 +17,12 @@
 - breaking：Vosk 移除，改用 sherpa-onnx 模型（voicecast#42）：`sherpa-zipformer-bilingual-zh-en-int8`——流式 zipformer 中英双语（默认）；`sherpa-sensevoice-small-int8`——离线 SenseVoice 覆盖 zh/yue/en/ja/ko，短句高精度档（int8 专版归档约 230 MB）；`sherpa-sensevoice-full`（1.1 GB 全量归档中的 fp32 权重）作为 A/B 对比条目一并保留；IPA 音素模型不变。模型经目录按需下载
 - breaking：配置语义简化——`[client] engine` 留空 = 目录默认；`[server] defaultEngine` 接受模型名或语言码（留空 = 目录默认）；`[engines] allowed` 留空 = 允许目录中全部模型；配置不再有别名归一化或旧文件导入
 - 共享的 SenseVoice 识别器实例现按（模型, 语言）缓存而非按模型路径缓存，固定语言会话与自动语言变体不再互相挤掉底层原生识别器
-- CTC margin 拒识（S6 移植）：前两名后验候选差距小于 0.02 的语句，其 `templateScores` 整组清零（lab 校准：FPR 0.3% / recall 42.8%），模糊胜出按未命中下落至下游兜底层而非误发边缘法术；阈值判定仍在下游，API 无签名变化
+- CTC margin 拒识（S6 移植）：前两名后验候选差距小于 0.02 的语句，其 `templateScores` 整组清零（lab 校准：FPR 0.3% / recall 42.8%），模糊胜出按未命中下落至下游兜底层而非误发边缘法术；阈值判定仍在下游，API 无签名变化。Verbose 日志（`/voicecast verbose`）现在会在该规则拒识时打印 top1/top2 后验值与差距——仅排障用，规则本身不变
 
 ### Bugfixes
 
+- 会话销毁（退出、服务器关闭）期间另一线程声明施法模式或推送词表，不再向游戏线程调用方抛 `RejectedExecutionException`（`VoiceCastServer.setCastMode` / 词表推送）：两个入口都能容忍已拆毁的会话 worker 并静默忽略
+- 会话识别器构建时在 start 前一次性注入完整路由词表（施法模式 ∩ 引擎语言桶），取代此前"先注入无模式的语言投影、随后再覆盖为路由结果"的做法——sherpa 系识别器此前每次构建会把热词语法完整构建两次，第一次用的还是错误候选集
 - 流式与离线识别器向 sherpa 的 `acceptWaveform` 传的是样本数，而该 API 期望的是采样率，导致音频被时间拉伸（生产端每个 200 ms 分块被拉长约 5 倍、bench 整文件加速），转写结果截断或整句缺失；两处调用点现已改传真实的 16 kHz 采样率
 - 进服时只要保存的引擎 id 超过 32 字符（v2 模型名长达 43+）就会抛 `String too big`：该异常打断了登录包处理器，连带杀死 fabric 客户端命令调度器的初始化——此后所有 `/voicecast` 客户端命令都报 `NullPointerException ... activeDispatcher is null`，且客户端命令从聊天补全中消失。引擎选择通道现可承载 256 字符，进服钩子也不会再破坏同级处理器
 - 流式识别器在有法术热词时启动失败："Invalid OnlineRecognizerConfig: failed to create native OnlineRecognizer"——`cjkchar+bpe` 建模单元的热词编码需要模型的 `bpe.vocab`，此前从未传给 sherpa。现已接线（models.json 的 `bpe_vocab` 属性）；文件缺失时降级为无热词的开放词表解码，不再整体失败（voicecast#42）
