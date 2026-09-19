@@ -31,6 +31,28 @@ import java.util.Map;
 public final class IpaPhonemeRecognizer extends AbstractBufferedRecognizer {
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger("VoiceCast");
 
+    /**
+     * CTC top1-top2 gap rejection margin (S6-MATCHER WO D1/D3, issue #29 P6
+     * port — IN-PRODUCTION as of voicecast 0.4.x; the lab copy at
+     * {@code ipa/match/Resolver.java} was AHEAD and is now semantically
+     * aligned): a CTC posterior set only counts as an acceptance candidate
+     * when the gap between the best score and the best NON-top1 template
+     * score is at least this value. Utterances with a closer runner-up are
+     * ambiguous, so {@link #scoreVocabulary} zeroes every emitted score
+     * (never a partial suppression — the runner-up must not inherit the
+     * win): downstream consumers see "CTC present, nothing above threshold",
+     * which keeps {@code ctcPresent}-gated fallback suppression intact in
+     * WizardReal's ChantGate and lets the utterance fall through like any
+     * other CTC miss. WizardReal's {@code FORWARD_MATCH_THRESHOLD} (0.10)
+     * still applies on top — the gap rule is an additional condition, not a
+     * replacement. Package-visible non-final so the boundary test can pin the
+     * exact float difference (no public API surface — see D4: no signature
+     * change, no version bump). Calibration: m1_retest_v3_report §1.1
+     * (build/accent_calibration) — margin 0.02 -> FPR 0.3% / recall 42.8% /
+     * misfire 3.5%, the FRR minimum under FPR <= 2%.
+     */
+    static float CTC_MARGIN = 0.02f;
+
 
     // Growable primitive buffer: a long chant can be hundreds of thousands of
     // samples, so boxing into ArrayList<Short> would churn megabytes of garbage
@@ -193,6 +215,7 @@ public final class IpaPhonemeRecognizer extends AbstractBufferedRecognizer {
             for (Map.Entry<String, double[]> e : best.entrySet()) {
                 out.put(e.getKey(), (float) (Math.exp(e.getValue()[0] / Math.max(1, e.getValue()[1]) - max) / denom));
             }
+            applyCtcMargin(out);
             if (com.theo.voicecast.config.VoiceCastConfig.INSTANCE.verboseLogging) {
                 LOGGER.info("[IPA CTC] null={} {}", String.format(java.util.Locale.ROOT, "%.3f",
                         Math.exp(nullLp - max) / denom), out);
@@ -201,6 +224,44 @@ public final class IpaPhonemeRecognizer extends AbstractBufferedRecognizer {
         } catch (Throwable t) {
             LOGGER.warn("IPA CTC vocabulary scoring failed", t);
             return Map.of();
+        }
+    }
+
+    /**
+     * S6 WO D1/D3 margin gate on the final posterior map (issue #29 P6 port):
+     * find the top1 template score and the top2 — the best score among the
+     * templates that are NOT the top1 entry; when
+     * {@code top1 - top2 < CTC_MARGIN} the win is ambiguous and EVERY score
+     * is zeroed (the CTC tier then cannot fire downstream, and the
+     * utterance falls through exactly like any other CTC miss). With no
+     * runner-up entry the decision is unambiguous (gap = top1 - 0), matching
+     * the lab rule.
+     *
+     * <p>Note the deliberate template-level top2 (per work order D3: top2 =
+     * the best non-top1 template score): the lab calibrated on SPELL-level
+     * gaps, but this recognizer only knows pronunciation ids — the spell
+     * grouping lives in WizardReal, and D3 ruled the margin layer stays here
+     * without touching WizardReal. Consequence: two pronunciations of the
+     * same spell landing within 0.02 of each other now reject where the lab
+     * spell-level rule would accept — recorded as a known behavior
+     * difference in the P6 port report.
+     */
+    static void applyCtcMargin(Map<String, Float> posteriors) {
+        if (posteriors == null || posteriors.isEmpty()) return;
+        String top1Id = null;
+        float top1 = 0f;
+        for (Map.Entry<String, Float> e : posteriors.entrySet()) {
+            if (top1Id == null || e.getValue() > top1) {
+                top1 = e.getValue();
+                top1Id = e.getKey();
+            }
+        }
+        float top2 = 0f; // no runner-up -> unambiguous (gap = top1 - 0)
+        for (Map.Entry<String, Float> e : posteriors.entrySet()) {
+            if (!e.getKey().equals(top1Id) && e.getValue() > top2) top2 = e.getValue();
+        }
+        if (top1 - top2 < CTC_MARGIN) {
+            posteriors.replaceAll((k, v) -> 0.0f);
         }
     }
 

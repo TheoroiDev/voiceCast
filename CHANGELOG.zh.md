@@ -17,6 +17,7 @@
 - breaking：Vosk 移除，改用 sherpa-onnx 模型（voicecast#42）：`sherpa-zipformer-bilingual-zh-en-int8`——流式 zipformer 中英双语（默认）；`sherpa-sensevoice-small-int8`——离线 SenseVoice 覆盖 zh/yue/en/ja/ko，短句高精度档（int8 专版归档约 230 MB）；`sherpa-sensevoice-full`（1.1 GB 全量归档中的 fp32 权重）作为 A/B 对比条目一并保留；IPA 音素模型不变。模型经目录按需下载
 - breaking：配置语义简化——`[client] engine` 留空 = 目录默认；`[server] defaultEngine` 接受模型名或语言码（留空 = 目录默认）；`[engines] allowed` 留空 = 允许目录中全部模型；配置不再有别名归一化或旧文件导入
 - 共享的 SenseVoice 识别器实例现按（模型, 语言）缓存而非按模型路径缓存，固定语言会话与自动语言变体不再互相挤掉底层原生识别器
+- CTC margin 拒识（S6 移植）：前两名后验候选差距小于 0.02 的语句，其 `templateScores` 整组清零（lab 校准：FPR 0.3% / recall 42.8%），模糊胜出按未命中下落至下游兜底层而非误发边缘法术；阈值判定仍在下游，API 无签名变化
 
 ### Bugfixes
 

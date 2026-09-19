@@ -17,6 +17,7 @@ English primary; Chinese mirror: [CHANGELOG.zh.md](CHANGELOG.zh.md) (keep both i
 - breaking: Vosk removed and replaced by sherpa-onnx models (voicecast#42): `sherpa-zipformer-bilingual-zh-en-int8` — streaming zipformer bilingual zh/en (default) — and `sherpa-sensevoice-small-int8` — offline SenseVoice covering zh/yue/en/ja/ko as the short-utterance high-accuracy option (now sourced from the ~230 MB int8-only archive instead of the 1.1 GB full archive); the IPA phoneme model is unchanged. `sherpa-sensevoice-full` (fp32 weights from the full ~1.1 GB archive) ships alongside the int8 entry for A/B comparison. Models download on demand through the catalog
 - breaking: config semantics simplified - `[client] engine` empty means "catalog default"; `[server] defaultEngine` accepts a model name or language code (empty = catalog default); `[engines] allowed` empty means every catalog model is allowed; no alias normalization or legacy imports remain in configs
 - the shared SenseVoice recognizer instance is now cached per (model, language) instead of per model path, so a pinned-language session and the auto-language variant no longer evict each other's underlying native recognizer
+- CTC margin rejection (S6 port): `templateScores` are zeroed for utterances whose top-two posterior candidates finish within 0.02 of each other (lab calibration: FPR 0.3% at recall 42.8%), so an ambiguous win falls through to the downstream fallbacks instead of firing a borderline spell; the threshold check stays downstream and the API has no signature changes
 
 ### Bugfixes
 
