@@ -24,7 +24,7 @@ $env:Path="$env:JAVA_HOME\bin;$env:Path"
 
 Forge 1.20.1 dev runs on a module-path-aware `ModuleClassLoader`. The working setup:
 
-- Vosk classes + `libvosk` natives ride inside the bundled `voicecast-common` fat jar (same classloader as the engine code).
+- sherpa-onnx / ONNX Runtime classes and natives ride inside the bundled `voicecast-common` fat jar (same classloader as the engine code).
 - **Do not** add JNA here — Architectury/Forge already provides `jna:5.12.1`. A second copy on the module path crashes startup with `ResolutionException: Modules com.sun.jna ... export package ...`.
 - **Do not** relocate JNA (its native `jnidispatch` symbols are bound to `com.sun.jna.*`).
 

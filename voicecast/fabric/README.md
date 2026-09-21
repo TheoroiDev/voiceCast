@@ -20,7 +20,7 @@ $env:Path="$env:JAVA_HOME\bin;$env:Path"
 .\gradlew :voicecast-fabric:build         # produces build/libs/*.jar
 ```
 
-Dependencies: Fabric Loader, Fabric API, Architectury. JNA (`net.java.dev.jna:jna:5.12.1`) is added here because Fabric itself does not ship it; Vosk classes/natives come from the bundled `voicecast-common` fat jar.
+Dependencies: Fabric Loader, Fabric API, Architectury. JNA (`net.java.dev.jna:jna:5.12.1`) is added here because Fabric itself does not ship it; sherpa-onnx / ONNX Runtime classes and natives come from the bundled `voicecast-common` fat jar.
 
 ## Resources
 

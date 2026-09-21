@@ -11,7 +11,7 @@ A reusable, offline **voice-recognition library mod** for Minecraft 1.20.1 — t
 - First-run model download with retry and checksum/size verification — models come from the official **sherpa-onnx GitHub releases** and **HuggingFace** (the **hf-mirror.com** mirror serves the ZIPA model), and you can add your own mirrors in `models.json`.
 - Server-authoritative recognition: the client only streams Opus audio; models and inference live on the server, with localized status messages.
 - Server access control: `[server] enabled` master switch + `[players]` UUID whitelist, with a pluggable `AccessCheck` hook for permission mods.
-- An engine SPI (**planned feature**): the `RecognizerRegistry.register(...)` interface is ready, but server-side engine selection/creation is not yet wired to the registry — only the built-in engine ids are selectable today (tracked in the voicecast issue tracker).
+- A catalog-driven engine list (**models.json v2**): the model catalog IS the selectable engine list — one model = one engine id — and addon mods plug new ASR architectures via the engine-family SPI: `EngineFamilies.register(type, factory)` in `com.theo.voicecast.api.engine` plus a models.json entry declaring `properties.family` (no voicecast release needed). The older `RecognizerRegistry.register(...)` interface still registers the builtin recognizer backends, but server-side selection goes through the engine-family SPI.
 
 ## Subprojects
 
@@ -44,18 +44,20 @@ Downstream consumption (wizardreal):
 
 ```gradle
 // repositories: mavenLocal() (+ CI maven repo later)
-modImplementation "com.theo.voicecast:voicecast-fabric-1.20.1:0.3.2"   // fabric
-modImplementation "com.theo.voicecast:voicecast-forge-1.20.1:0.3.2"    // forge
-compileOnly       "com.theo.voicecast:voicecast-common-1.20.1:0.3.2"   // common codegen
+modImplementation "com.theo.voicecast:voicecast-fabric-1.20.1:0.5.0"   // fabric
+modImplementation "com.theo.voicecast:voicecast-forge-1.20.1:0.5.0"    // forge
+compileOnly       "com.theo.voicecast:voicecast-common-1.20.1:0.5.0"   // common codegen
 ```
 
 ## Addon developers
 
 ```java
-RecognizerRegistry.register("my-engine", MyEngine::new);
+EngineFamilies.register("my-family", spec -> new MyEngine(spec));
 ```
 
-> **Planned feature** — the `RecognizerRegistry.register(...)` interface exists, but server-side engine selection/creation is not yet wired to the registry: only the built-in engine ids are selectable today. Progress is tracked in the voicecast issue tracker.
+Add a matching `models.json` entry whose `properties.family` is `"my-family"` — the model entry's name becomes the selectable engine id (one model = one engine). See the `EngineFamilies`/`EngineSpec` javadoc in `com.theo.voicecast.api.engine` for the full contract.
+
+> The older `RecognizerRegistry.register(...)` interface still registers the builtin recognizer backends (it is how voicecast wires `zipa-ipa` / `qwen3-asr-0.6b-int8` / `noop` at init), but server-side engine selection is catalog-driven and resolves families through `EngineFamilies` — register your architecture with the engine-family SPI.
 
 The public API (`com.theo.voicecast.api`) has **no** reference to `com.sun.jna` / `ai.onnxruntime` / the sherpa-onnx Java API — compile against the published artifacts; the bundled implementation is provided at runtime. See [AGENTS-voicecast.md](../AGENTS-voicecast.md) for packaging/classloader rules.
 
