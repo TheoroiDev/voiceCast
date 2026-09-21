@@ -1,6 +1,6 @@
 package com.theo.voicecast.client;
 
-import com.theo.voicecast.api.Pronunciation;
+import com.theo.voicecast.api.SessionVocabulary;
 import com.theo.voicecast.api.SpeechOptions;
 import com.theo.voicecast.api.SpeechRecognizer;
 import com.theo.voicecast.audio.OpusAudioCodec;
@@ -43,7 +43,7 @@ public final class RemoteSpeechSession implements SpeechRecognizer {
     }
 
     @Override
-    public void setVocabulary(Collection<Pronunciation> vocabulary) {
+    public void setVocabulary(SessionVocabulary vocabulary) {
         // Vocabulary is managed server-side; nothing to do here.
     }
 

@@ -1,24 +1,32 @@
 package com.theo.voicecast.engine;
 
-import com.theo.voicecast.api.Pronunciation;
+import com.theo.voicecast.api.RecognitionDiagnostics;
 import com.theo.voicecast.api.RecognitionResult;
+import com.theo.voicecast.api.SessionVocabulary;
 import com.theo.voicecast.api.SpeechOptions;
 import com.theo.voicecast.api.SpeechRecognizer;
 import com.theo.voicecast.api.VoiceCastEvents;
 import com.theo.voicecast.api.event.RecognitionFinalEvent;
 import com.theo.voicecast.api.event.RecognitionPartialEvent;
+import com.theo.voicecast.match.UtteranceAdjudicator;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Base class for recognizers that buffer utterances and emit them. Handles
  * PCM ring buffering so subclasses can focus on decoding.
  *
+ * <p>Semantic contract v2 (C1b): final results are ADJUDICATED — the base
+ * runs the {@link UtteranceAdjudicator} over the session vocabulary and the
+ * subclass's evidence (text line, phoneme tokens, CTC posteriors + margin)
+ * before emitting, so every consumer sees a {@link RecognitionResult} with a
+ * voicecast-owned {@link com.theo.voicecast.api.Decision}. Engine-internal
+ * numbers stay in the diagnostics accessor.
+ *
  * <p>Subclasses must:
  * <ul>
- *     <li>Call {@link #emit(String, List, float, long)} when an utterance is final.</li>
+ *     <li>Call {@link #emitAdjudicated} when an utterance is final.</li>
  *     <li>Implement {@link #decode(short[], int, int)} to feed the engine.</li>
  * </ul>
  */
@@ -30,10 +38,11 @@ public abstract class AbstractBufferedRecognizer implements SpeechRecognizer {
         void onResult(RecognitionResult result);
     }
 
-    protected final List<Pronunciation> vocabulary = new ArrayList<>();
+    protected volatile SessionVocabulary vocabulary = SessionVocabulary.EMPTY;
     protected volatile boolean active;
     protected long utteranceStartMs;
     private volatile ResultSink sink;
+    private volatile RecognitionDiagnostics lastDiagnostics;
 
     @Override
     public void setResultSink(java.util.function.Consumer<RecognitionResult> sink) {
@@ -42,22 +51,22 @@ public abstract class AbstractBufferedRecognizer implements SpeechRecognizer {
 
     @Override
     public synchronized void start(SpeechOptions options) throws Exception {
+        this.options = options;
         active = true;
     }
 
     @Override
     public synchronized void stop() {
         active = false;
-        vocabulary.clear();
+        vocabulary = SessionVocabulary.EMPTY;
     }
 
     @Override
     public boolean isActive() { return active; }
 
     @Override
-    public synchronized void setVocabulary(Collection<Pronunciation> v) {
-        vocabulary.clear();
-        if (v != null) vocabulary.addAll(v);
+    public synchronized void setVocabulary(SessionVocabulary v) {
+        vocabulary = v == null ? SessionVocabulary.EMPTY : v;
         onVocabularyChanged();
     }
 
@@ -90,24 +99,40 @@ public abstract class AbstractBufferedRecognizer implements SpeechRecognizer {
         LOGGER.warn("{} decode error", id(), t);
     }
 
-    /** Emit a final result to the per-instance sink, or the global bus by default. */
-    protected void emit(String text, List<String> ipa, float confidence, long startMs) {
-        emit(text, ipa, confidence, startMs, java.util.Map.of());
+    @Override
+    public RecognitionDiagnostics lastDiagnostics() {
+        return lastDiagnostics;
     }
 
-    /** Emit a final result carrying optional CTC vocabulary scores (pronunciation id -> [0,1]). */
-    protected void emit(String text, List<String> ipa, float confidence, long startMs,
-                        java.util.Map<String, Float> templateScores) {
-        RecognitionResult r = RecognitionResult.finality(text, ipa, confidence, startMs, templateScores);
+    /**
+     * Adjudicate one final utterance against the session vocabulary and emit
+     * it. {@code ctcPosteriors}/{@code margin} are CTC-line evidence (null on
+     * text-only engines); {@code language} is the engine's language bucket
+     * projection ("" when language-agnostic).
+     */
+    protected void emitAdjudicated(String utteranceText, List<String> ipaTokens, long startMs,
+                                   Map<String, Float> ctcPosteriors,
+                                   UtteranceAdjudicator.MarginInfo margin, String language) {
+        UtteranceAdjudicator.Adjudication a = UtteranceAdjudicator.adjudicate(
+                vocabulary.entries(), options == null ? null : options.calibration(),
+                utteranceText, ipaTokens, ctcPosteriors, margin);
+        lastDiagnostics = a.diagnostics();
+        RecognitionResult r = RecognitionResult.finality(utteranceText,
+                ipaTokens == null ? "" : String.join(" ", ipaTokens), language,
+                a.decision(), a.spellId(), a.pronId(), a.score(), a.alternatives(), startMs);
         ResultSink s = sink;
         if (s != null) s.onResult(r);
         else VoiceCastEvents.post(new RecognitionFinalEvent(r));
     }
 
-    protected void emitPartial(String text, List<String> ipa, float confidence) {
-        RecognitionResult r = RecognitionResult.partial(text, ipa, confidence);
+    /** HUD-only partial (no decision). */
+    protected void emitPartial(String utteranceText, String ipa) {
+        RecognitionResult r = RecognitionResult.partial(utteranceText, ipa);
         ResultSink s = sink;
         if (s != null) s.onResult(r);
         else VoiceCastEvents.post(new RecognitionPartialEvent(r));
     }
+
+    /** SpeechOptions captured at start (calibration source). */
+    protected SpeechOptions options;
 }

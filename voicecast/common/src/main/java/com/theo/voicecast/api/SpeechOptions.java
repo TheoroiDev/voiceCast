@@ -7,14 +7,21 @@ package com.theo.voicecast.api;
  * @param minConfidence recognizer-level confidence floor (0..1)
  * @param modelPath relative or absolute path to the active model directory
  * @param grammarOnly if true, recognition is restricted to registered vocabulary
+ * @param calibration engine-calibration defaults for the semantic adjudication
+ *        (null = the shipped {@link Calibration#DEFAULT})
  */
 public record SpeechOptions(
         boolean pushToTalk,
         float minConfidence,
         String modelPath,
-        boolean grammarOnly
+        boolean grammarOnly,
+        Calibration calibration
 ) {
+    public SpeechOptions {
+        calibration = calibration == null ? Calibration.DEFAULT : calibration;
+    }
+
     public static SpeechOptions defaults() {
-        return new SpeechOptions(true, 0.65f, "config/voicecast/models/default", true);
+        return new SpeechOptions(true, 0.65f, "config/voicecast/models/default", true, Calibration.DEFAULT);
     }
 }

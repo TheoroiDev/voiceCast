@@ -102,12 +102,21 @@ public final class VoiceCastNetwork {
         return buf;
     }
 
-    public static FriendlyByteBuf encodeTranscript(boolean partial, String text, float confidence, long startMs) {
+    /**
+     * Transcript wire format (semantic contract v2, C1b): carries the
+     * server-side adjudicated decision (ordinal, -1 = partial/no decision)
+     * and the winning spell id so the client HUD reports what voicecast
+     * ruled, not just raw text.
+     */
+    public static FriendlyByteBuf encodeTranscript(boolean partial, String text, float score,
+                                                   long startMs, int decisionOrdinal, String spellId) {
         FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.buffer());
         buf.writeBoolean(partial);
         buf.writeUtf(text == null ? "" : text, 1024);
-        buf.writeFloat(confidence);
+        buf.writeFloat(score);
         buf.writeLong(startMs);
+        buf.writeVarInt(decisionOrdinal);
+        buf.writeUtf(spellId == null ? "" : spellId, 256);
         return buf;
     }
 }

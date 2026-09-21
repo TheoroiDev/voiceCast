@@ -53,10 +53,11 @@ public final class VoiceCast {
         VoiceCastServerCommands.register(); // /voicecast status|engine|enabled|whitelist|reload (#29)
 
         VoiceCastEvents.subscribe(RecognitionFinalEvent.class, e -> {
-            String text = e.result() == null ? "" : e.result().text();
+            String text = e.result() == null ? "" : e.result().utteranceText();
             if (!text.isBlank()) {
-                LOGGER.info("[VoiceCast] heard (client): '{}' (conf={})",
-                        text.trim().toLowerCase(Locale.ROOT), e.result().confidence());
+                LOGGER.info("[VoiceCast] heard (client): '{}' (decision={}, score={})",
+                        text.trim().toLowerCase(Locale.ROOT), e.result().decision(),
+                        String.format(Locale.ROOT, "%.2f", e.result().score()));
             }
         });
 

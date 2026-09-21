@@ -38,6 +38,25 @@ public final class ServerConfig {
     /** {@code [players] whitelist} of raw UUID strings; empty = everyone. */
     public List<String> whitelist = List.of();
 
+    // [match] — engine-calibration defaults for the semantic adjudication
+    // (semantic contract v2, C1b §0.3: the threshold/margin brain moved from
+    // WizardReal constants into voicecast config).
+    /** CTC posterior acceptance threshold (the pre-v2 WizardReal
+     *  FORWARD_MATCH_THRESHOLD 0.10 calibration). */
+    public float matchForwardThreshold = 0.10f;
+    /** Phoneme-similarity threshold (weighted edit distance tier). */
+    public float matchPhonemeThreshold = 0.6f;
+    /** Text-similarity threshold (alias matching tier). */
+    public float matchTextThreshold = 0.65f;
+    /** CTC top1-top2 margin (m1_retest calibration). */
+    public float matchCtcMargin = 0.02f;
+
+    /** The {@code [match]} calibration as an API record. */
+    public com.theo.voicecast.api.Calibration calibration() {
+        return new com.theo.voicecast.api.Calibration(matchForwardThreshold, matchPhonemeThreshold,
+                matchTextThreshold, matchCtcMargin);
+    }
+
     private ServerConfig() {}
 
     private static Path tomlFile(Path runDir) {
@@ -59,6 +78,10 @@ public final class ServerConfig {
                     .toList();
             c.enabled = toml.getBool(SECTION, "enabled", c.enabled);
             c.whitelist = toml.getStringList("players", "whitelist", c.whitelist);
+            c.matchForwardThreshold = (float) toml.getDouble("match", "forwardThreshold", c.matchForwardThreshold);
+            c.matchPhonemeThreshold = (float) toml.getDouble("match", "phonemeThreshold", c.matchPhonemeThreshold);
+            c.matchTextThreshold = (float) toml.getDouble("match", "textThreshold", c.matchTextThreshold);
+            c.matchCtcMargin = (float) toml.getDouble("match", "ctcMargin", c.matchCtcMargin);
         }
 
         c.save(runDir); // persist defaults + comments/structure
@@ -76,6 +99,10 @@ public final class ServerConfig {
             .setBool(SECTION, "enabled", enabled);
         toml.setStringList("engines", "allowed", allowedEngines);
         toml.setStringList("players", "whitelist", whitelist);
+        toml.setDouble("match", "forwardThreshold", matchForwardThreshold)
+            .setDouble("match", "phonemeThreshold", matchPhonemeThreshold)
+            .setDouble("match", "textThreshold", matchTextThreshold)
+            .setDouble("match", "ctcMargin", matchCtcMargin);
         toml.save(tomlFile(runDir));
     }
 

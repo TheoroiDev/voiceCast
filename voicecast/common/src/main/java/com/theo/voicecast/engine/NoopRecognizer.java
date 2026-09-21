@@ -1,11 +1,10 @@
 package com.theo.voicecast.engine;
 
-import com.theo.voicecast.api.Pronunciation;
+import com.theo.voicecast.api.SessionVocabulary;
 import com.theo.voicecast.api.SpeechOptions;
 import com.theo.voicecast.api.SpeechRecognizer;
 
-import java.util.Collection;
-import java.util.List;
+
 
 /**
  * Fallback recognizer used when no engine is available (missing model/native
@@ -25,7 +24,7 @@ public final class NoopRecognizer implements SpeechRecognizer {
     @Override
     public boolean isActive() { return active; }
     @Override
-    public void setVocabulary(Collection<Pronunciation> vocabulary) {}
+    public void setVocabulary(SessionVocabulary vocabulary) {}
     @Override
     public void acceptPcm(short[] samples, int offset, int length) {}
 }

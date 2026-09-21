@@ -1,7 +1,5 @@
 package com.theo.voicecast.api;
 
-import java.util.Collection;
-
 /**
  * A speech recognition engine. Implementations may wrap sherpa-onnx, ONNX Runtime,
  * Whisper, an external library mod, or any future backend.
@@ -25,8 +23,9 @@ public interface SpeechRecognizer {
 
     boolean isActive();
 
-    /** Replace the active vocabulary (supported by grammar-based engines). */
-    void setVocabulary(Collection<Pronunciation> vocabulary);
+    /** Replace the active vocabulary (semantic contract v2: the one push
+     *  entry point; engines derive their own shapes from it). */
+    void setVocabulary(SessionVocabulary vocabulary);
 
     /**
      * Route results to a specific target instead of the global event bus
@@ -51,4 +50,12 @@ public interface SpeechRecognizer {
 
     /** Called every client tick while a world is loaded. */
     default void tick() {}
+
+    /**
+     * Diagnostics of the last adjudication (semantic contract v2): the
+     * engine-internal numbers — CTC posteriors, margin gap, rejection
+     * reason — outside the result contract. Null when the engine has no
+     * diagnostics or nothing was adjudicated yet.
+     */
+    default RecognitionDiagnostics lastDiagnostics() { return null; }
 }

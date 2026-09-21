@@ -1,0 +1,978 @@
+# case	source	lang	variant	spell	pron	tier	tokens(normalized)
+aegis__trigger__en__aegis__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:aegis	wizardreal:aegis	ctc	i dʒ e s
+aegis__trigger__en__aegis__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:aegis	wizardreal:aegis	ctc	i dʒ a s
+aegis__trigger__en__aegis__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:aegis	wizardreal:aegis	ctc	e i dʒ i
+aegis__trigger__en__aegis__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:aegis	wizardreal:aegis	ctc	i dʒ i s
+aegis__trigger__en__shield__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:aegis	wizardreal:aegis	ctc	ʃ i l d
+aegis__trigger__en__shield__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:aegis	wizardreal:aegis	ctc	ʃ i l d
+aegis__trigger__en__shield__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:aegis	wizardreal:aegis	ctc	ʃ i l d
+aegis__trigger__en__shield__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:aegis	wizardreal:aegis	ctc	ʃ i d
+aegis__trigger__en__protect__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:aegis	wizardreal:aegis	ctc	p ɹ ə t e k t
+aegis__trigger__en__protect__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:aegis	wizardreal:aegis	ctc	p ɹ ə t e k t
+aegis__trigger__en__protect__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:aegis	wizardreal:aegis	ctc	f ɹ u t d
+aegis__trigger__en__protect__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:aegis	wizardreal:aegis	phoneme	ɹ u t i
+aegis__trigger__en__protection__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:aegis	wizardreal:aegis	ctc	p ɹ ə t e k ʃ ə n
+aegis__trigger__en__protection__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:aegis	wizardreal:aegis	ctc	p ɹ ə t e k ʃ ə n
+aegis__trigger__en__protection__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:aegis	wizardreal:aegis	ctc	p ɹ o t e k ʃ ə n
+aegis__trigger__en__protection__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:aegis	wizardreal:aegis	ctc	p ɹ o t e k ʃ ə n
+aegis__trigger__en__ward__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:aegis	wizardreal:aegis	ctc	b ɔ ɹ d
+aegis__trigger__en__ward__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:aegis	wizardreal:aegis	ctc	b ɔ ɹ d
+aegis__trigger__en__ward__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:aegis	wizardreal:aegis	phoneme	b a ɹ d
+aegis__trigger__en__ward__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:aegis	wizardreal:aegis	phoneme	b a n
+arcanum__trigger__en__arcanum__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:arcanum	wizardreal:arcanum	phoneme	ɑ k e n ə m
+arcanum__trigger__en__arcanum__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:arcanum	wizardreal:arcanum	phoneme	ɑ k e n ə m
+arcanum__trigger__en__arcanum__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:arcanum	wizardreal:arcanum	phoneme	ɹ k i n a m
+arcanum__trigger__en__arcanum__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:arcanum	wizardreal:arcanum	phoneme	a ɹ k i n a m
+arcanum__trigger__en__arcane__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:arcanum	wizardreal:arcanum	ctc	ɑ k e n
+arcanum__trigger__en__arcane__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:arcanum	wizardreal:arcanum	ctc	ɑ k e n
+arcanum__trigger__en__arcane__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:arcanum	wizardreal:arcanum	ctc	a ɹ k i n
+arcanum__trigger__en__arcane__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:arcanum	wizardreal:arcanum	ctc	a ɹ k i ŋ
+arcanum__trigger__zh__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:arcanum	wizardreal:arcanum	phoneme	ɑ u n ʃ u
+arcanum__trigger__zh__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:arcanum	wizardreal:arcanum	text	ɑ u n s u n
+arcanum__trigger__zh__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:arcanum	wizardreal:arcanum	text	x ɑ u n s u n
+arcanum__trigger__zh__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:arcanum	wizardreal:arcanum	text	ɑ u n s u n
+arcanum__chant__en__l0_0__weave_the_shield__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:0	ctc	w i v ð ə ʃ i l d
+arcanum__chant__en__l0_0__weave_the_shield__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:0	ctc	w i v ð ə ʃ i l d
+arcanum__chant__en__l0_0__weave_the_shield__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:0	ctc	w i ð ð ə ʃ i l d
+arcanum__chant__en__l0_0__weave_the_shield__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:0	ctc	w i v ð ə ʃ i l d
+arcanum__chant__en__l0_0__weave_the_shield__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:0	ctc	w i ð ə ʃ i l d
+arcanum__chant__en__l0_0__weave_the_shield__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:0	ctc	w i ð ə ʃ i l d
+arcanum__chant__en__l0_0__weave_the_shield__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:0	ctc	w i v d ə ʃ i d
+arcanum__chant__en__l0_0__weave_the_shield__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:0	ctc	w i v d a ʃ i d
+arcanum__chant__en__l0_1__hold_the_line__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:1	ctc	h o u l d ð ə l a i n
+arcanum__chant__en__l0_1__hold_the_line__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:1	ctc	h o u l d ð ə l a i n
+arcanum__chant__en__l0_1__hold_the_line__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:1	ctc	h o u l d ð ə l a i n
+arcanum__chant__en__l0_1__hold_the_line__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:1	ctc	h o u l d ð ə l a i n
+arcanum__chant__en__l0_1__hold_the_line__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:1	ctc	h o u l ð ə l a i n
+arcanum__chant__en__l0_1__hold_the_line__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:1	ctc	h o u l ð ə l a i n
+arcanum__chant__en__l0_1__hold_the_line__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:1	ctc	o d ə l a i
+arcanum__chant__en__l0_1__hold_the_line__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:1	phoneme	u l d a l a
+arcanum__chant__en__l0_2__arcanum__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:2	phoneme	ɑ k e n ə m
+arcanum__chant__en__l0_2__arcanum__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:2	phoneme	ɑ k e n ə m
+arcanum__chant__en__l0_2__arcanum__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:2	phoneme	ɑ k e n ə m
+arcanum__chant__en__l0_2__arcanum__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:2	phoneme	ɑ k e n ə m
+arcanum__chant__en__l0_2__arcanum__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:2	phoneme	ɑ k e n ə m
+arcanum__chant__en__l0_2__arcanum__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:2	phoneme	ɑ k e n ə
+arcanum__chant__en__l0_2__arcanum__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:2	phoneme	ɹ k i n a m
+arcanum__chant__en__l0_2__arcanum__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.0:2	phoneme	a ɹ k i n a m
+arcanum__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.1:0	text	p j i e n n ts i n p h i n ŋ ts i ɑ n
+arcanum__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.1:0	text	p i e n n ts i n p h i n ŋ ts i ɑ n
+arcanum__chant__zh__l1_0__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.1:0	text	p i e n n ts i n p h i n ŋ ts ɑ u n
+arcanum__chant__zh__l1_0__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.1:0	text	p i e n n ts i n p h i n ŋ ts a n
+arcanum__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.1:1	text	tɕ i e n n s i o u 2 p u n t h u e i n
+arcanum__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.1:1	text	tɕ i e n n s i o u 2 p u n t h u e i n
+arcanum__chant__zh__l1_1__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.1:1	text	tɕ i e n n s o n ɡ n p u n t h w e i n
+arcanum__chant__zh__l1_1__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.1:1	text	tɕ i e n n s o u n p u n t h e i n
+arcanum__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.1:2	phoneme	ɑ u n ʃ u
+arcanum__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.1:2	text	ɑ u n s u n
+arcanum__chant__zh__l1_2__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.1:2	text	x ɑ u n s u n
+arcanum__chant__zh__l1_2__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.1:2	text	ɑ u n s u n
+arcanum__chant__ja__l2_0__mamoru_ke_wo_tsumure__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.2:0	ctc	m a m o ɹ ɯ k e d a b y ɹ i o ts ɯ m ɯ ɹ e
+arcanum__chant__ja__l2_0__mamoru_ke_wo_tsumure__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.2:0	ctc	m a m o ɹ k e d a b y ɹ i o t ə m ə ɹ e
+arcanum__chant__ja__l2_0__mamoru_ke_wo_tsumure__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.2:0	ctc	m a m u ɹ ɯ k e d a b y ɹ i o ts i m y ɹ e
+arcanum__chant__ja__l2_0__mamoru_ke_wo_tsumure__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.2:0	text	m a m u ɹ ə k e d a ɡ ɹ i ɔ t ə m ɹ e
+arcanum__chant__ja__l2_1__tatakae__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.2:1	ctc	t a t a k a j
+arcanum__chant__ja__l2_1__tatakae__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.2:1	ctc	t a t a k a
+arcanum__chant__ja__l2_1__tatakae__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.2:1	ctc	t a t a k a i
+arcanum__chant__ja__l2_1__tatakae__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.2:1	ctc	f a t a k a
+arcanum__chant__ja__l2_2__arukanumu__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.2:2	ctc	ɹ ʉ k a n ɯ m y
+arcanum__chant__ja__l2_2__arukanumu__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.2:2	ctc	a ɹ y k a n ɯ m y
+arcanum__chant__ja__l2_2__arukanumu__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:arcanum	wizardreal:arcanum.chant.2:2	ctc	a d ʉ k a n ʉ m
+arcanum__chant__ja__l2_2__arukanumu__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:arcanum	wizardreal:arcanum.chant.2:2	ctc	a ɹ ə k a n ə m
+explosion__trigger__en__explosion__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:explosion	wizardreal:explosion	phoneme	e k s p l o u ʒ ə n
+explosion__trigger__en__explosion__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:explosion	wizardreal:explosion	phoneme	e k s p l o u ʒ ə n
+explosion__trigger__en__explosion__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:explosion	wizardreal:explosion	phoneme	e k s p l o u ʒ ə n
+explosion__trigger__en__explosion__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:explosion	wizardreal:explosion	phoneme	e k s p l o u ʒ ə n
+explosion__trigger__en__explode__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:explosion	wizardreal:explosion	ctc	e k s p l o u d
+explosion__trigger__en__explode__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:explosion	wizardreal:explosion	ctc	e k s p l o u d
+explosion__trigger__en__explode__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:explosion	wizardreal:explosion	ctc	e k s p l o u d
+explosion__trigger__en__explode__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:explosion	wizardreal:explosion	ctc	e k s t l o u d
+explosion__trigger__en__burst__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:explosion	wizardreal:explosion	ctc	b ɜ s t
+explosion__trigger__en__burst__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:explosion	wizardreal:explosion	ctc	b ɜ s t
+explosion__trigger__en__burst__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:explosion	wizardreal:explosion	ctc	b a s t
+explosion__trigger__en__burst__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:explosion	wizardreal:explosion	ctc	b a s t
+explosion__trigger__zh__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:explosion	wizardreal:explosion	phoneme	p a l j
+explosion__trigger__zh__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:explosion	wizardreal:explosion	phoneme	p ɑ u n l j
+explosion__trigger__zh__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:explosion	wizardreal:explosion	text	m a l j
+explosion__trigger__zh__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:explosion	wizardreal:explosion	ctc	m a u l j a
+explosion__chant__en__l0_0__cloak_the_sky_in_black__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.0:0	phoneme	k l o u k ð ə s k a i i n b l æ k
+explosion__chant__en__l0_0__cloak_the_sky_in_black__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.0:0	phoneme	k l o u k ð ə s ɡ a i i n b l æ k
+explosion__chant__en__l0_0__cloak_the_sky_in_black__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.0:0	phoneme	k l o u k t ð ə s k a i i n b l æ k
+explosion__chant__en__l0_0__cloak_the_sky_in_black__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.0:0	phoneme	k l o u k ð ə s k a i i n b l æ k
+explosion__chant__en__l0_0__cloak_the_sky_in_black__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.0:0	phoneme	k l o u k ð ə s k a i i n b l æ k
+explosion__chant__en__l0_0__cloak_the_sky_in_black__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.0:0	ctc	k l o u k ð ə s k a i i n b l æ k
+explosion__chant__en__l0_0__cloak_the_sky_in_black__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.0:0	ctc	k l o k d a s k a i i n b l æ k
+explosion__chant__en__l0_0__cloak_the_sky_in_black__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.0:0	phoneme	k l o k d a s k a i j i n d l a k
+explosion__chant__en__l0_1__wake_the_crimson_thunder__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.0:1	ctc	w e i k ð ə k ɹ i m z ə n θ ə n d ɚ
+explosion__chant__en__l0_1__wake_the_crimson_thunder__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.0:1	ctc	w e i k ð ə k ɹ i m z ə n θ ə n d ɚ
+explosion__chant__en__l0_1__wake_the_crimson_thunder__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.0:1	phoneme	w e i k ð ə k ɹ i m z ə n θ ə n d ɚ
+explosion__chant__en__l0_1__wake_the_crimson_thunder__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.0:1	ctc	w e i k ð ə k ɹ i m z ə n θ ə n d ɚ
+explosion__chant__en__l0_1__wake_the_crimson_thunder__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.0:1	ctc	w e i k ð ə k ɹ i m z ə n θ ə n d ɚ
+explosion__chant__en__l0_1__wake_the_crimson_thunder__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.0:1	phoneme	w e i k ð ə k ɹ i m z ə n θ ə n d ɚ
+explosion__chant__en__l0_1__wake_the_crimson_thunder__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.0:1	ctc	w e k ð ə k ɹ i m z i n t a n d a ɹ
+explosion__chant__en__l0_1__wake_the_crimson_thunder__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.0:1	ctc	w i k ð a k ɹ i z ə n t a n d a ɹ
+explosion__chant__en__l0_2__explosion__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.0:2	phoneme	e k s p l o u ʒ ə n
+explosion__chant__en__l0_2__explosion__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.0:2	phoneme	e k s p l o u ʒ ə n
+explosion__chant__en__l0_2__explosion__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.0:2	phoneme	e k s p l o u ʒ ə n
+explosion__chant__en__l0_2__explosion__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.0:2	phoneme	e k s p l o u ʒ ə n
+explosion__chant__en__l0_2__explosion__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.0:2	phoneme	e k s p l o u ʒ ə n
+explosion__chant__en__l0_2__explosion__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.0:2	phoneme	e k s p l o u ʒ ə n
+explosion__chant__en__l0_2__explosion__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.0:2	phoneme	e k s p l o u ʒ ə n
+explosion__chant__en__l0_2__explosion__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.0:2	phoneme	e k s p l o u ʒ ə n
+explosion__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.1:0	text	j i n tɕ h i n x e i n ts ə n p i n ts h a n ŋ tɕ h ɑ u n
+explosion__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.1:0	text	j i n tɕ h i n x e i n ts ə n p i n t h a n ŋ tɕ h o n ɡ n
+explosion__chant__zh__l1_0__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.1:0	text	j i n tɕ h i n x e i n ts o n p i n t h a n ŋ tɕ h o n ɡ n
+explosion__chant__zh__l1_0__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.1:0	text	j i n tɕ h i n x e i n ts o n p i n t h a n ŋ tɕ h o n ɡ n
+explosion__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.1:1	ctc	x w a n n ɕ i n ŋ f e i n x o n ɡ n ts i n l e i n
+explosion__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.1:1	ctc	x w a n n ɕ i n ŋ f e i n x o n ɡ n ts i n l e i n
+explosion__chant__zh__l1_1__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.1:1	text	x w a n n ɕ i ɜ ŋ f e i n x o n ɡ n ts i n l e i n
+explosion__chant__zh__l1_1__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.1:1	text	x w a n n ɕ i n ŋ f e i n x o n ɡ n ŋ ts i n l e i n
+explosion__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.1:2	phoneme	p a l j
+explosion__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.1:2	phoneme	p ɑ u n l j
+explosion__chant__zh__l1_2__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.1:2	text	m a l j
+explosion__chant__zh__l1_2__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.1:2	ctc	m a u l j a
+explosion__chant__ja__l2_0__shikkoku_ga_sora_wo_tsut__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.2:0	text	s a k o k u dʒ i e s o ɹ a d a b y ɹ i o ts ts ə m i
+explosion__chant__ja__l2_0__shikkoku_ga_sora_wo_tsut__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.2:0	ctc	s a k o k ə dʒ i a i s o ɹ a t a b ə ɹ ɔ t t ə m i
+explosion__chant__ja__l2_0__shikkoku_ga_sora_wo_tsut__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.2:0	ctc	s a k o k ə dʒ i e s ə l a d a b ə l i ɔ t ə m i
+explosion__chant__ja__l2_0__shikkoku_ga_sora_wo_tsut__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.2:0	text	s a k ə k ə z i e s u l a d a b ə l i u t t ə m i
+explosion__chant__ja__l2_1__kurenai_no_ikazuchi_wo_o__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.2:1	phoneme	k y ɹ e n a i n k a z tʃ i d a b y ɹ i o o k o s e
+explosion__chant__ja__l2_1__kurenai_no_ikazuchi_wo_o__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.2:1	ctc	k ə ɹ e n a i n ɔ i k a t t i d a b ə ɹ i ɔ o k o s e
+explosion__chant__ja__l2_1__kurenai_no_ikazuchi_wo_o__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.2:1	text	k ə l a i n a i n e i a z ə tʃ i t a p ə l i e k ə s ə
+explosion__chant__ja__l2_1__kurenai_no_ikazuchi_wo_o__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.2:1	ctc	k ə l ə n i n i i k a z ə tʃ i t a p l k ə s ə
+explosion__chant__ja__l2_2__ekusupuroojon__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.2:2	ctc	e k y s p i ɹ ɑ dz o n
+explosion__chant__ja__l2_2__ekusupuroojon__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.2:2	ctc	e k ɯ s p i ɹ o dʒ o
+explosion__chant__ja__l2_2__ekusupuroojon__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:explosion	wizardreal:explosion.chant.2:2	ctc	e k s p ɹ o dʒ o m
+explosion__chant__ja__l2_2__ekusupuroojon__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:explosion	wizardreal:explosion.chant.2:2	ctc	e k s p ɹ o dʒ o m
+fulmen__trigger__en__fulmen__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:fulmen	wizardreal:fulmen	ctc	f u l m e n
+fulmen__trigger__en__fulmen__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:fulmen	wizardreal:fulmen	ctc	f u m ə n
+fulmen__trigger__en__fulmen__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:fulmen	wizardreal:fulmen	ctc	f u l m i
+fulmen__trigger__en__fulmen__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:fulmen	wizardreal:fulmen	ctc	f u l m i n
+fulmen__trigger__en__lightning__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:fulmen	wizardreal:fulmen	ctc	l a i t n i ŋ
+fulmen__trigger__en__lightning__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:fulmen	wizardreal:fulmen	ctc	l a i t n i ŋ
+fulmen__trigger__en__lightning__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:fulmen	wizardreal:fulmen	ctc	l a i t n i ŋ
+fulmen__trigger__en__lightning__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:fulmen	wizardreal:fulmen	ctc	l a i t n i ŋ
+fulmen__trigger__en__thunder__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:fulmen	wizardreal:fulmen	ctc	θ ə n d ɚ
+fulmen__trigger__en__thunder__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:fulmen	wizardreal:fulmen	ctc	θ ə n d ɚ
+fulmen__trigger__en__thunder__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:fulmen	wizardreal:fulmen	phoneme	f a n d
+fulmen__trigger__en__thunder__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:fulmen	wizardreal:fulmen	phoneme	a n d
+fulmen__trigger__en__thunderbolt__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:fulmen	wizardreal:fulmen	ctc	θ ə n d ɚ b o l t
+fulmen__trigger__en__thunderbolt__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:fulmen	wizardreal:fulmen	ctc	θ a n d ɚ b o l t
+fulmen__trigger__en__thunderbolt__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:fulmen	wizardreal:fulmen	ctc	h a n d ə ɹ b o l d
+fulmen__trigger__en__thunderbolt__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:fulmen	wizardreal:fulmen	ctc	h a n d a ɹ b o d
+gaia__trigger__en__gaia__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:gaia	wizardreal:gaia	ctc	k a a
+gaia__trigger__en__gaia__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:gaia	wizardreal:gaia	ctc	k a i a
+gaia__trigger__en__gaia__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:gaia	wizardreal:gaia	ctc	d a j a
+gaia__trigger__en__gaia__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:gaia	wizardreal:gaia	ctc	d a j
+gaia__trigger__zh__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:gaia	wizardreal:gaia	phoneme	p ɑ n t i n
+gaia__trigger__zh__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:gaia	wizardreal:gaia	phoneme	f ɑ n t i n
+gaia__trigger__zh__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:gaia	wizardreal:gaia	ctc	d a d i
+gaia__trigger__zh__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:gaia	wizardreal:gaia	ctc	d a d i
+gaia__chant__en__l0_0__deep_roots_tremble__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.0:0	ctc	d i p ɹ u t s t ɹ e m b ə l l
+gaia__chant__en__l0_0__deep_roots_tremble__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.0:0	ctc	d i p ɹ u t s t ɹ e m b ə l l
+gaia__chant__en__l0_0__deep_roots_tremble__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.0:0	ctc	d i p ɹ u t s t ɹ e m b ə l
+gaia__chant__en__l0_0__deep_roots_tremble__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.0:0	ctc	d i p ɹ u t s t ɹ e m b ə l
+gaia__chant__en__l0_0__deep_roots_tremble__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.0:0	ctc	d i p ɹ u t s t ɹ e m b ə l l
+gaia__chant__en__l0_0__deep_roots_tremble__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.0:0	ctc	d i p ɹ u t s t ɹ e m b ə l
+gaia__chant__en__l0_0__deep_roots_tremble__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.0:0	phoneme	d i p ɹ u t s t ɹ e m b ə l
+gaia__chant__en__l0_0__deep_roots_tremble__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.0:0	ctc	d i p ɹ u t s t ɹ e m b ə l
+gaia__chant__en__l0_1__shake_the_ground__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.0:1	ctc	ʃ e i k ð ə ɡ ɹ a u n d
+gaia__chant__en__l0_1__shake_the_ground__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.0:1	ctc	ʃ e i k ð ə ɡ ɹ a u n d
+gaia__chant__en__l0_1__shake_the_ground__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.0:1	ctc	ʃ e i k ð ə ɡ ɹ a u n d
+gaia__chant__en__l0_1__shake_the_ground__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.0:1	ctc	ʃ e i k ð ə ɡ ɹ a u n d
+gaia__chant__en__l0_1__shake_the_ground__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.0:1	ctc	ʃ e i k ð ə ɡ ɹ a u n d
+gaia__chant__en__l0_1__shake_the_ground__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.0:1	ctc	ʃ e i k ð ə ɡ ɹ a u n d
+gaia__chant__en__l0_1__shake_the_ground__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.0:1	ctc	ʃ e i k ð ə ɡ ɹ a u n d
+gaia__chant__en__l0_1__shake_the_ground__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.0:1	ctc	ʃ e k d ɯ ɡ ɹ a m d
+gaia__chant__en__l0_2__gaia__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.0:2	ctc	k a a
+gaia__chant__en__l0_2__gaia__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.0:2	ctc	k a i a
+gaia__chant__en__l0_2__gaia__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.0:2	ctc	ɡ a j a
+gaia__chant__en__l0_2__gaia__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.0:2	ctc	dʒ a j a
+gaia__chant__en__l0_2__gaia__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.0:2	ctc	ɡ a i ə
+gaia__chant__en__l0_2__gaia__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.0:2	ctc	ɡ a i ə
+gaia__chant__en__l0_2__gaia__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.0:2	ctc	d a j a
+gaia__chant__en__l0_2__gaia__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.0:2	ctc	d a j
+gaia__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.1:0	ctc	p ɑ n t i n ts i n k ə ɜ
+gaia__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.1:0	ctc	p ɑ n t i n ts i n k ə ɜ n
+gaia__chant__zh__l1_0__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.1:0	ctc	t ɑ n t i n ts i n k ə ɜ
+gaia__chant__zh__l1_0__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.1:0	text	t ɑ n t i n ts i n k ə
+gaia__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.1:1	ctc	ts i n n ts h a n n p ɑ n
+gaia__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.1:1	text	ts i n n ts h a n n p ɑ n
+gaia__chant__zh__l1_1__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.1:1	text	ts i n n ts h ɑ n n m ɑ n
+gaia__chant__zh__l1_1__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.1:1	text	ts ə n n ts h a n n m ɑ n
+gaia__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.1:2	ctc	k a j a
+gaia__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.1:2	ctc	t ɑ n j ɑ n
+gaia__chant__zh__l1_2__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.1:2	ctc	k a i j a
+gaia__chant__zh__l1_2__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.1:2	ctc	ɡ a i j a
+gaia__chant__ja__l2_0__daichi_no_ne__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.2:0	ctc	d a t i n u ʔ e n u h i
+gaia__chant__ja__l2_0__daichi_no_ne__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.2:0	ctc	d a t i n u ʔ i n h i
+gaia__chant__ja__l2_0__daichi_no_ne__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.2:0	ctc	d a tʃ i n u e n h i
+gaia__chant__ja__l2_0__daichi_no_ne__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.2:0	ctc	d a i tʃ i n u w e n i
+gaia__chant__ja__l2_1__yuruge__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.2:1	ctc	j ʉ ɹ ʉ k e
+gaia__chant__ja__l2_1__yuruge__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.2:1	ctc	j ʉ ɹ ʉ d e
+gaia__chant__ja__l2_1__yuruge__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.2:1	ctc	j i ɹ ø ɡ e
+gaia__chant__ja__l2_1__yuruge__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.2:1	ctc	j ɹ ɡ a
+gaia__chant__ja__l2_2__gaia__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.2:2	ctc	ɡ a j a
+gaia__chant__ja__l2_2__gaia__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.2:2	ctc	ɡ a j a
+gaia__chant__ja__l2_2__gaia__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:gaia	wizardreal:gaia.chant.2:2	ctc	ɡ a i j a
+gaia__chant__ja__l2_2__gaia__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:gaia	wizardreal:gaia.chant.2:2	ctc	ɡ a j a
+ictus__trigger__en__ictus__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:ictus	wizardreal:ictus	ctc	e k t e s
+ictus__trigger__en__ictus__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:ictus	wizardreal:ictus	ctc	e k dʒ a s
+ictus__trigger__en__ictus__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:ictus	wizardreal:ictus	ctc	i t a s
+ictus__trigger__en__ictus__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:ictus	wizardreal:ictus	ctc	i t a s
+ictus__trigger__en__gust__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:ictus	wizardreal:ictus	ctc	ɡ a s t
+ictus__trigger__en__gust__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:ictus	wizardreal:ictus	ctc	ɡ a s t
+ictus__trigger__en__gust__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:ictus	wizardreal:ictus	ctc	ɡ a s t
+ictus__trigger__en__gust__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:ictus	wizardreal:ictus	ctc	ɡ a s t
+ictus__trigger__en__wind__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:ictus	wizardreal:ictus	ctc	w i n d
+ictus__trigger__en__wind__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:ictus	wizardreal:ictus	ctc	w i n d
+ictus__trigger__en__wind__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:ictus	wizardreal:ictus	phoneme	w a i
+ictus__trigger__en__wind__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:ictus	wizardreal:ictus	phoneme	w a i
+ictus__trigger__en__push__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:ictus	wizardreal:ictus	ctc	p ɑ ʃ
+ictus__trigger__en__push__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:ictus	wizardreal:ictus	ctc	p ɑ ʃ
+ictus__trigger__en__push__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:ictus	wizardreal:ictus	ctc	u ʃ
+ictus__trigger__en__push__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:ictus	wizardreal:ictus	ctc	u ʃ
+ictus__trigger__en__shove__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:ictus	wizardreal:ictus	ctc	ʃ a v
+ictus__trigger__en__shove__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:ictus	wizardreal:ictus	ctc	ʃ a v
+ictus__trigger__en__shove__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:ictus	wizardreal:ictus	ctc	ʃ a b
+ictus__trigger__en__shove__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:ictus	wizardreal:ictus	ctc	ʃ a b
+ictus__trigger__en__strike__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:ictus	wizardreal:ictus	ctc	s t ɹ a i k
+ictus__trigger__en__strike__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:ictus	wizardreal:ictus	ctc	s t ɹ a i k
+ictus__trigger__en__strike__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:ictus	wizardreal:ictus	ctc	s t ɹ a i k
+ictus__trigger__en__strike__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:ictus	wizardreal:ictus	ctc	s t ɹ a i k
+ignis__trigger__en__ignis__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:ignis	wizardreal:ignis	ctc	e ɡ n e s
+ignis__trigger__en__ignis__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:ignis	wizardreal:ignis	ctc	e ɡ n e s
+ignis__trigger__en__ignis__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:ignis	wizardreal:ignis	ctc	e ɡ n i s
+ignis__trigger__en__ignis__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:ignis	wizardreal:ignis	ctc	h i d n i s
+ignis__trigger__en__fire__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:ignis	wizardreal:ignis	ctc	f a i
+ignis__trigger__en__fire__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:ignis	wizardreal:ignis	ctc	f a i ɚ
+ignis__trigger__en__fire__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:ignis	wizardreal:ignis	ctc	f a i ɹ
+ignis__trigger__en__fire__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:ignis	wizardreal:ignis	ctc	f a i d
+ignis__trigger__en__flame__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:ignis	wizardreal:ignis	ctc	f l e i m
+ignis__trigger__en__flame__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:ignis	wizardreal:ignis	ctc	f l e i m
+ignis__trigger__en__flame__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:ignis	wizardreal:ignis	ctc	f l e i m
+ignis__trigger__en__flame__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:ignis	wizardreal:ignis	ctc	f l e i n
+ignis__trigger__en__fireball__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:ignis	wizardreal:ignis	ctc	f a i b ɑ l
+ignis__trigger__en__fireball__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:ignis	wizardreal:ignis	ctc	f a i ɚ b ɑ l
+ignis__trigger__en__fireball__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:ignis	wizardreal:ignis	ctc	f a i ɹ b ɔ l
+ignis__trigger__en__fireball__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:ignis	wizardreal:ignis	ctc	f a i ɹ b o n
+mare__trigger__en__mare__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:mare	wizardreal:mare	ctc	m e
+mare__trigger__en__mare__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:mare	wizardreal:mare	ctc	m e
+mare__trigger__en__mare__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:mare	wizardreal:mare	ctc	m e ɹ
+mare__trigger__en__mare__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:mare	wizardreal:mare	ctc	m e ɹ
+mare__trigger__en__tide__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:mare	wizardreal:mare	ctc	t a i d
+mare__trigger__en__tide__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:mare	wizardreal:mare	ctc	t a i d
+mare__trigger__en__tide__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:mare	wizardreal:mare	ctc	d a d
+mare__trigger__en__tide__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:mare	wizardreal:mare	ctc	d a i d
+mare__trigger__zh__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:mare	wizardreal:mare	text	ts h a n ŋ ɑ u n
+mare__trigger__zh__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:mare	wizardreal:mare	text	t h a n ŋ x ɑ u n
+mare__trigger__zh__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:mare	wizardreal:mare	phoneme	f a x a
+mare__trigger__zh__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:mare	wizardreal:mare	phoneme	f ɑ ŋ x a
+mare__chant__en__l0_0__rising_tide__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:mare	wizardreal:mare.chant.0:0	phoneme	ɹ a i z i ŋ t a i d
+mare__chant__en__l0_0__rising_tide__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:mare	wizardreal:mare.chant.0:0	phoneme	ɹ a i z i ŋ t a i d
+mare__chant__en__l0_0__rising_tide__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:mare	wizardreal:mare.chant.0:0	phoneme	ɹ a i z i ŋ t a i d
+mare__chant__en__l0_0__rising_tide__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:mare	wizardreal:mare.chant.0:0	phoneme	ɹ a i z i ŋ t a i d
+mare__chant__en__l0_0__rising_tide__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:mare	wizardreal:mare.chant.0:0	phoneme	ɹ a i z i ŋ t a i d
+mare__chant__en__l0_0__rising_tide__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:mare	wizardreal:mare.chant.0:0	phoneme	ɹ a i z i ŋ t a i d
+mare__chant__en__l0_0__rising_tide__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:mare	wizardreal:mare.chant.0:0	phoneme	ɹ a i z i ŋ t a i d
+mare__chant__en__l0_0__rising_tide__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:mare	wizardreal:mare.chant.0:0	phoneme	ɹ a i z i ŋ d a i d
+mare__chant__en__l0_1__sweep_them_away__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:mare	wizardreal:mare.chant.0:1	ctc	s w i p ð e m ə w e i
+mare__chant__en__l0_1__sweep_them_away__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:mare	wizardreal:mare.chant.0:1	ctc	s w i p ð e m ə w e i
+mare__chant__en__l0_1__sweep_them_away__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:mare	wizardreal:mare.chant.0:1	ctc	s w i p ð ə m ə w e i
+mare__chant__en__l0_1__sweep_them_away__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:mare	wizardreal:mare.chant.0:1	ctc	s w i p ð ə m ə w e i
+mare__chant__en__l0_1__sweep_them_away__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:mare	wizardreal:mare.chant.0:1	ctc	s w i ð ə m ə w e i
+mare__chant__en__l0_1__sweep_them_away__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:mare	wizardreal:mare.chant.0:1	ctc	s w i t ð ə m ə w e i
+mare__chant__en__l0_1__sweep_them_away__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:mare	wizardreal:mare.chant.0:1	ctc	s i p ð e m ə w e i
+mare__chant__en__l0_1__sweep_them_away__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:mare	wizardreal:mare.chant.0:1	phoneme	s w i t ð e m ə w e
+mare__chant__en__l0_2__mare__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:mare	wizardreal:mare.chant.0:2	ctc	m e
+mare__chant__en__l0_2__mare__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:mare	wizardreal:mare.chant.0:2	ctc	m e
+mare__chant__en__l0_2__mare__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:mare	wizardreal:mare.chant.0:2	ctc	m e ɹ
+mare__chant__en__l0_2__mare__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:mare	wizardreal:mare.chant.0:2	ctc	m e ɹ
+mare__chant__en__l0_2__mare__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:mare	wizardreal:mare.chant.0:2	phoneme	m a
+mare__chant__en__l0_2__mare__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:mare	wizardreal:mare.chant.0:2	phoneme	m a
+mare__chant__en__l0_2__mare__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:mare	wizardreal:mare.chant.0:2	ctc	m e ɹ
+mare__chant__en__l0_2__mare__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:mare	wizardreal:mare.chant.0:2	ctc	m e ɹ
+mare__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:mare	wizardreal:mare.chant.1:0	ctc	tɕ h ɑ u n s e i n j o n ɡ n ŋ t o n ɡ n
+mare__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:mare	wizardreal:mare.chant.1:0	ctc	tɕ h ɑ u n s e i n j o n ɡ n ŋ t o n ɡ n
+mare__chant__zh__l1_0__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:mare	wizardreal:mare.chant.1:0	ctc	ts h ɑ u n s e i n j o n ɡ n t o n ɡ n
+mare__chant__zh__l1_0__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:mare	wizardreal:mare.chant.1:0	ctc	ts h ɑ u n s u e i n j o n ɡ n t o n ɡ n
+mare__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:mare	wizardreal:mare.chant.1:1	ctc	t i n t a n ŋ s i n f ɑ n
+mare__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:mare	wizardreal:mare.chant.1:1	text	t i n t a n ŋ s i n f ɑ n
+mare__chant__zh__l1_1__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:mare	wizardreal:mare.chant.1:1	ctc	t i n t a n ŋ s i n f a n ŋ
+mare__chant__zh__l1_1__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:mare	wizardreal:mare.chant.1:1	ctc	t i n t a n ŋ s i n f a n ŋ
+mare__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:mare	wizardreal:mare.chant.1:2	text	ts h a n ŋ ɑ u n
+mare__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:mare	wizardreal:mare.chant.1:2	text	t h a n ŋ x ɑ u n
+mare__chant__zh__l1_2__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:mare	wizardreal:mare.chant.1:2	phoneme	f a x a
+mare__chant__zh__l1_2__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:mare	wizardreal:mare.chant.1:2	phoneme	f ɑ ŋ x a
+mare__chant__ja__l2_0__shio_ga_oshiyoseru__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:mare	wizardreal:mare.chant.2:0	ctc	tʃ i e dʒ i a i e s i s ə ɹ ə
+mare__chant__ja__l2_0__shio_ga_oshiyoseru__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:mare	wizardreal:mare.chant.2:0	ctc	s i e tʃ i a i e s i s ə l ə
+mare__chant__ja__l2_0__shio_ga_oshiyoseru__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:mare	wizardreal:mare.chant.2:0	ctc	ʃ i ɔ dʒ i j e ɔ ʃ i j ɔ s e ɹ
+mare__chant__ja__l2_0__shio_ga_oshiyoseru__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:mare	wizardreal:mare.chant.2:0	ctc	s i ɔ dʒ i j s j ɔ s
+mare__chant__ja__l2_1__nagare_sare__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:mare	wizardreal:mare.chant.2:1	phoneme	n a ɡ ɑ ɹ e s a ɹ e
+mare__chant__ja__l2_1__nagare_sare__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:mare	wizardreal:mare.chant.2:1	phoneme	n a ɡ a ɹ s a ɹ e
+mare__chant__ja__l2_1__nagare_sare__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:mare	wizardreal:mare.chant.2:1	phoneme	n a l a ɹ s l
+mare__chant__ja__l2_1__nagare_sare__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:mare	wizardreal:mare.chant.2:1	phoneme	n a l a ɹ s a
+mare__chant__ja__l2_2__umi__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:mare	wizardreal:mare.chant.2:2	ctc	l m i
+mare__chant__ja__l2_2__umi__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:mare	wizardreal:mare.chant.2:2	ctc	m i
+mare__chant__ja__l2_2__umi__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:mare	wizardreal:mare.chant.2:2	ctc	ɡ ʉ m i
+mare__chant__ja__l2_2__umi__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:mare	wizardreal:mare.chant.2:2	phoneme	u m i
+mortis__trigger__en__mortis__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:mortis	wizardreal:mortis	phoneme	m u d i s
+mortis__trigger__en__mortis__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:mortis	wizardreal:mortis	phoneme	m o d i s
+mortis__trigger__en__mortis__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:mortis	wizardreal:mortis	phoneme	m o ɹ t i s
+mortis__trigger__en__mortis__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:mortis	wizardreal:mortis	phoneme	m o ɹ t i s
+mortis__trigger__en__wither__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:mortis	wizardreal:mortis	ctc	w i ð ɚ
+mortis__trigger__en__wither__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:mortis	wizardreal:mortis	ctc	w i ð ɚ
+mortis__trigger__en__wither__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:mortis	wizardreal:mortis	ctc	b i d a ɹ
+mortis__trigger__en__wither__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:mortis	wizardreal:mortis	phoneme	b i d a ɹ
+mortis__trigger__zh__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:mortis	wizardreal:mortis	ctc	w a n ŋ f i n
+mortis__trigger__zh__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:mortis	wizardreal:mortis	ctc	w a n ŋ t i n ŋ
+mortis__trigger__zh__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:mortis	wizardreal:mortis	ctc	w a ŋ l i n
+mortis__trigger__zh__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:mortis	wizardreal:mortis	phoneme	w a n ŋ l i ŋ
+mortis__chant__en__l0_0__shadows_call__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.0:0	ctc	ʃ æ d o u z k ɑ l
+mortis__chant__en__l0_0__shadows_call__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.0:0	ctc	ʃ æ d o u z k ɑ l
+mortis__chant__en__l0_0__shadows_call__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.0:0	ctc	ʃ æ d o u z k ɑ l
+mortis__chant__en__l0_0__shadows_call__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.0:0	phoneme	ʃ æ d o u z k ɔ l
+mortis__chant__en__l0_0__shadows_call__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.0:0	ctc	ʃ æ d o u z k o u l
+mortis__chant__en__l0_0__shadows_call__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.0:0	ctc	ʃ a d o u z k o l
+mortis__chant__en__l0_0__shadows_call__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.0:0	ctc	ʃ a d o s k ɑ n
+mortis__chant__en__l0_0__shadows_call__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.0:0	ctc	ʃ a d o s k o n
+mortis__chant__en__l0_1__wither_and_fade__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.0:1	ctc	w i ð ɚ ɹ æ n d f e i d
+mortis__chant__en__l0_1__wither_and_fade__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.0:1	ctc	w i ð ɚ ɹ æ n d f e i d
+mortis__chant__en__l0_1__wither_and_fade__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.0:1	ctc	w i ð ɚ ɹ i n f e i d
+mortis__chant__en__l0_1__wither_and_fade__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.0:1	ctc	w i ð ɚ ɹ i n f e i d
+mortis__chant__en__l0_1__wither_and_fade__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.0:1	ctc	w i ð ɚ ɹ æ n d f e i d
+mortis__chant__en__l0_1__wither_and_fade__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.0:1	ctc	w i ð ɚ ɹ æ n f e i d
+mortis__chant__en__l0_1__wither_and_fade__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.0:1	ctc	w i ð ɚ ɹ æ n d f e i d
+mortis__chant__en__l0_1__wither_and_fade__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.0:1	phoneme	w i ð ɚ ɹ æ n d f e i d
+mortis__chant__en__l0_2__mortis__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.0:2	phoneme	m u d i s
+mortis__chant__en__l0_2__mortis__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.0:2	phoneme	m o d i s
+mortis__chant__en__l0_2__mortis__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.0:2	phoneme	m u ɡ a s
+mortis__chant__en__l0_2__mortis__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.0:2	phoneme	m u d a s
+mortis__chant__en__l0_2__mortis__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.0:2	phoneme	m u t i s
+mortis__chant__en__l0_2__mortis__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.0:2	phoneme	m u t i s
+mortis__chant__en__l0_2__mortis__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.0:2	phoneme	m o ɹ t i s
+mortis__chant__en__l0_2__mortis__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.0:2	phoneme	m o ɹ t i s
+mortis__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.1:0	ctc	a n n j i n ŋ t i n j y n
+mortis__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.1:0	ctc	a n j i ɜ ŋ t i n
+mortis__chant__zh__l1_0__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.1:0	ctc	a j i d i
+mortis__chant__zh__l1_0__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.1:0	ctc	a n i d i
+mortis__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.1:1	ctc	t ɑ u n l i ɜ n k h u n w e i n
+mortis__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.1:1	ctc	t ɑ u n l i n ŋ k h u n w e i n
+mortis__chant__zh__l1_1__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.1:1	text	t j ɑ u n l i ɜ n k h u n a i n
+mortis__chant__zh__l1_1__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.1:1	ctc	t j ɑ u n l i ɜ n k h u n w a i n
+mortis__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.1:2	phoneme	s i n w a
+mortis__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.1:2	phoneme	s w a
+mortis__chant__zh__l1_2__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.1:2	phoneme	s i n w a
+mortis__chant__zh__l1_2__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.1:2	ctc	s i n w ɑ n
+mortis__chant__ja__l2_0__kage_ga_sasayaku__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.2:0	ctc	k a ɡ e dʒ i j e s a s a j a k ʉ
+mortis__chant__ja__l2_0__kage_ga_sasayaku__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.2:0	ctc	k a k a i dʒ i j a i s a s a i j a k ə
+mortis__chant__ja__l2_0__kage_ga_sasayaku__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.2:0	text	k a ɡ a dʒ i e s t a s a j a k ə m
+mortis__chant__ja__l2_0__kage_ga_sasayaku__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.2:0	ctc	k a ɡ a dʒ i i s a s a j a k ə
+mortis__chant__ja__l2_1__shibomi_chire__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.2:1	phoneme	s i b o m i t i ɹ e
+mortis__chant__ja__l2_1__shibomi_chire__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.2:1	phoneme	s i b o m i t i ɹ e
+mortis__chant__ja__l2_1__shibomi_chire__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.2:1	phoneme	s i b o m i tʃ i l e
+mortis__chant__ja__l2_1__shibomi_chire__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.2:1	phoneme	s i b o m i tʃ i l
+mortis__chant__ja__l2_2__mortisu__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.2:2	text	m o t [ i dʒ y
+mortis__chant__ja__l2_2__mortisu__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.2:2	text	m ɑ t [ i dʒ i
+mortis__chant__ja__l2_2__mortisu__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:mortis	wizardreal:mortis.chant.2:2	phoneme	m o i dʒ i
+mortis__chant__ja__l2_2__mortisu__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:mortis	wizardreal:mortis.chant.2:2	phoneme	m o t dʒ y
+sanctus__trigger__en__sanctus__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:sanctus	wizardreal:sanctus	phoneme	s e ŋ t e s
+sanctus__trigger__en__sanctus__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:sanctus	wizardreal:sanctus	phoneme	s e ŋ t a s
+sanctus__trigger__en__sanctus__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:sanctus	wizardreal:sanctus	phoneme	s a n d a s
+sanctus__trigger__en__sanctus__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:sanctus	wizardreal:sanctus	phoneme	s a n t a s
+sanctus__trigger__en__holy__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:sanctus	wizardreal:sanctus	ctc	h o l i
+sanctus__trigger__en__holy__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:sanctus	wizardreal:sanctus	ctc	h u l i
+sanctus__trigger__en__holy__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:sanctus	wizardreal:sanctus	ctc	h u l i
+sanctus__trigger__en__holy__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:sanctus	wizardreal:sanctus	ctc	h u l i
+sanctus__trigger__zh__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:sanctus	wizardreal:sanctus	ctc	s ə n ŋ k w ɑ n
+sanctus__trigger__zh__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:sanctus	wizardreal:sanctus	ctc	s ə n ŋ k w ɑ n
+sanctus__trigger__zh__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:sanctus	wizardreal:sanctus	ctc	s ə ɜ n ɡ w a
+sanctus__trigger__zh__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:sanctus	wizardreal:sanctus	ctc	s ə n n k w ɑ n
+sanctus__chant__en__l0_0__light_descend__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:0	ctc	l a i t d i s e n d
+sanctus__chant__en__l0_0__light_descend__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:0	phoneme	l a i t d i s e n d
+sanctus__chant__en__l0_0__light_descend__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:0	ctc	l a i d ᵻ s e n d
+sanctus__chant__en__l0_0__light_descend__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:0	ctc	l a i t d ᵻ s e n d
+sanctus__chant__en__l0_0__light_descend__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:0	phoneme	l a i t d i s e n d
+sanctus__chant__en__l0_0__light_descend__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:0	ctc	l a i k d i s e n d
+sanctus__chant__en__l0_0__light_descend__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:0	ctc	l a i t d i s e n d
+sanctus__chant__en__l0_0__light_descend__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:0	phoneme	l a i t d i s e n d
+sanctus__chant__en__l0_1__mend_our_wounds__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:1	phoneme	m e n d ɑ ɹ w u n d z
+sanctus__chant__en__l0_1__mend_our_wounds__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:1	phoneme	m e n d ɑ ɹ w u n z
+sanctus__chant__en__l0_1__mend_our_wounds__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:1	phoneme	m e n d a u w u n z
+sanctus__chant__en__l0_1__mend_our_wounds__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:1	phoneme	m e n d a u w u n z
+sanctus__chant__en__l0_1__mend_our_wounds__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:1	phoneme	m e n d a u w u n d z
+sanctus__chant__en__l0_1__mend_our_wounds__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:1	phoneme	m e n d a u w u n d z
+sanctus__chant__en__l0_1__mend_our_wounds__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:1	phoneme	m e n d a ɹ v u m z
+sanctus__chant__en__l0_1__mend_our_wounds__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:1	phoneme	m e n d a ɹ v u m z
+sanctus__chant__en__l0_2__sanctus__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:2	phoneme	s e ŋ t e s
+sanctus__chant__en__l0_2__sanctus__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:2	phoneme	s e ŋ t a s
+sanctus__chant__en__l0_2__sanctus__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:2	phoneme	s e ŋ t i s
+sanctus__chant__en__l0_2__sanctus__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:2	phoneme	s e ŋ k t i s
+sanctus__chant__en__l0_2__sanctus__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:2	phoneme	s a ŋ t i s
+sanctus__chant__en__l0_2__sanctus__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:2	phoneme	s a ŋ t ə s
+sanctus__chant__en__l0_2__sanctus__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:2	phoneme	s a n d a s
+sanctus__chant__en__l0_2__sanctus__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.0:2	phoneme	s a n t a s
+sanctus__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.1:0	text	s ə n ŋ k w a n ŋ tɕ i ɑ n ŋ l i n n
+sanctus__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.1:0	text	s ə n ŋ k a n ŋ tɕ i ɑ n ŋ l i ɜ n
+sanctus__chant__zh__l1_0__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.1:0	text	s ə n ŋ k w a n ŋ tɕ i ɑ n ŋ l i ɜ
+sanctus__chant__zh__l1_0__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.1:0	text	s ə n ŋ k a n ŋ tɕ i ɑ n ŋ l i ɜ
+sanctus__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.1:1	ctc	j i n x o n s a n n k h ɑ u n
+sanctus__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.1:1	text	j i n x o n s a n ŋ k h ɑ u n
+sanctus__chant__zh__l1_1__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.1:1	ctc	i n x ə 1 s a n ŋ k h o u n
+sanctus__chant__zh__l1_1__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.1:1	ctc	j i n x ə 1 s a n ŋ k h o u n
+sanctus__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.1:2	text	s i e n n s ə n ŋ
+sanctus__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.1:2	text	s i e n n s ə n ŋ
+sanctus__chant__zh__l1_2__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.1:2	text	ə ɜ n s a n
+sanctus__chant__zh__l1_2__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.1:2	text	s ə ɜ n s a n
+sanctus__chant__ja__l2_0__hikari_kudaru__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.2:0	ctc	ʃ k a ɹ i k u d a ɹ ʉ
+sanctus__chant__ja__l2_0__hikari_kudaru__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.2:0	ctc	ʃ k a l i k o d a ɹ
+sanctus__chant__ja__l2_0__hikari_kudaru__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.2:0	ctc	k a ɹ i k ə d a ɹ
+sanctus__chant__ja__l2_0__hikari_kudaru__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.2:0	ctc	s k a ɹ i k ə d a ɹ
+sanctus__chant__ja__l2_1__kizu_wo_naose__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.2:1	text	k i z ɯ d ɑ b y ɹ i o n ɑ s e
+sanctus__chant__ja__l2_1__kizu_wo_naose__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.2:1	text	k i z ə d a b ə ɹ i o n a s e
+sanctus__chant__ja__l2_1__kizu_wo_naose__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.2:1	text	k i z ə d a b ə ɹ i o n a s a i
+sanctus__chant__ja__l2_1__kizu_wo_naose__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.2:1	text	tʃ i z ə t a b ə l i n a z ə
+sanctus__chant__ja__l2_2__seinaru__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.2:2	ctc	s e n a ɹ
+sanctus__chant__ja__l2_2__seinaru__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.2:2	ctc	s e n ɹ
+sanctus__chant__ja__l2_2__seinaru__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:sanctus	wizardreal:sanctus.chant.2:2	ctc	s e n a ɹ
+sanctus__chant__ja__l2_2__seinaru__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:sanctus	wizardreal:sanctus.chant.2:2	ctc	s n a ɹ
+semina__trigger__en__semina__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:semina	wizardreal:semina	phoneme	s a m i n a
+semina__trigger__en__semina__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:semina	wizardreal:semina	phoneme	s a m i n a
+semina__trigger__en__semina__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:semina	wizardreal:semina	phoneme	s e m i n a
+semina__trigger__en__semina__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:semina	wizardreal:semina	phoneme	s m i n a
+semina__trigger__en__nature__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:semina	wizardreal:semina	ctc	n e i tʃ ɚ
+semina__trigger__en__nature__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:semina	wizardreal:semina	ctc	n e i tʃ ɚ ɹ
+semina__trigger__en__nature__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:semina	wizardreal:semina	phoneme	n i tʃ a ɹ
+semina__trigger__en__nature__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:semina	wizardreal:semina	phoneme	n i tʃ a d
+semina__trigger__zh__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:semina	wizardreal:semina	text	s i n j i ɑ n
+semina__trigger__zh__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:semina	wizardreal:semina	text	s i n j i ɑ n
+semina__trigger__zh__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:semina	wizardreal:semina	ctc	s i n l i ɑ n
+semina__trigger__zh__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:semina	wizardreal:semina	text	s i n ʐ i ɑ n
+semina__chant__en__l0_0__seeds_awaken__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:semina	wizardreal:semina.chant.0:0	ctc	s i d z ə w e i k ə n
+semina__chant__en__l0_0__seeds_awaken__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:semina	wizardreal:semina.chant.0:0	ctc	s i d z ə w e i k ə n
+semina__chant__en__l0_0__seeds_awaken__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:semina	wizardreal:semina.chant.0:0	ctc	s i d z ə w e i k ə n
+semina__chant__en__l0_0__seeds_awaken__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:semina	wizardreal:semina.chant.0:0	ctc	s i d z ɚ w e i k ə n
+semina__chant__en__l0_0__seeds_awaken__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:semina	wizardreal:semina.chant.0:0	ctc	s i t ə w e i k ə n
+semina__chant__en__l0_0__seeds_awaken__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:semina	wizardreal:semina.chant.0:0	ctc	s i t ə w e i k ə n
+semina__chant__en__l0_0__seeds_awaken__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:semina	wizardreal:semina.chant.0:0	ctc	s i d z ə w e i k ə n
+semina__chant__en__l0_0__seeds_awaken__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:semina	wizardreal:semina.chant.0:0	ctc	s i d z ɑ ɹ v e i k ə n t
+semina__chant__en__l0_1__bloom_and_grow__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:semina	wizardreal:semina.chant.0:1	phoneme	b l u m æ n ɡ ɹ o u
+semina__chant__en__l0_1__bloom_and_grow__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:semina	wizardreal:semina.chant.0:1	phoneme	b l u m æ n d ɡ ɹ o u
+semina__chant__en__l0_1__bloom_and_grow__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:semina	wizardreal:semina.chant.0:1	phoneme	b l u m ə n ɡ ɹ o u
+semina__chant__en__l0_1__bloom_and_grow__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:semina	wizardreal:semina.chant.0:1	phoneme	b l u m ə n d ɡ ɹ o u
+semina__chant__en__l0_1__bloom_and_grow__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:semina	wizardreal:semina.chant.0:1	phoneme	b l u m æ n ɡ ɹ o u
+semina__chant__en__l0_1__bloom_and_grow__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:semina	wizardreal:semina.chant.0:1	phoneme	b l u m æ n ɡ ɹ a u
+semina__chant__en__l0_1__bloom_and_grow__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:semina	wizardreal:semina.chant.0:1	phoneme	b l u m æ n d ɡ ɹ o
+semina__chant__en__l0_1__bloom_and_grow__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:semina	wizardreal:semina.chant.0:1	phoneme	b l u m æ n d ɡ ɹ o u
+semina__chant__en__l0_2__semina__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:semina	wizardreal:semina.chant.0:2	phoneme	s a m i n a
+semina__chant__en__l0_2__semina__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:semina	wizardreal:semina.chant.0:2	phoneme	s a m i n a
+semina__chant__en__l0_2__semina__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:semina	wizardreal:semina.chant.0:2	phoneme	s a m a n a
+semina__chant__en__l0_2__semina__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:semina	wizardreal:semina.chant.0:2	phoneme	s e m a n a
+semina__chant__en__l0_2__semina__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:semina	wizardreal:semina.chant.0:2	phoneme	s ə m i n a
+semina__chant__en__l0_2__semina__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:semina	wizardreal:semina.chant.0:2	phoneme	s ə m i n a
+semina__chant__en__l0_2__semina__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:semina	wizardreal:semina.chant.0:2	phoneme	s e m i n a
+semina__chant__en__l0_2__semina__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:semina	wizardreal:semina.chant.0:2	phoneme	s m i n a
+semina__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:semina	wizardreal:semina.chant.1:0	ctc	ts o n ɡ n ŋ s i n s u n ɕ i n ŋ
+semina__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:semina	wizardreal:semina.chant.1:0	text	ts o n ɡ n s i n s u n ɕ i n ŋ
+semina__chant__zh__l1_0__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:semina	wizardreal:semina.chant.1:0	ctc	ts h o n ɡ n ts ə 1 s u n ɕ i e n
+semina__chant__zh__l1_0__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:semina	wizardreal:semina.chant.1:0	text	ts o n ɡ n ts ə 1 s u n ɕ i n
+semina__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:semina	wizardreal:semina.chant.1:1	text	s ə n ŋ ts i ɑ n ŋ k h a i n x w ɑ n
+semina__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:semina	wizardreal:semina.chant.1:1	ctc	s ə n ŋ tɕ i ɑ n ŋ k h a i n x w ɑ n
+semina__chant__zh__l1_1__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:semina	wizardreal:semina.chant.1:1	text	s ə n ŋ ts ɑ u n k h a i n x w ɑ n
+semina__chant__zh__l1_1__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:semina	wizardreal:semina.chant.1:1	ctc	s ə n ŋ ts ɑ u n k h a i n x w ɑ n
+semina__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:semina	wizardreal:semina.chant.1:2	text	s i n j i ɑ n
+semina__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:semina	wizardreal:semina.chant.1:2	text	s i n j i ɑ n
+semina__chant__zh__l1_2__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:semina	wizardreal:semina.chant.1:2	ctc	s i n l i ɑ n
+semina__chant__zh__l1_2__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:semina	wizardreal:semina.chant.1:2	text	s i n ʐ i ɑ n
+semina__chant__ja__l2_0__tane_ga_mebaeru__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:semina	wizardreal:semina.chant.2:0	phoneme	t a n e dʒ i e m e b a ɹ ʉ
+semina__chant__ja__l2_0__tane_ga_mebaeru__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:semina	wizardreal:semina.chant.2:0	phoneme	t a n e dʒ i j a m e b a ɹ ʉ
+semina__chant__ja__l2_0__tane_ga_mebaeru__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:semina	wizardreal:semina.chant.2:0	text	t a n e dʒ i e m e b a d
+semina__chant__ja__l2_0__tane_ga_mebaeru__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:semina	wizardreal:semina.chant.2:0	text	t a n dʒ i j i m i b a ɹ
+semina__chant__ja__l2_1__hana_hirake__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:semina	wizardreal:semina.chant.2:1	phoneme	h a n a ħ i ɹ a k a
+semina__chant__ja__l2_1__hana_hirake__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:semina	wizardreal:semina.chant.2:1	ctc	h a n a ħ i ɹ a k
+semina__chant__ja__l2_1__hana_hirake__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:semina	wizardreal:semina.chant.2:1	ctc	h a n a k i d a k
+semina__chant__ja__l2_1__hana_hirake__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:semina	wizardreal:semina.chant.2:1	ctc	h a n a k i d a k i
+semina__chant__ja__l2_2__shizen__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:semina	wizardreal:semina.chant.2:2	ctc	s i z e n
+semina__chant__ja__l2_2__shizen__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:semina	wizardreal:semina.chant.2:2	ctc	ɕ i n ts i e n n
+semina__chant__ja__l2_2__shizen__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:semina	wizardreal:semina.chant.2:2	ctc	ʃ i n z e n
+semina__chant__ja__l2_2__shizen__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:semina	wizardreal:semina.chant.2:2	ctc	ɕ i n s i e n ŋ
+tempest__trigger__en__tempest__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:tempest	wizardreal:tempest	phoneme	t e m p i s t
+tempest__trigger__en__tempest__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:tempest	wizardreal:tempest	phoneme	t e m p i s t
+tempest__trigger__en__tempest__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:tempest	wizardreal:tempest	phoneme	t e m p i s t
+tempest__trigger__en__tempest__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:tempest	wizardreal:tempest	phoneme	d e m p e s t
+tempest__trigger__en__storm__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:tempest	wizardreal:tempest	ctc	s t ɔ ɹ m
+tempest__trigger__en__storm__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:tempest	wizardreal:tempest	ctc	s t ɔ ɹ m
+tempest__trigger__en__storm__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:tempest	wizardreal:tempest	phoneme	s t ɑ n
+tempest__trigger__en__storm__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:tempest	wizardreal:tempest	phoneme	s t ɑ n
+tempest__trigger__zh__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:tempest	wizardreal:tempest	text	f ə ɜ ŋ p ɑ n
+tempest__trigger__zh__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:tempest	wizardreal:tempest	text	f ə n ŋ p ɑ n
+tempest__trigger__zh__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:tempest	wizardreal:tempest	ctc	f ʉ ŋ b a
+tempest__trigger__zh__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:tempest	wizardreal:tempest	text	f ə ɜ ŋ p a
+tempest__chant__en__l0_0__storm_above__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.0:0	ctc	s t o ɹ m ə b ə v
+tempest__chant__en__l0_0__storm_above__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.0:0	ctc	s t o ɹ m ə b ə v
+tempest__chant__en__l0_0__storm_above__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.0:0	ctc	s t o ɹ m ə b ə v
+tempest__chant__en__l0_0__storm_above__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.0:0	ctc	s t o ɹ m ə b ə v
+tempest__chant__en__l0_0__storm_above__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.0:0	phoneme	s t u m ə b a v
+tempest__chant__en__l0_0__storm_above__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.0:0	ctc	s t u m ə b a v
+tempest__chant__en__l0_0__storm_above__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.0:0	ctc	s t u n a b ɑ v
+tempest__chant__en__l0_0__storm_above__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.0:0	ctc	s t u m a b a v
+tempest__chant__en__l0_1__strike_them_down__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.0:1	ctc	s t ɹ a i k ð ə m d a u n
+tempest__chant__en__l0_1__strike_them_down__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.0:1	ctc	s t ɹ a i k ð ə m d a u n
+tempest__chant__en__l0_1__strike_them_down__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.0:1	ctc	s t ɹ a i k ð ə m d a u n
+tempest__chant__en__l0_1__strike_them_down__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.0:1	ctc	s t ɹ a i k ð ə m d a u n
+tempest__chant__en__l0_1__strike_them_down__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.0:1	phoneme	s t ɹ a i k ð ə m d a u n
+tempest__chant__en__l0_1__strike_them_down__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.0:1	ctc	s t ɹ a i k ð ə m d a u n
+tempest__chant__en__l0_1__strike_them_down__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.0:1	ctc	s t ɹ a i k d e n d a u n
+tempest__chant__en__l0_1__strike_them_down__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.0:1	ctc	s t ɹ a i k d e n d a u n
+tempest__chant__en__l0_2__tempest__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.0:2	phoneme	t e m p i s t
+tempest__chant__en__l0_2__tempest__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.0:2	phoneme	t e m p i s t
+tempest__chant__en__l0_2__tempest__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.0:2	phoneme	t e m p i s t
+tempest__chant__en__l0_2__tempest__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.0:2	phoneme	t e m p i s t
+tempest__chant__en__l0_2__tempest__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.0:2	phoneme	t e m p i s t
+tempest__chant__en__l0_2__tempest__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.0:2	phoneme	t e m p i s t
+tempest__chant__en__l0_2__tempest__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.0:2	phoneme	t e m p i s t
+tempest__chant__en__l0_2__tempest__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.0:2	phoneme	d e m p e s t
+tempest__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.1:0	text	p h i e n n tɕ h o n ɡ n ts y n s i ɑ n
+tempest__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.1:0	text	p h i e n n tɕ h o n ɡ n ts i n s i ɑ n
+tempest__chant__zh__l1_0__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.1:0	text	t h i e n n tɕ h o n ɡ n ts i n s a n
+tempest__chant__zh__l1_0__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.1:0	text	p h i e n n tɕ h o n ɡ n ts i n s a n
+tempest__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.1:1	ctc	l e i n k w a n ŋ l u n ɕ i ɑ n
+tempest__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.1:1	ctc	l e i n k w a n ŋ l u o n ɕ i ɑ n
+tempest__chant__zh__l1_1__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.1:1	ctc	l e i n j k w a n ŋ l u o n ɕ a
+tempest__chant__zh__l1_1__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.1:1	ctc	l ə 1 j i n k w a n k u o n ɕ i ɑ n
+tempest__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.1:2	text	f ə ɜ ŋ p ɑ n
+tempest__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.1:2	text	f ə n ŋ p ɑ n
+tempest__chant__zh__l1_2__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.1:2	ctc	f ʉ ŋ b a
+tempest__chant__zh__l1_2__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.1:2	text	f ə ɜ ŋ p a
+tempest__chant__ja__l2_0__ten_ni_raikou_tsudoite__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.2:0	phoneme	t e n e n u a i ɹ a i k o ts ʉ d o t e
+tempest__chant__ja__l2_0__ten_ni_raikou_tsudoite__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.2:0	ctc	k a i n e n u a ɹ a i k ɔ t ə d ɔ t e
+tempest__chant__ja__l2_0__ten_ni_raikou_tsudoite__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.2:0	ctc	t e i n a i l a k o t ts d ɔ i t e
+tempest__chant__ja__l2_0__ten_ni_raikou_tsudoite__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.2:0	ctc	t e ə n a i l a k u t d ɔ t a i
+tempest__chant__ja__l2_1__ochiro__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.2:1	phoneme	tʃ i l
+tempest__chant__ja__l2_1__ochiro__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.2:1	phoneme	e tʃ i l e
+tempest__chant__ja__l2_1__ochiro__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.2:1	ctc	e tʃ i l e
+tempest__chant__ja__l2_1__ochiro__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.2:1	phoneme	w e tʃ l e
+tempest__chant__ja__l2_2__arashi__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.2:2	ctc	a ɹ a s i
+tempest__chant__ja__l2_2__arashi__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.2:2	ctc	a ɹ a s i
+tempest__chant__ja__l2_2__arashi__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:tempest	wizardreal:tempest.chant.2:2	ctc	a ɹ s i
+tempest__chant__ja__l2_2__arashi__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:tempest	wizardreal:tempest.chant.2:2	ctc	a ɹ s i
+umbra__trigger__en__umbra__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:umbra	wizardreal:umbra	phoneme	a m b ɹ a
+umbra__trigger__en__umbra__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:umbra	wizardreal:umbra	phoneme	a m b ɹ a
+umbra__trigger__en__umbra__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:umbra	wizardreal:umbra	phoneme	a m b ɹ a
+umbra__trigger__en__umbra__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:umbra	wizardreal:umbra	phoneme	a m b ɹ a
+umbra__trigger__en__veil__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:umbra	wizardreal:umbra	ctc	v e l
+umbra__trigger__en__veil__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:umbra	wizardreal:umbra	ctc	v e i l
+umbra__trigger__en__veil__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:umbra	wizardreal:umbra	ctc	v e l
+umbra__trigger__en__veil__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:umbra	wizardreal:umbra	phoneme	v i
+umbra__trigger__zh__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:umbra	wizardreal:umbra	phoneme	x w ɑ n j a
+umbra__trigger__zh__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:umbra	wizardreal:umbra	phoneme	x w ɑ n j i e n
+umbra__trigger__zh__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:umbra	wizardreal:umbra	phoneme	x w a a
+umbra__trigger__zh__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:umbra	wizardreal:umbra	ctc	x w a a
+umbra__chant__en__l0_0__veil_of_shadows__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.0:0	phoneme	v e i l ə v ʃ æ d o u z
+umbra__chant__en__l0_0__veil_of_shadows__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.0:0	phoneme	v e i l ə v ʃ æ d o u z
+umbra__chant__en__l0_0__veil_of_shadows__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.0:0	phoneme	v e i l ə v ʃ æ d o u z
+umbra__chant__en__l0_0__veil_of_shadows__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.0:0	phoneme	v e i l ə v ʃ æ d o u z
+umbra__chant__en__l0_0__veil_of_shadows__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.0:0	phoneme	v e i l ə v ʃ æ d o u z
+umbra__chant__en__l0_0__veil_of_shadows__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.0:0	phoneme	v e i l ə v ʃ æ d o u z
+umbra__chant__en__l0_0__veil_of_shadows__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.0:0	ctc	w e l ə v ʃ æ d o u z
+umbra__chant__en__l0_0__veil_of_shadows__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.0:0	ctc	w e l ɑ f ʃ æ d o u z
+umbra__chant__en__l0_1__walk_unseen__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.0:1	ctc	w a k ə n s i n
+umbra__chant__en__l0_1__walk_unseen__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.0:1	phoneme	w a k a n s i n
+umbra__chant__en__l0_1__walk_unseen__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.0:1	phoneme	w ɑ k ə n s i n
+umbra__chant__en__l0_1__walk_unseen__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.0:1	ctc	w a k a n s i d
+umbra__chant__en__l0_1__walk_unseen__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.0:1	ctc	b u k a n s i n
+umbra__chant__en__l0_1__walk_unseen__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.0:1	phoneme	b u k a n s i n
+umbra__chant__en__l0_1__walk_unseen__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.0:1	phoneme	w a k a n s i n
+umbra__chant__en__l0_1__walk_unseen__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.0:1	phoneme	w ɑ k ə n s i n
+umbra__chant__en__l0_2__umbra__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.0:2	phoneme	a m b ɹ a
+umbra__chant__en__l0_2__umbra__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.0:2	phoneme	a m b ɹ a
+umbra__chant__en__l0_2__umbra__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.0:2	phoneme	a m b ɹ a
+umbra__chant__en__l0_2__umbra__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.0:2	phoneme	a m b ɹ a
+umbra__chant__en__l0_2__umbra__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.0:2	phoneme	a m b ɹ a
+umbra__chant__en__l0_2__umbra__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.0:2	phoneme	a m b ɹ a
+umbra__chant__en__l0_2__umbra__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.0:2	phoneme	a m b ɹ a
+umbra__chant__en__l0_2__umbra__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.0:2	phoneme	a m b ɹ a
+umbra__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.1:0	text	a i n j i n ŋ ts i n m u n
+umbra__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.1:0	ctc	ɑ n j i n n ts i n m u n
+umbra__chant__zh__l1_0__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.1:0	ctc	ɑ n j i ɜ n ts i n m u n
+umbra__chant__zh__l1_0__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.1:0	text	ɑ n j i n n ts i n m u n
+umbra__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.1:1	ctc	j i n ŋ s i e n n ɑ n ɕ i ɜ ŋ
+umbra__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.1:1	ctc	j i n n s i e n n a i n ɕ i ɜ ŋ
+umbra__chant__zh__l1_1__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.1:1	ctc	j i n ŋ s i ɑ n ɕ i ɜ ŋ
+umbra__chant__zh__l1_1__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.1:1	ctc	j i n ŋ s ɑ n ɕ i ɜ ŋ
+umbra__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.1:2	phoneme	x w ɑ n j a
+umbra__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.1:2	phoneme	x w ɑ n j i e n
+umbra__chant__zh__l1_2__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.1:2	phoneme	x w a a
+umbra__chant__zh__l1_2__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.1:2	ctc	x w a a
+umbra__chant__ja__l2_0__kage_no_tobari__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.2:0	ctc	k a ɡ e n u t o b a ɹ i
+umbra__chant__ja__l2_0__kage_no_tobari__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.2:0	ctc	k a ɡ e n t o b a ɹ i
+umbra__chant__ja__l2_0__kage_no_tobari__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.2:0	phoneme	k a ɡ e n u t [ o b a ɹ i
+umbra__chant__ja__l2_0__kage_no_tobari__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.2:0	phoneme	k a ɡ e n u t u b a ɹ
+umbra__chant__ja__l2_1__miezu_aruke__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.2:1	phoneme	m i j e z ɯ j y ɑ ɹ ɯ k e
+umbra__chant__ja__l2_1__miezu_aruke__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.2:1	text	m i j a z j i ʔ a ɹ k e
+umbra__chant__ja__l2_1__miezu_aruke__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.2:1	phoneme	m i j e z i u a ɹ ʉ k e
+umbra__chant__ja__l2_1__miezu_aruke__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.2:1	phoneme	n i j e z i a ɹ k e
+umbra__chant__ja__l2_2__genei__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.2:2	phoneme	dʒ i
+umbra__chant__ja__l2_2__genei__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.2:2	phoneme	dʒ i
+umbra__chant__ja__l2_2__genei__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:umbra	wizardreal:umbra.chant.2:2	phoneme	dʒ i
+umbra__chant__ja__l2_2__genei__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:umbra	wizardreal:umbra.chant.2:2	phoneme	dʒ i j
+ventus__trigger__en__ventus__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:ventus	wizardreal:ventus	phoneme	v e n t e s
+ventus__trigger__en__ventus__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:ventus	wizardreal:ventus	phoneme	v e n t e s
+ventus__trigger__en__ventus__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:ventus	wizardreal:ventus	phoneme	v e n t a s
+ventus__trigger__en__ventus__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:ventus	wizardreal:ventus	phoneme	w i n t s
+ventus__trigger__en__gale__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:ventus	wizardreal:ventus	phoneme	ɡ e l
+ventus__trigger__en__gale__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:ventus	wizardreal:ventus	ctc	ɡ e ɔ l
+ventus__trigger__en__gale__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:ventus	wizardreal:ventus	phoneme	ɡ e
+ventus__trigger__en__gale__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:ventus	wizardreal:ventus	phoneme	ɡ e
+ventus__trigger__zh__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:ventus	wizardreal:ventus	text	k h a n ŋ f ə ɜ
+ventus__trigger__zh__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:ventus	wizardreal:ventus	text	k h w a n ŋ f ə ɜ
+ventus__trigger__zh__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:ventus	wizardreal:ventus	text	k h a n ŋ f ə ɜ ŋ
+ventus__trigger__zh__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:ventus	wizardreal:ventus	ctc	k h w ɑ ŋ f ə ɜ ŋ
+ventus__chant__en__l0_0__winds_gather__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.0:0	ctc	w i n z ɡ æ ð ɚ
+ventus__chant__en__l0_0__winds_gather__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.0:0	ctc	w i n d z ɡ æ ð ɚ
+ventus__chant__en__l0_0__winds_gather__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.0:0	ctc	w i n z ɡ æ ð ɚ
+ventus__chant__en__l0_0__winds_gather__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.0:0	ctc	w i n z ɡ æ ð ɚ
+ventus__chant__en__l0_0__winds_gather__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.0:0	ctc	w i n d z ɡ æ ð ɚ
+ventus__chant__en__l0_0__winds_gather__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.0:0	ctc	w i n d z ɡ æ ð ɚ
+ventus__chant__en__l0_0__winds_gather__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.0:0	ctc	w a i n z ɡ æ ð ɚ d
+ventus__chant__en__l0_0__winds_gather__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.0:0	ctc	w a i n z ɡ æ d ɚ d
+ventus__chant__en__l0_1__unleash_the_gale__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.0:1	ctc	æ n l i ʃ t ð ə ɡ e i l
+ventus__chant__en__l0_1__unleash_the_gale__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.0:1	ctc	æ n d l i s t ð ə ɡ e i l
+ventus__chant__en__l0_1__unleash_the_gale__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.0:1	ctc	ə n l i ʃ t ð ə ɡ e i l
+ventus__chant__en__l0_1__unleash_the_gale__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.0:1	ctc	a n l i s t ð ə ɡ e i l
+ventus__chant__en__l0_1__unleash_the_gale__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.0:1	ctc	ə n l i s t ð ə ɡ e i ə l l
+ventus__chant__en__l0_1__unleash_the_gale__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.0:1	ctc	a n l i s t ð ə ɡ e i ə l l
+ventus__chant__en__l0_1__unleash_the_gale__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.0:1	phoneme	a n l i ʃ d ə ɡ e
+ventus__chant__en__l0_1__unleash_the_gale__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.0:1	text	a n l i ʃ d a ɡ i
+ventus__chant__en__l0_2__ventus__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.0:2	phoneme	v e n t e s
+ventus__chant__en__l0_2__ventus__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.0:2	phoneme	v e n t e s
+ventus__chant__en__l0_2__ventus__en_us_guyneural__-15	tts	en	en-US-GuyNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.0:2	phoneme	v e n t e s
+ventus__chant__en__l0_2__ventus__en_us_guyneural__+15	tts	en	en-US-GuyNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.0:2	phoneme	v e n t a s
+ventus__chant__en__l0_2__ventus__en_gb_ryanneural__-15	tts	en	en-GB-RyanNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.0:2	phoneme	v e n t i s
+ventus__chant__en__l0_2__ventus__en_gb_ryanneural__+15	tts	en	en-GB-RyanNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.0:2	phoneme	v e n t i s
+ventus__chant__en__l0_2__ventus__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.0:2	phoneme	v e n t a s
+ventus__chant__en__l0_2__ventus__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.0:2	phoneme	w i n t s
+ventus__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.1:0	ctc	f ə n ŋ tɕ i n x e i n tɕ i n
+ventus__chant__zh__l1_0__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.1:0	text	f ə n ŋ tɕ i n x e i n tɕ i n
+ventus__chant__zh__l1_0__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.1:0	ctc	f a n ŋ ts i n x w e i n tɕ y n
+ventus__chant__zh__l1_0__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.1:0	ctc	f ə ɜ ŋ ts i n x w e i n tɕ y n
+ventus__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.1:1	text	tɕ i n f a n ŋ k h a n ŋ f ə n
+ventus__chant__zh__l1_1__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.1:1	text	tɕ i n f a n ŋ k h a n ŋ f ə n ŋ
+ventus__chant__zh__l1_1__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.1:1	text	tɕ i e n f a n ŋ k h w a n ŋ f ə n ŋ
+ventus__chant__zh__l1_1__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.1:1	text	tɕ i e n f a n ŋ k h w a n ŋ f ə n ŋ
+ventus__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__-15	tts	zh	zh-CN-XiaoxiaoNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.1:2	text	k h a n ŋ f ə ɜ
+ventus__chant__zh__l1_2__x__zh_cn_xiaoxiaoneural__+15	tts	zh	zh-CN-XiaoxiaoNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.1:2	text	k h w a n ŋ f ə ɜ
+ventus__chant__zh__l1_2__x__zh_cn_yunxineural__-15	tts	zh	zh-CN-YunxiNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.1:2	text	k h a n ŋ f ə ɜ ŋ
+ventus__chant__zh__l1_2__x__zh_cn_yunxineural__+15	tts	zh	zh-CN-YunxiNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.1:2	ctc	k h w ɑ ŋ f ə ɜ ŋ
+ventus__chant__ja__l2_0__kaze_ga_tsumoru__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.2:0	ctc	k a z e dʒ i e ts ɯ m o ɹ ʉ
+ventus__chant__ja__l2_0__kaze_ga_tsumoru__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.2:0	ctc	k a d e dʒ i a s m h u ɹ i
+ventus__chant__ja__l2_0__kaze_ga_tsumoru__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.2:0	ctc	k a z e dʒ i j e t m ɔ ɹ y
+ventus__chant__ja__l2_0__kaze_ga_tsumoru__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.2:0	text	k a z dʒ i t ə m ɹ ə
+ventus__chant__ja__l2_1__houka_shiro__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.2:1	ctc	h u k a i ɹ
+ventus__chant__ja__l2_1__houka_shiro__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.2:1	ctc	h u k s i l
+ventus__chant__ja__l2_1__houka_shiro__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.2:1	phoneme	h u k a s i ɹ ə
+ventus__chant__ja__l2_1__houka_shiro__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.2:1	phoneme	k s l e
+ventus__chant__ja__l2_2__kyoufuu__ja_jp_nanamineural__-15	tts	ja	ja-JP-NanamiNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.2:2	ctc	k ɑ u n x y n
+ventus__chant__ja__l2_2__kyoufuu__ja_jp_nanamineural__+15	tts	ja	ja-JP-NanamiNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.2:2	ctc	tɕ j ɑ u n x i n
+ventus__chant__ja__l2_2__kyoufuu__ja_jp_keitaneural__-15	tts	ja	ja-JP-KeitaNeural|-15%	wizardreal:ventus	wizardreal:ventus.chant.2:2	text	tɕ o n ɡ n f y n
+ventus__chant__ja__l2_2__kyoufuu__ja_jp_keitaneural__+15	tts	ja	ja-JP-KeitaNeural|+15%	wizardreal:ventus	wizardreal:ventus.chant.2:2	ctc	tɕ o n ɡ n f i n
+vitae__trigger__en__vitae__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:vitae	wizardreal:vitae	ctc	v i t i
+vitae__trigger__en__vitae__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:vitae	wizardreal:vitae	ctc	v i t i
+vitae__trigger__en__vitae__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:vitae	wizardreal:vitae	ctc	v i t e
+vitae__trigger__en__vitae__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:vitae	wizardreal:vitae	ctc	v i t e
+vitae__trigger__en__heal__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:vitae	wizardreal:vitae	ctc	h i ɑ
+vitae__trigger__en__heal__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:vitae	wizardreal:vitae	ctc	h i
+vitae__trigger__en__heal__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:vitae	wizardreal:vitae	phoneme	h i
+vitae__trigger__en__heal__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:vitae	wizardreal:vitae	phoneme	h i
+vitae__trigger__en__vitality__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:vitae	wizardreal:vitae	ctc	v a i t æ l i ɹ i
+vitae__trigger__en__vitality__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:vitae	wizardreal:vitae	ctc	v a i t æ l ə ɹ i
+vitae__trigger__en__vitality__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:vitae	wizardreal:vitae	ctc	v a i t æ l i ɹ i
+vitae__trigger__en__vitality__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:vitae	wizardreal:vitae	ctc	v a i t æ l i ɹ i
+vitae__trigger__en__cure__en_us_arianeural__-15	tts	en	en-US-AriaNeural|-15%	wizardreal:vitae	wizardreal:vitae	phoneme	h u
+vitae__trigger__en__cure__en_us_arianeural__+15	tts	en	en-US-AriaNeural|+15%	wizardreal:vitae	wizardreal:vitae	phoneme	h u
+vitae__trigger__en__cure__en_in_prabhatneural__-15	tts	en	en-IN-PrabhatNeural|-15%	wizardreal:vitae	wizardreal:vitae	ctc	k i o ɹ
+vitae__trigger__en__cure__en_in_prabhatneural__+15	tts	en	en-IN-PrabhatNeural|+15%	wizardreal:vitae	wizardreal:vitae	phoneme	k j ɹ
+fulmen__hw__en__lightning__wiktionary00	human-web	en	wiktionary	wizardreal:fulmen	wizardreal:fulmen	ctc	l a i t n i ŋ
+fulmen__hw__en__lightning__wiktionary01	human-web	en	wiktionary	wizardreal:fulmen	wizardreal:fulmen	ctc	l a i t n i ŋ
+fulmen__hw__la__lightning__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:fulmen	wizardreal:fulmen	ctc	ð e ɹ w ə z l a i t n i ŋ
+fulmen__hw__la__lightning__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:fulmen	wizardreal:fulmen	ctc	a i ɹ æ n l a i k l a i t n i ŋ
+fulmen__hw__en__thunder__wiktionary00	human-web	en	wiktionary	wizardreal:fulmen	wizardreal:fulmen	ctc	θ ə n d ɚ
+fulmen__hw__en__thunder__wiktionary01	human-web	en	wiktionary	wizardreal:fulmen	wizardreal:fulmen	ctc	θ ə n d ɚ
+fulmen__hw__la__thunder__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:fulmen	wizardreal:fulmen	ctc	a i h ɜ d θ ə n d ɚ
+fulmen__hw__la__thunder__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:fulmen	wizardreal:fulmen	ctc	ð ə θ ə n d ɚ ɹ o ɹ d
+fulmen__hw__en__lightning__howjsay00	human-web	en	howjsay-uk	wizardreal:fulmen	wizardreal:fulmen	ctc	l a i t n i
+fulmen__hw__en__lightning__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:fulmen	wizardreal:fulmen	ctc	ð e ɹ w ə z l a i t n i ŋ
+fulmen__hw__en__thunder__howjsay00	human-web	en	howjsay-uk	wizardreal:fulmen	wizardreal:fulmen	ctc	θ a n d ə
+fulmen__hw__en__thunder__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:fulmen	wizardreal:fulmen	ctc	a i h ɜ d θ ə n d ɚ
+fulmen__hw__en__thunderbolt__wiktionary00	human-web	en	wiktionary	wizardreal:fulmen	wizardreal:fulmen	ctc	θ ə n d ɚ b o u l t
+fulmen__hw__en__thunderbolt__howjsay01	human-web	en	howjsay-uk	wizardreal:fulmen	wizardreal:fulmen	ctc	θ ə n d ɚ b o u l t
+aegis__hw__en__aegis__wiktionary00	human-web	en	wiktionary	wizardreal:aegis	wizardreal:aegis	ctc	i dʒ i s
+aegis__hw__en__aegis__howjsay01	human-web	en	howjsay-uk	wizardreal:aegis	wizardreal:aegis	ctc	i t i s
+aegis__hw__en__shield__wiktionary00	human-web	en	wiktionary	wizardreal:aegis	wizardreal:aegis	ctc	ʃ i l d
+aegis__hw__en__shield__howjsay01	human-web	en	howjsay-uk	wizardreal:aegis	wizardreal:aegis	ctc	ʃ i d
+aegis__hw__en__shield__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:aegis	wizardreal:aegis	ctc	t ɑ m ʃ i l d ᵻ d m e ɹ i
+aegis__hw__la__shield__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:aegis	wizardreal:aegis	ctc	t ɑ m ʃ i l d ᵻ d m e ɹ i
+aegis__hw__la__shield__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:aegis	wizardreal:aegis	ctc	a i t ɹ a i d t ə ʃ i l d j u f ɹ ə m ð i s
+aegis__hw__en__protect__wiktionary00	human-web	en	wiktionary	wizardreal:aegis	wizardreal:aegis	ctc	p ɹ ə t e k t
+aegis__hw__en__protect__howjsay01	human-web	en	howjsay-uk	wizardreal:aegis	wizardreal:aegis	ctc	p ɹ ə t e k t
+aegis__hw__en__protect__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:aegis	wizardreal:aegis	ctc	t æ m p ɹ ə t e k t s m i
+aegis__hw__la__protect__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:aegis	wizardreal:aegis	ctc	t æ m p ɹ ə t e k t s m i
+aegis__hw__la__protect__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:aegis	wizardreal:aegis	ctc	w i p ɹ ə t e k t ɑ ɹ s e l v z
+aegis__hw__en__protection__wiktionary00	human-web	en	wiktionary	wizardreal:aegis	wizardreal:aegis	ctc	p ɹ ə t e k ʃ ə n
+aegis__hw__en__protection__wiktionary01	human-web	en	wiktionary	wizardreal:aegis	wizardreal:aegis	ctc	l a p ʁ o t e k s j ɔ
+aegis__hw__en__protection__wiktionary02	human-web	en	wiktionary	wizardreal:aegis	wizardreal:aegis	ctc	p o t e k s y m
+aegis__hw__en__ward__wiktionary00	human-web	en	wiktionary	wizardreal:aegis	wizardreal:aegis	ctc	w ɔ ɹ d
+aegis__hw__en__ward__wiktionary01	human-web	en	wiktionary	wizardreal:aegis	wizardreal:aegis	phoneme	v ɑ l t
+aegis__hw__en__ward__wiktionary02	human-web	en	wiktionary	wizardreal:aegis	wizardreal:aegis	phoneme	a ɹ d
+aegis__hw__la__ward__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:aegis	wizardreal:aegis	ctc	t ɑ m i z m a i w ɔ ɹ d
+aegis__hw__la__ward__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:aegis	wizardreal:aegis	phoneme	t ɑ m i z i n ð ə s a i k w ɔ ɹ d
+arcanum__hw__en__arcanum__wiktionary00	human-web	en	wiktionary	wizardreal:arcanum	wizardreal:arcanum	phoneme	ɑ ɹ k e i n ə m
+arcanum__hw__en__arcanum__howjsay01	human-web	en	howjsay-uk	wizardreal:arcanum	wizardreal:arcanum	phoneme	a k i n a m
+arcanum__hw__en__arcane__wiktionary00	human-web	en	wiktionary	wizardreal:arcanum	wizardreal:arcanum	ctc	ɑ ɹ k a i n
+arcanum__hw__en__arcane__wiktionary01	human-web	en	wiktionary	wizardreal:arcanum	wizardreal:arcanum	phoneme	a k a n
+arcanum__hw__en__arcane__howjsay02	human-web	en	howjsay-uk	wizardreal:arcanum	wizardreal:arcanum	phoneme	a k i n
+arcanum__hw__zh__x__zdic00	human-web	zh	zdic-奥	wizardreal:arcanum	wizardreal:arcanum	text	
+arcanum__hw__zh__x__zdic01	human-web	zh	zdic-术	wizardreal:arcanum	wizardreal:arcanum	phoneme	s u n
+explosion__hw__en__explosion__wiktionary00	human-web	en	wiktionary	wizardreal:explosion	wizardreal:explosion	phoneme	e k s p l o u ʒ ə n
+explosion__hw__en__explosion__wiktionary01	human-web	en	wiktionary	wizardreal:explosion	wizardreal:explosion	ctc	e k s p l o z ɔ
+explosion__hw__en__explosion__wiktionary02	human-web	en	wiktionary	wizardreal:explosion	wizardreal:explosion	ctc	e k s p l u z j o m
+explosion__hw__la__explosion__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:explosion	wizardreal:explosion	ctc	o i t ɹ e s e k s p l o s j o n e s
+explosion__hw__la__explosion__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:explosion	wizardreal:explosion	phoneme	a i h ɜ d e k s p l o u ʒ ə n z
+explosion__hw__en__explode__wiktionary00	human-web	en	wiktionary	wizardreal:explosion	wizardreal:explosion	ctc	e k s p l o u d
+explosion__hw__en__explode__wiktionary01	human-web	en	wiktionary	wizardreal:explosion	wizardreal:explosion	ctc	e k s p l o u d
+explosion__hw__en__explode__howjsay02	human-web	en	howjsay-uk	wizardreal:explosion	wizardreal:explosion	ctc	e k s p l o u d
+explosion__hw__la__explode__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:explosion	wizardreal:explosion	ctc	f a i w ɜ k s e k s p l o u d ᵻ d o u v ɚ h e d
+explosion__hw__la__explode__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:explosion	wizardreal:explosion	ctc	i t m a i t e k s p l o u d
+explosion__hw__en__burst__wiktionary00	human-web	en	wiktionary	wizardreal:explosion	wizardreal:explosion	ctc	b ɜ s t
+explosion__hw__en__burst__howjsay01	human-web	en	howjsay-uk	wizardreal:explosion	wizardreal:explosion	ctc	b a s t
+explosion__hw__en__burst__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:explosion	wizardreal:explosion	ctc	ð ə b ɑ b ə l b ɜ s t
+explosion__hw__la__burst__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:explosion	wizardreal:explosion	ctc	ð ə b ɑ b ə l b ɜ s t
+explosion__hw__la__burst__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:explosion	wizardreal:explosion	ctc	ð ə b ə l u n b ɜ s t
+explosion__hw__zh__x__iciba00	human-web	zh	iciba	wizardreal:explosion	wizardreal:explosion	text	t ɑ n l i n a
+explosion__hw__zh__x__iciba01	human-web	zh	iciba	wizardreal:explosion	wizardreal:explosion	ctc	b a s t
+explosion__hw__zh__x__zdic02	human-web	zh	zdic-爆	wizardreal:explosion	wizardreal:explosion	text	
+fulmen__hw__en__lightning__tatoeba00	human-web	en	tatoeba-sentence	wizardreal:fulmen	wizardreal:fulmen	ctc	ð e ɹ w ə z l a i t n i ŋ
+fulmen__hw__en__thunder__tatoeba00	human-web	en	tatoeba-sentence	wizardreal:fulmen	wizardreal:fulmen	ctc	a i h ɜ d θ ə n d ɚ
+fulmen__hw__en__thunderbolt__howjsay00	human-web	en	howjsay-uk	wizardreal:fulmen	wizardreal:fulmen	ctc	θ ə n d ɚ b o u l t
+gaia__hw__en__gaia__wiktionary00	human-web	en	wiktionary	wizardreal:gaia	wizardreal:gaia	ctc	ɡ a j a
+gaia__hw__en__gaia__howjsay01	human-web	en	howjsay-uk	wizardreal:gaia	wizardreal:gaia	text	ɡ e i k u n ɡ a i ə
+gaia__hw__zh__x__iciba00	human-web	zh	iciba	wizardreal:gaia	wizardreal:gaia	ctc	ɡ ɹ a u n d
+gaia__hw__zh__x__iciba01	human-web	zh	iciba	wizardreal:gaia	wizardreal:gaia	ctc	ɡ ɹ a u n d
+gaia__hw__zh__x__zdic02	human-web	zh	zdic-大	wizardreal:gaia	wizardreal:gaia	phoneme	t
+ictus__hw__en__ictus__wiktionary00	human-web	en	wiktionary	wizardreal:ictus	wizardreal:ictus	ctc	i k t e s
+ictus__hw__en__ictus__wiktionary01	human-web	en	wiktionary	wizardreal:ictus	wizardreal:ictus	ctc	i k t ə ʃ
+ictus__hw__en__ictus__wiktionary02	human-web	en	wiktionary	wizardreal:ictus	wizardreal:ictus	ctc	i k t u s
+ictus__hw__en__gust__wiktionary00	human-web	en	wiktionary	wizardreal:ictus	wizardreal:ictus	ctc	ɡ a s t
+ictus__hw__en__gust__wiktionary01	human-web	en	wiktionary	wizardreal:ictus	wizardreal:ictus	ctc	ɡ o s t
+ictus__hw__en__gust__wiktionary02	human-web	en	wiktionary	wizardreal:ictus	wizardreal:ictus	ctc	ɡ u s t
+ictus__hw__la__gust__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	text	e s p e ɹ u u s t a ɹ l i
+ictus__hw__la__gust__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	text	m e ɣ u s t a s
+ictus__hw__en__wind__wiktionary00	human-web	en	wiktionary	wizardreal:ictus	wizardreal:ictus	ctc	w i n d
+ictus__hw__en__wind__wiktionary01	human-web	en	wiktionary	wizardreal:ictus	wizardreal:ictus	ctc	w i n d
+ictus__hw__en__wind__wiktionary02	human-web	en	wiktionary	wizardreal:ictus	wizardreal:ictus	ctc	w a i n d
+ictus__hw__la__wind__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	ctc	ð ə w i n d tʃ e i n dʒ d
+ictus__hw__la__wind__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	phoneme	j u l ə k w i n d ᵻ d
+ictus__hw__en__push__wiktionary00	human-web	en	wiktionary	wizardreal:ictus	wizardreal:ictus	ctc	p o s
+ictus__hw__en__push__howjsay01	human-web	en	howjsay-uk	wizardreal:ictus	wizardreal:ictus	ctc	p o ʃ
+aegis__hw__en__aegis__howjsay00	human-web	en	howjsay-uk	wizardreal:aegis	wizardreal:aegis	ctc	i t i s
+aegis__hw__en__shield__howjsay00	human-web	en	howjsay-uk	wizardreal:aegis	wizardreal:aegis	ctc	ʃ i d
+aegis__hw__en__shield__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:aegis	wizardreal:aegis	ctc	t ɑ m ʃ i l d ᵻ d m e ɹ i
+aegis__hw__en__protect__howjsay00	human-web	en	howjsay-uk	wizardreal:aegis	wizardreal:aegis	ctc	p ɹ ə t e k t
+aegis__hw__en__protect__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:aegis	wizardreal:aegis	ctc	t æ m p ɹ ə t e k t s m i
+aegis__hw__en__protection__howjsay00	human-web	en	howjsay-uk	wizardreal:aegis	wizardreal:aegis	ctc	p ə t e k s t
+aegis__hw__en__ward__howjsay00	human-web	en	howjsay-uk	wizardreal:aegis	wizardreal:aegis	phoneme	b o d
+aegis__hw__en__ward__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:aegis	wizardreal:aegis	ctc	t ɑ m i z m a i w ɔ ɹ d
+aegis__hw__en__ward__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:aegis	wizardreal:aegis	phoneme	t ɑ m i z i n ð ə s a i k w ɔ ɹ d
+arcanum__hw__en__arcanum__howjsay00	human-web	en	howjsay-uk	wizardreal:arcanum	wizardreal:arcanum	phoneme	a k i n a m
+arcanum__hw__en__arcane__howjsay00	human-web	en	howjsay-uk	wizardreal:arcanum	wizardreal:arcanum	phoneme	a k i n
+explosion__hw__en__explosion__howjsay00	human-web	en	howjsay-uk	wizardreal:explosion	wizardreal:explosion	phoneme	e k s p l o u ʒ ə
+explosion__hw__en__explosion__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:explosion	wizardreal:explosion	ctc	o i t ɹ e s e k s p l o s j o n e s
+explosion__hw__en__explosion__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:explosion	wizardreal:explosion	phoneme	a i h ɜ d e k s p l o u ʒ ə n z
+explosion__hw__en__explode__howjsay00	human-web	en	howjsay-uk	wizardreal:explosion	wizardreal:explosion	ctc	e k s p l o u d
+explosion__hw__en__explode__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:explosion	wizardreal:explosion	ctc	f a i w ɜ k s e k s p l o u d ᵻ d o u v ɚ h e d
+explosion__hw__en__explode__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:explosion	wizardreal:explosion	ctc	i t m a i t e k s p l o u d
+explosion__hw__en__burst__howjsay00	human-web	en	howjsay-uk	wizardreal:explosion	wizardreal:explosion	ctc	b a s t
+explosion__hw__en__burst__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:explosion	wizardreal:explosion	ctc	ð ə b ɑ b ə l b ɜ s t
+explosion__hw__zh__x__zdic00	human-web	zh	zdic-爆	wizardreal:explosion	wizardreal:explosion	text	
+explosion__hw__zh__x__zdic01	human-web	zh	zdic-裂	wizardreal:explosion	wizardreal:explosion	phoneme	m i a
+gaia__hw__en__gaia__howjsay00	human-web	en	howjsay-uk	wizardreal:gaia	wizardreal:gaia	text	ɡ e i k u n ɡ a i ə
+gaia__hw__zh__x__zdic00	human-web	zh	zdic-大	wizardreal:gaia	wizardreal:gaia	phoneme	t
+gaia__hw__zh__x__zdic01	human-web	zh	zdic-地	wizardreal:gaia	wizardreal:gaia	phoneme	t i n
+ictus__hw__en__ictus__howjsay00	human-web	en	howjsay-uk	wizardreal:ictus	wizardreal:ictus	ctc	i k t e s
+ictus__hw__en__gust__howjsay00	human-web	en	howjsay-uk	wizardreal:ictus	wizardreal:ictus	ctc	ɡ a s t
+ictus__hw__en__gust__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	text	e s p e ɹ u u s t a ɹ l i
+ictus__hw__en__gust__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	text	m e ɣ u s t a s
+ictus__hw__en__wind__howjsay00	human-web	en	howjsay-uk	wizardreal:ictus	wizardreal:ictus	ctc	w i n d n a u n h ɔ ɹ w a i n d v ɜ b
+ictus__hw__en__wind__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	ctc	ð ə w i n d tʃ e i n dʒ d
+ictus__hw__en__wind__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	phoneme	j u l ə k w i n d ᵻ d
+ictus__hw__en__push__howjsay00	human-web	en	howjsay-uk	wizardreal:ictus	wizardreal:ictus	ctc	p o ʃ
+ictus__hw__en__push__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	ctc	s t ɑ p p u ʃ i ŋ
+ictus__hw__en__push__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	phoneme	t ɑ m p u ʃ t b æ k
+ictus__hw__la__push__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	ctc	s t ɑ p p u ʃ i ŋ
+ictus__hw__la__push__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	phoneme	t ɑ m p u ʃ t b æ k
+ictus__hw__en__shove__wiktionary00	human-web	en	wiktionary	wizardreal:ictus	wizardreal:ictus	ctc	ʃ a v
+ictus__hw__en__shove__wiktionary01	human-web	en	wiktionary	wizardreal:ictus	wizardreal:ictus	ctc	ʃ a v
+ictus__hw__en__shove__howjsay02	human-web	en	howjsay-uk	wizardreal:ictus	wizardreal:ictus	phoneme	s ɑ u n
+ictus__hw__la__shove__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	ctc	t ɑ m ʃ ə v d m e ɹ i
+ictus__hw__la__shove__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	ctc	d o t ʃ a v
+ictus__hw__en__strike__wiktionary00	human-web	en	wiktionary	wizardreal:ictus	wizardreal:ictus	ctc	s t ɹ a i k
+ictus__hw__en__strike__wiktionary01	human-web	en	wiktionary	wizardreal:ictus	wizardreal:ictus	ctc	s t ɹ a i k
+ictus__hw__en__strike__wiktionary02	human-web	en	wiktionary	wizardreal:ictus	wizardreal:ictus	ctc	s t ɹ a i k
+ictus__hw__la__strike__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	ctc	p e ɹ i ð e n s t ɹ a i k
+ictus__hw__la__strike__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	ctc	ɑ ɹ j u ɑ n s t ɹ a i k
+ignis__hw__en__fire__wiktionary00	human-web	en	wiktionary	wizardreal:ignis	wizardreal:ignis	ctc	f a j ə
+ignis__hw__en__fire__wiktionary01	human-web	en	wiktionary	wizardreal:ignis	wizardreal:ignis	phoneme	f a i
+ignis__hw__en__fire__wiktionary02	human-web	en	wiktionary	wizardreal:ignis	wizardreal:ignis	phoneme	f a i ɚ
+ignis__hw__la__fire__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:ignis	wizardreal:ignis	ctc	a i f a i ɚ d
+ignis__hw__la__fire__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:ignis	wizardreal:ignis	ctc	t ɑ m f a i d
+ignis__hw__en__flame__wiktionary00	human-web	en	wiktionary	wizardreal:ignis	wizardreal:ignis	ctc	f l e i m
+ignis__hw__en__flame__wiktionary01	human-web	en	wiktionary	wizardreal:ignis	wizardreal:ignis	ctc	f l e i m
+ignis__hw__en__flame__howjsay02	human-web	en	howjsay-uk	wizardreal:ignis	wizardreal:ignis	ctc	f l e i
+ignis__hw__la__flame__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:ignis	wizardreal:ignis	ctc	ð ə f l e i m d a i d a u t
+ignis__hw__la__flame__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:ignis	wizardreal:ignis	ctc	ð e ɹ w ɜ f l e i m z e v ɹ i w æ
+ignis__hw__en__fireball__wiktionary00	human-web	en	wiktionary	wizardreal:ignis	wizardreal:ignis	ctc	f a j a b u
+ignis__hw__en__fireball__wiktionary01	human-web	en	wiktionary	wizardreal:ignis	wizardreal:ignis	ctc	f a i b ɑ l
+ignis__hw__en__fireball__howjsay02	human-web	en	howjsay-uk	wizardreal:ignis	wizardreal:ignis	phoneme	f a
+mare__hw__en__mare__wiktionary00	human-web	en	wiktionary	wizardreal:mare	wizardreal:mare	ctc	m e
+mare__hw__en__mare__wiktionary01	human-web	en	wiktionary	wizardreal:mare	wizardreal:mare	phoneme	m a ɹ i
+mare__hw__en__mare__wiktionary02	human-web	en	wiktionary	wizardreal:mare	wizardreal:mare	phoneme	m a ɹ ə
+mare__hw__la__mare__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:mare	wizardreal:mare	text	e s t a m o s m a ɹ j a ð u s
+mare__hw__la__mare__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:mare	wizardreal:mare	text	e s t a β ə m ə ɹ j a ð u
+mare__hw__en__tide__wiktionary00	human-web	en	wiktionary	wizardreal:mare	wizardreal:mare	ctc	t a i d
+mare__hw__en__tide__howjsay01	human-web	en	howjsay-uk	wizardreal:mare	wizardreal:mare	ctc	t a m a j i d
+mare__hw__en__tide__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:mare	wizardreal:mare	ctc	ð ə t a i d h æ z t ɜ n d
+mare__hw__la__tide__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:mare	wizardreal:mare	ctc	ð ə t a i d h æ z t ɜ n d
+mare__hw__la__tide__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:mare	wizardreal:mare	phoneme	ð ə t a i d i z k ə m i n i n
+mare__hw__zh__x__iciba00	human-web	zh	iciba	wizardreal:mare	wizardreal:mare	text	s a n ŋ k h a i n
+mare__hw__zh__x__zdic01	human-web	zh	zdic-沧	wizardreal:mare	wizardreal:mare	phoneme	ts ɑ n
+mare__hw__zh__x__zdic02	human-web	zh	zdic-海	wizardreal:mare	wizardreal:mare	phoneme	x ɑ n
+mortis__hw__en__mortis__wiktionary00	human-web	en	wiktionary	wizardreal:mortis	wizardreal:mortis	phoneme	m a ɹ t i s
+mortis__hw__en__mortis__wiktionary01	human-web	en	wiktionary	wizardreal:mortis	wizardreal:mortis	phoneme	m a ɹ t i s
+mortis__hw__en__mortis__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:mortis	wizardreal:mortis	phoneme	t o m ɑ m o ɹ t i s
+mortis__hw__la__mortis__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:mortis	wizardreal:mortis	phoneme	t o m ɑ m o ɹ t i s
+mortis__hw__la__mortis__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:mortis	wizardreal:mortis	text	t o m a s o m o x t i s n o d e k s e p i a ɹ a
+mortis__hw__en__wither__wiktionary00	human-web	en	wiktionary	wizardreal:mortis	wizardreal:mortis	ctc	w i ð ɚ
+mortis__hw__en__wither__howjsay01	human-web	en	howjsay-uk	wizardreal:mortis	wizardreal:mortis	phoneme	w i ð
+mortis__hw__en__wither__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:mortis	wizardreal:mortis	ctc	ð ə f l a u ɚ z w i ð ɚ d
+mortis__hw__la__wither__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:mortis	wizardreal:mortis	ctc	ð ə f l a u ɚ z w i ð ɚ d
+mortis__hw__la__wither__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:mortis	wizardreal:mortis	phoneme	ð ə k ɹ ɑ p s h æ v w i ð ɚ d
+mortis__hw__zh__x__iciba00	human-web	zh	iciba	wizardreal:mortis	wizardreal:mortis	ctc	w a n ŋ l i n n
+mortis__hw__zh__x__iciba01	human-web	zh	iciba	wizardreal:mortis	wizardreal:mortis	ctc	ɡ o u s t
+mortis__hw__zh__x__zdic02	human-web	zh	zdic-亡	wizardreal:mortis	wizardreal:mortis	phoneme	w a
+sanctus__hw__en__sanctus__howjsay00	human-web	en	howjsay-uk	wizardreal:sanctus	wizardreal:sanctus	phoneme	s a n t o s
+sanctus__hw__en__holy__wiktionary00	human-web	en	wiktionary	wizardreal:sanctus	wizardreal:sanctus	ctc	h u l ʉ n
+sanctus__hw__en__holy__howjsay01	human-web	en	howjsay-uk	wizardreal:sanctus	wizardreal:sanctus	ctc	o l i
+sanctus__hw__en__holy__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:sanctus	wizardreal:sanctus	ctc	ð i s i z h o u l i ɡ ɹ a u n d
+sanctus__hw__la__holy__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:sanctus	wizardreal:sanctus	ctc	ð i s i z h o u l i ɡ ɹ a u n d
+sanctus__hw__zh__x__zdic00	human-web	zh	zdic-圣	wizardreal:sanctus	wizardreal:sanctus	phoneme	s a n ŋ
+sanctus__hw__zh__x__zdic01	human-web	zh	zdic-光	wizardreal:sanctus	wizardreal:sanctus	phoneme	u a
+semina__hw__en__semina__wiktionary00	human-web	en	wiktionary	wizardreal:semina	wizardreal:semina	phoneme	s e m i n a
+semina__hw__en__nature__wiktionary00	human-web	en	wiktionary	wizardreal:semina	wizardreal:semina	ctc	n e i tʃ ɚ
+semina__hw__en__nature__wiktionary01	human-web	en	wiktionary	wizardreal:semina	wizardreal:semina	ctc	n e i tʃ ɚ
+semina__hw__en__nature__wiktionary02	human-web	en	wiktionary	wizardreal:semina	wizardreal:semina	phoneme	n a t u ɹ i
+semina__hw__la__nature__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:semina	wizardreal:semina	ctc	t ɑ m l a i k s n e i tʃ ɚ
+semina__hw__zh__x__iciba00	human-web	zh	iciba	wizardreal:semina	wizardreal:semina	text	s i n ɕ a n n
+semina__hw__zh__x__iciba01	human-web	zh	iciba	wizardreal:semina	wizardreal:semina	ctc	n e i tʃ ɚ
+semina__hw__zh__x__zdic02	human-web	zh	zdic-自	wizardreal:semina	wizardreal:semina	phoneme	s i n
+tempest__hw__en__tempest__wiktionary00	human-web	en	wiktionary	wizardreal:tempest	wizardreal:tempest	phoneme	t e m p i s t
+tempest__hw__en__tempest__wiktionary01	human-web	en	wiktionary	wizardreal:tempest	wizardreal:tempest	phoneme	t e m p i s t
+tempest__hw__en__tempest__howjsay02	human-web	en	howjsay-uk	wizardreal:tempest	wizardreal:tempest	phoneme	t e m p i s t
+tempest__hw__en__storm__wiktionary00	human-web	en	wiktionary	wizardreal:tempest	wizardreal:tempest	ctc	s t ɔ ɹ m
+tempest__hw__en__storm__wiktionary01	human-web	en	wiktionary	wizardreal:tempest	wizardreal:tempest	ctc	s t o ɹ u m
+tempest__hw__en__storm__wiktionary02	human-web	en	wiktionary	wizardreal:tempest	wizardreal:tempest	ctc	ʃ t o m
+tempest__hw__la__storm__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:tempest	wizardreal:tempest	ctc	ð ə s t ɔ ɹ m ɹ i l e n t ᵻ d
+tempest__hw__la__storm__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:tempest	wizardreal:tempest	text	w ə k ɑ z i z s t ɔ ɹ m z
+tempest__hw__zh__x__iciba00	human-web	zh	iciba	wizardreal:tempest	wizardreal:tempest	text	x ə ɜ ŋ p ɑ u n
+tempest__hw__zh__x__iciba01	human-web	zh	iciba	wizardreal:tempest	wizardreal:tempest	ctc	s t o m
+tempest__hw__zh__x__zdic02	human-web	zh	zdic-风	wizardreal:tempest	wizardreal:tempest	phoneme	f a
+umbra__hw__en__umbra__wiktionary00	human-web	en	wiktionary	wizardreal:umbra	wizardreal:umbra	phoneme	ə n b ə
+umbra__hw__en__umbra__howjsay01	human-web	en	howjsay-uk	wizardreal:umbra	wizardreal:umbra	phoneme	a m b a
+umbra__hw__en__veil__wiktionary00	human-web	en	wiktionary	wizardreal:umbra	wizardreal:umbra	ctc	v e l
+umbra__hw__en__veil__wiktionary01	human-web	en	wiktionary	wizardreal:umbra	wizardreal:umbra	ctc	v e i l
+umbra__hw__en__veil__howjsay02	human-web	en	howjsay-uk	wizardreal:umbra	wizardreal:umbra	phoneme	v a
+umbra__hw__la__veil__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:umbra	wizardreal:umbra	ctc	ɹ a t v a l ɔ
+umbra__hw__zh__x__iciba00	human-web	zh	iciba	wizardreal:umbra	wizardreal:umbra	phoneme	x w a j i n
+umbra__hw__zh__x__iciba01	human-web	zh	iciba	wizardreal:umbra	wizardreal:umbra	ctc	f æ n t ə m
+umbra__hw__zh__x__zdic02	human-web	zh	zdic-幻	wizardreal:umbra	wizardreal:umbra	phoneme	x a n n
+ventus__hw__en__gale__wiktionary00	human-web	en	wiktionary	wizardreal:ventus	wizardreal:ventus	phoneme	ɡ e
+ventus__hw__en__gale__wiktionary01	human-web	en	wiktionary	wizardreal:ventus	wizardreal:ventus	ctc	dʒ e i ə l
+ventus__hw__en__gale__wiktionary02	human-web	en	wiktionary	wizardreal:ventus	wizardreal:ventus	phoneme	ɡ a
+ventus__hw__la__gale__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:ventus	wizardreal:ventus	ctc	d u n t e i s t a l a ɣ a ð e ɹ j a ð i a ɹ t e m a s θ e ɹ k a n a
+ventus__hw__la__gale__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:ventus	wizardreal:ventus	ctc	ð ə ɹ u f w ə z t ɔ ɹ n ɑ f b a i ð ə ɡ e i l
+ventus__hw__zh__x__iciba00	human-web	zh	iciba	wizardreal:ventus	wizardreal:ventus	phoneme	ɡ e i l
+ventus__hw__zh__x__iciba01	human-web	zh	iciba	wizardreal:ventus	wizardreal:ventus	ctc	ɡ e o
+ventus__hw__zh__x__zdic02	human-web	zh	zdic-狂	wizardreal:ventus	wizardreal:ventus	phoneme	x w a
+vitae__hw__en__vitae__howjsay00	human-web	en	howjsay-uk	wizardreal:vitae	wizardreal:vitae	ctc	k ə ɹ i k j u l ə m v i t a i
+vitae__hw__en__heal__wiktionary00	human-web	en	wiktionary	wizardreal:vitae	wizardreal:vitae	phoneme	i n
+vitae__hw__en__heal__howjsay01	human-web	en	howjsay-uk	wizardreal:vitae	wizardreal:vitae	text	x i n i o u 2
+vitae__hw__en__heal__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:vitae	wizardreal:vitae	ctc	i ɹ ɔ l θ i ɔ
+vitae__hw__la__heal__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:vitae	wizardreal:vitae	ctc	i ɹ ɔ l θ i ɔ
+vitae__hw__la__heal__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:vitae	wizardreal:vitae	phoneme	t a i m h i l z e v ɹ i θ i ŋ
+vitae__hw__en__vitality__wiktionary00	human-web	en	wiktionary	wizardreal:vitae	wizardreal:vitae	ctc	v a i t æ l i t i
+vitae__hw__en__vitality__howjsay01	human-web	en	howjsay-uk	wizardreal:vitae	wizardreal:vitae	ctc	v a i t æ l i ɹ i
+vitae__hw__en__cure__wiktionary00	human-web	en	wiktionary	wizardreal:vitae	wizardreal:vitae	ctc	k u
+vitae__hw__en__cure__wiktionary01	human-web	en	wiktionary	wizardreal:vitae	wizardreal:vitae	phoneme	k i ɹ
+vitae__hw__en__cure__howjsay02	human-web	en	howjsay-uk	wizardreal:vitae	wizardreal:vitae	text	tɕ h y n
+vitae__hw__la__cure__tatoeba00	human-web	la	tatoeba-sentence	wizardreal:vitae	wizardreal:vitae	ctc	t ə m k u d m e ɹ i
+vitae__hw__la__cure__tatoeba01	human-web	la	tatoeba-sentence	wizardreal:vitae	wizardreal:vitae	ctc	ɑ ɹ j u k ɔ ɹ d
+aegis__hw__en__shield__tatoeba00	human-web	en	tatoeba-sentence	wizardreal:aegis	wizardreal:aegis	ctc	t ɑ m ʃ i l d ᵻ d m e ɹ i
+aegis__hw__en__protect__tatoeba00	human-web	en	tatoeba-sentence	wizardreal:aegis	wizardreal:aegis	ctc	t æ m p ɹ ə t e k t s m i
+aegis__hw__en__ward__tatoeba00	human-web	en	tatoeba-sentence	wizardreal:aegis	wizardreal:aegis	ctc	t ɑ m i z m a i w ɔ ɹ d
+explosion__hw__en__explosion__tatoeba00	human-web	en	tatoeba-sentence	wizardreal:explosion	wizardreal:explosion	ctc	o i t ɹ e s e k s p l o s j o n e s
+explosion__hw__en__explode__tatoeba00	human-web	en	tatoeba-sentence	wizardreal:explosion	wizardreal:explosion	ctc	f a i w ɜ k s e k s p l o u d ᵻ d o u v ɚ h e d
+explosion__hw__en__burst__tatoeba00	human-web	en	tatoeba-sentence	wizardreal:explosion	wizardreal:explosion	ctc	ð ə b ɑ b ə l b ɜ s t
+ictus__hw__en__gust__tatoeba00	human-web	en	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	text	e s p e ɹ u u s t a ɹ l i
+ictus__hw__en__wind__tatoeba00	human-web	en	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	ctc	ð ə w i n d tʃ e i n dʒ d
+ictus__hw__en__push__tatoeba00	human-web	en	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	ctc	s t ɑ p p u ʃ i ŋ
+ictus__hw__en__shove__howjsay00	human-web	en	howjsay-uk	wizardreal:ictus	wizardreal:ictus	phoneme	s ɑ u n
+ictus__hw__en__shove__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	ctc	t ɑ m ʃ ə v d m e ɹ i
+ictus__hw__en__shove__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	ctc	d o t ʃ a v
+ictus__hw__en__strike__howjsay00	human-web	en	howjsay-uk	wizardreal:ictus	wizardreal:ictus	ctc	s t ɹ a i k
+ictus__hw__en__strike__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	ctc	p e ɹ i ð e n s t ɹ a i k
+ictus__hw__en__strike__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:ictus	wizardreal:ictus	ctc	ɑ ɹ j u ɑ n s t ɹ a i k
+ignis__hw__en__fire__howjsay00	human-web	en	howjsay-uk	wizardreal:ignis	wizardreal:ignis	phoneme	f a i
+ignis__hw__en__fire__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:ignis	wizardreal:ignis	ctc	a i f a i ɚ d
+ignis__hw__en__fire__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:ignis	wizardreal:ignis	ctc	t ɑ m f a i d
+ignis__hw__en__flame__howjsay00	human-web	en	howjsay-uk	wizardreal:ignis	wizardreal:ignis	ctc	f l e i
+ignis__hw__en__flame__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:ignis	wizardreal:ignis	ctc	ð ə f l e i m d a i d a u t
+ignis__hw__en__flame__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:ignis	wizardreal:ignis	ctc	ð e ɹ w ɜ f l e i m z e v ɹ i w æ
+ignis__hw__en__fireball__howjsay00	human-web	en	howjsay-uk	wizardreal:ignis	wizardreal:ignis	phoneme	f a
+mare__hw__en__mare__howjsay00	human-web	en	howjsay-uk	wizardreal:mare	wizardreal:mare	phoneme	m a
+mare__hw__en__mare__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:mare	wizardreal:mare	text	e s t a m o s m a ɹ j a ð u s
+mare__hw__en__mare__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:mare	wizardreal:mare	text	e s t a β ə m ə ɹ j a ð u
+mare__hw__en__tide__howjsay00	human-web	en	howjsay-uk	wizardreal:mare	wizardreal:mare	ctc	t a m a j i d
+mare__hw__en__tide__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:mare	wizardreal:mare	ctc	ð ə t a i d h æ z t ɜ n d
+mare__hw__zh__x__zdic00	human-web	zh	zdic-沧	wizardreal:mare	wizardreal:mare	phoneme	ts ɑ n
+mortis__hw__en__mortis__tatoeba00	human-web	en	tatoeba-sentence	wizardreal:mortis	wizardreal:mortis	phoneme	t o m ɑ m o ɹ t i s
+mortis__hw__en__mortis__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:mortis	wizardreal:mortis	text	t o m a s o m o x t i s n o d e k s e p i a ɹ a
+mortis__hw__en__wither__howjsay00	human-web	en	howjsay-uk	wizardreal:mortis	wizardreal:mortis	phoneme	w i ð
+mortis__hw__en__wither__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:mortis	wizardreal:mortis	ctc	ð ə f l a u ɚ z w i ð ɚ d
+mortis__hw__zh__x__zdic00	human-web	zh	zdic-亡	wizardreal:mortis	wizardreal:mortis	phoneme	w a
+mortis__hw__zh__x__zdic01	human-web	zh	zdic-灵	wizardreal:mortis	wizardreal:mortis	phoneme	l i n
+sanctus__hw__en__holy__howjsay00	human-web	en	howjsay-uk	wizardreal:sanctus	wizardreal:sanctus	ctc	o l i
+sanctus__hw__en__holy__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:sanctus	wizardreal:sanctus	ctc	ð i s i z h o u l i ɡ ɹ a u n d
+semina__hw__en__nature__howjsay00	human-web	en	howjsay-uk	wizardreal:semina	wizardreal:semina	ctc	n e i tʃ ɚ
+semina__hw__en__nature__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:semina	wizardreal:semina	ctc	t ɑ m l a i k s n e i tʃ ɚ
+semina__hw__zh__x__zdic00	human-web	zh	zdic-自	wizardreal:semina	wizardreal:semina	phoneme	s i n
+semina__hw__zh__x__zdic01	human-web	zh	zdic-然	wizardreal:semina	wizardreal:semina	phoneme	ɹ a
+tempest__hw__en__tempest__howjsay00	human-web	en	howjsay-uk	wizardreal:tempest	wizardreal:tempest	phoneme	t e m p i s t
+tempest__hw__en__storm__howjsay00	human-web	en	howjsay-uk	wizardreal:tempest	wizardreal:tempest	phoneme	s t u
+tempest__hw__en__storm__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:tempest	wizardreal:tempest	ctc	ð ə s t ɔ ɹ m ɹ i l e n t ᵻ d
+tempest__hw__en__storm__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:tempest	wizardreal:tempest	text	w ə k ɑ z i z s t ɔ ɹ m z
+tempest__hw__zh__x__zdic00	human-web	zh	zdic-风	wizardreal:tempest	wizardreal:tempest	phoneme	f a
+tempest__hw__zh__x__zdic01	human-web	zh	zdic-暴	wizardreal:tempest	wizardreal:tempest	text	
+umbra__hw__en__umbra__howjsay00	human-web	en	howjsay-uk	wizardreal:umbra	wizardreal:umbra	phoneme	a m b a
+umbra__hw__en__veil__howjsay00	human-web	en	howjsay-uk	wizardreal:umbra	wizardreal:umbra	phoneme	v a
+umbra__hw__en__veil__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:umbra	wizardreal:umbra	ctc	ɹ a t v a l ɔ
+umbra__hw__zh__x__zdic00	human-web	zh	zdic-幻	wizardreal:umbra	wizardreal:umbra	phoneme	x a n n
+umbra__hw__zh__x__zdic01	human-web	zh	zdic-影	wizardreal:umbra	wizardreal:umbra	phoneme	j n
+ventus__hw__en__gale__howjsay00	human-web	en	howjsay-uk	wizardreal:ventus	wizardreal:ventus	phoneme	ɡ e i
+ventus__hw__en__gale__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:ventus	wizardreal:ventus	ctc	d u n t e i s t a l a ɣ a ð e ɹ j a ð i a ɹ t e m a s θ e ɹ k a n a
+ventus__hw__en__gale__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:ventus	wizardreal:ventus	ctc	ð ə ɹ u f w ə z t ɔ ɹ n ɑ f b a i ð ə ɡ e i l
+ventus__hw__zh__x__zdic00	human-web	zh	zdic-狂	wizardreal:ventus	wizardreal:ventus	phoneme	x w a
+ventus__hw__zh__x__zdic01	human-web	zh	zdic-风	wizardreal:ventus	wizardreal:ventus	phoneme	f a
+vitae__hw__en__heal__howjsay00	human-web	en	howjsay-uk	wizardreal:vitae	wizardreal:vitae	text	x i n i o u 2
+vitae__hw__en__heal__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:vitae	wizardreal:vitae	ctc	i ɹ ɔ l θ i ɔ
+vitae__hw__en__vitality__howjsay00	human-web	en	howjsay-uk	wizardreal:vitae	wizardreal:vitae	ctc	v a i t æ l i ɹ i
+vitae__hw__en__cure__howjsay00	human-web	en	howjsay-uk	wizardreal:vitae	wizardreal:vitae	text	tɕ h y n
+vitae__hw__en__cure__tatoeba01	human-web	en	tatoeba-sentence	wizardreal:vitae	wizardreal:vitae	ctc	t ə m k u d m e ɹ i
+vitae__hw__en__cure__tatoeba02	human-web	en	tatoeba-sentence	wizardreal:vitae	wizardreal:vitae	ctc	ɑ ɹ j u k ɔ ɹ d

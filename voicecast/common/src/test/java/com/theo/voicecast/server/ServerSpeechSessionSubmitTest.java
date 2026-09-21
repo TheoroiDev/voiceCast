@@ -1,13 +1,13 @@
 package com.theo.voicecast.server;
 
-import com.theo.voicecast.api.Pronunciation;
+import com.theo.voicecast.api.SessionVocabulary;
 import com.theo.voicecast.api.SpeechRecognizer;
 import com.theo.voicecast.api.SpeechOptions;
 import org.junit.jupiter.api.Test;
 import sun.misc.Unsafe;
 
 import java.lang.reflect.Field;
-import java.util.Collection;
+
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -34,15 +34,15 @@ class ServerSpeechSessionSubmitTest {
     /** Records setVocabulary payloads; everything else is a no-op stub. */
     private static final class RecordingRecognizer implements SpeechRecognizer {
         final CountDownLatch called = new CountDownLatch(1);
-        volatile Collection<Pronunciation> received;
+        volatile SessionVocabulary received;
 
         @Override public String id() { return "recording"; }
         @Override public String displayName() { return "recording"; }
         @Override public void start(SpeechOptions options) {}
         @Override public void stop() {}
         @Override public boolean isActive() { return true; }
-        @Override public void setVocabulary(Collection<Pronunciation> vocabulary) {
-            received = List.copyOf(vocabulary);
+        @Override public void setVocabulary(SessionVocabulary vocabulary) {
+            received = vocabulary;
             called.countDown();
         }
     }
@@ -83,7 +83,7 @@ class ServerSpeechSessionSubmitTest {
         dead.shutdown(); // submit() now throws RejectedExecutionException
         setField(s, "worker", dead);
 
-        assertDoesNotThrow(() -> s.setVocabulary(List.of()));
+        assertDoesNotThrow(() -> s.setVocabulary(SessionVocabulary.EMPTY));
     }
 
     @Test
@@ -104,12 +104,12 @@ class ServerSpeechSessionSubmitTest {
         setField(s, "worker", worker);
         RecordingRecognizer recognizer = new RecordingRecognizer();
         setField(s, "recognizer", recognizer);
-        Pronunciation p = new Pronunciation("wizardreal:ignis", List.of(), List.of("ignis"));
+        SessionVocabulary p0 = new SessionVocabulary(List.of(new SessionVocabulary.Entry("wizardreal:ignis", List.of(), List.of("ignis"), null, null)));
 
-        s.setVocabulary(List.of(p));
+        s.setVocabulary(p0);
         assertTrue(recognizer.called.await(5, TimeUnit.SECONDS), "worker task did not run");
         assertEquals(List.of("wizardreal:ignis"),
-                recognizer.received.stream().map(Pronunciation::id).toList());
+                recognizer.received.entries().stream().map(SessionVocabulary.Entry::id).toList());
 
         s.setCastMode(CastMode.OPEN, List.of());
         assertTrue(recognizer.called.await(5, TimeUnit.SECONDS), "worker task did not re-run");

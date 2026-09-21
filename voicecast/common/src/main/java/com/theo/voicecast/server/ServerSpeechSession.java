@@ -1,7 +1,7 @@
 package com.theo.voicecast.server;
 
 import com.theo.voicecast.VoiceCast;
-import com.theo.voicecast.api.Pronunciation;
+import com.theo.voicecast.api.SessionVocabulary;
 import com.theo.voicecast.api.RecognitionResult;
 import com.theo.voicecast.api.SpeechRecognizer;
 import com.theo.voicecast.api.VoiceCastEvents;
@@ -36,7 +36,7 @@ public final class ServerSpeechSession {
     private final OpusAudioCodec codec = new OpusAudioCodec();
     private volatile String engine;
     private SpeechRecognizer recognizer;
-    private Collection<Pronunciation> vocabulary = java.util.List.of();
+    private volatile SessionVocabulary vocabulary = SessionVocabulary.EMPTY;
     // Casting-time mode (0.5.0, issue #30/D-15): null = no declaration, the
     // pre-#30 full-vocabulary routing. Declared by the game-side integration
     // (free casting = OPEN, ladder chant = CHANT_CONFIRM + the spell).
@@ -90,8 +90,8 @@ public final class ServerSpeechSession {
         });
     }
 
-    void setVocabulary(Collection<Pronunciation> vocab) {
-        this.vocabulary = vocab == null ? java.util.List.of() : vocab;
+    void setVocabulary(SessionVocabulary vocab) {
+        this.vocabulary = vocab == null ? SessionVocabulary.EMPTY : vocab;
         submit(() -> {
             SpeechRecognizer r = recognizer();
             if (r != null) r.setVocabulary(routedVocabulary());
@@ -119,11 +119,13 @@ public final class ServerSpeechSession {
      *  (0.5.0) intersected with the engine's language buckets (D-A2).
      *  Language-agnostic engines (zipa-ipa, noop) are never mode-routed —
      *  the IPA line stays full-vocabulary (issue #30 D5). */
-    private Collection<Pronunciation> routedVocabulary() {
+    private SessionVocabulary routedVocabulary() {
         List<String> languages = VoiceCastServer.INSTANCE.engineLanguages(engine);
         if (languages.isEmpty()) return vocabulary;
-        Collection<Pronunciation> modeRouted = VocabularyRouter.forSpells(vocabulary, castMode, castSpellIds);
-        return VocabularyRouter.forLanguages(modeRouted, languages);
+        Collection<SessionVocabulary.Entry> modeRouted =
+                VocabularyRouter.forSpells(vocabulary.entries(), castMode, castSpellIds);
+        Collection<SessionVocabulary.Entry> routed = VocabularyRouter.forLanguages(modeRouted, languages);
+        return routed == vocabulary.entries() ? vocabulary : new SessionVocabulary(routed);
     }
 
     private void ensureReady() {

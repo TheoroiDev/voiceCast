@@ -47,12 +47,19 @@ public final class ClientNet {
         NetworkManager.registerReceiver(NetworkManager.s2c(), VoiceCastNetwork.CHANNEL_TRANSCRIPT, (buf, ctx) -> {
             boolean partial = buf.readBoolean();
             String text = buf.readUtf(1024);
-            float confidence = buf.readFloat();
+            float score = buf.readFloat();
             long startMs = buf.readLong();
+            int decisionOrdinal = buf.readVarInt();
+            String spellId = buf.readUtf(256);
             ctx.queue(() -> {
+                // Semantic contract v2: the server-side session adjudicated;
+                // the wire carries the decision so client-side consumers see
+                // the same verdict. Partial results carry no decision.
                 RecognitionResult r = partial
-                        ? RecognitionResult.partial(text, java.util.List.of(), confidence)
-                        : RecognitionResult.finality(text, java.util.List.of(), confidence, startMs);
+                        ? RecognitionResult.partial(text, "")
+                        : new RecognitionResult(text, "", "", decisionOrdinal < 0 ? null
+                                : com.theo.voicecast.api.Decision.values()[decisionOrdinal],
+                                spellId, spellId, score, java.util.List.of(), startMs, startMs);
                 VoiceCastEvents.post(partial ? new RecognitionPartialEvent(r) : new RecognitionFinalEvent(r));
             });
         });

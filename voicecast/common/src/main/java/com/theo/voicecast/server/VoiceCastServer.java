@@ -1,7 +1,8 @@
 package com.theo.voicecast.server;
 
 import com.theo.voicecast.VoiceCast;
-import com.theo.voicecast.api.Pronunciation;
+import com.theo.voicecast.api.Calibration;
+import com.theo.voicecast.api.SessionVocabulary;
 import com.theo.voicecast.api.SpeechOptions;
 import com.theo.voicecast.api.SpeechRecognizer;
 import com.theo.voicecast.api.event.RecognizerState;
@@ -59,7 +60,7 @@ public enum VoiceCastServer {
      *  packet); applied when the session is created, dropped on quit. */
     private final Map<UUID, ModeDeclaration> castModes = new ConcurrentHashMap<>();
     private final Set<UUID> deniedNotified = ConcurrentHashMap.newKeySet();
-    private volatile Collection<Pronunciation> vocabulary = java.util.List.of();
+    private volatile SessionVocabulary vocabulary = SessionVocabulary.EMPTY;
     private volatile com.theo.voicecast.api.AccessCheck accessCheck;
     private ScheduledExecutorService scheduler;
 
@@ -320,9 +321,15 @@ public enum VoiceCastServer {
         }
     }
 
-    public void setVocabulary(Collection<Pronunciation> vocab) {
-        this.vocabulary = vocab == null ? java.util.List.of() : java.util.List.copyOf(vocab);
+    public void setVocabulary(SessionVocabulary vocab) {
+        this.vocabulary = vocab == null ? SessionVocabulary.EMPTY : vocab;
         sessions.values().forEach(s -> s.setVocabulary(this.vocabulary));
+    }
+
+    /** Engine-calibration defaults for the semantic adjudication, from the
+     *  {@code [match]} config section (semantic contract v2, C1b §0.3). */
+    public Calibration calibration() {
+        return config == null ? Calibration.DEFAULT : config.calibration();
     }
 
     /**
@@ -339,10 +346,10 @@ public enum VoiceCastServer {
      *  a second setVocabulary after start would stop+rebuild the recognizer
      *  (double construction; the pre-0.5.x seed was also mode-blind, i.e. a
      *  "half-wrong" grammar that the routed call then had to replace). */
-    void configure(SpeechRecognizer r, String engine, Collection<Pronunciation> routedVocabulary) {
+    void configure(SpeechRecognizer r, String engine, SessionVocabulary routedVocabulary) {
         try {
             Path modelDir = resolveEngineModelDir(engine);
-            SpeechOptions opts = new SpeechOptions(true, 0.65f, modelDir.toString(), true);
+            SpeechOptions opts = new SpeechOptions(true, 0.65f, modelDir.toString(), true, calibration());
             r.setVocabulary(routedVocabulary);
             r.start(opts);
         } catch (Throwable t) {
@@ -483,10 +490,16 @@ public enum VoiceCastServer {
                 VoiceCastNetwork.encodeState(state.ordinal(), key, java.util.List.of(args)));
     }
 
+    private static boolean isPartial(com.theo.voicecast.api.RecognitionResult result) {
+        return result.decision() == null;
+    }
+
     void sendTranscript(ServerPlayer player, com.theo.voicecast.api.RecognitionResult result) {
         NetworkManager.sendToPlayer(player, VoiceCastNetwork.CHANNEL_TRANSCRIPT,
-                VoiceCastNetwork.encodeTranscript(result.partial(), result.text(),
-                        result.confidence(), result.startMs()));
+                VoiceCastNetwork.encodeTranscript(isPartial(result), result.utteranceText(),
+                        result.score(), result.startMs(),
+                        result.decision() == null ? -1 : result.decision().ordinal(),
+                        result.spellId()));
     }
 
     private void broadcastState(RecognizerState state, String key, String... args) {

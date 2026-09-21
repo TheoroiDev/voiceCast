@@ -1,6 +1,6 @@
 package com.theo.voicecast.engine;
 
-import com.theo.voicecast.api.Pronunciation;
+import com.theo.voicecast.api.SessionVocabulary;
 import com.theo.voicecast.api.RecognitionResult;
 import com.theo.voicecast.api.SpeechOptions;
 import com.theo.voicecast.api.engine.EngineSpec;
@@ -33,10 +33,10 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
  */
 class SherpaRecognizerE2ETest {
 
-    private static final List<Pronunciation> VOCAB = List.of(
-            new Pronunciation("e2e-fulmen", List.of(), List.of("fulmen", "lightning")),
-            new Pronunciation("e2e-aegis", List.of(), List.of("aegis", "shield")),
-            new Pronunciation("e2e-explosion", List.of(), List.of("explosion", "burst")));
+    private static final List<SessionVocabulary.Entry> VOCAB = List.of(
+            new SessionVocabulary.Entry("e2e-fulmen", List.of(), List.of("fulmen", "lightning"), null, null),
+            new SessionVocabulary.Entry("e2e-aegis", List.of(), List.of("aegis", "shield"), null, null),
+            new SessionVocabulary.Entry("e2e-explosion", List.of(), List.of("explosion", "burst"), null, null));
 
     private static Path modelDir() {
         for (Path p = Path.of("").toAbsolutePath(); p != null; p = p.getParent()) {
@@ -55,8 +55,8 @@ class SherpaRecognizerE2ETest {
                 config.languagesFor("qwen3-asr-0.6b-int8"),
                 config.optionsFor("qwen3-asr-0.6b-int8"));
         SherpaQwen3Recognizer recognizer = new SherpaQwen3Recognizer(spec);
-        recognizer.setVocabulary(VOCAB);
-        recognizer.start(new SpeechOptions(true, 0.65f, model.toString(), false));
+        recognizer.setVocabulary(new SessionVocabulary(VOCAB));
+        recognizer.start(new SpeechOptions(true, 0.65f, model.toString(), false, null));
         return recognizer;
     }
 
@@ -106,9 +106,9 @@ class SherpaRecognizerE2ETest {
         recognizer.stop();
         RecognitionResult r = received.get();
         if (r != null) { // any transcript at all must not hit the pushed vocabulary
-            for (Pronunciation p : VOCAB) {
+            for (SessionVocabulary.Entry p : VOCAB) {
                 for (String alias : p.aliases()) {
-                    String text = r.text();
+                    String text = r.utteranceText();
                     assertTrue(!text.toLowerCase(java.util.Locale.ROOT).contains(alias.toLowerCase(
                             java.util.Locale.ROOT)), "whitenoise transcript must not alias-hit: " + text);
                 }
@@ -127,8 +127,8 @@ class SherpaRecognizerE2ETest {
         EngineSpec spec = new EngineSpec("sherpa-qwen3", "qwen3-asr-0.6b-int8", model,
                 List.of(), java.util.Map.of());
         Scripted recognizer = new Scripted(spec);
-        recognizer.setVocabulary(VOCAB);
-        recognizer.start(new SpeechOptions(true, 0.65f, model.toString(), false));
+        recognizer.setVocabulary(new SessionVocabulary(VOCAB));
+        recognizer.start(new SpeechOptions(true, 0.65f, model.toString(), false, null));
         AtomicReference<RecognitionResult> received = new AtomicReference<>();
         recognizer.setResultSink(received::set);
         recognizer.acceptPcm(pcm(wav), 0, pcm(wav).length);
@@ -137,7 +137,7 @@ class SherpaRecognizerE2ETest {
         recognizer.stop();
         RecognitionResult r = received.get();
         assertNotNull(r, "fallback transcript must be emitted");
-        assertEquals("aegis.", r.text(), "fallback re-decode result");
+        assertEquals("aegis.", r.utteranceText(), "fallback re-decode result");
         assertEquals(2, recognizer.decodeCalls, "two passes: hotword decode, then hotword-free fallback");
     }
 

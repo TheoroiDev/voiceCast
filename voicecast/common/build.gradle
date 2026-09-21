@@ -31,6 +31,11 @@ dependencies {
     voicecastFat("com.github.k2-fsa.sherpa-onnx:sherpa-onnx-native-lib-osx-x64:${rootProject.sherpa_version}") { transitive = false }
     voicecastFat("com.github.k2-fsa.sherpa-onnx:sherpa-onnx-native-lib-osx-aarch64:${rootProject.sherpa_version}") { transitive = false }
 
+    // Phonetic similarity layer for the text matcher (ICU transliteration,
+    // C1b): compile-only against the version the Minecraft runtime itself
+    // ships (icu4j 71.1 on 1.20.1) — never bundled, so no license payload.
+    compileOnly("com.ibm.icu:icu4j:71.1")
+
     // tar.bz2/tgz model-archive extraction (sherpa downloads, voiceCast#42).
     // compile-only against the version the Minecraft runtime itself ships
     // (1.21 on 1.20.1) — never bundled, so no relocation or license payload.
@@ -39,6 +44,7 @@ dependencies {
     // against build/classes/java/main, so libraries under test need to be on
     // the test classpath explicitly.
     testImplementation("org.apache.commons:commons-compress:1.21")
+    testImplementation("com.ibm.icu:icu4j:71.1")
 
     // sherpa-onnx for the opt-in recognizer e2e test (natives auto-extract
     // from the classpath via sherpa's own LibraryUtils; win-x64 covers the

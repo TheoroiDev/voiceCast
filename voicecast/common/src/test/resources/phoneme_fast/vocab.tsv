@@ -1,0 +1,2368 @@
+# id	spell	threshold	ipa(;-separated)	aliases(;-separated)	langs(;-separated)
+wizardreal:aduro	wizardreal:aduro	-1	ʐʊŋ tɕja;ɕjɛ tɕja;a dɯ ɾo	aduro;melt armor;熔甲;卸甲;アドゥロ;鎧溶かし	en;zh;ja
+wizardreal:aduro.chant.en.0:0	wizardreal:aduro	-1		o cinder, lend aduro thy breath	en
+wizardreal:aduro.chant.en.0:1	wizardreal:aduro	-1		let the ember answer	en
+wizardreal:aduro.chant.en.0:2	wizardreal:aduro	-1		weave ash into my words	en
+wizardreal:aduro.chant.en.0:3	wizardreal:aduro	-1		bind the pyre to my will	en
+wizardreal:aduro.chant.en.0:4	wizardreal:aduro	-1		aduro	en
+wizardreal:aduro.chant.en.1:0	wizardreal:aduro	-1		o cinder, lend aduro thy breath	en
+wizardreal:aduro.chant.en.1:1	wizardreal:aduro	-1		ash wakes beneath my voice	en
+wizardreal:aduro.chant.en.1:2	wizardreal:aduro	-1		the pyre remembers my name	en
+wizardreal:aduro.chant.en.1:3	wizardreal:aduro	-1		gather, o ember unbound	en
+wizardreal:aduro.chant.en.1:4	wizardreal:aduro	-1		aduro	en
+wizardreal:aduro.chant.zh.0:0	wizardreal:aduro	-1	ʈʂʰɨ jɛn a tɕjɛ ʐʊŋ tɕja i ɕi	赤炎啊，借熔甲以息	zh
+wizardreal:aduro.chant.zh.0:1	wizardreal:aduro	-1	i ʈʂʰɨ jɛn ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以赤炎之名应召	zh
+wizardreal:aduro.chant.zh.0:2	wizardreal:aduro	-1	ʈʂɨ xweɪ tɕin ʐu wɔ jɛn	织灰烬入我言	zh
+wizardreal:aduro.chant.zh.0:3	wizardreal:aduro	-1	fu ljɛ jɛn y wɔ i	缚烈焰于我意	zh
+wizardreal:aduro.chant.zh.0:4	wizardreal:aduro	-1	ʐʊŋ tɕja	熔甲	zh
+wizardreal:aduro.chant.zh.1:0	wizardreal:aduro	-1	ʈʂʰɨ jɛn a tɕjɛ ʐʊŋ tɕja i ɕi	赤炎啊，借熔甲以息	zh
+wizardreal:aduro.chant.zh.1:1	wizardreal:aduro	-1	xweɪ tɕin sweɪ u ʂəŋ ɚ ɕɪŋ	灰烬随吾声而醒	zh
+wizardreal:aduro.chant.zh.1:2	wizardreal:aduro	-1	ljɛ jɛn ʂɨ tɤ u mɪŋ	烈焰识得吾名	zh
+wizardreal:aduro.chant.zh.1:3	wizardreal:aduro	-1	laɪ ɕi u tɕi ʈʂɨ ʈʂʰɨ jɛn	来兮，无羁之赤炎	zh
+wizardreal:aduro.chant.zh.1:4	wizardreal:aduro	-1	ʐʊŋ tɕja	熔甲	zh
+wizardreal:aduro.chant.ja.0:0	wizardreal:aduro	-1		紅蓮よ、アドゥロに息を貸せ	ja
+wizardreal:aduro.chant.ja.0:1	wizardreal:aduro	-1		紅蓮よ応えよ	ja
+wizardreal:aduro.chant.ja.0:2	wizardreal:aduro	-1		我が詞に灰を織れ	ja
+wizardreal:aduro.chant.ja.0:3	wizardreal:aduro	-1		焔を我が意に縛れ	ja
+wizardreal:aduro.chant.ja.0:4	wizardreal:aduro	-1	a dɯ ɾo	アドゥロ	ja
+wizardreal:aduro.chant.ja.1:0	wizardreal:aduro	-1		紅蓮よ、アドゥロに息を貸せ	ja
+wizardreal:aduro.chant.ja.1:1	wizardreal:aduro	-1		声に呼び覚まれし灰	ja
+wizardreal:aduro.chant.ja.1:2	wizardreal:aduro	-1		焔は名を憶える	ja
+wizardreal:aduro.chant.ja.1:3	wizardreal:aduro	-1		集え、縛られぬ紅蓮	ja
+wizardreal:aduro.chant.ja.1:4	wizardreal:aduro	-1	a dɯ ɾo	アドゥロ	ja
+wizardreal:aegis	wizardreal:aegis	-1	ˈiːdʒɪs;ˈiːdʒɪs;ˈiːdʒɪs;ʃiːld;pɹətɛkt;pɹətɛkʃən;wɔːɹd;ʂəŋtuən;səŋtuən;sə5ŋtuə5n	aegis;圣盾;アイギス	en;zh;ja
+wizardreal:aegis.chant.en.0:0	wizardreal:aegis	-1		let hymn crown aegis	en
+wizardreal:aegis.chant.en.0:1	wizardreal:aegis	-1		let the light answer	en
+wizardreal:aegis.chant.en.0:2	wizardreal:aegis	-1		weave hymn into my words	en
+wizardreal:aegis.chant.en.0:3	wizardreal:aegis	-1		bind the halo to my will	en
+wizardreal:aegis.chant.en.0:4	wizardreal:aegis	-1	ˈiːdʒɪs	aegis	en
+wizardreal:aegis.chant.en.1:0	wizardreal:aegis	-1		let hymn crown aegis	en
+wizardreal:aegis.chant.en.1:1	wizardreal:aegis	-1		hymn wakes beneath my voice	en
+wizardreal:aegis.chant.en.1:2	wizardreal:aegis	-1		the halo remembers my name	en
+wizardreal:aegis.chant.en.1:3	wizardreal:aegis	-1		gather, o light unbound	en
+wizardreal:aegis.chant.en.1:4	wizardreal:aegis	-1	ˈiːdʒɪs	aegis	en
+wizardreal:aegis.chant.zh.0:0	wizardreal:aegis	-1	i ʂəŋ jʊŋ tɕja mjɛn ʂəŋ twən	以圣咏加冕圣盾	zh
+wizardreal:aegis.chant.zh.0:1	wizardreal:aegis	-1	i ʂəŋ kwɑŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以圣光之名应召	zh
+wizardreal:aegis.chant.zh.0:2	wizardreal:aegis	-1	ʈʂɨ ʂəŋ jʊŋ ʐu wɔ jɛn	织圣咏入我言	zh
+wizardreal:aegis.chant.zh.0:3	wizardreal:aegis	-1	fu xweɪ xwan y wɔ i	缚辉环于我意	zh
+wizardreal:aegis.chant.zh.0:4	wizardreal:aegis	-1	ˈiːdʒɪs	圣盾	zh
+wizardreal:aegis.chant.zh.1:0	wizardreal:aegis	-1	i ʂəŋ jʊŋ tɕja mjɛn ʂəŋ twən	以圣咏加冕圣盾	zh
+wizardreal:aegis.chant.zh.1:1	wizardreal:aegis	-1	ʂəŋ jʊŋ sweɪ u ʂəŋ ɚ ɕɪŋ	圣咏随吾声而醒	zh
+wizardreal:aegis.chant.zh.1:2	wizardreal:aegis	-1	xweɪ xwan ʂɨ tɤ u mɪŋ	辉环识得吾名	zh
+wizardreal:aegis.chant.zh.1:3	wizardreal:aegis	-1	laɪ ɕi u tɕi ʈʂɨ ʂəŋ kwɑŋ	来兮，无羁之圣光	zh
+wizardreal:aegis.chant.zh.1:4	wizardreal:aegis	-1	ˈiːdʒɪs	圣盾	zh
+wizardreal:aegis.chant.ja.0:0	wizardreal:aegis	-1		光をもってアイギスを飾れ	ja
+wizardreal:aegis.chant.ja.0:1	wizardreal:aegis	-1		光よ応えよ	ja
+wizardreal:aegis.chant.ja.0:2	wizardreal:aegis	-1		我が詞に聖歌を織れ	ja
+wizardreal:aegis.chant.ja.0:3	wizardreal:aegis	-1		光輪を我が意に縛れ	ja
+wizardreal:aegis.chant.ja.0:4	wizardreal:aegis	-1	ˈiːdʒɪs	アイギス	ja
+wizardreal:aegis.chant.ja.1:0	wizardreal:aegis	-1		光をもってアイギスを飾れ	ja
+wizardreal:aegis.chant.ja.1:1	wizardreal:aegis	-1		声に呼び覚まれし聖歌	ja
+wizardreal:aegis.chant.ja.1:2	wizardreal:aegis	-1		光輪は名を憶える	ja
+wizardreal:aegis.chant.ja.1:3	wizardreal:aegis	-1		集え、縛られぬ光	ja
+wizardreal:aegis.chant.ja.1:4	wizardreal:aegis	-1	ˈiːdʒɪs	アイギス	ja
+wizardreal:anemos	wizardreal:anemos	-1	ʈʂən kʰʊŋ ʐən;a nɛ mo sɯ	anemos;真空刃;アネモス	en;zh;ja
+wizardreal:anemos.chant.en.0:0	wizardreal:anemos	-1		anemos, hear the gale	en
+wizardreal:anemos.chant.en.0:1	wizardreal:anemos	-1		let the gale answer	en
+wizardreal:anemos.chant.en.0:2	wizardreal:anemos	-1		weave zephyr into my words	en
+wizardreal:anemos.chant.en.0:3	wizardreal:anemos	-1		bind the sky to my will	en
+wizardreal:anemos.chant.en.0:4	wizardreal:anemos	-1		anemos	en
+wizardreal:anemos.chant.en.1:0	wizardreal:anemos	-1		anemos, hear the gale	en
+wizardreal:anemos.chant.en.1:1	wizardreal:anemos	-1		zephyr wakes beneath my voice	en
+wizardreal:anemos.chant.en.1:2	wizardreal:anemos	-1		the sky remembers my name	en
+wizardreal:anemos.chant.en.1:3	wizardreal:anemos	-1		gather, o gale unbound	en
+wizardreal:anemos.chant.en.1:4	wizardreal:anemos	-1		anemos	en
+wizardreal:anemos.chant.zh.0:0	wizardreal:anemos	-1	ʈʂən kʰʊŋ ʐən a ti tʰɪŋ ʈʂɑŋ kʰʊŋ	真空刃啊，谛听长空	zh
+wizardreal:anemos.chant.zh.0:1	wizardreal:anemos	-1	tɕjɛ fɑŋ kwɑŋ fəŋ	以罡风之名应召	zh
+wizardreal:anemos.chant.zh.0:2	wizardreal:anemos	-1	kwɑŋ fəŋ	织清风入我言	zh
+wizardreal:anemos.chant.zh.0:3	wizardreal:anemos	-1	fu ʈʂɑŋ kʰʊŋ y wɔ i	缚长空于我意	zh
+wizardreal:anemos.chant.zh.0:4	wizardreal:anemos	-1	ʈʂən kʰʊŋ ʐən	真空刃	zh
+wizardreal:anemos.chant.zh.1:0	wizardreal:anemos	-1	ʈʂən kʰʊŋ ʐən a ti tʰɪŋ ʈʂɑŋ kʰʊŋ	真空刃啊，谛听长空	zh
+wizardreal:anemos.chant.zh.1:1	wizardreal:anemos	-1	tɕʰɪŋ fəŋ sweɪ u ʂəŋ ɚ ɕɪŋ	清风随吾声而醒	zh
+wizardreal:anemos.chant.zh.1:2	wizardreal:anemos	-1	ʈʂɑŋ kʰʊŋ ʂɨ tɤ u mɪŋ	长空识得吾名	zh
+wizardreal:anemos.chant.zh.1:3	wizardreal:anemos	-1	laɪ ɕi u tɕi ʈʂɨ kɑŋ fəŋ	来兮，无羁之罡风	zh
+wizardreal:anemos.chant.zh.1:4	wizardreal:anemos	-1	ʈʂən kʰʊŋ ʐən	真空刃	zh
+wizardreal:anemos.chant.ja.0:0	wizardreal:anemos	-1		アネモスよ、疾風を聴け	ja
+wizardreal:anemos.chant.ja.0:1	wizardreal:anemos	-1		疾風よ応えよ	ja
+wizardreal:anemos.chant.ja.0:2	wizardreal:anemos	-1		我が詞に微風を織れ	ja
+wizardreal:anemos.chant.ja.0:3	wizardreal:anemos	-1		空を我が意に縛れ	ja
+wizardreal:anemos.chant.ja.0:4	wizardreal:anemos	-1	a nɛ mo sɯ	アネモス	ja
+wizardreal:anemos.chant.ja.1:0	wizardreal:anemos	-1		アネモスよ、疾風を聴け	ja
+wizardreal:anemos.chant.ja.1:1	wizardreal:anemos	-1		声に呼び覚まれし微風	ja
+wizardreal:anemos.chant.ja.1:2	wizardreal:anemos	-1		空は名を憶える	ja
+wizardreal:anemos.chant.ja.1:3	wizardreal:anemos	-1		集え、縛られぬ疾風	ja
+wizardreal:anemos.chant.ja.1:4	wizardreal:anemos	-1	a nɛ mo sɯ	アネモス	ja
+wizardreal:angelus	wizardreal:angelus	-1	ʂoʊ lɪŋ;a n dʑɛ ɾɯ sɯ	angelus;守灵;アンジェルス	en;zh;ja
+wizardreal:angelus.chant.en.0:0	wizardreal:angelus	-1		angelus, halo of the old tongue	en
+wizardreal:angelus.chant.en.0:1	wizardreal:angelus	-1		let the light answer	en
+wizardreal:angelus.chant.en.0:2	wizardreal:angelus	-1		weave hymn into my words	en
+wizardreal:angelus.chant.en.0:3	wizardreal:angelus	-1		bind the halo to my will	en
+wizardreal:angelus.chant.en.0:4	wizardreal:angelus	-1		angelus	en
+wizardreal:angelus.chant.en.1:0	wizardreal:angelus	-1		angelus, halo of the old tongue	en
+wizardreal:angelus.chant.en.1:1	wizardreal:angelus	-1		hymn wakes beneath my voice	en
+wizardreal:angelus.chant.en.1:2	wizardreal:angelus	-1		the halo remembers my name	en
+wizardreal:angelus.chant.en.1:3	wizardreal:angelus	-1		gather, o light unbound	en
+wizardreal:angelus.chant.en.1:4	wizardreal:angelus	-1		angelus	en
+wizardreal:angelus.chant.zh.0:0	wizardreal:angelus	-1	ʂoʊ lɪŋ ʈʂʰu ɕjɛn ʂəŋ jʊŋ weɪ ʈʂəŋ	守灵初现，圣咏为证	zh
+wizardreal:angelus.chant.zh.0:1	wizardreal:angelus	-1	i ʂəŋ kwɑŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以圣光之名应召	zh
+wizardreal:angelus.chant.zh.0:2	wizardreal:angelus	-1	ʈʂɨ ʂəŋ jʊŋ ʐu wɔ jɛn	织圣咏入我言	zh
+wizardreal:angelus.chant.zh.0:3	wizardreal:angelus	-1	fu xweɪ xwan y wɔ i	缚辉环于我意	zh
+wizardreal:angelus.chant.zh.0:4	wizardreal:angelus	-1	ʂoʊ lɪŋ	守灵	zh
+wizardreal:angelus.chant.zh.1:0	wizardreal:angelus	-1	ʂoʊ lɪŋ ʈʂʰu ɕjɛn ʂəŋ jʊŋ weɪ ʈʂəŋ	守灵初现，圣咏为证	zh
+wizardreal:angelus.chant.zh.1:1	wizardreal:angelus	-1	ʂəŋ jʊŋ sweɪ u ʂəŋ ɚ ɕɪŋ	圣咏随吾声而醒	zh
+wizardreal:angelus.chant.zh.1:2	wizardreal:angelus	-1	xweɪ xwan ʂɨ tɤ u mɪŋ	辉环识得吾名	zh
+wizardreal:angelus.chant.zh.1:3	wizardreal:angelus	-1	laɪ ɕi u tɕi ʈʂɨ ʂəŋ kwɑŋ	来兮，无羁之圣光	zh
+wizardreal:angelus.chant.zh.1:4	wizardreal:angelus	-1	ʂoʊ lɪŋ	守灵	zh
+wizardreal:angelus.chant.ja.0:0	wizardreal:angelus	-1		アンジェルスよ、光とともに	ja
+wizardreal:angelus.chant.ja.0:1	wizardreal:angelus	-1		光よ応えよ	ja
+wizardreal:angelus.chant.ja.0:2	wizardreal:angelus	-1		我が詞に聖歌を織れ	ja
+wizardreal:angelus.chant.ja.0:3	wizardreal:angelus	-1		光輪を我が意に縛れ	ja
+wizardreal:angelus.chant.ja.0:4	wizardreal:angelus	-1	a n dʑɛ ɾɯ sɯ	アンジェルス	ja
+wizardreal:angelus.chant.ja.1:0	wizardreal:angelus	-1		アンジェルスよ、光とともに	ja
+wizardreal:angelus.chant.ja.1:1	wizardreal:angelus	-1		声に呼び覚まれし聖歌	ja
+wizardreal:angelus.chant.ja.1:2	wizardreal:angelus	-1		光輪は名を憶える	ja
+wizardreal:angelus.chant.ja.1:3	wizardreal:angelus	-1		集え、縛られぬ光	ja
+wizardreal:angelus.chant.ja.1:4	wizardreal:angelus	-1	a n dʑɛ ɾɯ sɯ	アンジェルス	ja
+wizardreal:anima	wizardreal:anima	-1	ʈʂaʊ xaɪ;xaɪ ku ʈʂaʊ xwan;a ni ma	anima;raise bones;召骸;骸骨召唤;アニマ;骸骨召喚	en;zh;ja
+wizardreal:anima.chant.en.0:0	wizardreal:anima	-1		o dusk, lend anima thy breath	en
+wizardreal:anima.chant.en.0:1	wizardreal:anima	-1		let the grave answer	en
+wizardreal:anima.chant.en.0:2	wizardreal:anima	-1		weave wraith into my words	en
+wizardreal:anima.chant.en.0:3	wizardreal:anima	-1		bind the bone to my will	en
+wizardreal:anima.chant.en.0:4	wizardreal:anima	-1		anima	en
+wizardreal:anima.chant.en.1:0	wizardreal:anima	-1		o dusk, lend anima thy breath	en
+wizardreal:anima.chant.en.1:1	wizardreal:anima	-1		wraith wakes beneath my voice	en
+wizardreal:anima.chant.en.1:2	wizardreal:anima	-1		the bone remembers my name	en
+wizardreal:anima.chant.en.1:3	wizardreal:anima	-1		gather, o grave unbound	en
+wizardreal:anima.chant.en.1:4	wizardreal:anima	-1		anima	en
+wizardreal:anima.chant.zh.0:0	wizardreal:anima	-1	joʊ ʈʂʊŋ a tɕjɛ ʈʂaʊ xaɪ i ɕi	幽冢啊，借召骸以息	zh
+wizardreal:anima.chant.zh.0:1	wizardreal:anima	-1	i joʊ ʈʂʊŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以幽冢之名应召	zh
+wizardreal:anima.chant.zh.0:2	wizardreal:anima	-1	ʈʂɨ wɑŋ ɪŋ ʐu wɔ jɛn	织亡影入我言	zh
+wizardreal:anima.chant.zh.0:3	wizardreal:anima	-1	fu paɪ ku y wɔ i	缚白骨于我意	zh
+wizardreal:anima.chant.zh.0:4	wizardreal:anima	-1	ʈʂaʊ xaɪ	召骸	zh
+wizardreal:anima.chant.zh.1:0	wizardreal:anima	-1	joʊ ʈʂʊŋ a tɕjɛ ʈʂaʊ xaɪ i ɕi	幽冢啊，借召骸以息	zh
+wizardreal:anima.chant.zh.1:1	wizardreal:anima	-1	wɑŋ ɪŋ sweɪ u ʂəŋ ɚ ɕɪŋ	亡影随吾声而醒	zh
+wizardreal:anima.chant.zh.1:2	wizardreal:anima	-1	paɪ ku ʂɨ tɤ u mɪŋ	白骨识得吾名	zh
+wizardreal:anima.chant.zh.1:3	wizardreal:anima	-1	laɪ ɕi u tɕi ʈʂɨ joʊ ʈʂʊŋ	来兮，无羁之幽冢	zh
+wizardreal:anima.chant.zh.1:4	wizardreal:anima	-1	ʈʂaʊ xaɪ	召骸	zh
+wizardreal:anima.chant.ja.0:0	wizardreal:anima	-1		墓よ、アニマに息を貸せ	ja
+wizardreal:anima.chant.ja.0:1	wizardreal:anima	-1		墓よ応えよ	ja
+wizardreal:anima.chant.ja.0:2	wizardreal:anima	-1		我が詞に亡霊を織れ	ja
+wizardreal:anima.chant.ja.0:3	wizardreal:anima	-1		骨を我が意に縛れ	ja
+wizardreal:anima.chant.ja.0:4	wizardreal:anima	-1	a ni ma	アニマ	ja
+wizardreal:anima.chant.ja.1:0	wizardreal:anima	-1		墓よ、アニマに息を貸せ	ja
+wizardreal:anima.chant.ja.1:1	wizardreal:anima	-1		声に呼び覚まれし亡霊	ja
+wizardreal:anima.chant.ja.1:2	wizardreal:anima	-1		骨は名を憶える	ja
+wizardreal:anima.chant.ja.1:3	wizardreal:anima	-1		集え、縛られぬ墓	ja
+wizardreal:anima.chant.ja.1:4	wizardreal:anima	-1	a ni ma	アニマ	ja
+wizardreal:aqua_vitae	wizardreal:aqua_vitae	-1	tɕɪŋ ʂweɪ;a kɯ a i ta ɛ	aqua vitae;aqua;vitae;净水;アクア・ウィタエ;アクアウィタエ	en;zh;ja
+wizardreal:aqua_vitae.chant.en.0:0	wizardreal:aqua_vitae	-1		let deep crown aqua vitae	en
+wizardreal:aqua_vitae.chant.en.0:1	wizardreal:aqua_vitae	-1		let the tide answer	en
+wizardreal:aqua_vitae.chant.en.0:2	wizardreal:aqua_vitae	-1		weave deep into my words	en
+wizardreal:aqua_vitae.chant.en.0:3	wizardreal:aqua_vitae	-1		bind the mist to my will	en
+wizardreal:aqua_vitae.chant.en.0:4	wizardreal:aqua_vitae	-1		aqua vitae	en
+wizardreal:aqua_vitae.chant.en.1:0	wizardreal:aqua_vitae	-1		let deep crown aqua vitae	en
+wizardreal:aqua_vitae.chant.en.1:1	wizardreal:aqua_vitae	-1		deep wakes beneath my voice	en
+wizardreal:aqua_vitae.chant.en.1:2	wizardreal:aqua_vitae	-1		the mist remembers my name	en
+wizardreal:aqua_vitae.chant.en.1:3	wizardreal:aqua_vitae	-1		gather, o tide unbound	en
+wizardreal:aqua_vitae.chant.en.1:4	wizardreal:aqua_vitae	-1		aqua vitae	en
+wizardreal:aqua_vitae.chant.zh.0:0	wizardreal:aqua_vitae	-1	i ʂən ɥɛn tɕja mjɛn tɕɪŋ ʂweɪ	以深渊加冕净水	zh
+wizardreal:aqua_vitae.chant.zh.0:1	wizardreal:aqua_vitae	-1	i ʈʂʰaʊ ɕi ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以潮汐之名应召	zh
+wizardreal:aqua_vitae.chant.zh.0:2	wizardreal:aqua_vitae	-1	ʈʂɨ ʂən ɥɛn ʐu wɔ jɛn	织深渊入我言	zh
+wizardreal:aqua_vitae.chant.zh.0:3	wizardreal:aqua_vitae	-1	fu jɛn pwɔ y wɔ i	缚烟波于我意	zh
+wizardreal:aqua_vitae.chant.zh.0:4	wizardreal:aqua_vitae	-1	tɕɪŋ ʂweɪ	净水	zh
+wizardreal:aqua_vitae.chant.zh.1:0	wizardreal:aqua_vitae	-1	i ʂən ɥɛn tɕja mjɛn tɕɪŋ ʂweɪ	以深渊加冕净水	zh
+wizardreal:aqua_vitae.chant.zh.1:1	wizardreal:aqua_vitae	-1	ʂən ɥɛn sweɪ u ʂəŋ ɚ ɕɪŋ	深渊随吾声而醒	zh
+wizardreal:aqua_vitae.chant.zh.1:2	wizardreal:aqua_vitae	-1	jɛn pwɔ ʂɨ tɤ u mɪŋ	烟波识得吾名	zh
+wizardreal:aqua_vitae.chant.zh.1:3	wizardreal:aqua_vitae	-1	laɪ ɕi u tɕi ʈʂɨ ʈʂʰaʊ ɕi	来兮，无羁之潮汐	zh
+wizardreal:aqua_vitae.chant.zh.1:4	wizardreal:aqua_vitae	-1	tɕɪŋ ʂweɪ	净水	zh
+wizardreal:aqua_vitae.chant.ja.0:0	wizardreal:aqua_vitae	-1		潮をもってアクア・ウィタエを飾れ	ja
+wizardreal:aqua_vitae.chant.ja.0:1	wizardreal:aqua_vitae	-1		潮よ応えよ	ja
+wizardreal:aqua_vitae.chant.ja.0:2	wizardreal:aqua_vitae	-1		我が詞に深淵を織れ	ja
+wizardreal:aqua_vitae.chant.ja.0:3	wizardreal:aqua_vitae	-1		霧を我が意に縛れ	ja
+wizardreal:aqua_vitae.chant.ja.0:4	wizardreal:aqua_vitae	-1	a kɯ a i ta ɛ	アクア・ウィタエ	ja
+wizardreal:aqua_vitae.chant.ja.1:0	wizardreal:aqua_vitae	-1		潮をもってアクア・ウィタエを飾れ	ja
+wizardreal:aqua_vitae.chant.ja.1:1	wizardreal:aqua_vitae	-1		声に呼び覚まれし深淵	ja
+wizardreal:aqua_vitae.chant.ja.1:2	wizardreal:aqua_vitae	-1		霧は名を憶える	ja
+wizardreal:aqua_vitae.chant.ja.1:3	wizardreal:aqua_vitae	-1		集え、縛られぬ潮	ja
+wizardreal:aqua_vitae.chant.ja.1:4	wizardreal:aqua_vitae	-1	a kɯ a i ta ɛ	アクア・ウィタエ	ja
+wizardreal:aurae_levitas	wizardreal:aurae_levitas	-1	tɕʰɪŋ fəŋ pu;a ɯ ɾa i ɾɛ i ta sɯ	aurae levitas;aurae;levitas;轻风步;アウライ・レウィタス;アウライレウィタス	en;zh;ja
+wizardreal:aurae_levitas.chant.en.0:0	wizardreal:aurae_levitas	-1		aurae levitas, sky of the old tongue	en
+wizardreal:aurae_levitas.chant.en.0:1	wizardreal:aurae_levitas	-1		let the gale answer	en
+wizardreal:aurae_levitas.chant.en.0:2	wizardreal:aurae_levitas	-1		weave zephyr into my words	en
+wizardreal:aurae_levitas.chant.en.0:3	wizardreal:aurae_levitas	-1		bind the sky to my will	en
+wizardreal:aurae_levitas.chant.en.0:4	wizardreal:aurae_levitas	-1		aurae levitas	en
+wizardreal:aurae_levitas.chant.en.1:0	wizardreal:aurae_levitas	-1		aurae levitas, sky of the old tongue	en
+wizardreal:aurae_levitas.chant.en.1:1	wizardreal:aurae_levitas	-1		zephyr wakes beneath my voice	en
+wizardreal:aurae_levitas.chant.en.1:2	wizardreal:aurae_levitas	-1		the sky remembers my name	en
+wizardreal:aurae_levitas.chant.en.1:3	wizardreal:aurae_levitas	-1		gather, o gale unbound	en
+wizardreal:aurae_levitas.chant.en.1:4	wizardreal:aurae_levitas	-1		aurae levitas	en
+wizardreal:aurae_levitas.chant.zh.0:0	wizardreal:aurae_levitas	-1	tɕʰɪŋ fəŋ pu ʈʂʰu ɕjɛn tɕʰɪŋ fəŋ weɪ ʈʂəŋ	轻风步初现，清风为证	zh
+wizardreal:aurae_levitas.chant.zh.0:1	wizardreal:aurae_levitas	-1	tɕjɛ fɑŋ kwɑŋ fəŋ	以罡风之名应召	zh
+wizardreal:aurae_levitas.chant.zh.0:2	wizardreal:aurae_levitas	-1	kwɑŋ fəŋ	织清风入我言	zh
+wizardreal:aurae_levitas.chant.zh.0:3	wizardreal:aurae_levitas	-1	fu ʈʂɑŋ kʰʊŋ y wɔ i	缚长空于我意	zh
+wizardreal:aurae_levitas.chant.zh.0:4	wizardreal:aurae_levitas	-1	tɕʰɪŋ fəŋ pu	轻风步	zh
+wizardreal:aurae_levitas.chant.zh.1:0	wizardreal:aurae_levitas	-1	tɕʰɪŋ fəŋ pu ʈʂʰu ɕjɛn tɕʰɪŋ fəŋ weɪ ʈʂəŋ	轻风步初现，清风为证	zh
+wizardreal:aurae_levitas.chant.zh.1:1	wizardreal:aurae_levitas	-1	tɕʰɪŋ fəŋ sweɪ u ʂəŋ ɚ ɕɪŋ	清风随吾声而醒	zh
+wizardreal:aurae_levitas.chant.zh.1:2	wizardreal:aurae_levitas	-1	ʈʂɑŋ kʰʊŋ ʂɨ tɤ u mɪŋ	长空识得吾名	zh
+wizardreal:aurae_levitas.chant.zh.1:3	wizardreal:aurae_levitas	-1	laɪ ɕi u tɕi ʈʂɨ kɑŋ fəŋ	来兮，无羁之罡风	zh
+wizardreal:aurae_levitas.chant.zh.1:4	wizardreal:aurae_levitas	-1	tɕʰɪŋ fəŋ pu	轻风步	zh
+wizardreal:aurae_levitas.chant.ja.0:0	wizardreal:aurae_levitas	-1		アウライ・レウィタスよ、疾風とともに	ja
+wizardreal:aurae_levitas.chant.ja.0:1	wizardreal:aurae_levitas	-1		疾風よ応えよ	ja
+wizardreal:aurae_levitas.chant.ja.0:2	wizardreal:aurae_levitas	-1		我が詞に微風を織れ	ja
+wizardreal:aurae_levitas.chant.ja.0:3	wizardreal:aurae_levitas	-1		空を我が意に縛れ	ja
+wizardreal:aurae_levitas.chant.ja.0:4	wizardreal:aurae_levitas	-1	a ɯ ɾa i ɾɛ i ta sɯ	アウライ・レウィタス	ja
+wizardreal:aurae_levitas.chant.ja.1:0	wizardreal:aurae_levitas	-1		アウライ・レウィタスよ、疾風とともに	ja
+wizardreal:aurae_levitas.chant.ja.1:1	wizardreal:aurae_levitas	-1		声に呼び覚まれし微風	ja
+wizardreal:aurae_levitas.chant.ja.1:2	wizardreal:aurae_levitas	-1		空は名を憶える	ja
+wizardreal:aurae_levitas.chant.ja.1:3	wizardreal:aurae_levitas	-1		集え、縛られぬ疾風	ja
+wizardreal:aurae_levitas.chant.ja.1:4	wizardreal:aurae_levitas	-1	a ɯ ɾa i ɾɛ i ta sɯ	アウライ・レウィタス	ja
+wizardreal:blade	wizardreal:blade	-1	tɕʰjɛn tɕjɛn ʐən;tɕʰjɛn tɕjɛn;bɯ ɾɛː do	blade;thousand blades;千剑刃;千剑;ブレード;千の剣	en;zh;ja
+wizardreal:blade.chant.en.0:0	wizardreal:blade	-1		o aether, lend blade thy breath	en
+wizardreal:blade.chant.en.0:1	wizardreal:blade	-1		let the sigil answer	en
+wizardreal:blade.chant.en.0:2	wizardreal:blade	-1		weave aether into my words	en
+wizardreal:blade.chant.en.0:3	wizardreal:blade	-1		bind the nexus to my will	en
+wizardreal:blade.chant.en.0:4	wizardreal:blade	-1		by the first sigil, i swear	en
+wizardreal:blade.chant.en.0:5	wizardreal:blade	-1		blade	en
+wizardreal:blade.chant.en.1:0	wizardreal:blade	-1		o aether, lend blade thy breath	en
+wizardreal:blade.chant.en.1:1	wizardreal:blade	-1		aether wakes beneath my voice	en
+wizardreal:blade.chant.en.1:2	wizardreal:blade	-1		the nexus remembers my name	en
+wizardreal:blade.chant.en.1:3	wizardreal:blade	-1		gather, o sigil unbound	en
+wizardreal:blade.chant.en.1:4	wizardreal:blade	-1		the rune leans close to listen	en
+wizardreal:blade.chant.en.1:5	wizardreal:blade	-1		blade	en
+wizardreal:blade.chant.zh.0:0	wizardreal:blade	-1	ʂu njoʊ a tɕjɛ tɕʰjɛn tɕjɛn i ɕi	枢纽啊，借千剑以息	zh
+wizardreal:blade.chant.zh.0:1	wizardreal:blade	-1	i mi in ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以秘印之名应召	zh
+wizardreal:blade.chant.zh.0:2	wizardreal:blade	-1	ʈʂɨ i tʰaɪ ʐu wɔ jɛn	织以太入我言	zh
+wizardreal:blade.chant.zh.0:3	wizardreal:blade	-1	fu ʂu njoʊ y wɔ i	缚枢纽于我意	zh
+wizardreal:blade.chant.zh.0:4	wizardreal:blade	-1	ʈʂʰu xwɔ mi in weɪ ʂɨ	初火秘印为誓	zh
+wizardreal:blade.chant.zh.0:5	wizardreal:blade	-1	tɕʰjɛn tɕjɛn ʐən	千剑刃	zh
+wizardreal:blade.chant.zh.1:0	wizardreal:blade	-1	ʂu njoʊ a tɕjɛ tɕʰjɛn tɕjɛn i ɕi	枢纽啊，借千剑以息	zh
+wizardreal:blade.chant.zh.1:1	wizardreal:blade	-1	i tʰaɪ sweɪ u ʂəŋ ɚ ɕɪŋ	以太随吾声而醒	zh
+wizardreal:blade.chant.zh.1:2	wizardreal:blade	-1	ʂu njoʊ ʂɨ tɤ u mɪŋ	枢纽识得吾名	zh
+wizardreal:blade.chant.zh.1:3	wizardreal:blade	-1	laɪ ɕi u tɕi ʈʂɨ mi in	来兮，无羁之秘印	zh
+wizardreal:blade.chant.zh.1:4	wizardreal:blade	-1	fu wən tsʰɤ ɚ lɪŋ tʰɪŋ	符文侧耳聆听	zh
+wizardreal:blade.chant.zh.1:5	wizardreal:blade	-1	tɕʰjɛn tɕjɛn ʐən	千剑刃	zh
+wizardreal:blade.chant.ja.0:0	wizardreal:blade	-1		印よ、ブラードに息を貸せ	ja
+wizardreal:blade.chant.ja.0:1	wizardreal:blade	-1		印よ応えよ	ja
+wizardreal:blade.chant.ja.0:2	wizardreal:blade	-1		我が詞に以太を織れ	ja
+wizardreal:blade.chant.ja.0:3	wizardreal:blade	-1		環を我が意に縛れ	ja
+wizardreal:blade.chant.ja.0:4	wizardreal:blade	-1		原初の印に誓う	ja
+wizardreal:blade.chant.ja.0:5	wizardreal:blade	-1	bɯ ɾɛː do	ブレード	ja
+wizardreal:blade.chant.ja.1:0	wizardreal:blade	-1		印よ、ブラードに息を貸せ	ja
+wizardreal:blade.chant.ja.1:1	wizardreal:blade	-1		声に呼び覚まれし以太	ja
+wizardreal:blade.chant.ja.1:2	wizardreal:blade	-1		環は名を憶える	ja
+wizardreal:blade.chant.ja.1:3	wizardreal:blade	-1		集え、縛られぬ印	ja
+wizardreal:blade.chant.ja.1:4	wizardreal:blade	-1		ルーンは耳を傾ける	ja
+wizardreal:blade.chant.ja.1:5	wizardreal:blade	-1	bɯ ɾɛː do	ブレード	ja
+wizardreal:carnifex	wizardreal:carnifex	-1	ʂɨ paʊ;ka ɾɯ ni ɸɛ kɯ sɯ	carnifex;尸爆;カルニフェクス	en;zh;ja
+wizardreal:carnifex.chant.en.0:0	wizardreal:carnifex	-1		let wraith crown carnifex	en
+wizardreal:carnifex.chant.en.0:1	wizardreal:carnifex	-1		let the grave answer	en
+wizardreal:carnifex.chant.en.0:2	wizardreal:carnifex	-1		weave wraith into my words	en
+wizardreal:carnifex.chant.en.0:3	wizardreal:carnifex	-1		bind the bone to my will	en
+wizardreal:carnifex.chant.en.0:4	wizardreal:carnifex	-1		carnifex	en
+wizardreal:carnifex.chant.en.1:0	wizardreal:carnifex	-1		let wraith crown carnifex	en
+wizardreal:carnifex.chant.en.1:1	wizardreal:carnifex	-1		wraith wakes beneath my voice	en
+wizardreal:carnifex.chant.en.1:2	wizardreal:carnifex	-1		the bone remembers my name	en
+wizardreal:carnifex.chant.en.1:3	wizardreal:carnifex	-1		gather, o grave unbound	en
+wizardreal:carnifex.chant.en.1:4	wizardreal:carnifex	-1		carnifex	en
+wizardreal:carnifex.chant.zh.0:0	wizardreal:carnifex	-1	i wɑŋ ɪŋ tɕja mjɛn ʂɨ paʊ	以亡影加冕尸爆	zh
+wizardreal:carnifex.chant.zh.0:1	wizardreal:carnifex	-1	i joʊ ʈʂʊŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以幽冢之名应召	zh
+wizardreal:carnifex.chant.zh.0:2	wizardreal:carnifex	-1	ʈʂɨ wɑŋ ɪŋ ʐu wɔ jɛn	织亡影入我言	zh
+wizardreal:carnifex.chant.zh.0:3	wizardreal:carnifex	-1	fu paɪ ku y wɔ i	缚白骨于我意	zh
+wizardreal:carnifex.chant.zh.0:4	wizardreal:carnifex	-1	ʂɨ paʊ	尸爆	zh
+wizardreal:carnifex.chant.zh.1:0	wizardreal:carnifex	-1	i wɑŋ ɪŋ tɕja mjɛn ʂɨ paʊ	以亡影加冕尸爆	zh
+wizardreal:carnifex.chant.zh.1:1	wizardreal:carnifex	-1	wɑŋ ɪŋ sweɪ u ʂəŋ ɚ ɕɪŋ	亡影随吾声而醒	zh
+wizardreal:carnifex.chant.zh.1:2	wizardreal:carnifex	-1	paɪ ku ʂɨ tɤ u mɪŋ	白骨识得吾名	zh
+wizardreal:carnifex.chant.zh.1:3	wizardreal:carnifex	-1	laɪ ɕi u tɕi ʈʂɨ joʊ ʈʂʊŋ	来兮，无羁之幽冢	zh
+wizardreal:carnifex.chant.zh.1:4	wizardreal:carnifex	-1	ʂɨ paʊ	尸爆	zh
+wizardreal:carnifex.chant.ja.0:0	wizardreal:carnifex	-1		墓をもってカルニフェクスを飾れ	ja
+wizardreal:carnifex.chant.ja.0:1	wizardreal:carnifex	-1		墓よ応えよ	ja
+wizardreal:carnifex.chant.ja.0:2	wizardreal:carnifex	-1		我が詞に亡霊を織れ	ja
+wizardreal:carnifex.chant.ja.0:3	wizardreal:carnifex	-1		骨を我が意に縛れ	ja
+wizardreal:carnifex.chant.ja.0:4	wizardreal:carnifex	-1	ka ɾɯ ni ɸɛ kɯ sɯ	カルニフェクス	ja
+wizardreal:carnifex.chant.ja.1:0	wizardreal:carnifex	-1		墓をもってカルニフェクスを飾れ	ja
+wizardreal:carnifex.chant.ja.1:1	wizardreal:carnifex	-1		声に呼び覚まれし亡霊	ja
+wizardreal:carnifex.chant.ja.1:2	wizardreal:carnifex	-1		骨は名を憶える	ja
+wizardreal:carnifex.chant.ja.1:3	wizardreal:carnifex	-1		集え、縛られぬ墓	ja
+wizardreal:carnifex.chant.ja.1:4	wizardreal:carnifex	-1	ka ɾɯ ni ɸɛ kɯ sɯ	カルニフェクス	ja
+wizardreal:celere	wizardreal:celere	-1	leɪ ʈʂʰɨ;tɕɛ ɾɛ ɾɛ	celere;雷驰;チェレレ	en;zh;ja
+wizardreal:celere.chant.en.0:0	wizardreal:celere	-1		by zephyr, celere awakens	en
+wizardreal:celere.chant.en.0:1	wizardreal:celere	-1		let the gale answer	en
+wizardreal:celere.chant.en.0:2	wizardreal:celere	-1		weave zephyr into my words	en
+wizardreal:celere.chant.en.0:3	wizardreal:celere	-1		bind the sky to my will	en
+wizardreal:celere.chant.en.0:4	wizardreal:celere	-1		celere	en
+wizardreal:celere.chant.en.1:0	wizardreal:celere	-1		by zephyr, celere awakens	en
+wizardreal:celere.chant.en.1:1	wizardreal:celere	-1		zephyr wakes beneath my voice	en
+wizardreal:celere.chant.en.1:2	wizardreal:celere	-1		the sky remembers my name	en
+wizardreal:celere.chant.en.1:3	wizardreal:celere	-1		gather, o gale unbound	en
+wizardreal:celere.chant.en.1:4	wizardreal:celere	-1		celere	en
+wizardreal:celere.chant.zh.0:0	wizardreal:celere	-1	i kɑŋ fəŋ weɪ in leɪ ʈʂʰɨ su ɕɪŋ	以罡风为引，雷驰苏醒	zh
+wizardreal:celere.chant.zh.0:1	wizardreal:celere	-1	tɕjɛ fɑŋ kwɑŋ fəŋ	以罡风之名应召	zh
+wizardreal:celere.chant.zh.0:2	wizardreal:celere	-1	kwɑŋ fəŋ	织清风入我言	zh
+wizardreal:celere.chant.zh.0:3	wizardreal:celere	-1	fu ʈʂɑŋ kʰʊŋ y wɔ i	缚长空于我意	zh
+wizardreal:celere.chant.zh.0:4	wizardreal:celere	-1	leɪ ʈʂʰɨ	雷驰	zh
+wizardreal:celere.chant.zh.1:0	wizardreal:celere	-1	i kɑŋ fəŋ weɪ in leɪ ʈʂʰɨ su ɕɪŋ	以罡风为引，雷驰苏醒	zh
+wizardreal:celere.chant.zh.1:1	wizardreal:celere	-1	tɕʰɪŋ fəŋ sweɪ u ʂəŋ ɚ ɕɪŋ	清风随吾声而醒	zh
+wizardreal:celere.chant.zh.1:2	wizardreal:celere	-1	ʈʂɑŋ kʰʊŋ ʂɨ tɤ u mɪŋ	长空识得吾名	zh
+wizardreal:celere.chant.zh.1:3	wizardreal:celere	-1	laɪ ɕi u tɕi ʈʂɨ kɑŋ fəŋ	来兮，无羁之罡风	zh
+wizardreal:celere.chant.zh.1:4	wizardreal:celere	-1	leɪ ʈʂʰɨ	雷驰	zh
+wizardreal:celere.chant.ja.0:0	wizardreal:celere	-1		疾風に導かれ、チェレレ顕現せり	ja
+wizardreal:celere.chant.ja.0:1	wizardreal:celere	-1		疾風よ応えよ	ja
+wizardreal:celere.chant.ja.0:2	wizardreal:celere	-1		我が詞に微風を織れ	ja
+wizardreal:celere.chant.ja.0:3	wizardreal:celere	-1		空を我が意に縛れ	ja
+wizardreal:celere.chant.ja.0:4	wizardreal:celere	-1	tɕɛ ɾɛ ɾɛ	チェレレ	ja
+wizardreal:celere.chant.ja.1:0	wizardreal:celere	-1		疾風に導かれ、チェレレ顕現せり	ja
+wizardreal:celere.chant.ja.1:1	wizardreal:celere	-1		声に呼び覚まれし微風	ja
+wizardreal:celere.chant.ja.1:2	wizardreal:celere	-1		空は名を憶える	ja
+wizardreal:celere.chant.ja.1:3	wizardreal:celere	-1		集え、縛られぬ疾風	ja
+wizardreal:celere.chant.ja.1:4	wizardreal:celere	-1	tɕɛ ɾɛ ɾɛ	チェレレ	ja
+wizardreal:chaos	wizardreal:chaos	-1	xwən twən ʂu;xwən twən;ka o sɯ	chaos;chaos beam;混沌束;混沌;カオス;混沌のブレス	en;zh;ja
+wizardreal:chaos.chant.en.0:0	wizardreal:chaos	-1		by aether, chaos awakens	en
+wizardreal:chaos.chant.en.0:1	wizardreal:chaos	-1		let the sigil answer	en
+wizardreal:chaos.chant.en.0:2	wizardreal:chaos	-1		weave aether into my words	en
+wizardreal:chaos.chant.en.0:3	wizardreal:chaos	-1		bind the nexus to my will	en
+wizardreal:chaos.chant.en.0:4	wizardreal:chaos	-1		chaos	en
+wizardreal:chaos.chant.en.1:0	wizardreal:chaos	-1		by aether, chaos awakens	en
+wizardreal:chaos.chant.en.1:1	wizardreal:chaos	-1		aether wakes beneath my voice	en
+wizardreal:chaos.chant.en.1:2	wizardreal:chaos	-1		the nexus remembers my name	en
+wizardreal:chaos.chant.en.1:3	wizardreal:chaos	-1		gather, o sigil unbound	en
+wizardreal:chaos.chant.en.1:4	wizardreal:chaos	-1		chaos	en
+wizardreal:chaos.chant.zh.0:0	wizardreal:chaos	-1	i mi in weɪ in xwən twən ʂu su ɕɪŋ	以秘印为引，混沌束苏醒	zh
+wizardreal:chaos.chant.zh.0:1	wizardreal:chaos	-1	i mi in ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以秘印之名应召	zh
+wizardreal:chaos.chant.zh.0:2	wizardreal:chaos	-1	ʈʂɨ i tʰaɪ ʐu wɔ jɛn	织以太入我言	zh
+wizardreal:chaos.chant.zh.0:3	wizardreal:chaos	-1	fu ʂu njoʊ y wɔ i	缚枢纽于我意	zh
+wizardreal:chaos.chant.zh.0:4	wizardreal:chaos	-1	xwən twən ʂu	混沌束	zh
+wizardreal:chaos.chant.zh.1:0	wizardreal:chaos	-1	i mi in weɪ in xwən twən ʂu su ɕɪŋ	以秘印为引，混沌束苏醒	zh
+wizardreal:chaos.chant.zh.1:1	wizardreal:chaos	-1	i tʰaɪ sweɪ u ʂəŋ ɚ ɕɪŋ	以太随吾声而醒	zh
+wizardreal:chaos.chant.zh.1:2	wizardreal:chaos	-1	ʂu njoʊ ʂɨ tɤ u mɪŋ	枢纽识得吾名	zh
+wizardreal:chaos.chant.zh.1:3	wizardreal:chaos	-1	laɪ ɕi u tɕi ʈʂɨ mi in	来兮，无羁之秘印	zh
+wizardreal:chaos.chant.zh.1:4	wizardreal:chaos	-1	xwən twən ʂu	混沌束	zh
+wizardreal:chaos.chant.ja.0:0	wizardreal:chaos	-1		印に導かれ、カオス顕現せり	ja
+wizardreal:chaos.chant.ja.0:1	wizardreal:chaos	-1		印よ応えよ	ja
+wizardreal:chaos.chant.ja.0:2	wizardreal:chaos	-1		我が詞に以太を織れ	ja
+wizardreal:chaos.chant.ja.0:3	wizardreal:chaos	-1		環を我が意に縛れ	ja
+wizardreal:chaos.chant.ja.0:4	wizardreal:chaos	-1	ka o sɯ	カオス	ja
+wizardreal:chaos.chant.ja.1:0	wizardreal:chaos	-1		印に導かれ、カオス顕現せり	ja
+wizardreal:chaos.chant.ja.1:1	wizardreal:chaos	-1		声に呼び覚まれし以太	ja
+wizardreal:chaos.chant.ja.1:2	wizardreal:chaos	-1		環は名を憶える	ja
+wizardreal:chaos.chant.ja.1:3	wizardreal:chaos	-1		集え、縛られぬ印	ja
+wizardreal:chaos.chant.ja.1:4	wizardreal:chaos	-1	ka o sɯ	カオス	ja
+wizardreal:concoctio	wizardreal:concoctio	-1	ʐʊŋ ljɛn;ko n ko kɯ ti o	concoctio;熔炼;コンコクティオ	en;zh;ja
+wizardreal:concoctio.chant.en.0:0	wizardreal:concoctio	-1		concoctio rises on ember wings	en
+wizardreal:concoctio.chant.en.0:1	wizardreal:concoctio	-1		let the ember answer	en
+wizardreal:concoctio.chant.en.0:2	wizardreal:concoctio	-1		weave ash into my words	en
+wizardreal:concoctio.chant.en.0:3	wizardreal:concoctio	-1		bind the pyre to my will	en
+wizardreal:concoctio.chant.en.0:4	wizardreal:concoctio	-1		concoctio	en
+wizardreal:concoctio.chant.en.1:0	wizardreal:concoctio	-1		concoctio rises on ember wings	en
+wizardreal:concoctio.chant.en.1:1	wizardreal:concoctio	-1		ash wakes beneath my voice	en
+wizardreal:concoctio.chant.en.1:2	wizardreal:concoctio	-1		the pyre remembers my name	en
+wizardreal:concoctio.chant.en.1:3	wizardreal:concoctio	-1		gather, o ember unbound	en
+wizardreal:concoctio.chant.en.1:4	wizardreal:concoctio	-1		concoctio	en
+wizardreal:concoctio.chant.zh.0:0	wizardreal:concoctio	-1	ʐʊŋ ljɛn ʈʂʰəŋ xweɪ tɕin ɚ ʈʂɨ	熔炼乘灰烬而至	zh
+wizardreal:concoctio.chant.zh.0:1	wizardreal:concoctio	-1	i ʈʂʰɨ jɛn ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以赤炎之名应召	zh
+wizardreal:concoctio.chant.zh.0:2	wizardreal:concoctio	-1	ʈʂɨ xweɪ tɕin ʐu wɔ jɛn	织灰烬入我言	zh
+wizardreal:concoctio.chant.zh.0:3	wizardreal:concoctio	-1	fu ljɛ jɛn y wɔ i	缚烈焰于我意	zh
+wizardreal:concoctio.chant.zh.0:4	wizardreal:concoctio	-1	ʐʊŋ ljɛn	熔炼	zh
+wizardreal:concoctio.chant.zh.1:0	wizardreal:concoctio	-1	ʐʊŋ ljɛn ʈʂʰəŋ xweɪ tɕin ɚ ʈʂɨ	熔炼乘灰烬而至	zh
+wizardreal:concoctio.chant.zh.1:1	wizardreal:concoctio	-1	xweɪ tɕin sweɪ u ʂəŋ ɚ ɕɪŋ	灰烬随吾声而醒	zh
+wizardreal:concoctio.chant.zh.1:2	wizardreal:concoctio	-1	ljɛ jɛn ʂɨ tɤ u mɪŋ	烈焰识得吾名	zh
+wizardreal:concoctio.chant.zh.1:3	wizardreal:concoctio	-1	laɪ ɕi u tɕi ʈʂɨ ʈʂʰɨ jɛn	来兮，无羁之赤炎	zh
+wizardreal:concoctio.chant.zh.1:4	wizardreal:concoctio	-1	ʐʊŋ ljɛn	熔炼	zh
+wizardreal:concoctio.chant.ja.0:0	wizardreal:concoctio	-1		コンコクティオは紅蓮に乗て立つ	ja
+wizardreal:concoctio.chant.ja.0:1	wizardreal:concoctio	-1		紅蓮よ応えよ	ja
+wizardreal:concoctio.chant.ja.0:2	wizardreal:concoctio	-1		我が詞に灰を織れ	ja
+wizardreal:concoctio.chant.ja.0:3	wizardreal:concoctio	-1		焔を我が意に縛れ	ja
+wizardreal:concoctio.chant.ja.0:4	wizardreal:concoctio	-1	ko n ko kɯ ti o	コンコクティオ	ja
+wizardreal:concoctio.chant.ja.1:0	wizardreal:concoctio	-1		コンコクティオは紅蓮に乗て立つ	ja
+wizardreal:concoctio.chant.ja.1:1	wizardreal:concoctio	-1		声に呼び覚まれし灰	ja
+wizardreal:concoctio.chant.ja.1:2	wizardreal:concoctio	-1		焔は名を憶える	ja
+wizardreal:concoctio.chant.ja.1:3	wizardreal:concoctio	-1		集え、縛られぬ紅蓮	ja
+wizardreal:concoctio.chant.ja.1:4	wizardreal:concoctio	-1	ko n ko kɯ ti o	コンコクティオ	ja
+wizardreal:diluvium	wizardreal:diluvium	-1	tɕjɑŋ y;xaʊ y lɪŋ y;di ɾɯ bi ɯ mɯ	diluvium;rain field;降雨;豪雨领域;ディルビウム;降雨領域	en;zh;ja
+wizardreal:diluvium.chant.en.0:0	wizardreal:diluvium	-1		o foam, lend diluvium thy breath	en
+wizardreal:diluvium.chant.en.0:1	wizardreal:diluvium	-1		let the tide answer	en
+wizardreal:diluvium.chant.en.0:2	wizardreal:diluvium	-1		weave deep into my words	en
+wizardreal:diluvium.chant.en.0:3	wizardreal:diluvium	-1		bind the mist to my will	en
+wizardreal:diluvium.chant.en.0:4	wizardreal:diluvium	-1		diluvium	en
+wizardreal:diluvium.chant.en.1:0	wizardreal:diluvium	-1		o foam, lend diluvium thy breath	en
+wizardreal:diluvium.chant.en.1:1	wizardreal:diluvium	-1		deep wakes beneath my voice	en
+wizardreal:diluvium.chant.en.1:2	wizardreal:diluvium	-1		the mist remembers my name	en
+wizardreal:diluvium.chant.en.1:3	wizardreal:diluvium	-1		gather, o tide unbound	en
+wizardreal:diluvium.chant.en.1:4	wizardreal:diluvium	-1		diluvium	en
+wizardreal:diluvium.chant.zh.0:0	wizardreal:diluvium	-1	ʈʂʰaʊ ɕi a tɕjɛ tɕjɑŋ y i ɕi	潮汐啊，借降雨以息	zh
+wizardreal:diluvium.chant.zh.0:1	wizardreal:diluvium	-1	i ʈʂʰaʊ ɕi ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以潮汐之名应召	zh
+wizardreal:diluvium.chant.zh.0:2	wizardreal:diluvium	-1	ʈʂɨ ʂən ɥɛn ʐu wɔ jɛn	织深渊入我言	zh
+wizardreal:diluvium.chant.zh.0:3	wizardreal:diluvium	-1	fu jɛn pwɔ y wɔ i	缚烟波于我意	zh
+wizardreal:diluvium.chant.zh.0:4	wizardreal:diluvium	-1	tɕjɑŋ y	降雨	zh
+wizardreal:diluvium.chant.zh.1:0	wizardreal:diluvium	-1	ʈʂʰaʊ ɕi a tɕjɛ tɕjɑŋ y i ɕi	潮汐啊，借降雨以息	zh
+wizardreal:diluvium.chant.zh.1:1	wizardreal:diluvium	-1	ʂən ɥɛn sweɪ u ʂəŋ ɚ ɕɪŋ	深渊随吾声而醒	zh
+wizardreal:diluvium.chant.zh.1:2	wizardreal:diluvium	-1	jɛn pwɔ ʂɨ tɤ u mɪŋ	烟波识得吾名	zh
+wizardreal:diluvium.chant.zh.1:3	wizardreal:diluvium	-1	laɪ ɕi u tɕi ʈʂɨ ʈʂʰaʊ ɕi	来兮，无羁之潮汐	zh
+wizardreal:diluvium.chant.zh.1:4	wizardreal:diluvium	-1	tɕjɑŋ y	降雨	zh
+wizardreal:diluvium.chant.ja.0:0	wizardreal:diluvium	-1		潮よ、ディルウィウムに息を貸せ	ja
+wizardreal:diluvium.chant.ja.0:1	wizardreal:diluvium	-1		潮よ応えよ	ja
+wizardreal:diluvium.chant.ja.0:2	wizardreal:diluvium	-1		我が詞に深淵を織れ	ja
+wizardreal:diluvium.chant.ja.0:3	wizardreal:diluvium	-1		霧を我が意に縛れ	ja
+wizardreal:diluvium.chant.ja.0:4	wizardreal:diluvium	-1	di ɾɯ bi ɯ mɯ	ディルビウム	ja
+wizardreal:diluvium.chant.ja.1:0	wizardreal:diluvium	-1		潮よ、ディルウィウムに息を貸せ	ja
+wizardreal:diluvium.chant.ja.1:1	wizardreal:diluvium	-1		声に呼び覚まれし深淵	ja
+wizardreal:diluvium.chant.ja.1:2	wizardreal:diluvium	-1		霧は名を憶える	ja
+wizardreal:diluvium.chant.ja.1:3	wizardreal:diluvium	-1		集え、縛られぬ潮	ja
+wizardreal:diluvium.chant.ja.1:4	wizardreal:diluvium	-1	di ɾɯ bi ɯ mɯ	ディルビウム	ja
+wizardreal:domain	wizardreal:domain	-1	tɕjɛn y lɪŋ y;tɕjɛn y;do mɛ i n	domain;blade domain;剑雨领域;剑域;ドメイン;剣の領域	en;zh;ja
+wizardreal:domain.chant.en.0:0	wizardreal:domain	-1		domain, hear the sigil	en
+wizardreal:domain.chant.en.0:1	wizardreal:domain	-1		let the sigil answer	en
+wizardreal:domain.chant.en.0:2	wizardreal:domain	-1		weave aether into my words	en
+wizardreal:domain.chant.en.0:3	wizardreal:domain	-1		bind the nexus to my will	en
+wizardreal:domain.chant.en.0:4	wizardreal:domain	-1		by the first sigil, i swear	en
+wizardreal:domain.chant.en.0:5	wizardreal:domain	-1		domain	en
+wizardreal:domain.chant.en.1:0	wizardreal:domain	-1		domain, hear the sigil	en
+wizardreal:domain.chant.en.1:1	wizardreal:domain	-1		aether wakes beneath my voice	en
+wizardreal:domain.chant.en.1:2	wizardreal:domain	-1		the nexus remembers my name	en
+wizardreal:domain.chant.en.1:3	wizardreal:domain	-1		gather, o sigil unbound	en
+wizardreal:domain.chant.en.1:4	wizardreal:domain	-1		the rune leans close to listen	en
+wizardreal:domain.chant.en.1:5	wizardreal:domain	-1		domain	en
+wizardreal:domain.chant.zh.0:0	wizardreal:domain	-1	tɕjɛn y a ti tʰɪŋ ʂu njoʊ	剑域啊，谛听枢纽	zh
+wizardreal:domain.chant.zh.0:1	wizardreal:domain	-1	i mi in ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以秘印之名应召	zh
+wizardreal:domain.chant.zh.0:2	wizardreal:domain	-1	ʈʂɨ i tʰaɪ ʐu wɔ jɛn	织以太入我言	zh
+wizardreal:domain.chant.zh.0:3	wizardreal:domain	-1	fu ʂu njoʊ y wɔ i	缚枢纽于我意	zh
+wizardreal:domain.chant.zh.0:4	wizardreal:domain	-1	ʈʂʰu xwɔ mi in weɪ ʂɨ	初火秘印为誓	zh
+wizardreal:domain.chant.zh.0:5	wizardreal:domain	-1	tɕjɛn y lɪŋ y	剑雨领域	zh
+wizardreal:domain.chant.zh.1:0	wizardreal:domain	-1	tɕjɛn y a ti tʰɪŋ ʂu njoʊ	剑域啊，谛听枢纽	zh
+wizardreal:domain.chant.zh.1:1	wizardreal:domain	-1	i tʰaɪ sweɪ u ʂəŋ ɚ ɕɪŋ	以太随吾声而醒	zh
+wizardreal:domain.chant.zh.1:2	wizardreal:domain	-1	ʂu njoʊ ʂɨ tɤ u mɪŋ	枢纽识得吾名	zh
+wizardreal:domain.chant.zh.1:3	wizardreal:domain	-1	laɪ ɕi u tɕi ʈʂɨ mi in	来兮，无羁之秘印	zh
+wizardreal:domain.chant.zh.1:4	wizardreal:domain	-1	fu wən tsʰɤ ɚ lɪŋ tʰɪŋ	符文侧耳聆听	zh
+wizardreal:domain.chant.zh.1:5	wizardreal:domain	-1	tɕjɛn y lɪŋ y	剑雨领域	zh
+wizardreal:domain.chant.ja.0:0	wizardreal:domain	-1		ドメインよ、印を聴け	ja
+wizardreal:domain.chant.ja.0:1	wizardreal:domain	-1		印よ応えよ	ja
+wizardreal:domain.chant.ja.0:2	wizardreal:domain	-1		我が詞に以太を織れ	ja
+wizardreal:domain.chant.ja.0:3	wizardreal:domain	-1		環を我が意に縛れ	ja
+wizardreal:domain.chant.ja.0:4	wizardreal:domain	-1		原初の印に誓う	ja
+wizardreal:domain.chant.ja.0:5	wizardreal:domain	-1	do mɛ i n	ドメイン	ja
+wizardreal:domain.chant.ja.1:0	wizardreal:domain	-1		ドメインよ、印を聴け	ja
+wizardreal:domain.chant.ja.1:1	wizardreal:domain	-1		声に呼び覚まれし以太	ja
+wizardreal:domain.chant.ja.1:2	wizardreal:domain	-1		環は名を憶える	ja
+wizardreal:domain.chant.ja.1:3	wizardreal:domain	-1		集え、縛られぬ印	ja
+wizardreal:domain.chant.ja.1:4	wizardreal:domain	-1		ルーンは耳を傾ける	ja
+wizardreal:domain.chant.ja.1:5	wizardreal:domain	-1	do mɛ i n	ドメイン	ja
+wizardreal:explosion	wizardreal:explosion	-1	ɪkˈsploʊʒən;ɪkˈsploʊʒən;ɪkˈsploʊʒən;ɪksploʊd;bɜːst;pɑuljɛ;pauljɛ;pɑulj	explosion;爆裂;エクスプロージョン	en;zh;ja
+wizardreal:explosion.chant.en.0:0	wizardreal:explosion	-1		blackest ire, crown of the end	en
+wizardreal:explosion.chant.en.0:1	wizardreal:explosion	-1		let the earth split wide	en
+wizardreal:explosion.chant.en.0:2	wizardreal:explosion	-1		let the heavens bend low	en
+wizardreal:explosion.chant.en.0:3	wizardreal:explosion	-1		sealed in ruin's name	en
+wizardreal:explosion.chant.en.0:4	wizardreal:explosion	-1		unmake all that stands	en
+wizardreal:explosion.chant.en.0:5	wizardreal:explosion	-1	ɪkˈsploʊʒən	explosion	en
+wizardreal:explosion.chant.en.1:0	wizardreal:explosion	-1		blackest ire, crown of the end	en
+wizardreal:explosion.chant.en.1:1	wizardreal:explosion	-1		ashes wake, the sky ignites	en
+wizardreal:explosion.chant.en.1:2	wizardreal:explosion	-1		the bell of doom is rung	en
+wizardreal:explosion.chant.en.1:3	wizardreal:explosion	-1		fire without mercy	en
+wizardreal:explosion.chant.en.1:4	wizardreal:explosion	-1		kneel, o towering walls	en
+wizardreal:explosion.chant.en.1:5	wizardreal:explosion	-1	ɪkˈsploʊʒən	explosion	en
+wizardreal:explosion.chant.zh.0:0	wizardreal:explosion	-1	i tɕʰi xɛɪ ʈʂə pʰɪ tɕʰjʊŋ	以漆黑遮蔽苍穹	zh
+wizardreal:explosion.chant.zh.0:1	wizardreal:explosion	-1	xwan ɕɪŋ fɛɪ xʊŋ ʈʂɨ lɛɪ	唤醒赤红雷霆	zh
+wizardreal:explosion.chant.zh.0:2	wizardreal:explosion	-1	pɑʊ ljɛ	大地为之崩裂	zh
+wizardreal:explosion.chant.zh.0:3	wizardreal:explosion	-1	tsʰɑŋ tɕʰjʊŋ weɪ ʈʂɨ ti tʰoʊ	苍穹为之低头	zh
+wizardreal:explosion.chant.zh.0:4	wizardreal:explosion	-1	i xweɪ mjɛ ʈʂɨ mɪŋ fəŋ in	以毁灭之名封印	zh
+wizardreal:explosion.chant.zh.0:5	wizardreal:explosion	-1	ɪkˈsploʊʒən	爆裂	zh
+wizardreal:explosion.chant.zh.1:0	wizardreal:explosion	-1	i tɕʰi xɛɪ ʈʂə pʰɪ tɕʰjʊŋ	以漆黑遮蔽苍穹	zh
+wizardreal:explosion.chant.zh.1:1	wizardreal:explosion	-1	xweɪ tɕin su ɕɪŋ tʰjɛn tɕʰjʊŋ ʐan	灰烬苏醒天穹燃	zh
+wizardreal:explosion.chant.zh.1:2	wizardreal:explosion	-1	ɤ yn ʈʂɨ ʈʂʊŋ tɕʰjaʊ ɕjɑŋ	厄运之钟敲响	zh
+wizardreal:explosion.chant.zh.1:3	wizardreal:explosion	-1	u tsʰɨ ʈʂɨ jɛn pən ljoʊ	无慈之炎奔流	zh
+wizardreal:explosion.chant.zh.1:4	wizardreal:explosion	-1	kaʊ tɕʰjɑŋ kweɪ fu ʈʂʰən aɪ	高墙跪伏尘埃	zh
+wizardreal:explosion.chant.zh.1:5	wizardreal:explosion	-1	ɪkˈsploʊʒən	爆裂	zh
+wizardreal:explosion.chant.ja.0:0	wizardreal:explosion	-1		闇をもって天を覆え	ja
+wizardreal:explosion.chant.ja.0:1	wizardreal:explosion	-1		紅蓮の雷を目覚めさせよ	ja
+wizardreal:explosion.chant.ja.0:2	wizardreal:explosion	-1		大地よ割れ開け	ja
+wizardreal:explosion.chant.ja.0:3	wizardreal:explosion	-1		天よかしこめ	ja
+wizardreal:explosion.chant.ja.0:4	wizardreal:explosion	-1		破滅の名のもとに封ぜよ	ja
+wizardreal:explosion.chant.ja.0:5	wizardreal:explosion	-1	ɪkˈsploʊʒən	エクスプロージョン	ja
+wizardreal:explosion.chant.ja.1:0	wizardreal:explosion	-1		闇をもって天を覆え	ja
+wizardreal:explosion.chant.ja.1:1	wizardreal:explosion	-1		灰は目覚め空は燃える	ja
+wizardreal:explosion.chant.ja.1:2	wizardreal:explosion	-1		厄の鐘が鳴る	ja
+wizardreal:explosion.chant.ja.1:3	wizardreal:explosion	-1		慈悲なき炎よ流れよ	ja
+wizardreal:explosion.chant.ja.1:4	wizardreal:explosion	-1		高き壁よひざせ	ja
+wizardreal:explosion.chant.ja.1:5	wizardreal:explosion	-1	ɪkˈsploʊʒən	エクスプロージョン	ja
+wizardreal:fallax	wizardreal:fallax	-1	tʰi ʂən;ɸa ɾ ɾa kɯ sɯ	fallax;替身;ファッラクス	en;zh;ja
+wizardreal:fallax.chant.en.0:0	wizardreal:fallax	-1		fallax rises on shade wings	en
+wizardreal:fallax.chant.en.0:1	wizardreal:fallax	-1		let the shade answer	en
+wizardreal:fallax.chant.en.0:2	wizardreal:fallax	-1		weave veil into my words	en
+wizardreal:fallax.chant.en.0:3	wizardreal:fallax	-1		bind the mirror to my will	en
+wizardreal:fallax.chant.en.0:4	wizardreal:fallax	-1		fallax	en
+wizardreal:fallax.chant.en.1:0	wizardreal:fallax	-1		fallax rises on shade wings	en
+wizardreal:fallax.chant.en.1:1	wizardreal:fallax	-1		veil wakes beneath my voice	en
+wizardreal:fallax.chant.en.1:2	wizardreal:fallax	-1		the mirror remembers my name	en
+wizardreal:fallax.chant.en.1:3	wizardreal:fallax	-1		gather, o shade unbound	en
+wizardreal:fallax.chant.en.1:4	wizardreal:fallax	-1		fallax	en
+wizardreal:fallax.chant.zh.0:0	wizardreal:fallax	-1	tʰi ʂən ʈʂʰəŋ weɪ mu ɚ ʈʂɨ	替身乘帷幕而至	zh
+wizardreal:fallax.chant.zh.0:1	wizardreal:fallax	-1	i xwan ɪŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以幻影之名应召	zh
+wizardreal:fallax.chant.zh.0:2	wizardreal:fallax	-1	ʈʂɨ weɪ mu ʐu wɔ jɛn	织帷幕入我言	zh
+wizardreal:fallax.chant.zh.0:3	wizardreal:fallax	-1	fu tɕɪŋ tɕjɛ y wɔ i	缚镜界于我意	zh
+wizardreal:fallax.chant.zh.0:4	wizardreal:fallax	-1	tʰi ʂən	替身	zh
+wizardreal:fallax.chant.zh.1:0	wizardreal:fallax	-1	tʰi ʂən ʈʂʰəŋ weɪ mu ɚ ʈʂɨ	替身乘帷幕而至	zh
+wizardreal:fallax.chant.zh.1:1	wizardreal:fallax	-1	weɪ mu sweɪ u ʂəŋ ɚ ɕɪŋ	帷幕随吾声而醒	zh
+wizardreal:fallax.chant.zh.1:2	wizardreal:fallax	-1	tɕɪŋ tɕjɛ ʂɨ tɤ u mɪŋ	镜界识得吾名	zh
+wizardreal:fallax.chant.zh.1:3	wizardreal:fallax	-1	laɪ ɕi u tɕi ʈʂɨ xwan ɪŋ	来兮，无羁之幻影	zh
+wizardreal:fallax.chant.zh.1:4	wizardreal:fallax	-1	tʰi ʂən	替身	zh
+wizardreal:fallax.chant.ja.0:0	wizardreal:fallax	-1		ファッラクスは幻に乗て立つ	ja
+wizardreal:fallax.chant.ja.0:1	wizardreal:fallax	-1		幻よ応えよ	ja
+wizardreal:fallax.chant.ja.0:2	wizardreal:fallax	-1		我が詞に帷を織れ	ja
+wizardreal:fallax.chant.ja.0:3	wizardreal:fallax	-1		鏡を我が意に縛れ	ja
+wizardreal:fallax.chant.ja.0:4	wizardreal:fallax	-1	ɸa ɾ ɾa kɯ sɯ	ファッラクス	ja
+wizardreal:fallax.chant.ja.1:0	wizardreal:fallax	-1		ファッラクスは幻に乗て立つ	ja
+wizardreal:fallax.chant.ja.1:1	wizardreal:fallax	-1		声に呼び覚まれし帷	ja
+wizardreal:fallax.chant.ja.1:2	wizardreal:fallax	-1		鏡は名を憶える	ja
+wizardreal:fallax.chant.ja.1:3	wizardreal:fallax	-1		集え、縛られぬ幻	ja
+wizardreal:fallax.chant.ja.1:4	wizardreal:fallax	-1	ɸa ɾ ɾa kɯ sɯ	ファッラクス	ja
+wizardreal:falsum	wizardreal:falsum	-1	xwan tan;ɕy ɪŋ tan;ɸa ɾɯ sɯ mɯ;ma bo ɾo ɕi da ma	falsum;phantom bolt;幻弹;虚影弹;ファルスム;まぼろしだま	en;zh;ja
+wizardreal:falsum.chant.en.0:0	wizardreal:falsum	-1		falsum, shade of the old tongue	en
+wizardreal:falsum.chant.en.0:1	wizardreal:falsum	-1		let the shade answer	en
+wizardreal:falsum.chant.en.0:2	wizardreal:falsum	-1		weave veil into my words	en
+wizardreal:falsum.chant.en.0:3	wizardreal:falsum	-1		bind the mirror to my will	en
+wizardreal:falsum.chant.en.0:4	wizardreal:falsum	-1		falsum	en
+wizardreal:falsum.chant.en.1:0	wizardreal:falsum	-1		falsum, shade of the old tongue	en
+wizardreal:falsum.chant.en.1:1	wizardreal:falsum	-1		veil wakes beneath my voice	en
+wizardreal:falsum.chant.en.1:2	wizardreal:falsum	-1		the mirror remembers my name	en
+wizardreal:falsum.chant.en.1:3	wizardreal:falsum	-1		gather, o shade unbound	en
+wizardreal:falsum.chant.en.1:4	wizardreal:falsum	-1		falsum	en
+wizardreal:falsum.chant.zh.0:0	wizardreal:falsum	-1	xwan tan ʈʂʰu ɕjɛn xwan ɪŋ weɪ ʈʂəŋ	幻弹初现，幻影为证	zh
+wizardreal:falsum.chant.zh.0:1	wizardreal:falsum	-1	i xwan ɪŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以幻影之名应召	zh
+wizardreal:falsum.chant.zh.0:2	wizardreal:falsum	-1	ʈʂɨ weɪ mu ʐu wɔ jɛn	织帷幕入我言	zh
+wizardreal:falsum.chant.zh.0:3	wizardreal:falsum	-1	fu tɕɪŋ tɕjɛ y wɔ i	缚镜界于我意	zh
+wizardreal:falsum.chant.zh.0:4	wizardreal:falsum	-1	xwan tan	幻弹	zh
+wizardreal:falsum.chant.zh.1:0	wizardreal:falsum	-1	xwan tan ʈʂʰu ɕjɛn xwan ɪŋ weɪ ʈʂəŋ	幻弹初现，幻影为证	zh
+wizardreal:falsum.chant.zh.1:1	wizardreal:falsum	-1	weɪ mu sweɪ u ʂəŋ ɚ ɕɪŋ	帷幕随吾声而醒	zh
+wizardreal:falsum.chant.zh.1:2	wizardreal:falsum	-1	tɕɪŋ tɕjɛ ʂɨ tɤ u mɪŋ	镜界识得吾名	zh
+wizardreal:falsum.chant.zh.1:3	wizardreal:falsum	-1	laɪ ɕi u tɕi ʈʂɨ xwan ɪŋ	来兮，无羁之幻影	zh
+wizardreal:falsum.chant.zh.1:4	wizardreal:falsum	-1	xwan tan	幻弹	zh
+wizardreal:falsum.chant.ja.0:0	wizardreal:falsum	-1		ファルスムよ、幻とともに	ja
+wizardreal:falsum.chant.ja.0:1	wizardreal:falsum	-1		幻よ応えよ	ja
+wizardreal:falsum.chant.ja.0:2	wizardreal:falsum	-1		我が詞に帷を織れ	ja
+wizardreal:falsum.chant.ja.0:3	wizardreal:falsum	-1		鏡を我が意に縛れ	ja
+wizardreal:falsum.chant.ja.0:4	wizardreal:falsum	-1	ɸa ɾɯ sɯ mɯ	ファルスム	ja
+wizardreal:falsum.chant.ja.1:0	wizardreal:falsum	-1		ファルスムよ、幻とともに	ja
+wizardreal:falsum.chant.ja.1:1	wizardreal:falsum	-1		声に呼び覚まれし帷	ja
+wizardreal:falsum.chant.ja.1:2	wizardreal:falsum	-1		鏡は名を憶える	ja
+wizardreal:falsum.chant.ja.1:3	wizardreal:falsum	-1		集え、縛られぬ幻	ja
+wizardreal:falsum.chant.ja.1:4	wizardreal:falsum	-1	ɸa ɾɯ sɯ mɯ	ファルスム	ja
+wizardreal:ferae_vocatus	wizardreal:ferae_vocatus	-1	ʂoʊ xwan;ɸɛ ɾa i o ka tɯ sɯ	ferae vocatus;ferae;vocatus;兽唤;フェライ・ウォカトゥス;フェライウォカトゥス	en;zh;ja
+wizardreal:ferae_vocatus.chant.en.0:0	wizardreal:ferae_vocatus	-1		ferae vocatus, thorn of the old tongue	en
+wizardreal:ferae_vocatus.chant.en.0:1	wizardreal:ferae_vocatus	-1		let the root answer	en
+wizardreal:ferae_vocatus.chant.en.0:2	wizardreal:ferae_vocatus	-1		weave bloom into my words	en
+wizardreal:ferae_vocatus.chant.en.0:3	wizardreal:ferae_vocatus	-1		bind the thorn to my will	en
+wizardreal:ferae_vocatus.chant.en.0:4	wizardreal:ferae_vocatus	-1		ferae vocatus	en
+wizardreal:ferae_vocatus.chant.en.1:0	wizardreal:ferae_vocatus	-1		ferae vocatus, thorn of the old tongue	en
+wizardreal:ferae_vocatus.chant.en.1:1	wizardreal:ferae_vocatus	-1		bloom wakes beneath my voice	en
+wizardreal:ferae_vocatus.chant.en.1:2	wizardreal:ferae_vocatus	-1		the thorn remembers my name	en
+wizardreal:ferae_vocatus.chant.en.1:3	wizardreal:ferae_vocatus	-1		gather, o root unbound	en
+wizardreal:ferae_vocatus.chant.en.1:4	wizardreal:ferae_vocatus	-1		ferae vocatus	en
+wizardreal:ferae_vocatus.chant.zh.0:0	wizardreal:ferae_vocatus	-1	ʂoʊ xwan ʈʂʰu ɕjɛn ɕin ja weɪ ʈʂəŋ	兽唤初现，新芽为证	zh
+wizardreal:ferae_vocatus.chant.zh.0:1	wizardreal:ferae_vocatus	-1	ʂəŋ ʈʂɑŋ kaɪ xwa	以根须之名应召	zh
+wizardreal:ferae_vocatus.chant.zh.0:2	wizardreal:ferae_vocatus	-1	tsɨ ʐan	织新芽入我言	zh
+wizardreal:ferae_vocatus.chant.zh.0:3	wizardreal:ferae_vocatus	-1	fu tɕɪŋ tɕi y wɔ i	缚荆棘于我意	zh
+wizardreal:ferae_vocatus.chant.zh.0:4	wizardreal:ferae_vocatus	-1	ʂoʊ xwan	兽唤	zh
+wizardreal:ferae_vocatus.chant.zh.1:0	wizardreal:ferae_vocatus	-1	ʂoʊ xwan ʈʂʰu ɕjɛn ɕin ja weɪ ʈʂəŋ	兽唤初现，新芽为证	zh
+wizardreal:ferae_vocatus.chant.zh.1:1	wizardreal:ferae_vocatus	-1	ɕin ja sweɪ u ʂəŋ ɚ ɕɪŋ	新芽随吾声而醒	zh
+wizardreal:ferae_vocatus.chant.zh.1:2	wizardreal:ferae_vocatus	-1	tɕɪŋ tɕi ʂɨ tɤ u mɪŋ	荆棘识得吾名	zh
+wizardreal:ferae_vocatus.chant.zh.1:3	wizardreal:ferae_vocatus	-1	laɪ ɕi u tɕi ʈʂɨ kən ɕy	来兮，无羁之根须	zh
+wizardreal:ferae_vocatus.chant.zh.1:4	wizardreal:ferae_vocatus	-1	ʂoʊ xwan	兽唤	zh
+wizardreal:ferae_vocatus.chant.ja.0:0	wizardreal:ferae_vocatus	-1		フェライ・ウォカトゥスよ、根とともに	ja
+wizardreal:ferae_vocatus.chant.ja.0:1	wizardreal:ferae_vocatus	-1		根よ応えよ	ja
+wizardreal:ferae_vocatus.chant.ja.0:2	wizardreal:ferae_vocatus	-1		我が詞に芽を織れ	ja
+wizardreal:ferae_vocatus.chant.ja.0:3	wizardreal:ferae_vocatus	-1		茨を我が意に縛れ	ja
+wizardreal:ferae_vocatus.chant.ja.0:4	wizardreal:ferae_vocatus	-1	ɸɛ ɾa i o ka tɯ sɯ	フェライ・ウォカトゥス	ja
+wizardreal:ferae_vocatus.chant.ja.1:0	wizardreal:ferae_vocatus	-1		フェライ・ウォカトゥスよ、根とともに	ja
+wizardreal:ferae_vocatus.chant.ja.1:1	wizardreal:ferae_vocatus	-1		声に呼び覚まれし芽	ja
+wizardreal:ferae_vocatus.chant.ja.1:2	wizardreal:ferae_vocatus	-1		茨は名を憶える	ja
+wizardreal:ferae_vocatus.chant.ja.1:3	wizardreal:ferae_vocatus	-1		集え、縛られぬ根	ja
+wizardreal:ferae_vocatus.chant.ja.1:4	wizardreal:ferae_vocatus	-1	ɸɛ ɾa i o ka tɯ sɯ	フェライ・ウォカトゥス	ja
+wizardreal:flamma	wizardreal:flamma	-1	jɛn ɕi;xwɔ jɛn pʰən ʂɤ;ɸɯ ɾa ma	flamma;flame cone;焰息;火焰喷射;フラマ;炎のブレス	en;zh;ja
+wizardreal:flamma.chant.en.0:0	wizardreal:flamma	-1		by ash, flamma awakens	en
+wizardreal:flamma.chant.en.0:1	wizardreal:flamma	-1		let the ember answer	en
+wizardreal:flamma.chant.en.0:2	wizardreal:flamma	-1		weave ash into my words	en
+wizardreal:flamma.chant.en.0:3	wizardreal:flamma	-1		bind the pyre to my will	en
+wizardreal:flamma.chant.en.0:4	wizardreal:flamma	-1		flamma	en
+wizardreal:flamma.chant.en.1:0	wizardreal:flamma	-1		by ash, flamma awakens	en
+wizardreal:flamma.chant.en.1:1	wizardreal:flamma	-1		ash wakes beneath my voice	en
+wizardreal:flamma.chant.en.1:2	wizardreal:flamma	-1		the pyre remembers my name	en
+wizardreal:flamma.chant.en.1:3	wizardreal:flamma	-1		gather, o ember unbound	en
+wizardreal:flamma.chant.en.1:4	wizardreal:flamma	-1		flamma	en
+wizardreal:flamma.chant.zh.0:0	wizardreal:flamma	-1	i ʈʂʰɨ jɛn weɪ in jɛn ɕi su ɕɪŋ	以赤炎为引，焰息苏醒	zh
+wizardreal:flamma.chant.zh.0:1	wizardreal:flamma	-1	i ʈʂʰɨ jɛn ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以赤炎之名应召	zh
+wizardreal:flamma.chant.zh.0:2	wizardreal:flamma	-1	ʈʂɨ xweɪ tɕin ʐu wɔ jɛn	织灰烬入我言	zh
+wizardreal:flamma.chant.zh.0:3	wizardreal:flamma	-1	fu ljɛ jɛn y wɔ i	缚烈焰于我意	zh
+wizardreal:flamma.chant.zh.0:4	wizardreal:flamma	-1	jɛn ɕi	焰息	zh
+wizardreal:flamma.chant.zh.1:0	wizardreal:flamma	-1	i ʈʂʰɨ jɛn weɪ in jɛn ɕi su ɕɪŋ	以赤炎为引，焰息苏醒	zh
+wizardreal:flamma.chant.zh.1:1	wizardreal:flamma	-1	xweɪ tɕin sweɪ u ʂəŋ ɚ ɕɪŋ	灰烬随吾声而醒	zh
+wizardreal:flamma.chant.zh.1:2	wizardreal:flamma	-1	ljɛ jɛn ʂɨ tɤ u mɪŋ	烈焰识得吾名	zh
+wizardreal:flamma.chant.zh.1:3	wizardreal:flamma	-1	laɪ ɕi u tɕi ʈʂɨ ʈʂʰɨ jɛn	来兮，无羁之赤炎	zh
+wizardreal:flamma.chant.zh.1:4	wizardreal:flamma	-1	jɛn ɕi	焰息	zh
+wizardreal:flamma.chant.ja.0:0	wizardreal:flamma	-1		紅蓮に導かれ、フラマ顕現せり	ja
+wizardreal:flamma.chant.ja.0:1	wizardreal:flamma	-1		紅蓮よ応えよ	ja
+wizardreal:flamma.chant.ja.0:2	wizardreal:flamma	-1		我が詞に灰を織れ	ja
+wizardreal:flamma.chant.ja.0:3	wizardreal:flamma	-1		焔を我が意に縛れ	ja
+wizardreal:flamma.chant.ja.0:4	wizardreal:flamma	-1	ɸɯ ɾa ma	フラマ	ja
+wizardreal:flamma.chant.ja.1:0	wizardreal:flamma	-1		紅蓮に導かれ、フラマ顕現せり	ja
+wizardreal:flamma.chant.ja.1:1	wizardreal:flamma	-1		声に呼び覚まれし灰	ja
+wizardreal:flamma.chant.ja.1:2	wizardreal:flamma	-1		焔は名を憶える	ja
+wizardreal:flamma.chant.ja.1:3	wizardreal:flamma	-1		集え、縛られぬ紅蓮	ja
+wizardreal:flamma.chant.ja.1:4	wizardreal:flamma	-1	ɸɯ ɾa ma	フラマ	ja
+wizardreal:flatu_signum	wizardreal:flatu_signum	-1	fəŋ y;ɸɯ ɾa tɯ ɕi gɯ nɯ mɯ	flatu signum;flatu;signum;风语;フラトゥ・シグヌム;フラトゥシグヌム	en;zh;ja
+wizardreal:flatu_signum.chant.en.0:0	wizardreal:flatu_signum	-1		by whisper, flatu signum awakens	en
+wizardreal:flatu_signum.chant.en.0:1	wizardreal:flatu_signum	-1		let the gale answer	en
+wizardreal:flatu_signum.chant.en.0:2	wizardreal:flatu_signum	-1		weave zephyr into my words	en
+wizardreal:flatu_signum.chant.en.0:3	wizardreal:flatu_signum	-1		bind the sky to my will	en
+wizardreal:flatu_signum.chant.en.0:4	wizardreal:flatu_signum	-1		flatu signum	en
+wizardreal:flatu_signum.chant.en.1:0	wizardreal:flatu_signum	-1		by whisper, flatu signum awakens	en
+wizardreal:flatu_signum.chant.en.1:1	wizardreal:flatu_signum	-1		zephyr wakes beneath my voice	en
+wizardreal:flatu_signum.chant.en.1:2	wizardreal:flatu_signum	-1		the sky remembers my name	en
+wizardreal:flatu_signum.chant.en.1:3	wizardreal:flatu_signum	-1		gather, o gale unbound	en
+wizardreal:flatu_signum.chant.en.1:4	wizardreal:flatu_signum	-1		flatu signum	en
+wizardreal:flatu_signum.chant.zh.0:0	wizardreal:flatu_signum	-1	i tɕʰɪŋ fəŋ weɪ in fəŋ y su ɕɪŋ	以清风为引，风语苏醒	zh
+wizardreal:flatu_signum.chant.zh.0:1	wizardreal:flatu_signum	-1	tɕjɛ fɑŋ kwɑŋ fəŋ	以罡风之名应召	zh
+wizardreal:flatu_signum.chant.zh.0:2	wizardreal:flatu_signum	-1	kwɑŋ fəŋ	织清风入我言	zh
+wizardreal:flatu_signum.chant.zh.0:3	wizardreal:flatu_signum	-1	fu ʈʂɑŋ kʰʊŋ y wɔ i	缚长空于我意	zh
+wizardreal:flatu_signum.chant.zh.0:4	wizardreal:flatu_signum	-1	fəŋ y	风语	zh
+wizardreal:flatu_signum.chant.zh.1:0	wizardreal:flatu_signum	-1	i tɕʰɪŋ fəŋ weɪ in fəŋ y su ɕɪŋ	以清风为引，风语苏醒	zh
+wizardreal:flatu_signum.chant.zh.1:1	wizardreal:flatu_signum	-1	tɕʰɪŋ fəŋ sweɪ u ʂəŋ ɚ ɕɪŋ	清风随吾声而醒	zh
+wizardreal:flatu_signum.chant.zh.1:2	wizardreal:flatu_signum	-1	ʈʂɑŋ kʰʊŋ ʂɨ tɤ u mɪŋ	长空识得吾名	zh
+wizardreal:flatu_signum.chant.zh.1:3	wizardreal:flatu_signum	-1	laɪ ɕi u tɕi ʈʂɨ kɑŋ fəŋ	来兮，无羁之罡风	zh
+wizardreal:flatu_signum.chant.zh.1:4	wizardreal:flatu_signum	-1	fəŋ y	风语	zh
+wizardreal:flatu_signum.chant.ja.0:0	wizardreal:flatu_signum	-1		疾風に導かれ、フラトゥ・シグヌム顕現せり	ja
+wizardreal:flatu_signum.chant.ja.0:1	wizardreal:flatu_signum	-1		疾風よ応えよ	ja
+wizardreal:flatu_signum.chant.ja.0:2	wizardreal:flatu_signum	-1		我が詞に微風を織れ	ja
+wizardreal:flatu_signum.chant.ja.0:3	wizardreal:flatu_signum	-1		空を我が意に縛れ	ja
+wizardreal:flatu_signum.chant.ja.0:4	wizardreal:flatu_signum	-1	ɸɯ ɾa tɯ ɕi gɯ nɯ mɯ	フラトゥ・シグヌム	ja
+wizardreal:flatu_signum.chant.ja.1:0	wizardreal:flatu_signum	-1		疾風に導かれ、フラトゥ・シグヌム顕現せり	ja
+wizardreal:flatu_signum.chant.ja.1:1	wizardreal:flatu_signum	-1		声に呼び覚まれし微風	ja
+wizardreal:flatu_signum.chant.ja.1:2	wizardreal:flatu_signum	-1		空は名を憶える	ja
+wizardreal:flatu_signum.chant.ja.1:3	wizardreal:flatu_signum	-1		集え、縛られぬ疾風	ja
+wizardreal:flatu_signum.chant.ja.1:4	wizardreal:flatu_signum	-1	ɸɯ ɾa tɯ ɕi gɯ nɯ mɯ	フラトゥ・シグヌム	ja
+wizardreal:floris	wizardreal:floris	-1	xweɪ ʈʂʰwən;ɸɯ ɾo ɾi sɯ	floris;回春;フロリス	en;zh;ja
+wizardreal:floris.chant.en.0:0	wizardreal:floris	-1		floris rises on root wings	en
+wizardreal:floris.chant.en.0:1	wizardreal:floris	-1		let the root answer	en
+wizardreal:floris.chant.en.0:2	wizardreal:floris	-1		weave bloom into my words	en
+wizardreal:floris.chant.en.0:3	wizardreal:floris	-1		bind the thorn to my will	en
+wizardreal:floris.chant.en.0:4	wizardreal:floris	-1		floris	en
+wizardreal:floris.chant.en.1:0	wizardreal:floris	-1		floris rises on root wings	en
+wizardreal:floris.chant.en.1:1	wizardreal:floris	-1		bloom wakes beneath my voice	en
+wizardreal:floris.chant.en.1:2	wizardreal:floris	-1		the thorn remembers my name	en
+wizardreal:floris.chant.en.1:3	wizardreal:floris	-1		gather, o root unbound	en
+wizardreal:floris.chant.en.1:4	wizardreal:floris	-1		floris	en
+wizardreal:floris.chant.zh.0:0	wizardreal:floris	-1	xweɪ ʈʂʰwən ʈʂʰəŋ ɕin ja ɚ ʈʂɨ	回春乘新芽而至	zh
+wizardreal:floris.chant.zh.0:1	wizardreal:floris	-1	ʂəŋ ʈʂɑŋ kaɪ xwa	以根须之名应召	zh
+wizardreal:floris.chant.zh.0:2	wizardreal:floris	-1	tsɨ ʐan	织新芽入我言	zh
+wizardreal:floris.chant.zh.0:3	wizardreal:floris	-1	fu tɕɪŋ tɕi y wɔ i	缚荆棘于我意	zh
+wizardreal:floris.chant.zh.0:4	wizardreal:floris	-1	xweɪ ʈʂʰwən	回春	zh
+wizardreal:floris.chant.zh.1:0	wizardreal:floris	-1	xweɪ ʈʂʰwən ʈʂʰəŋ ɕin ja ɚ ʈʂɨ	回春乘新芽而至	zh
+wizardreal:floris.chant.zh.1:1	wizardreal:floris	-1	ɕin ja sweɪ u ʂəŋ ɚ ɕɪŋ	新芽随吾声而醒	zh
+wizardreal:floris.chant.zh.1:2	wizardreal:floris	-1	tɕɪŋ tɕi ʂɨ tɤ u mɪŋ	荆棘识得吾名	zh
+wizardreal:floris.chant.zh.1:3	wizardreal:floris	-1	laɪ ɕi u tɕi ʈʂɨ kən ɕy	来兮，无羁之根须	zh
+wizardreal:floris.chant.zh.1:4	wizardreal:floris	-1	xweɪ ʈʂʰwən	回春	zh
+wizardreal:floris.chant.ja.0:0	wizardreal:floris	-1		フロリスは根に乗て立つ	ja
+wizardreal:floris.chant.ja.0:1	wizardreal:floris	-1		根よ応えよ	ja
+wizardreal:floris.chant.ja.0:2	wizardreal:floris	-1		我が詞に芽を織れ	ja
+wizardreal:floris.chant.ja.0:3	wizardreal:floris	-1		茨を我が意に縛れ	ja
+wizardreal:floris.chant.ja.0:4	wizardreal:floris	-1	ɸɯ ɾo ɾi sɯ	フロリス	ja
+wizardreal:floris.chant.ja.1:0	wizardreal:floris	-1		フロリスは根に乗て立つ	ja
+wizardreal:floris.chant.ja.1:1	wizardreal:floris	-1		声に呼び覚まれし芽	ja
+wizardreal:floris.chant.ja.1:2	wizardreal:floris	-1		茨は名を憶える	ja
+wizardreal:floris.chant.ja.1:3	wizardreal:floris	-1		集え、縛られぬ根	ja
+wizardreal:floris.chant.ja.1:4	wizardreal:floris	-1	ɸɯ ɾo ɾi sɯ	フロリス	ja
+wizardreal:fluctus	wizardreal:fluctus	-1	ʈʂʰaʊ jʊŋ;ʈʂʰaʊ jʊŋ ʈʂweɪ;ɸɯ ɾɯ kɯ tɯ sɯ	fluctus;tide cone;潮涌;潮涌锥;フルクトゥス;潮のブレス	en;zh;ja
+wizardreal:fluctus.chant.en.0:0	wizardreal:fluctus	-1		by deep, fluctus awakens	en
+wizardreal:fluctus.chant.en.0:1	wizardreal:fluctus	-1		let the tide answer	en
+wizardreal:fluctus.chant.en.0:2	wizardreal:fluctus	-1		weave deep into my words	en
+wizardreal:fluctus.chant.en.0:3	wizardreal:fluctus	-1		bind the mist to my will	en
+wizardreal:fluctus.chant.en.0:4	wizardreal:fluctus	-1		fluctus	en
+wizardreal:fluctus.chant.en.1:0	wizardreal:fluctus	-1		by deep, fluctus awakens	en
+wizardreal:fluctus.chant.en.1:1	wizardreal:fluctus	-1		deep wakes beneath my voice	en
+wizardreal:fluctus.chant.en.1:2	wizardreal:fluctus	-1		the mist remembers my name	en
+wizardreal:fluctus.chant.en.1:3	wizardreal:fluctus	-1		gather, o tide unbound	en
+wizardreal:fluctus.chant.en.1:4	wizardreal:fluctus	-1		fluctus	en
+wizardreal:fluctus.chant.zh.0:0	wizardreal:fluctus	-1	i ʈʂʰaʊ ɕi weɪ in ʈʂʰaʊ jʊŋ su ɕɪŋ	以潮汐为引，潮涌苏醒	zh
+wizardreal:fluctus.chant.zh.0:1	wizardreal:fluctus	-1	i ʈʂʰaʊ ɕi ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以潮汐之名应召	zh
+wizardreal:fluctus.chant.zh.0:2	wizardreal:fluctus	-1	ʈʂɨ ʂən ɥɛn ʐu wɔ jɛn	织深渊入我言	zh
+wizardreal:fluctus.chant.zh.0:3	wizardreal:fluctus	-1	fu jɛn pwɔ y wɔ i	缚烟波于我意	zh
+wizardreal:fluctus.chant.zh.0:4	wizardreal:fluctus	-1	ʈʂʰaʊ jʊŋ	潮涌	zh
+wizardreal:fluctus.chant.zh.1:0	wizardreal:fluctus	-1	i ʈʂʰaʊ ɕi weɪ in ʈʂʰaʊ jʊŋ su ɕɪŋ	以潮汐为引，潮涌苏醒	zh
+wizardreal:fluctus.chant.zh.1:1	wizardreal:fluctus	-1	ʂən ɥɛn sweɪ u ʂəŋ ɚ ɕɪŋ	深渊随吾声而醒	zh
+wizardreal:fluctus.chant.zh.1:2	wizardreal:fluctus	-1	jɛn pwɔ ʂɨ tɤ u mɪŋ	烟波识得吾名	zh
+wizardreal:fluctus.chant.zh.1:3	wizardreal:fluctus	-1	laɪ ɕi u tɕi ʈʂɨ ʈʂʰaʊ ɕi	来兮，无羁之潮汐	zh
+wizardreal:fluctus.chant.zh.1:4	wizardreal:fluctus	-1	ʈʂʰaʊ jʊŋ	潮涌	zh
+wizardreal:fluctus.chant.ja.0:0	wizardreal:fluctus	-1		潮に導かれ、フラクトゥス顕現せり	ja
+wizardreal:fluctus.chant.ja.0:1	wizardreal:fluctus	-1		潮よ応えよ	ja
+wizardreal:fluctus.chant.ja.0:2	wizardreal:fluctus	-1		我が詞に深淵を織れ	ja
+wizardreal:fluctus.chant.ja.0:3	wizardreal:fluctus	-1		霧を我が意に縛れ	ja
+wizardreal:fluctus.chant.ja.0:4	wizardreal:fluctus	-1	ɸɯ ɾɯ kɯ tɯ sɯ	フルクトゥス	ja
+wizardreal:fluctus.chant.ja.1:0	wizardreal:fluctus	-1		潮に導かれ、フラクトゥス顕現せり	ja
+wizardreal:fluctus.chant.ja.1:1	wizardreal:fluctus	-1		声に呼び覚まれし深淵	ja
+wizardreal:fluctus.chant.ja.1:2	wizardreal:fluctus	-1		霧は名を憶える	ja
+wizardreal:fluctus.chant.ja.1:3	wizardreal:fluctus	-1		集え、縛られぬ潮	ja
+wizardreal:fluctus.chant.ja.1:4	wizardreal:fluctus	-1	ɸɯ ɾɯ kɯ tɯ sɯ	フルクトゥス	ja
+wizardreal:fodere	wizardreal:fodere	-1	tɕɥɛ tɕin;ɸo dɛ ɾɛ	fodere;掘进;フォデレ	en;zh;ja
+wizardreal:fodere.chant.en.0:0	wizardreal:fodere	-1		fodere rises on stone wings	en
+wizardreal:fodere.chant.en.0:1	wizardreal:fodere	-1		let the stone answer	en
+wizardreal:fodere.chant.en.0:2	wizardreal:fodere	-1		weave bedrock into my words	en
+wizardreal:fodere.chant.en.0:3	wizardreal:fodere	-1		bind the mountain to my will	en
+wizardreal:fodere.chant.en.0:4	wizardreal:fodere	-1		fodere	en
+wizardreal:fodere.chant.en.1:0	wizardreal:fodere	-1		fodere rises on stone wings	en
+wizardreal:fodere.chant.en.1:1	wizardreal:fodere	-1		bedrock wakes beneath my voice	en
+wizardreal:fodere.chant.en.1:2	wizardreal:fodere	-1		the mountain remembers my name	en
+wizardreal:fodere.chant.en.1:3	wizardreal:fodere	-1		gather, o stone unbound	en
+wizardreal:fodere.chant.en.1:4	wizardreal:fodere	-1		fodere	en
+wizardreal:fodere.chant.zh.0:0	wizardreal:fodere	-1	tɕɥɛ tɕin ʈʂʰəŋ ta ti ɚ ʈʂɨ	掘进乘大地而至	zh
+wizardreal:fodere.chant.zh.0:1	wizardreal:fodere	-1	i pʰan ʂɨ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以磐石之名应召	zh
+wizardreal:fodere.chant.zh.0:2	wizardreal:fodere	-1	ʈʂɨ ta ti ʐu wɔ jɛn	织大地入我言	zh
+wizardreal:fodere.chant.zh.0:3	wizardreal:fodere	-1	fu ʂan ɥɛ y wɔ i	缚山岳于我意	zh
+wizardreal:fodere.chant.zh.0:4	wizardreal:fodere	-1	tɕɥɛ tɕin	掘进	zh
+wizardreal:fodere.chant.zh.1:0	wizardreal:fodere	-1	tɕɥɛ tɕin ʈʂʰəŋ ta ti ɚ ʈʂɨ	掘进乘大地而至	zh
+wizardreal:fodere.chant.zh.1:1	wizardreal:fodere	-1	ta ti sweɪ u ʂəŋ ɚ ɕɪŋ	大地随吾声而醒	zh
+wizardreal:fodere.chant.zh.1:2	wizardreal:fodere	-1	ʂan ɥɛ ʂɨ tɤ u mɪŋ	山岳识得吾名	zh
+wizardreal:fodere.chant.zh.1:3	wizardreal:fodere	-1	laɪ ɕi u tɕi ʈʂɨ pʰan ʂɨ	来兮，无羁之磐石	zh
+wizardreal:fodere.chant.zh.1:4	wizardreal:fodere	-1	tɕɥɛ tɕin	掘进	zh
+wizardreal:fodere.chant.ja.0:0	wizardreal:fodere	-1		フォデレは岩に乗て立つ	ja
+wizardreal:fodere.chant.ja.0:1	wizardreal:fodere	-1		岩よ応えよ	ja
+wizardreal:fodere.chant.ja.0:2	wizardreal:fodere	-1		我が詞に大地を織れ	ja
+wizardreal:fodere.chant.ja.0:3	wizardreal:fodere	-1		山を我が意に縛れ	ja
+wizardreal:fodere.chant.ja.0:4	wizardreal:fodere	-1	ɸo dɛ ɾɛ	フォデレ	ja
+wizardreal:fodere.chant.ja.1:0	wizardreal:fodere	-1		フォデレは岩に乗て立つ	ja
+wizardreal:fodere.chant.ja.1:1	wizardreal:fodere	-1		声に呼び覚まれし大地	ja
+wizardreal:fodere.chant.ja.1:2	wizardreal:fodere	-1		山は名を憶える	ja
+wizardreal:fodere.chant.ja.1:3	wizardreal:fodere	-1		集え、縛られぬ岩	ja
+wizardreal:fodere.chant.ja.1:4	wizardreal:fodere	-1	ɸo dɛ ɾɛ	フォデレ	ja
+wizardreal:fulgur	wizardreal:fulgur	-1	leɪ ɕy;ɕy leɪ;ɸɯː ɾɯ gɯ ɾɯ;ɾa i tɕi kɯ	fulgur;storm brand;雷蓄;蓄雷;フールグル;ライチク	en;zh;ja
+wizardreal:fulgur.chant.en.0:0	wizardreal:fulgur	-1		o static, lend fulgur thy breath	en
+wizardreal:fulgur.chant.en.0:1	wizardreal:fulgur	-1		let the storm answer	en
+wizardreal:fulgur.chant.en.0:2	wizardreal:fulgur	-1		weave spark into my words	en
+wizardreal:fulgur.chant.en.0:3	wizardreal:fulgur	-1		bind the thunder to my will	en
+wizardreal:fulgur.chant.en.0:4	wizardreal:fulgur	-1		fulgur	en
+wizardreal:fulgur.chant.en.1:0	wizardreal:fulgur	-1		o static, lend fulgur thy breath	en
+wizardreal:fulgur.chant.en.1:1	wizardreal:fulgur	-1		spark wakes beneath my voice	en
+wizardreal:fulgur.chant.en.1:2	wizardreal:fulgur	-1		the thunder remembers my name	en
+wizardreal:fulgur.chant.en.1:3	wizardreal:fulgur	-1		gather, o storm unbound	en
+wizardreal:fulgur.chant.en.1:4	wizardreal:fulgur	-1		fulgur	en
+wizardreal:fulgur.chant.zh.0:0	wizardreal:fulgur	-1	leɪ paʊ a tɕjɛ leɪ ɕy i ɕi	雷暴啊，借雷蓄以息	zh
+wizardreal:fulgur.chant.zh.0:1	wizardreal:fulgur	-1	i leɪ paʊ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以雷暴之名应召	zh
+wizardreal:fulgur.chant.zh.0:2	wizardreal:fulgur	-1	ʈʂɨ tjɛn kwɑŋ ʐu wɔ jɛn	织电光入我言	zh
+wizardreal:fulgur.chant.zh.0:3	wizardreal:fulgur	-1	fu tɕɪŋ leɪ y wɔ i	缚惊雷于我意	zh
+wizardreal:fulgur.chant.zh.0:4	wizardreal:fulgur	-1	leɪ ɕy	雷蓄	zh
+wizardreal:fulgur.chant.zh.1:0	wizardreal:fulgur	-1	leɪ paʊ a tɕjɛ leɪ ɕy i ɕi	雷暴啊，借雷蓄以息	zh
+wizardreal:fulgur.chant.zh.1:1	wizardreal:fulgur	-1	tjɛn kwɑŋ sweɪ u ʂəŋ ɚ ɕɪŋ	电光随吾声而醒	zh
+wizardreal:fulgur.chant.zh.1:2	wizardreal:fulgur	-1	tɕɪŋ leɪ ʂɨ tɤ u mɪŋ	惊雷识得吾名	zh
+wizardreal:fulgur.chant.zh.1:3	wizardreal:fulgur	-1	laɪ ɕi u tɕi ʈʂɨ leɪ paʊ	来兮，无羁之雷暴	zh
+wizardreal:fulgur.chant.zh.1:4	wizardreal:fulgur	-1	leɪ ɕy	雷蓄	zh
+wizardreal:fulgur.chant.ja.0:0	wizardreal:fulgur	-1		嵐よ、フルグルに息を貸せ	ja
+wizardreal:fulgur.chant.ja.0:1	wizardreal:fulgur	-1		嵐よ応えよ	ja
+wizardreal:fulgur.chant.ja.0:2	wizardreal:fulgur	-1		我が詞に火花を織れ	ja
+wizardreal:fulgur.chant.ja.0:3	wizardreal:fulgur	-1		雷鳴を我が意に縛れ	ja
+wizardreal:fulgur.chant.ja.0:4	wizardreal:fulgur	-1	ɸɯː ɾɯ gɯ ɾɯ	フールグル	ja
+wizardreal:fulgur.chant.ja.1:0	wizardreal:fulgur	-1		嵐よ、フルグルに息を貸せ	ja
+wizardreal:fulgur.chant.ja.1:1	wizardreal:fulgur	-1		声に呼び覚まれし火花	ja
+wizardreal:fulgur.chant.ja.1:2	wizardreal:fulgur	-1		雷鳴は名を憶える	ja
+wizardreal:fulgur.chant.ja.1:3	wizardreal:fulgur	-1		集え、縛られぬ嵐	ja
+wizardreal:fulgur.chant.ja.1:4	wizardreal:fulgur	-1	ɸɯː ɾɯ gɯ ɾɯ	フールグル	ja
+wizardreal:fulmen	wizardreal:fulmen	-1	ˈfʊlmɛn;ˈfʊlmɛn;ˈfʊlmɛn;laɪtnɪŋ;θʌndɚ;θʌndɚboʊlt;luolei;lwolei;leitɕi;leiɜtɕin;leitsi	fulmen;lightning;落雷;雷击;フルメン;カミナリ	en;zh;ja
+wizardreal:fulmen.chant.en.0:0	wizardreal:fulmen	-1		fulmen, storm of the old tongue	en
+wizardreal:fulmen.chant.en.0:1	wizardreal:fulmen	-1		let the storm answer	en
+wizardreal:fulmen.chant.en.0:2	wizardreal:fulmen	-1		weave spark into my words	en
+wizardreal:fulmen.chant.en.0:3	wizardreal:fulmen	-1		bind the thunder to my will	en
+wizardreal:fulmen.chant.en.0:4	wizardreal:fulmen	-1	ˈfʊlmɛn	fulmen	en
+wizardreal:fulmen.chant.en.1:0	wizardreal:fulmen	-1		fulmen, storm of the old tongue	en
+wizardreal:fulmen.chant.en.1:1	wizardreal:fulmen	-1		spark wakes beneath my voice	en
+wizardreal:fulmen.chant.en.1:2	wizardreal:fulmen	-1		the thunder remembers my name	en
+wizardreal:fulmen.chant.en.1:3	wizardreal:fulmen	-1		gather, o storm unbound	en
+wizardreal:fulmen.chant.en.1:4	wizardreal:fulmen	-1	ˈfʊlmɛn	fulmen	en
+wizardreal:fulmen.chant.zh.0:0	wizardreal:fulmen	-1	lwɔ leɪ ʈʂʰu ɕjɛn leɪ paʊ weɪ ʈʂəŋ	落雷初现，雷暴为证	zh
+wizardreal:fulmen.chant.zh.0:1	wizardreal:fulmen	-1	i leɪ paʊ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以雷暴之名应召	zh
+wizardreal:fulmen.chant.zh.0:2	wizardreal:fulmen	-1	ʈʂɨ tjɛn kwɑŋ ʐu wɔ jɛn	织电光入我言	zh
+wizardreal:fulmen.chant.zh.0:3	wizardreal:fulmen	-1	fu tɕɪŋ leɪ y wɔ i	缚惊雷于我意	zh
+wizardreal:fulmen.chant.zh.0:4	wizardreal:fulmen	-1	ˈfʊlmɛn	落雷	zh
+wizardreal:fulmen.chant.zh.1:0	wizardreal:fulmen	-1	lwɔ leɪ ʈʂʰu ɕjɛn leɪ paʊ weɪ ʈʂəŋ	落雷初现，雷暴为证	zh
+wizardreal:fulmen.chant.zh.1:1	wizardreal:fulmen	-1	tjɛn kwɑŋ sweɪ u ʂəŋ ɚ ɕɪŋ	电光随吾声而醒	zh
+wizardreal:fulmen.chant.zh.1:2	wizardreal:fulmen	-1	tɕɪŋ leɪ ʂɨ tɤ u mɪŋ	惊雷识得吾名	zh
+wizardreal:fulmen.chant.zh.1:3	wizardreal:fulmen	-1	laɪ ɕi u tɕi ʈʂɨ leɪ paʊ	来兮，无羁之雷暴	zh
+wizardreal:fulmen.chant.zh.1:4	wizardreal:fulmen	-1	ˈfʊlmɛn	落雷	zh
+wizardreal:fulmen.chant.ja.0:0	wizardreal:fulmen	-1		フルメンよ、嵐とともに	ja
+wizardreal:fulmen.chant.ja.0:1	wizardreal:fulmen	-1		嵐よ応えよ	ja
+wizardreal:fulmen.chant.ja.0:2	wizardreal:fulmen	-1		我が詞に火花を織れ	ja
+wizardreal:fulmen.chant.ja.0:3	wizardreal:fulmen	-1		雷鳴を我が意に縛れ	ja
+wizardreal:fulmen.chant.ja.0:4	wizardreal:fulmen	-1	ˈfʊlmɛn	フルメン	ja
+wizardreal:fulmen.chant.ja.1:0	wizardreal:fulmen	-1		フルメンよ、嵐とともに	ja
+wizardreal:fulmen.chant.ja.1:1	wizardreal:fulmen	-1		声に呼び覚まれし火花	ja
+wizardreal:fulmen.chant.ja.1:2	wizardreal:fulmen	-1		雷鳴は名を憶える	ja
+wizardreal:fulmen.chant.ja.1:3	wizardreal:fulmen	-1		集え、縛られぬ嵐	ja
+wizardreal:fulmen.chant.ja.1:4	wizardreal:fulmen	-1	ˈfʊlmɛn	フルメン	ja
+wizardreal:galvanum	wizardreal:galvanum	-1	in leɪ;ga ɾɯ a nɯ mɯ	galvanum;引雷;ガルウァヌム	en;zh;ja
+wizardreal:galvanum.chant.en.0:0	wizardreal:galvanum	-1		let spark crown galvanum	en
+wizardreal:galvanum.chant.en.0:1	wizardreal:galvanum	-1		let the storm answer	en
+wizardreal:galvanum.chant.en.0:2	wizardreal:galvanum	-1		weave spark into my words	en
+wizardreal:galvanum.chant.en.0:3	wizardreal:galvanum	-1		bind the thunder to my will	en
+wizardreal:galvanum.chant.en.0:4	wizardreal:galvanum	-1		galvanum	en
+wizardreal:galvanum.chant.en.1:0	wizardreal:galvanum	-1		let spark crown galvanum	en
+wizardreal:galvanum.chant.en.1:1	wizardreal:galvanum	-1		spark wakes beneath my voice	en
+wizardreal:galvanum.chant.en.1:2	wizardreal:galvanum	-1		the thunder remembers my name	en
+wizardreal:galvanum.chant.en.1:3	wizardreal:galvanum	-1		gather, o storm unbound	en
+wizardreal:galvanum.chant.en.1:4	wizardreal:galvanum	-1		galvanum	en
+wizardreal:galvanum.chant.zh.0:0	wizardreal:galvanum	-1	i tjɛn kwɑŋ tɕja mjɛn in leɪ	以电光加冕引雷	zh
+wizardreal:galvanum.chant.zh.0:1	wizardreal:galvanum	-1	i leɪ paʊ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以雷暴之名应召	zh
+wizardreal:galvanum.chant.zh.0:2	wizardreal:galvanum	-1	ʈʂɨ tjɛn kwɑŋ ʐu wɔ jɛn	织电光入我言	zh
+wizardreal:galvanum.chant.zh.0:3	wizardreal:galvanum	-1	fu tɕɪŋ leɪ y wɔ i	缚惊雷于我意	zh
+wizardreal:galvanum.chant.zh.0:4	wizardreal:galvanum	-1	in leɪ	引雷	zh
+wizardreal:galvanum.chant.zh.1:0	wizardreal:galvanum	-1	i tjɛn kwɑŋ tɕja mjɛn in leɪ	以电光加冕引雷	zh
+wizardreal:galvanum.chant.zh.1:1	wizardreal:galvanum	-1	tjɛn kwɑŋ sweɪ u ʂəŋ ɚ ɕɪŋ	电光随吾声而醒	zh
+wizardreal:galvanum.chant.zh.1:2	wizardreal:galvanum	-1	tɕɪŋ leɪ ʂɨ tɤ u mɪŋ	惊雷识得吾名	zh
+wizardreal:galvanum.chant.zh.1:3	wizardreal:galvanum	-1	laɪ ɕi u tɕi ʈʂɨ leɪ paʊ	来兮，无羁之雷暴	zh
+wizardreal:galvanum.chant.zh.1:4	wizardreal:galvanum	-1	in leɪ	引雷	zh
+wizardreal:galvanum.chant.ja.0:0	wizardreal:galvanum	-1		嵐をもってガルウァヌムを飾れ	ja
+wizardreal:galvanum.chant.ja.0:1	wizardreal:galvanum	-1		嵐よ応えよ	ja
+wizardreal:galvanum.chant.ja.0:2	wizardreal:galvanum	-1		我が詞に火花を織れ	ja
+wizardreal:galvanum.chant.ja.0:3	wizardreal:galvanum	-1		雷鳴を我が意に縛れ	ja
+wizardreal:galvanum.chant.ja.0:4	wizardreal:galvanum	-1	ga ɾɯ a nɯ mɯ	ガルウァヌム	ja
+wizardreal:galvanum.chant.ja.1:0	wizardreal:galvanum	-1		嵐をもってガルウァヌムを飾れ	ja
+wizardreal:galvanum.chant.ja.1:1	wizardreal:galvanum	-1		声に呼び覚まれし火花	ja
+wizardreal:galvanum.chant.ja.1:2	wizardreal:galvanum	-1		雷鳴は名を憶える	ja
+wizardreal:galvanum.chant.ja.1:3	wizardreal:galvanum	-1		集え、縛られぬ嵐	ja
+wizardreal:galvanum.chant.ja.1:4	wizardreal:galvanum	-1	ga ɾɯ a nɯ mɯ	ガルウァヌム	ja
+wizardreal:glacies	wizardreal:glacies	-1	pɪŋ tɕɪŋ;gɯ ɾa ki ɛ sɯ	glacies;冰晶;グラキエス	en;zh;ja
+wizardreal:glacies.chant.en.0:0	wizardreal:glacies	-1		glacies rises on tide wings	en
+wizardreal:glacies.chant.en.0:1	wizardreal:glacies	-1		let the tide answer	en
+wizardreal:glacies.chant.en.0:2	wizardreal:glacies	-1		weave deep into my words	en
+wizardreal:glacies.chant.en.0:3	wizardreal:glacies	-1		bind the mist to my will	en
+wizardreal:glacies.chant.en.0:4	wizardreal:glacies	-1		glacies	en
+wizardreal:glacies.chant.en.1:0	wizardreal:glacies	-1		glacies rises on tide wings	en
+wizardreal:glacies.chant.en.1:1	wizardreal:glacies	-1		deep wakes beneath my voice	en
+wizardreal:glacies.chant.en.1:2	wizardreal:glacies	-1		the mist remembers my name	en
+wizardreal:glacies.chant.en.1:3	wizardreal:glacies	-1		gather, o tide unbound	en
+wizardreal:glacies.chant.en.1:4	wizardreal:glacies	-1		glacies	en
+wizardreal:glacies.chant.zh.0:0	wizardreal:glacies	-1	pɪŋ tɕɪŋ ʈʂʰəŋ ʂən ɥɛn ɚ ʈʂɨ	冰晶乘深渊而至	zh
+wizardreal:glacies.chant.zh.0:1	wizardreal:glacies	-1	i ʈʂʰaʊ ɕi ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以潮汐之名应召	zh
+wizardreal:glacies.chant.zh.0:2	wizardreal:glacies	-1	ʈʂɨ ʂən ɥɛn ʐu wɔ jɛn	织深渊入我言	zh
+wizardreal:glacies.chant.zh.0:3	wizardreal:glacies	-1	fu jɛn pwɔ y wɔ i	缚烟波于我意	zh
+wizardreal:glacies.chant.zh.0:4	wizardreal:glacies	-1	pɪŋ tɕɪŋ	冰晶	zh
+wizardreal:glacies.chant.zh.1:0	wizardreal:glacies	-1	pɪŋ tɕɪŋ ʈʂʰəŋ ʂən ɥɛn ɚ ʈʂɨ	冰晶乘深渊而至	zh
+wizardreal:glacies.chant.zh.1:1	wizardreal:glacies	-1	ʂən ɥɛn sweɪ u ʂəŋ ɚ ɕɪŋ	深渊随吾声而醒	zh
+wizardreal:glacies.chant.zh.1:2	wizardreal:glacies	-1	jɛn pwɔ ʂɨ tɤ u mɪŋ	烟波识得吾名	zh
+wizardreal:glacies.chant.zh.1:3	wizardreal:glacies	-1	laɪ ɕi u tɕi ʈʂɨ ʈʂʰaʊ ɕi	来兮，无羁之潮汐	zh
+wizardreal:glacies.chant.zh.1:4	wizardreal:glacies	-1	pɪŋ tɕɪŋ	冰晶	zh
+wizardreal:glacies.chant.ja.0:0	wizardreal:glacies	-1		グラキエスは潮に乗て立つ	ja
+wizardreal:glacies.chant.ja.0:1	wizardreal:glacies	-1		潮よ応えよ	ja
+wizardreal:glacies.chant.ja.0:2	wizardreal:glacies	-1		我が詞に深淵を織れ	ja
+wizardreal:glacies.chant.ja.0:3	wizardreal:glacies	-1		霧を我が意に縛れ	ja
+wizardreal:glacies.chant.ja.0:4	wizardreal:glacies	-1	gɯ ɾa ki ɛ sɯ	グラキエス	ja
+wizardreal:glacies.chant.ja.1:0	wizardreal:glacies	-1		グラキエスは潮に乗て立つ	ja
+wizardreal:glacies.chant.ja.1:1	wizardreal:glacies	-1		声に呼び覚まれし深淵	ja
+wizardreal:glacies.chant.ja.1:2	wizardreal:glacies	-1		霧は名を憶える	ja
+wizardreal:glacies.chant.ja.1:3	wizardreal:glacies	-1		集え、縛られぬ潮	ja
+wizardreal:glacies.chant.ja.1:4	wizardreal:glacies	-1	gɯ ɾa ki ɛ sɯ	グラキエス	ja
+wizardreal:gravitas	wizardreal:gravitas	-1	in li tɕɪŋ;gɯ ɾa i ta sɯ	gravitas;引力井;グラウィタス	en;zh;ja
+wizardreal:gravitas.chant.en.0:0	wizardreal:gravitas	-1		let aether crown gravitas	en
+wizardreal:gravitas.chant.en.0:1	wizardreal:gravitas	-1		let the sigil answer	en
+wizardreal:gravitas.chant.en.0:2	wizardreal:gravitas	-1		weave aether into my words	en
+wizardreal:gravitas.chant.en.0:3	wizardreal:gravitas	-1		bind the nexus to my will	en
+wizardreal:gravitas.chant.en.0:4	wizardreal:gravitas	-1		gravitas	en
+wizardreal:gravitas.chant.en.1:0	wizardreal:gravitas	-1		let aether crown gravitas	en
+wizardreal:gravitas.chant.en.1:1	wizardreal:gravitas	-1		aether wakes beneath my voice	en
+wizardreal:gravitas.chant.en.1:2	wizardreal:gravitas	-1		the nexus remembers my name	en
+wizardreal:gravitas.chant.en.1:3	wizardreal:gravitas	-1		gather, o sigil unbound	en
+wizardreal:gravitas.chant.en.1:4	wizardreal:gravitas	-1		gravitas	en
+wizardreal:gravitas.chant.zh.0:0	wizardreal:gravitas	-1	i i tʰaɪ tɕja mjɛn in li tɕɪŋ	以以太加冕引力井	zh
+wizardreal:gravitas.chant.zh.0:1	wizardreal:gravitas	-1	i mi in ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以秘印之名应召	zh
+wizardreal:gravitas.chant.zh.0:2	wizardreal:gravitas	-1	ʈʂɨ i tʰaɪ ʐu wɔ jɛn	织以太入我言	zh
+wizardreal:gravitas.chant.zh.0:3	wizardreal:gravitas	-1	fu ʂu njoʊ y wɔ i	缚枢纽于我意	zh
+wizardreal:gravitas.chant.zh.0:4	wizardreal:gravitas	-1	in li tɕɪŋ	引力井	zh
+wizardreal:gravitas.chant.zh.1:0	wizardreal:gravitas	-1	i i tʰaɪ tɕja mjɛn in li tɕɪŋ	以以太加冕引力井	zh
+wizardreal:gravitas.chant.zh.1:1	wizardreal:gravitas	-1	i tʰaɪ sweɪ u ʂəŋ ɚ ɕɪŋ	以太随吾声而醒	zh
+wizardreal:gravitas.chant.zh.1:2	wizardreal:gravitas	-1	ʂu njoʊ ʂɨ tɤ u mɪŋ	枢纽识得吾名	zh
+wizardreal:gravitas.chant.zh.1:3	wizardreal:gravitas	-1	laɪ ɕi u tɕi ʈʂɨ mi in	来兮，无羁之秘印	zh
+wizardreal:gravitas.chant.zh.1:4	wizardreal:gravitas	-1	in li tɕɪŋ	引力井	zh
+wizardreal:gravitas.chant.ja.0:0	wizardreal:gravitas	-1		印をもってグラウィタスを飾れ	ja
+wizardreal:gravitas.chant.ja.0:1	wizardreal:gravitas	-1		印よ応えよ	ja
+wizardreal:gravitas.chant.ja.0:2	wizardreal:gravitas	-1		我が詞に以太を織れ	ja
+wizardreal:gravitas.chant.ja.0:3	wizardreal:gravitas	-1		環を我が意に縛れ	ja
+wizardreal:gravitas.chant.ja.0:4	wizardreal:gravitas	-1	gɯ ɾa i ta sɯ	グラウィタス	ja
+wizardreal:gravitas.chant.ja.1:0	wizardreal:gravitas	-1		印をもってグラウィタスを飾れ	ja
+wizardreal:gravitas.chant.ja.1:1	wizardreal:gravitas	-1		声に呼び覚まれし以太	ja
+wizardreal:gravitas.chant.ja.1:2	wizardreal:gravitas	-1		環は名を憶える	ja
+wizardreal:gravitas.chant.ja.1:3	wizardreal:gravitas	-1		集え、縛られぬ印	ja
+wizardreal:gravitas.chant.ja.1:4	wizardreal:gravitas	-1	gɯ ɾa i ta sɯ	グラウィタス	ja
+wizardreal:gurges	wizardreal:gurges	-1	ɕɥɛn wɔ;wɔ ljoʊ;gɯ ɾɯ gɛ sɯ	gurges;whirlpool;漩涡;涡流;グルゲス;渦潮	en;zh;ja
+wizardreal:gurges.chant.en.0:0	wizardreal:gurges	-1		gurges, hear the mist	en
+wizardreal:gurges.chant.en.0:1	wizardreal:gurges	-1		let the tide answer	en
+wizardreal:gurges.chant.en.0:2	wizardreal:gurges	-1		weave deep into my words	en
+wizardreal:gurges.chant.en.0:3	wizardreal:gurges	-1		bind the mist to my will	en
+wizardreal:gurges.chant.en.0:4	wizardreal:gurges	-1		gurges	en
+wizardreal:gurges.chant.en.1:0	wizardreal:gurges	-1		gurges, hear the mist	en
+wizardreal:gurges.chant.en.1:1	wizardreal:gurges	-1		deep wakes beneath my voice	en
+wizardreal:gurges.chant.en.1:2	wizardreal:gurges	-1		the mist remembers my name	en
+wizardreal:gurges.chant.en.1:3	wizardreal:gurges	-1		gather, o tide unbound	en
+wizardreal:gurges.chant.en.1:4	wizardreal:gurges	-1		gurges	en
+wizardreal:gurges.chant.zh.0:0	wizardreal:gurges	-1	ɕɥɛn wɔ a ti tʰɪŋ ʈʂʰaʊ ɕi	漩涡啊，谛听潮汐	zh
+wizardreal:gurges.chant.zh.0:1	wizardreal:gurges	-1	i ʈʂʰaʊ ɕi ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以潮汐之名应召	zh
+wizardreal:gurges.chant.zh.0:2	wizardreal:gurges	-1	ʈʂɨ ʂən ɥɛn ʐu wɔ jɛn	织深渊入我言	zh
+wizardreal:gurges.chant.zh.0:3	wizardreal:gurges	-1	fu jɛn pwɔ y wɔ i	缚烟波于我意	zh
+wizardreal:gurges.chant.zh.0:4	wizardreal:gurges	-1	ɕɥɛn wɔ	漩涡	zh
+wizardreal:gurges.chant.zh.1:0	wizardreal:gurges	-1	ɕɥɛn wɔ a ti tʰɪŋ ʈʂʰaʊ ɕi	漩涡啊，谛听潮汐	zh
+wizardreal:gurges.chant.zh.1:1	wizardreal:gurges	-1	ʂən ɥɛn sweɪ u ʂəŋ ɚ ɕɪŋ	深渊随吾声而醒	zh
+wizardreal:gurges.chant.zh.1:2	wizardreal:gurges	-1	jɛn pwɔ ʂɨ tɤ u mɪŋ	烟波识得吾名	zh
+wizardreal:gurges.chant.zh.1:3	wizardreal:gurges	-1	laɪ ɕi u tɕi ʈʂɨ ʈʂʰaʊ ɕi	来兮，无羁之潮汐	zh
+wizardreal:gurges.chant.zh.1:4	wizardreal:gurges	-1	ɕɥɛn wɔ	漩涡	zh
+wizardreal:gurges.chant.ja.0:0	wizardreal:gurges	-1		グルゲスよ、潮を聴け	ja
+wizardreal:gurges.chant.ja.0:1	wizardreal:gurges	-1		潮よ応えよ	ja
+wizardreal:gurges.chant.ja.0:2	wizardreal:gurges	-1		我が詞に深淵を織れ	ja
+wizardreal:gurges.chant.ja.0:3	wizardreal:gurges	-1		霧を我が意に縛れ	ja
+wizardreal:gurges.chant.ja.0:4	wizardreal:gurges	-1	gɯ ɾɯ gɛ sɯ	グルゲス	ja
+wizardreal:gurges.chant.ja.1:0	wizardreal:gurges	-1		グルゲスよ、潮を聴け	ja
+wizardreal:gurges.chant.ja.1:1	wizardreal:gurges	-1		声に呼び覚まれし深淵	ja
+wizardreal:gurges.chant.ja.1:2	wizardreal:gurges	-1		霧は名を憶える	ja
+wizardreal:gurges.chant.ja.1:3	wizardreal:gurges	-1		集え、縛られぬ潮	ja
+wizardreal:gurges.chant.ja.1:4	wizardreal:gurges	-1	gɯ ɾɯ gɛ sɯ	グルゲス	ja
+wizardreal:ignis	wizardreal:ignis	-1	ˈɪɡnɪs;ˈɪɡnɪs;ˈɪɡnɪs;faɪɚ;fleɪm;faɪɚbɔːl;eɡnes;χuotɕhiouɜ;xuotɕhiouɜ;liɛjɛntan	ignis;fireball;火球;烈焰弹;イグニス;ファイアボール	en;zh;ja
+wizardreal:ignis.chant.en.0:0	wizardreal:ignis	-1		ignis, ember of the old tongue	en
+wizardreal:ignis.chant.en.0:1	wizardreal:ignis	-1		let the ember answer	en
+wizardreal:ignis.chant.en.0:2	wizardreal:ignis	-1		weave ash into my words	en
+wizardreal:ignis.chant.en.0:3	wizardreal:ignis	-1		bind the pyre to my will	en
+wizardreal:ignis.chant.en.0:4	wizardreal:ignis	-1		by the first ember, i swear	en
+wizardreal:ignis.chant.en.0:5	wizardreal:ignis	-1		none shall quiet the ash	en
+wizardreal:ignis.chant.en.0:6	wizardreal:ignis	-1	ˈɪɡnɪs	ignis	en
+wizardreal:ignis.chant.en.1:0	wizardreal:ignis	-1		ignis, ember of the old tongue	en
+wizardreal:ignis.chant.en.1:1	wizardreal:ignis	-1		ash wakes beneath my voice	en
+wizardreal:ignis.chant.en.1:2	wizardreal:ignis	-1		the pyre remembers my name	en
+wizardreal:ignis.chant.en.1:3	wizardreal:ignis	-1		gather, o ember unbound	en
+wizardreal:ignis.chant.en.1:4	wizardreal:ignis	-1		the cinder leans close to listen	en
+wizardreal:ignis.chant.en.1:5	wizardreal:ignis	-1		so it is written in ash	en
+wizardreal:ignis.chant.en.1:6	wizardreal:ignis	-1	ˈɪɡnɪs	ignis	en
+wizardreal:ignis.chant.zh.0:0	wizardreal:ignis	-1	xwɔ tɕʰjoʊ ʈʂʰu ɕjɛn ʈʂʰɨ jɛn weɪ ʈʂəŋ	火球初现，赤炎为证	zh
+wizardreal:ignis.chant.zh.0:1	wizardreal:ignis	-1	i ʈʂʰɨ jɛn ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以赤炎之名应召	zh
+wizardreal:ignis.chant.zh.0:2	wizardreal:ignis	-1	ʈʂɨ xweɪ tɕin ʐu wɔ jɛn	织灰烬入我言	zh
+wizardreal:ignis.chant.zh.0:3	wizardreal:ignis	-1	fu ljɛ jɛn y wɔ i	缚烈焰于我意	zh
+wizardreal:ignis.chant.zh.0:4	wizardreal:ignis	-1	ʈʂʰu xwɔ ʈʂʰɨ jɛn weɪ ʂɨ	初火赤炎为誓	zh
+wizardreal:ignis.chant.zh.0:5	wizardreal:ignis	-1	xweɪ tɕin pu ʈʂɨ ɕi	灰烬不止息	zh
+wizardreal:ignis.chant.zh.0:6	wizardreal:ignis	-1	ˈɪɡnɪs	火球	zh
+wizardreal:ignis.chant.zh.1:0	wizardreal:ignis	-1	xwɔ tɕʰjoʊ ʈʂʰu ɕjɛn ʈʂʰɨ jɛn weɪ ʈʂəŋ	火球初现，赤炎为证	zh
+wizardreal:ignis.chant.zh.1:1	wizardreal:ignis	-1	xweɪ tɕin sweɪ u ʂəŋ ɚ ɕɪŋ	灰烬随吾声而醒	zh
+wizardreal:ignis.chant.zh.1:2	wizardreal:ignis	-1	ljɛ jɛn ʂɨ tɤ u mɪŋ	烈焰识得吾名	zh
+wizardreal:ignis.chant.zh.1:3	wizardreal:ignis	-1	laɪ ɕi u tɕi ʈʂɨ ʈʂʰɨ jɛn	来兮，无羁之赤炎	zh
+wizardreal:ignis.chant.zh.1:4	wizardreal:ignis	-1	ʐʊŋ xwɔ tsʰɤ ɚ lɪŋ tʰɪŋ	熔火侧耳聆听	zh
+wizardreal:ignis.chant.zh.1:5	wizardreal:ignis	-1	xweɪ tɕin swɔ ʂu pi ʈʂʰəŋ	灰烬所书必成	zh
+wizardreal:ignis.chant.zh.1:6	wizardreal:ignis	-1	ˈɪɡnɪs	火球	zh
+wizardreal:ignis.chant.ja.0:0	wizardreal:ignis	-1		イグニスよ、紅蓮とともに	ja
+wizardreal:ignis.chant.ja.0:1	wizardreal:ignis	-1		紅蓮よ応えよ	ja
+wizardreal:ignis.chant.ja.0:2	wizardreal:ignis	-1		我が詞に灰を織れ	ja
+wizardreal:ignis.chant.ja.0:3	wizardreal:ignis	-1		焔を我が意に縛れ	ja
+wizardreal:ignis.chant.ja.0:4	wizardreal:ignis	-1		原初の紅蓮に誓う	ja
+wizardreal:ignis.chant.ja.0:5	wizardreal:ignis	-1		灰を止められぬ	ja
+wizardreal:ignis.chant.ja.0:6	wizardreal:ignis	-1	ˈɪɡnɪs	イグニス	ja
+wizardreal:ignis.chant.ja.1:0	wizardreal:ignis	-1		イグニスよ、紅蓮とともに	ja
+wizardreal:ignis.chant.ja.1:1	wizardreal:ignis	-1		声に呼び覚まれし灰	ja
+wizardreal:ignis.chant.ja.1:2	wizardreal:ignis	-1		焔は名を憶える	ja
+wizardreal:ignis.chant.ja.1:3	wizardreal:ignis	-1		集え、縛られぬ紅蓮	ja
+wizardreal:ignis.chant.ja.1:4	wizardreal:ignis	-1		熔火は耳を傾ける	ja
+wizardreal:ignis.chant.ja.1:5	wizardreal:ignis	-1		然り、灰に記されし	ja
+wizardreal:ignis.chant.ja.1:6	wizardreal:ignis	-1	ˈɪɡnɪs	イグニス	ja
+wizardreal:incendo	wizardreal:incendo	-1	jɛn xwɔ lɪŋ y;ʈʂwɔ ʂaʊ;i n tɕɛ n do	incendo;ember field;烟火领域;灼烧;インチェンド;火の領域	en;zh;ja
+wizardreal:incendo.chant.en.0:0	wizardreal:incendo	-1		incendo, hear the pyre	en
+wizardreal:incendo.chant.en.0:1	wizardreal:incendo	-1		let the ember answer	en
+wizardreal:incendo.chant.en.0:2	wizardreal:incendo	-1		weave ash into my words	en
+wizardreal:incendo.chant.en.0:3	wizardreal:incendo	-1		bind the pyre to my will	en
+wizardreal:incendo.chant.en.0:4	wizardreal:incendo	-1		incendo	en
+wizardreal:incendo.chant.en.1:0	wizardreal:incendo	-1		incendo, hear the pyre	en
+wizardreal:incendo.chant.en.1:1	wizardreal:incendo	-1		ash wakes beneath my voice	en
+wizardreal:incendo.chant.en.1:2	wizardreal:incendo	-1		the pyre remembers my name	en
+wizardreal:incendo.chant.en.1:3	wizardreal:incendo	-1		gather, o ember unbound	en
+wizardreal:incendo.chant.en.1:4	wizardreal:incendo	-1		incendo	en
+wizardreal:incendo.chant.zh.0:0	wizardreal:incendo	-1	jɛn xwɔ a ti tʰɪŋ ʈʂʰɨ jɛn	烟火啊，谛听赤炎	zh
+wizardreal:incendo.chant.zh.0:1	wizardreal:incendo	-1	i ʈʂʰɨ jɛn ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以赤炎之名应召	zh
+wizardreal:incendo.chant.zh.0:2	wizardreal:incendo	-1	ʈʂɨ xweɪ tɕin ʐu wɔ jɛn	织灰烬入我言	zh
+wizardreal:incendo.chant.zh.0:3	wizardreal:incendo	-1	fu ljɛ jɛn y wɔ i	缚烈焰于我意	zh
+wizardreal:incendo.chant.zh.0:4	wizardreal:incendo	-1	jɛn xwɔ lɪŋ y	烟火领域	zh
+wizardreal:incendo.chant.zh.1:0	wizardreal:incendo	-1	jɛn xwɔ a ti tʰɪŋ ʈʂʰɨ jɛn	烟火啊，谛听赤炎	zh
+wizardreal:incendo.chant.zh.1:1	wizardreal:incendo	-1	xweɪ tɕin sweɪ u ʂəŋ ɚ ɕɪŋ	灰烬随吾声而醒	zh
+wizardreal:incendo.chant.zh.1:2	wizardreal:incendo	-1	ljɛ jɛn ʂɨ tɤ u mɪŋ	烈焰识得吾名	zh
+wizardreal:incendo.chant.zh.1:3	wizardreal:incendo	-1	laɪ ɕi u tɕi ʈʂɨ ʈʂʰɨ jɛn	来兮，无羁之赤炎	zh
+wizardreal:incendo.chant.zh.1:4	wizardreal:incendo	-1	jɛn xwɔ lɪŋ y	烟火领域	zh
+wizardreal:incendo.chant.ja.0:0	wizardreal:incendo	-1		インチェンドよ、紅蓮を聴け	ja
+wizardreal:incendo.chant.ja.0:1	wizardreal:incendo	-1		紅蓮よ応えよ	ja
+wizardreal:incendo.chant.ja.0:2	wizardreal:incendo	-1		我が詞に灰を織れ	ja
+wizardreal:incendo.chant.ja.0:3	wizardreal:incendo	-1		焔を我が意に縛れ	ja
+wizardreal:incendo.chant.ja.0:4	wizardreal:incendo	-1	i n tɕɛ n do	インチェンド	ja
+wizardreal:incendo.chant.ja.1:0	wizardreal:incendo	-1		インチェンドよ、紅蓮を聴け	ja
+wizardreal:incendo.chant.ja.1:1	wizardreal:incendo	-1		声に呼び覚まれし灰	ja
+wizardreal:incendo.chant.ja.1:2	wizardreal:incendo	-1		焔は名を憶える	ja
+wizardreal:incendo.chant.ja.1:3	wizardreal:incendo	-1		集え、縛られぬ紅蓮	ja
+wizardreal:incendo.chant.ja.1:4	wizardreal:incendo	-1	i n tɕɛ n do	インチェンド	ja
+wizardreal:incursus	wizardreal:incursus	-1	xwɔ ɕɪŋ;i n kɯ ɾɯ sɯ sɯ	incursus;火行;インクルスス	en;zh;ja
+wizardreal:incursus.chant.en.0:0	wizardreal:incursus	-1		incursus, gale of the old tongue	en
+wizardreal:incursus.chant.en.0:1	wizardreal:incursus	-1		let the gale answer	en
+wizardreal:incursus.chant.en.0:2	wizardreal:incursus	-1		weave zephyr into my words	en
+wizardreal:incursus.chant.en.0:3	wizardreal:incursus	-1		bind the sky to my will	en
+wizardreal:incursus.chant.en.0:4	wizardreal:incursus	-1		incursus	en
+wizardreal:incursus.chant.en.1:0	wizardreal:incursus	-1		incursus, gale of the old tongue	en
+wizardreal:incursus.chant.en.1:1	wizardreal:incursus	-1		zephyr wakes beneath my voice	en
+wizardreal:incursus.chant.en.1:2	wizardreal:incursus	-1		the sky remembers my name	en
+wizardreal:incursus.chant.en.1:3	wizardreal:incursus	-1		gather, o gale unbound	en
+wizardreal:incursus.chant.en.1:4	wizardreal:incursus	-1		incursus	en
+wizardreal:incursus.chant.zh.0:0	wizardreal:incursus	-1	xwɔ ɕɪŋ ʈʂʰu ɕjɛn kɑŋ fəŋ weɪ ʈʂəŋ	火行初现，罡风为证	zh
+wizardreal:incursus.chant.zh.0:1	wizardreal:incursus	-1	tɕjɛ fɑŋ kwɑŋ fəŋ	以罡风之名应召	zh
+wizardreal:incursus.chant.zh.0:2	wizardreal:incursus	-1	kwɑŋ fəŋ	织清风入我言	zh
+wizardreal:incursus.chant.zh.0:3	wizardreal:incursus	-1	fu ʈʂɑŋ kʰʊŋ y wɔ i	缚长空于我意	zh
+wizardreal:incursus.chant.zh.0:4	wizardreal:incursus	-1	xwɔ ɕɪŋ	火行	zh
+wizardreal:incursus.chant.zh.1:0	wizardreal:incursus	-1	xwɔ ɕɪŋ ʈʂʰu ɕjɛn kɑŋ fəŋ weɪ ʈʂəŋ	火行初现，罡风为证	zh
+wizardreal:incursus.chant.zh.1:1	wizardreal:incursus	-1	tɕʰɪŋ fəŋ sweɪ u ʂəŋ ɚ ɕɪŋ	清风随吾声而醒	zh
+wizardreal:incursus.chant.zh.1:2	wizardreal:incursus	-1	ʈʂɑŋ kʰʊŋ ʂɨ tɤ u mɪŋ	长空识得吾名	zh
+wizardreal:incursus.chant.zh.1:3	wizardreal:incursus	-1	laɪ ɕi u tɕi ʈʂɨ kɑŋ fəŋ	来兮，无羁之罡风	zh
+wizardreal:incursus.chant.zh.1:4	wizardreal:incursus	-1	xwɔ ɕɪŋ	火行	zh
+wizardreal:incursus.chant.ja.0:0	wizardreal:incursus	-1		インクルススよ、疾風とともに	ja
+wizardreal:incursus.chant.ja.0:1	wizardreal:incursus	-1		疾風よ応えよ	ja
+wizardreal:incursus.chant.ja.0:2	wizardreal:incursus	-1		我が詞に微風を織れ	ja
+wizardreal:incursus.chant.ja.0:3	wizardreal:incursus	-1		空を我が意に縛れ	ja
+wizardreal:incursus.chant.ja.0:4	wizardreal:incursus	-1	i n kɯ ɾɯ sɯ sɯ	インクルスス	ja
+wizardreal:incursus.chant.ja.1:0	wizardreal:incursus	-1		インクルススよ、疾風とともに	ja
+wizardreal:incursus.chant.ja.1:1	wizardreal:incursus	-1		声に呼び覚まれし微風	ja
+wizardreal:incursus.chant.ja.1:2	wizardreal:incursus	-1		空は名を憶える	ja
+wizardreal:incursus.chant.ja.1:3	wizardreal:incursus	-1		集え、縛られぬ疾風	ja
+wizardreal:incursus.chant.ja.1:4	wizardreal:incursus	-1	i n kɯ ɾɯ sɯ sɯ	インクルスス	ja
+wizardreal:judicium	wizardreal:judicium	-1	ʂən pʰan;tʰjɛn fa lɪŋ y;ju di ki ɯ mɯ	judicium;judgment;审判;天罚领域;ユディキウム;裁き	en;zh;ja
+wizardreal:judicium.chant.en.0:0	wizardreal:judicium	-1		judicium, hear the halo	en
+wizardreal:judicium.chant.en.0:1	wizardreal:judicium	-1		let the light answer	en
+wizardreal:judicium.chant.en.0:2	wizardreal:judicium	-1		weave hymn into my words	en
+wizardreal:judicium.chant.en.0:3	wizardreal:judicium	-1		bind the halo to my will	en
+wizardreal:judicium.chant.en.0:4	wizardreal:judicium	-1		judicium	en
+wizardreal:judicium.chant.en.1:0	wizardreal:judicium	-1		judicium, hear the halo	en
+wizardreal:judicium.chant.en.1:1	wizardreal:judicium	-1		hymn wakes beneath my voice	en
+wizardreal:judicium.chant.en.1:2	wizardreal:judicium	-1		the halo remembers my name	en
+wizardreal:judicium.chant.en.1:3	wizardreal:judicium	-1		gather, o light unbound	en
+wizardreal:judicium.chant.en.1:4	wizardreal:judicium	-1		judicium	en
+wizardreal:judicium.chant.zh.0:0	wizardreal:judicium	-1	ʂən pʰan a ti tʰɪŋ ʂəŋ kwɑŋ	审判啊，谛听圣光	zh
+wizardreal:judicium.chant.zh.0:1	wizardreal:judicium	-1	i ʂəŋ kwɑŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以圣光之名应召	zh
+wizardreal:judicium.chant.zh.0:2	wizardreal:judicium	-1	ʈʂɨ ʂəŋ jʊŋ ʐu wɔ jɛn	织圣咏入我言	zh
+wizardreal:judicium.chant.zh.0:3	wizardreal:judicium	-1	fu xweɪ xwan y wɔ i	缚辉环于我意	zh
+wizardreal:judicium.chant.zh.0:4	wizardreal:judicium	-1	ʂən pʰan	审判	zh
+wizardreal:judicium.chant.zh.1:0	wizardreal:judicium	-1	ʂən pʰan a ti tʰɪŋ ʂəŋ kwɑŋ	审判啊，谛听圣光	zh
+wizardreal:judicium.chant.zh.1:1	wizardreal:judicium	-1	ʂəŋ jʊŋ sweɪ u ʂəŋ ɚ ɕɪŋ	圣咏随吾声而醒	zh
+wizardreal:judicium.chant.zh.1:2	wizardreal:judicium	-1	xweɪ xwan ʂɨ tɤ u mɪŋ	辉环识得吾名	zh
+wizardreal:judicium.chant.zh.1:3	wizardreal:judicium	-1	laɪ ɕi u tɕi ʈʂɨ ʂəŋ kwɑŋ	来兮，无羁之圣光	zh
+wizardreal:judicium.chant.zh.1:4	wizardreal:judicium	-1	ʂən pʰan	审判	zh
+wizardreal:judicium.chant.ja.0:0	wizardreal:judicium	-1		ユディキウムよ、光を聴け	ja
+wizardreal:judicium.chant.ja.0:1	wizardreal:judicium	-1		光よ応えよ	ja
+wizardreal:judicium.chant.ja.0:2	wizardreal:judicium	-1		我が詞に聖歌を織れ	ja
+wizardreal:judicium.chant.ja.0:3	wizardreal:judicium	-1		光輪を我が意に縛れ	ja
+wizardreal:judicium.chant.ja.0:4	wizardreal:judicium	-1	ju di ki ɯ mɯ	ユディキウム	ja
+wizardreal:judicium.chant.ja.1:0	wizardreal:judicium	-1		ユディキウムよ、光を聴け	ja
+wizardreal:judicium.chant.ja.1:1	wizardreal:judicium	-1		声に呼び覚まれし聖歌	ja
+wizardreal:judicium.chant.ja.1:2	wizardreal:judicium	-1		光輪は名を憶える	ja
+wizardreal:judicium.chant.ja.1:3	wizardreal:judicium	-1		集え、縛られぬ光	ja
+wizardreal:judicium.chant.ja.1:4	wizardreal:judicium	-1	ju di ki ɯ mɯ	ユディキウム	ja
+wizardreal:lapides	wizardreal:lapides	-1	lwɔ ʂɨ;lwɔ ʂɨ ʈʂweɪ;ɾa pi dɛ sɯ	lapides;rock shower;落石;落石锥;ラピデス;落石のブレス	en;zh;ja
+wizardreal:lapides.chant.en.0:0	wizardreal:lapides	-1		by bedrock, lapides awakens	en
+wizardreal:lapides.chant.en.0:1	wizardreal:lapides	-1		let the stone answer	en
+wizardreal:lapides.chant.en.0:2	wizardreal:lapides	-1		weave bedrock into my words	en
+wizardreal:lapides.chant.en.0:3	wizardreal:lapides	-1		bind the mountain to my will	en
+wizardreal:lapides.chant.en.0:4	wizardreal:lapides	-1		lapides	en
+wizardreal:lapides.chant.en.1:0	wizardreal:lapides	-1		by bedrock, lapides awakens	en
+wizardreal:lapides.chant.en.1:1	wizardreal:lapides	-1		bedrock wakes beneath my voice	en
+wizardreal:lapides.chant.en.1:2	wizardreal:lapides	-1		the mountain remembers my name	en
+wizardreal:lapides.chant.en.1:3	wizardreal:lapides	-1		gather, o stone unbound	en
+wizardreal:lapides.chant.en.1:4	wizardreal:lapides	-1		lapides	en
+wizardreal:lapides.chant.zh.0:0	wizardreal:lapides	-1	i pʰan ʂɨ weɪ in lwɔ ʂɨ su ɕɪŋ	以磐石为引，落石苏醒	zh
+wizardreal:lapides.chant.zh.0:1	wizardreal:lapides	-1	i pʰan ʂɨ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以磐石之名应召	zh
+wizardreal:lapides.chant.zh.0:2	wizardreal:lapides	-1	ʈʂɨ ta ti ʐu wɔ jɛn	织大地入我言	zh
+wizardreal:lapides.chant.zh.0:3	wizardreal:lapides	-1	fu ʂan ɥɛ y wɔ i	缚山岳于我意	zh
+wizardreal:lapides.chant.zh.0:4	wizardreal:lapides	-1	lwɔ ʂɨ	落石	zh
+wizardreal:lapides.chant.zh.1:0	wizardreal:lapides	-1	i pʰan ʂɨ weɪ in lwɔ ʂɨ su ɕɪŋ	以磐石为引，落石苏醒	zh
+wizardreal:lapides.chant.zh.1:1	wizardreal:lapides	-1	ta ti sweɪ u ʂəŋ ɚ ɕɪŋ	大地随吾声而醒	zh
+wizardreal:lapides.chant.zh.1:2	wizardreal:lapides	-1	ʂan ɥɛ ʂɨ tɤ u mɪŋ	山岳识得吾名	zh
+wizardreal:lapides.chant.zh.1:3	wizardreal:lapides	-1	laɪ ɕi u tɕi ʈʂɨ pʰan ʂɨ	来兮，无羁之磐石	zh
+wizardreal:lapides.chant.zh.1:4	wizardreal:lapides	-1	lwɔ ʂɨ	落石	zh
+wizardreal:lapides.chant.ja.0:0	wizardreal:lapides	-1		岩に導かれ、ラピデス顕現せり	ja
+wizardreal:lapides.chant.ja.0:1	wizardreal:lapides	-1		岩よ応えよ	ja
+wizardreal:lapides.chant.ja.0:2	wizardreal:lapides	-1		我が詞に大地を織れ	ja
+wizardreal:lapides.chant.ja.0:3	wizardreal:lapides	-1		山を我が意に縛れ	ja
+wizardreal:lapides.chant.ja.0:4	wizardreal:lapides	-1	ɾa pi dɛ sɯ	ラピデス	ja
+wizardreal:lapides.chant.ja.1:0	wizardreal:lapides	-1		岩に導かれ、ラピデス顕現せり	ja
+wizardreal:lapides.chant.ja.1:1	wizardreal:lapides	-1		声に呼び覚まれし大地	ja
+wizardreal:lapides.chant.ja.1:2	wizardreal:lapides	-1		山は名を憶える	ja
+wizardreal:lapides.chant.ja.1:3	wizardreal:lapides	-1		集え、縛られぬ岩	ja
+wizardreal:lapides.chant.ja.1:4	wizardreal:lapides	-1	ɾa pi dɛ sɯ	ラピデス	ja
+wizardreal:letum	wizardreal:letum	-1	tjaʊ lɪŋ lɪŋ y;tjaʊ lɪŋ;ɾɛ tɯ mɯ	letum;wither field;凋零领域;凋零;レトゥム;萎れの域	en;zh;ja
+wizardreal:letum.chant.en.0:0	wizardreal:letum	-1		letum, hear the bone	en
+wizardreal:letum.chant.en.0:1	wizardreal:letum	-1		let the grave answer	en
+wizardreal:letum.chant.en.0:2	wizardreal:letum	-1		weave wraith into my words	en
+wizardreal:letum.chant.en.0:3	wizardreal:letum	-1		bind the bone to my will	en
+wizardreal:letum.chant.en.0:4	wizardreal:letum	-1		letum	en
+wizardreal:letum.chant.en.1:0	wizardreal:letum	-1		letum, hear the bone	en
+wizardreal:letum.chant.en.1:1	wizardreal:letum	-1		wraith wakes beneath my voice	en
+wizardreal:letum.chant.en.1:2	wizardreal:letum	-1		the bone remembers my name	en
+wizardreal:letum.chant.en.1:3	wizardreal:letum	-1		gather, o grave unbound	en
+wizardreal:letum.chant.en.1:4	wizardreal:letum	-1		letum	en
+wizardreal:letum.chant.zh.0:0	wizardreal:letum	-1	tjaʊ lɪŋ a ti tʰɪŋ joʊ ʈʂʊŋ	凋零啊，谛听幽冢	zh
+wizardreal:letum.chant.zh.0:1	wizardreal:letum	-1	i joʊ ʈʂʊŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以幽冢之名应召	zh
+wizardreal:letum.chant.zh.0:2	wizardreal:letum	-1	ʈʂɨ wɑŋ ɪŋ ʐu wɔ jɛn	织亡影入我言	zh
+wizardreal:letum.chant.zh.0:3	wizardreal:letum	-1	fu paɪ ku y wɔ i	缚白骨于我意	zh
+wizardreal:letum.chant.zh.0:4	wizardreal:letum	-1	tjaʊ lɪŋ lɪŋ y	凋零领域	zh
+wizardreal:letum.chant.zh.1:0	wizardreal:letum	-1	tjaʊ lɪŋ a ti tʰɪŋ joʊ ʈʂʊŋ	凋零啊，谛听幽冢	zh
+wizardreal:letum.chant.zh.1:1	wizardreal:letum	-1	wɑŋ ɪŋ sweɪ u ʂəŋ ɚ ɕɪŋ	亡影随吾声而醒	zh
+wizardreal:letum.chant.zh.1:2	wizardreal:letum	-1	paɪ ku ʂɨ tɤ u mɪŋ	白骨识得吾名	zh
+wizardreal:letum.chant.zh.1:3	wizardreal:letum	-1	laɪ ɕi u tɕi ʈʂɨ joʊ ʈʂʊŋ	来兮，无羁之幽冢	zh
+wizardreal:letum.chant.zh.1:4	wizardreal:letum	-1	tjaʊ lɪŋ lɪŋ y	凋零领域	zh
+wizardreal:letum.chant.ja.0:0	wizardreal:letum	-1		レトゥムよ、墓を聴け	ja
+wizardreal:letum.chant.ja.0:1	wizardreal:letum	-1		墓よ応えよ	ja
+wizardreal:letum.chant.ja.0:2	wizardreal:letum	-1		我が詞に亡霊を織れ	ja
+wizardreal:letum.chant.ja.0:3	wizardreal:letum	-1		骨を我が意に縛れ	ja
+wizardreal:letum.chant.ja.0:4	wizardreal:letum	-1	ɾɛ tɯ mɯ	レトゥム	ja
+wizardreal:letum.chant.ja.1:0	wizardreal:letum	-1		レトゥムよ、墓を聴け	ja
+wizardreal:letum.chant.ja.1:1	wizardreal:letum	-1		声に呼び覚まれし亡霊	ja
+wizardreal:letum.chant.ja.1:2	wizardreal:letum	-1		骨は名を憶える	ja
+wizardreal:letum.chant.ja.1:3	wizardreal:letum	-1		集え、縛られぬ墓	ja
+wizardreal:letum.chant.ja.1:4	wizardreal:letum	-1	ɾɛ tɯ mɯ	レトゥム	ja
+wizardreal:lithos	wizardreal:lithos	-1	ʂɨ fu;ɾi to sɯ	lithos;石肤;リトス	en;zh;ja
+wizardreal:lithos.chant.en.0:0	wizardreal:lithos	-1		let bedrock crown lithos	en
+wizardreal:lithos.chant.en.0:1	wizardreal:lithos	-1		let the stone answer	en
+wizardreal:lithos.chant.en.0:2	wizardreal:lithos	-1		weave bedrock into my words	en
+wizardreal:lithos.chant.en.0:3	wizardreal:lithos	-1		bind the mountain to my will	en
+wizardreal:lithos.chant.en.0:4	wizardreal:lithos	-1		lithos	en
+wizardreal:lithos.chant.en.1:0	wizardreal:lithos	-1		let bedrock crown lithos	en
+wizardreal:lithos.chant.en.1:1	wizardreal:lithos	-1		bedrock wakes beneath my voice	en
+wizardreal:lithos.chant.en.1:2	wizardreal:lithos	-1		the mountain remembers my name	en
+wizardreal:lithos.chant.en.1:3	wizardreal:lithos	-1		gather, o stone unbound	en
+wizardreal:lithos.chant.en.1:4	wizardreal:lithos	-1		lithos	en
+wizardreal:lithos.chant.zh.0:0	wizardreal:lithos	-1	i ta ti tɕja mjɛn ʂɨ fu	以大地加冕石肤	zh
+wizardreal:lithos.chant.zh.0:1	wizardreal:lithos	-1	i pʰan ʂɨ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以磐石之名应召	zh
+wizardreal:lithos.chant.zh.0:2	wizardreal:lithos	-1	ʈʂɨ ta ti ʐu wɔ jɛn	织大地入我言	zh
+wizardreal:lithos.chant.zh.0:3	wizardreal:lithos	-1	fu ʂan ɥɛ y wɔ i	缚山岳于我意	zh
+wizardreal:lithos.chant.zh.0:4	wizardreal:lithos	-1	ʂɨ fu	石肤	zh
+wizardreal:lithos.chant.zh.1:0	wizardreal:lithos	-1	i ta ti tɕja mjɛn ʂɨ fu	以大地加冕石肤	zh
+wizardreal:lithos.chant.zh.1:1	wizardreal:lithos	-1	ta ti sweɪ u ʂəŋ ɚ ɕɪŋ	大地随吾声而醒	zh
+wizardreal:lithos.chant.zh.1:2	wizardreal:lithos	-1	ʂan ɥɛ ʂɨ tɤ u mɪŋ	山岳识得吾名	zh
+wizardreal:lithos.chant.zh.1:3	wizardreal:lithos	-1	laɪ ɕi u tɕi ʈʂɨ pʰan ʂɨ	来兮，无羁之磐石	zh
+wizardreal:lithos.chant.zh.1:4	wizardreal:lithos	-1	ʂɨ fu	石肤	zh
+wizardreal:lithos.chant.ja.0:0	wizardreal:lithos	-1		岩をもってリトスを飾れ	ja
+wizardreal:lithos.chant.ja.0:1	wizardreal:lithos	-1		岩よ応えよ	ja
+wizardreal:lithos.chant.ja.0:2	wizardreal:lithos	-1		我が詞に大地を織れ	ja
+wizardreal:lithos.chant.ja.0:3	wizardreal:lithos	-1		山を我が意に縛れ	ja
+wizardreal:lithos.chant.ja.0:4	wizardreal:lithos	-1	ɾi to sɯ	リトス	ja
+wizardreal:lithos.chant.ja.1:0	wizardreal:lithos	-1		岩をもってリトスを飾れ	ja
+wizardreal:lithos.chant.ja.1:1	wizardreal:lithos	-1		声に呼び覚まれし大地	ja
+wizardreal:lithos.chant.ja.1:2	wizardreal:lithos	-1		山は名を憶える	ja
+wizardreal:lithos.chant.ja.1:3	wizardreal:lithos	-1		集え、縛られぬ岩	ja
+wizardreal:lithos.chant.ja.1:4	wizardreal:lithos	-1	ɾi to sɯ	リトス	ja
+wizardreal:lumen	wizardreal:lumen	-1	ʂəŋ kwɑŋ ʂu;ʂəŋ kwɑŋ;ɾɯː mɛ n	lumen;holy beam;圣光束;圣光;ルーメン;聖光のブレス	en;zh;ja
+wizardreal:lumen.chant.en.0:0	wizardreal:lumen	-1		by hymn, lumen awakens	en
+wizardreal:lumen.chant.en.0:1	wizardreal:lumen	-1		let the light answer	en
+wizardreal:lumen.chant.en.0:2	wizardreal:lumen	-1		weave hymn into my words	en
+wizardreal:lumen.chant.en.0:3	wizardreal:lumen	-1		bind the halo to my will	en
+wizardreal:lumen.chant.en.0:4	wizardreal:lumen	-1		lumen	en
+wizardreal:lumen.chant.en.1:0	wizardreal:lumen	-1		by hymn, lumen awakens	en
+wizardreal:lumen.chant.en.1:1	wizardreal:lumen	-1		hymn wakes beneath my voice	en
+wizardreal:lumen.chant.en.1:2	wizardreal:lumen	-1		the halo remembers my name	en
+wizardreal:lumen.chant.en.1:3	wizardreal:lumen	-1		gather, o light unbound	en
+wizardreal:lumen.chant.en.1:4	wizardreal:lumen	-1		lumen	en
+wizardreal:lumen.chant.zh.0:0	wizardreal:lumen	-1	i ʂəŋ kwɑŋ weɪ in ʂəŋ kwɑŋ ʂu su ɕɪŋ	以圣光为引，圣光束苏醒	zh
+wizardreal:lumen.chant.zh.0:1	wizardreal:lumen	-1	i ʂəŋ kwɑŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以圣光之名应召	zh
+wizardreal:lumen.chant.zh.0:2	wizardreal:lumen	-1	ʈʂɨ ʂəŋ jʊŋ ʐu wɔ jɛn	织圣咏入我言	zh
+wizardreal:lumen.chant.zh.0:3	wizardreal:lumen	-1	fu xweɪ xwan y wɔ i	缚辉环于我意	zh
+wizardreal:lumen.chant.zh.0:4	wizardreal:lumen	-1	ʂəŋ kwɑŋ ʂu	圣光束	zh
+wizardreal:lumen.chant.zh.1:0	wizardreal:lumen	-1	i ʂəŋ kwɑŋ weɪ in ʂəŋ kwɑŋ ʂu su ɕɪŋ	以圣光为引，圣光束苏醒	zh
+wizardreal:lumen.chant.zh.1:1	wizardreal:lumen	-1	ʂəŋ jʊŋ sweɪ u ʂəŋ ɚ ɕɪŋ	圣咏随吾声而醒	zh
+wizardreal:lumen.chant.zh.1:2	wizardreal:lumen	-1	xweɪ xwan ʂɨ tɤ u mɪŋ	辉环识得吾名	zh
+wizardreal:lumen.chant.zh.1:3	wizardreal:lumen	-1	laɪ ɕi u tɕi ʈʂɨ ʂəŋ kwɑŋ	来兮，无羁之圣光	zh
+wizardreal:lumen.chant.zh.1:4	wizardreal:lumen	-1	ʂəŋ kwɑŋ ʂu	圣光束	zh
+wizardreal:lumen.chant.ja.0:0	wizardreal:lumen	-1		光に導かれ、ルーメン顕現せり	ja
+wizardreal:lumen.chant.ja.0:1	wizardreal:lumen	-1		光よ応えよ	ja
+wizardreal:lumen.chant.ja.0:2	wizardreal:lumen	-1		我が詞に聖歌を織れ	ja
+wizardreal:lumen.chant.ja.0:3	wizardreal:lumen	-1		光輪を我が意に縛れ	ja
+wizardreal:lumen.chant.ja.0:4	wizardreal:lumen	-1	ɾɯː mɛ n	ルーメン	ja
+wizardreal:lumen.chant.ja.1:0	wizardreal:lumen	-1		光に導かれ、ルーメン顕現せり	ja
+wizardreal:lumen.chant.ja.1:1	wizardreal:lumen	-1		声に呼び覚まれし聖歌	ja
+wizardreal:lumen.chant.ja.1:2	wizardreal:lumen	-1		光輪は名を憶える	ja
+wizardreal:lumen.chant.ja.1:3	wizardreal:lumen	-1		集え、縛られぬ光	ja
+wizardreal:lumen.chant.ja.1:4	wizardreal:lumen	-1	ɾɯː mɛ n	ルーメン	ja
+wizardreal:lux	wizardreal:lux	-1	ʂəŋ xweɪ;ɾɯ kɯ sɯ	lux;圣辉;ルクス	en;zh;ja
+wizardreal:lux.chant.en.0:0	wizardreal:lux	-1		lux rises on light wings	en
+wizardreal:lux.chant.en.0:1	wizardreal:lux	-1		let the light answer	en
+wizardreal:lux.chant.en.0:2	wizardreal:lux	-1		weave hymn into my words	en
+wizardreal:lux.chant.en.0:3	wizardreal:lux	-1		bind the halo to my will	en
+wizardreal:lux.chant.en.0:4	wizardreal:lux	-1		lux	en
+wizardreal:lux.chant.en.1:0	wizardreal:lux	-1		lux rises on light wings	en
+wizardreal:lux.chant.en.1:1	wizardreal:lux	-1		hymn wakes beneath my voice	en
+wizardreal:lux.chant.en.1:2	wizardreal:lux	-1		the halo remembers my name	en
+wizardreal:lux.chant.en.1:3	wizardreal:lux	-1		gather, o light unbound	en
+wizardreal:lux.chant.en.1:4	wizardreal:lux	-1		lux	en
+wizardreal:lux.chant.zh.0:0	wizardreal:lux	-1	ʂəŋ xweɪ ʈʂʰəŋ ʂəŋ jʊŋ ɚ ʈʂɨ	圣辉乘圣咏而至	zh
+wizardreal:lux.chant.zh.0:1	wizardreal:lux	-1	i ʂəŋ kwɑŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以圣光之名应召	zh
+wizardreal:lux.chant.zh.0:2	wizardreal:lux	-1	ʈʂɨ ʂəŋ jʊŋ ʐu wɔ jɛn	织圣咏入我言	zh
+wizardreal:lux.chant.zh.0:3	wizardreal:lux	-1	fu xweɪ xwan y wɔ i	缚辉环于我意	zh
+wizardreal:lux.chant.zh.0:4	wizardreal:lux	-1	ʂəŋ xweɪ	圣辉	zh
+wizardreal:lux.chant.zh.1:0	wizardreal:lux	-1	ʂəŋ xweɪ ʈʂʰəŋ ʂəŋ jʊŋ ɚ ʈʂɨ	圣辉乘圣咏而至	zh
+wizardreal:lux.chant.zh.1:1	wizardreal:lux	-1	ʂəŋ jʊŋ sweɪ u ʂəŋ ɚ ɕɪŋ	圣咏随吾声而醒	zh
+wizardreal:lux.chant.zh.1:2	wizardreal:lux	-1	xweɪ xwan ʂɨ tɤ u mɪŋ	辉环识得吾名	zh
+wizardreal:lux.chant.zh.1:3	wizardreal:lux	-1	laɪ ɕi u tɕi ʈʂɨ ʂəŋ kwɑŋ	来兮，无羁之圣光	zh
+wizardreal:lux.chant.zh.1:4	wizardreal:lux	-1	ʂəŋ xweɪ	圣辉	zh
+wizardreal:lux.chant.ja.0:0	wizardreal:lux	-1		ルクスは光に乗て立つ	ja
+wizardreal:lux.chant.ja.0:1	wizardreal:lux	-1		光よ応えよ	ja
+wizardreal:lux.chant.ja.0:2	wizardreal:lux	-1		我が詞に聖歌を織れ	ja
+wizardreal:lux.chant.ja.0:3	wizardreal:lux	-1		光輪を我が意に縛れ	ja
+wizardreal:lux.chant.ja.0:4	wizardreal:lux	-1	ɾɯ kɯ sɯ	ルクス	ja
+wizardreal:lux.chant.ja.1:0	wizardreal:lux	-1		ルクスは光に乗て立つ	ja
+wizardreal:lux.chant.ja.1:1	wizardreal:lux	-1		声に呼び覚まれし聖歌	ja
+wizardreal:lux.chant.ja.1:2	wizardreal:lux	-1		光輪は名を憶える	ja
+wizardreal:lux.chant.ja.1:3	wizardreal:lux	-1		集え、縛られぬ光	ja
+wizardreal:lux.chant.ja.1:4	wizardreal:lux	-1	ɾɯ kɯ sɯ	ルクス	ja
+wizardreal:mare_gradus	wizardreal:mare_gradus	-1	ʈʂʰaʊ ɕɪŋ;maː ɾɛ gɯ ɾa dɯ sɯ	mare gradus;mare;gradus;潮行;マーレグラドゥス	en;zh;ja
+wizardreal:mare_gradus.chant.en.0:0	wizardreal:mare_gradus	-1		mare gradus, mist of the old tongue	en
+wizardreal:mare_gradus.chant.en.0:1	wizardreal:mare_gradus	-1		let the tide answer	en
+wizardreal:mare_gradus.chant.en.0:2	wizardreal:mare_gradus	-1		weave deep into my words	en
+wizardreal:mare_gradus.chant.en.0:3	wizardreal:mare_gradus	-1		bind the mist to my will	en
+wizardreal:mare_gradus.chant.en.0:4	wizardreal:mare_gradus	-1		mare gradus	en
+wizardreal:mare_gradus.chant.en.1:0	wizardreal:mare_gradus	-1		mare gradus, mist of the old tongue	en
+wizardreal:mare_gradus.chant.en.1:1	wizardreal:mare_gradus	-1		deep wakes beneath my voice	en
+wizardreal:mare_gradus.chant.en.1:2	wizardreal:mare_gradus	-1		the mist remembers my name	en
+wizardreal:mare_gradus.chant.en.1:3	wizardreal:mare_gradus	-1		gather, o tide unbound	en
+wizardreal:mare_gradus.chant.en.1:4	wizardreal:mare_gradus	-1		mare gradus	en
+wizardreal:mare_gradus.chant.zh.0:0	wizardreal:mare_gradus	-1	ʈʂʰaʊ ɕɪŋ ʈʂʰu ɕjɛn ʂən ɥɛn weɪ ʈʂəŋ	潮行初现，深渊为证	zh
+wizardreal:mare_gradus.chant.zh.0:1	wizardreal:mare_gradus	-1	i ʈʂʰaʊ ɕi ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以潮汐之名应召	zh
+wizardreal:mare_gradus.chant.zh.0:2	wizardreal:mare_gradus	-1	ʈʂɨ ʂən ɥɛn ʐu wɔ jɛn	织深渊入我言	zh
+wizardreal:mare_gradus.chant.zh.0:3	wizardreal:mare_gradus	-1	fu jɛn pwɔ y wɔ i	缚烟波于我意	zh
+wizardreal:mare_gradus.chant.zh.0:4	wizardreal:mare_gradus	-1	ʈʂʰaʊ ɕɪŋ	潮行	zh
+wizardreal:mare_gradus.chant.zh.1:0	wizardreal:mare_gradus	-1	ʈʂʰaʊ ɕɪŋ ʈʂʰu ɕjɛn ʂən ɥɛn weɪ ʈʂəŋ	潮行初现，深渊为证	zh
+wizardreal:mare_gradus.chant.zh.1:1	wizardreal:mare_gradus	-1	ʂən ɥɛn sweɪ u ʂəŋ ɚ ɕɪŋ	深渊随吾声而醒	zh
+wizardreal:mare_gradus.chant.zh.1:2	wizardreal:mare_gradus	-1	jɛn pwɔ ʂɨ tɤ u mɪŋ	烟波识得吾名	zh
+wizardreal:mare_gradus.chant.zh.1:3	wizardreal:mare_gradus	-1	laɪ ɕi u tɕi ʈʂɨ ʈʂʰaʊ ɕi	来兮，无羁之潮汐	zh
+wizardreal:mare_gradus.chant.zh.1:4	wizardreal:mare_gradus	-1	ʈʂʰaʊ ɕɪŋ	潮行	zh
+wizardreal:mare_gradus.chant.ja.0:0	wizardreal:mare_gradus	-1		マーレグラドゥスよ、潮とともに	ja
+wizardreal:mare_gradus.chant.ja.0:1	wizardreal:mare_gradus	-1		潮よ応えよ	ja
+wizardreal:mare_gradus.chant.ja.0:2	wizardreal:mare_gradus	-1		我が詞に深淵を織れ	ja
+wizardreal:mare_gradus.chant.ja.0:3	wizardreal:mare_gradus	-1		霧を我が意に縛れ	ja
+wizardreal:mare_gradus.chant.ja.0:4	wizardreal:mare_gradus	-1	maː ɾɛ gɯ ɾa dɯ sɯ	マーレグラドゥス	ja
+wizardreal:mare_gradus.chant.ja.1:0	wizardreal:mare_gradus	-1		マーレグラドゥスよ、潮とともに	ja
+wizardreal:mare_gradus.chant.ja.1:1	wizardreal:mare_gradus	-1		声に呼び覚まれし深淵	ja
+wizardreal:mare_gradus.chant.ja.1:2	wizardreal:mare_gradus	-1		霧は名を憶える	ja
+wizardreal:mare_gradus.chant.ja.1:3	wizardreal:mare_gradus	-1		集え、縛られぬ潮	ja
+wizardreal:mare_gradus.chant.ja.1:4	wizardreal:mare_gradus	-1	maː ɾɛ gɯ ɾa dɯ sɯ	マーレグラドゥス	ja
+wizardreal:mentis	wizardreal:mentis	-1	ɕin jɛn;mɛ n ti sɯ	mentis;心眼;メンティス	en;zh;ja
+wizardreal:mentis.chant.en.0:0	wizardreal:mentis	-1		mentis, mirror of the old tongue	en
+wizardreal:mentis.chant.en.0:1	wizardreal:mentis	-1		let the shade answer	en
+wizardreal:mentis.chant.en.0:2	wizardreal:mentis	-1		weave veil into my words	en
+wizardreal:mentis.chant.en.0:3	wizardreal:mentis	-1		bind the mirror to my will	en
+wizardreal:mentis.chant.en.0:4	wizardreal:mentis	-1		mentis	en
+wizardreal:mentis.chant.en.1:0	wizardreal:mentis	-1		mentis, mirror of the old tongue	en
+wizardreal:mentis.chant.en.1:1	wizardreal:mentis	-1		veil wakes beneath my voice	en
+wizardreal:mentis.chant.en.1:2	wizardreal:mentis	-1		the mirror remembers my name	en
+wizardreal:mentis.chant.en.1:3	wizardreal:mentis	-1		gather, o shade unbound	en
+wizardreal:mentis.chant.en.1:4	wizardreal:mentis	-1		mentis	en
+wizardreal:mentis.chant.zh.0:0	wizardreal:mentis	-1	ɕin jɛn ʈʂʰu ɕjɛn weɪ mu weɪ ʈʂəŋ	心眼初现，帷幕为证	zh
+wizardreal:mentis.chant.zh.0:1	wizardreal:mentis	-1	i xwan ɪŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以幻影之名应召	zh
+wizardreal:mentis.chant.zh.0:2	wizardreal:mentis	-1	ʈʂɨ weɪ mu ʐu wɔ jɛn	织帷幕入我言	zh
+wizardreal:mentis.chant.zh.0:3	wizardreal:mentis	-1	fu tɕɪŋ tɕjɛ y wɔ i	缚镜界于我意	zh
+wizardreal:mentis.chant.zh.0:4	wizardreal:mentis	-1	ɕin jɛn	心眼	zh
+wizardreal:mentis.chant.zh.1:0	wizardreal:mentis	-1	ɕin jɛn ʈʂʰu ɕjɛn weɪ mu weɪ ʈʂəŋ	心眼初现，帷幕为证	zh
+wizardreal:mentis.chant.zh.1:1	wizardreal:mentis	-1	weɪ mu sweɪ u ʂəŋ ɚ ɕɪŋ	帷幕随吾声而醒	zh
+wizardreal:mentis.chant.zh.1:2	wizardreal:mentis	-1	tɕɪŋ tɕjɛ ʂɨ tɤ u mɪŋ	镜界识得吾名	zh
+wizardreal:mentis.chant.zh.1:3	wizardreal:mentis	-1	laɪ ɕi u tɕi ʈʂɨ xwan ɪŋ	来兮，无羁之幻影	zh
+wizardreal:mentis.chant.zh.1:4	wizardreal:mentis	-1	ɕin jɛn	心眼	zh
+wizardreal:mentis.chant.ja.0:0	wizardreal:mentis	-1		メンティスよ、幻とともに	ja
+wizardreal:mentis.chant.ja.0:1	wizardreal:mentis	-1		幻よ応えよ	ja
+wizardreal:mentis.chant.ja.0:2	wizardreal:mentis	-1		我が詞に帷を織れ	ja
+wizardreal:mentis.chant.ja.0:3	wizardreal:mentis	-1		鏡を我が意に縛れ	ja
+wizardreal:mentis.chant.ja.0:4	wizardreal:mentis	-1	mɛ n ti sɯ	メンティス	ja
+wizardreal:mentis.chant.ja.1:0	wizardreal:mentis	-1		メンティスよ、幻とともに	ja
+wizardreal:mentis.chant.ja.1:1	wizardreal:mentis	-1		声に呼び覚まれし帷	ja
+wizardreal:mentis.chant.ja.1:2	wizardreal:mentis	-1		鏡は名を憶える	ja
+wizardreal:mentis.chant.ja.1:3	wizardreal:mentis	-1		集え、縛られぬ幻	ja
+wizardreal:mentis.chant.ja.1:4	wizardreal:mentis	-1	mɛ n ti sɯ	メンティス	ja
+wizardreal:metus	wizardreal:metus	-1	kʰʊŋ tɕy;kʰʊŋ pu kʰwɔ san;mɛ tɯ sɯ	metus;terror;恐惧;恐怖扩散;メトゥス;恐怖	en;zh;ja
+wizardreal:metus.chant.en.0:0	wizardreal:metus	-1		metus, hear the nexus	en
+wizardreal:metus.chant.en.0:1	wizardreal:metus	-1		let the sigil answer	en
+wizardreal:metus.chant.en.0:2	wizardreal:metus	-1		weave aether into my words	en
+wizardreal:metus.chant.en.0:3	wizardreal:metus	-1		bind the nexus to my will	en
+wizardreal:metus.chant.en.0:4	wizardreal:metus	-1		metus	en
+wizardreal:metus.chant.en.1:0	wizardreal:metus	-1		metus, hear the nexus	en
+wizardreal:metus.chant.en.1:1	wizardreal:metus	-1		aether wakes beneath my voice	en
+wizardreal:metus.chant.en.1:2	wizardreal:metus	-1		the nexus remembers my name	en
+wizardreal:metus.chant.en.1:3	wizardreal:metus	-1		gather, o sigil unbound	en
+wizardreal:metus.chant.en.1:4	wizardreal:metus	-1		metus	en
+wizardreal:metus.chant.zh.0:0	wizardreal:metus	-1	kʰʊŋ tɕy a ti tʰɪŋ mi in	恐惧啊，谛听秘印	zh
+wizardreal:metus.chant.zh.0:1	wizardreal:metus	-1	i mi in ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以秘印之名应召	zh
+wizardreal:metus.chant.zh.0:2	wizardreal:metus	-1	ʈʂɨ i tʰaɪ ʐu wɔ jɛn	织以太入我言	zh
+wizardreal:metus.chant.zh.0:3	wizardreal:metus	-1	fu ʂu njoʊ y wɔ i	缚枢纽于我意	zh
+wizardreal:metus.chant.zh.0:4	wizardreal:metus	-1	kʰʊŋ tɕy	恐惧	zh
+wizardreal:metus.chant.zh.1:0	wizardreal:metus	-1	kʰʊŋ tɕy a ti tʰɪŋ mi in	恐惧啊，谛听秘印	zh
+wizardreal:metus.chant.zh.1:1	wizardreal:metus	-1	i tʰaɪ sweɪ u ʂəŋ ɚ ɕɪŋ	以太随吾声而醒	zh
+wizardreal:metus.chant.zh.1:2	wizardreal:metus	-1	ʂu njoʊ ʂɨ tɤ u mɪŋ	枢纽识得吾名	zh
+wizardreal:metus.chant.zh.1:3	wizardreal:metus	-1	laɪ ɕi u tɕi ʈʂɨ mi in	来兮，无羁之秘印	zh
+wizardreal:metus.chant.zh.1:4	wizardreal:metus	-1	kʰʊŋ tɕy	恐惧	zh
+wizardreal:metus.chant.ja.0:0	wizardreal:metus	-1		メトゥスよ、印を聴け	ja
+wizardreal:metus.chant.ja.0:1	wizardreal:metus	-1		印よ応えよ	ja
+wizardreal:metus.chant.ja.0:2	wizardreal:metus	-1		我が詞に以太を織れ	ja
+wizardreal:metus.chant.ja.0:3	wizardreal:metus	-1		環を我が意に縛れ	ja
+wizardreal:metus.chant.ja.0:4	wizardreal:metus	-1	mɛ tɯ sɯ	メトゥス	ja
+wizardreal:metus.chant.ja.1:0	wizardreal:metus	-1		メトゥスよ、印を聴け	ja
+wizardreal:metus.chant.ja.1:1	wizardreal:metus	-1		声に呼び覚まれし以太	ja
+wizardreal:metus.chant.ja.1:2	wizardreal:metus	-1		環は名を憶える	ja
+wizardreal:metus.chant.ja.1:3	wizardreal:metus	-1		集え、縛られぬ印	ja
+wizardreal:metus.chant.ja.1:4	wizardreal:metus	-1	mɛ tɯ sɯ	メトゥス	ja
+wizardreal:murus	wizardreal:murus	-1	ʂɨ tɕʰjɑŋ;ta ti pi leɪ;mɯ ɾɯ sɯ	murus;stone wall;石墙;大地壁垒;ムルス;石の壁	en;zh;ja
+wizardreal:murus.chant.en.0:0	wizardreal:murus	-1		o clay, lend murus thy breath	en
+wizardreal:murus.chant.en.0:1	wizardreal:murus	-1		let the stone answer	en
+wizardreal:murus.chant.en.0:2	wizardreal:murus	-1		weave bedrock into my words	en
+wizardreal:murus.chant.en.0:3	wizardreal:murus	-1		bind the mountain to my will	en
+wizardreal:murus.chant.en.0:4	wizardreal:murus	-1		murus	en
+wizardreal:murus.chant.en.1:0	wizardreal:murus	-1		o clay, lend murus thy breath	en
+wizardreal:murus.chant.en.1:1	wizardreal:murus	-1		bedrock wakes beneath my voice	en
+wizardreal:murus.chant.en.1:2	wizardreal:murus	-1		the mountain remembers my name	en
+wizardreal:murus.chant.en.1:3	wizardreal:murus	-1		gather, o stone unbound	en
+wizardreal:murus.chant.en.1:4	wizardreal:murus	-1		murus	en
+wizardreal:murus.chant.zh.0:0	wizardreal:murus	-1	pʰan ʂɨ a tɕjɛ ʂɨ tɕʰjɑŋ i ɕi	磐石啊，借石墙以息	zh
+wizardreal:murus.chant.zh.0:1	wizardreal:murus	-1	i pʰan ʂɨ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以磐石之名应召	zh
+wizardreal:murus.chant.zh.0:2	wizardreal:murus	-1	ʈʂɨ ta ti ʐu wɔ jɛn	织大地入我言	zh
+wizardreal:murus.chant.zh.0:3	wizardreal:murus	-1	fu ʂan ɥɛ y wɔ i	缚山岳于我意	zh
+wizardreal:murus.chant.zh.0:4	wizardreal:murus	-1	ʂɨ tɕʰjɑŋ	石墙	zh
+wizardreal:murus.chant.zh.1:0	wizardreal:murus	-1	pʰan ʂɨ a tɕjɛ ʂɨ tɕʰjɑŋ i ɕi	磐石啊，借石墙以息	zh
+wizardreal:murus.chant.zh.1:1	wizardreal:murus	-1	ta ti sweɪ u ʂəŋ ɚ ɕɪŋ	大地随吾声而醒	zh
+wizardreal:murus.chant.zh.1:2	wizardreal:murus	-1	ʂan ɥɛ ʂɨ tɤ u mɪŋ	山岳识得吾名	zh
+wizardreal:murus.chant.zh.1:3	wizardreal:murus	-1	laɪ ɕi u tɕi ʈʂɨ pʰan ʂɨ	来兮，无羁之磐石	zh
+wizardreal:murus.chant.zh.1:4	wizardreal:murus	-1	ʂɨ tɕʰjɑŋ	石墙	zh
+wizardreal:murus.chant.ja.0:0	wizardreal:murus	-1		岩よ、ムルスに息を貸せ	ja
+wizardreal:murus.chant.ja.0:1	wizardreal:murus	-1		岩よ応えよ	ja
+wizardreal:murus.chant.ja.0:2	wizardreal:murus	-1		我が詞に大地を織れ	ja
+wizardreal:murus.chant.ja.0:3	wizardreal:murus	-1		山を我が意に縛れ	ja
+wizardreal:murus.chant.ja.0:4	wizardreal:murus	-1	mɯ ɾɯ sɯ	ムルス	ja
+wizardreal:murus.chant.ja.1:0	wizardreal:murus	-1		岩よ、ムルスに息を貸せ	ja
+wizardreal:murus.chant.ja.1:1	wizardreal:murus	-1		声に呼び覚まれし大地	ja
+wizardreal:murus.chant.ja.1:2	wizardreal:murus	-1		山は名を憶える	ja
+wizardreal:murus.chant.ja.1:3	wizardreal:murus	-1		集え、縛られぬ岩	ja
+wizardreal:murus.chant.ja.1:4	wizardreal:murus	-1	mɯ ɾɯ sɯ	ムルス	ja
+wizardreal:mutatio	wizardreal:mutatio	-1	pjɛn ɕɪŋ;pjɛn tɕi ʂu;mɯ ta ti o	mutatio;transform;变形;变鸡术;ムタティオ;変身	en;zh;ja
+wizardreal:mutatio.chant.en.0:0	wizardreal:mutatio	-1		o rune, lend mutatio thy breath	en
+wizardreal:mutatio.chant.en.0:1	wizardreal:mutatio	-1		let the sigil answer	en
+wizardreal:mutatio.chant.en.0:2	wizardreal:mutatio	-1		weave aether into my words	en
+wizardreal:mutatio.chant.en.0:3	wizardreal:mutatio	-1		bind the nexus to my will	en
+wizardreal:mutatio.chant.en.0:4	wizardreal:mutatio	-1		mutatio	en
+wizardreal:mutatio.chant.en.1:0	wizardreal:mutatio	-1		o rune, lend mutatio thy breath	en
+wizardreal:mutatio.chant.en.1:1	wizardreal:mutatio	-1		aether wakes beneath my voice	en
+wizardreal:mutatio.chant.en.1:2	wizardreal:mutatio	-1		the nexus remembers my name	en
+wizardreal:mutatio.chant.en.1:3	wizardreal:mutatio	-1		gather, o sigil unbound	en
+wizardreal:mutatio.chant.en.1:4	wizardreal:mutatio	-1		mutatio	en
+wizardreal:mutatio.chant.zh.0:0	wizardreal:mutatio	-1	mi in a tɕjɛ pjɛn ɕɪŋ i ɕi	秘印啊，借变形以息	zh
+wizardreal:mutatio.chant.zh.0:1	wizardreal:mutatio	-1	i mi in ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以秘印之名应召	zh
+wizardreal:mutatio.chant.zh.0:2	wizardreal:mutatio	-1	ʈʂɨ i tʰaɪ ʐu wɔ jɛn	织以太入我言	zh
+wizardreal:mutatio.chant.zh.0:3	wizardreal:mutatio	-1	fu ʂu njoʊ y wɔ i	缚枢纽于我意	zh
+wizardreal:mutatio.chant.zh.0:4	wizardreal:mutatio	-1	pjɛn ɕɪŋ	变形	zh
+wizardreal:mutatio.chant.zh.1:0	wizardreal:mutatio	-1	mi in a tɕjɛ pjɛn ɕɪŋ i ɕi	秘印啊，借变形以息	zh
+wizardreal:mutatio.chant.zh.1:1	wizardreal:mutatio	-1	i tʰaɪ sweɪ u ʂəŋ ɚ ɕɪŋ	以太随吾声而醒	zh
+wizardreal:mutatio.chant.zh.1:2	wizardreal:mutatio	-1	ʂu njoʊ ʂɨ tɤ u mɪŋ	枢纽识得吾名	zh
+wizardreal:mutatio.chant.zh.1:3	wizardreal:mutatio	-1	laɪ ɕi u tɕi ʈʂɨ mi in	来兮，无羁之秘印	zh
+wizardreal:mutatio.chant.zh.1:4	wizardreal:mutatio	-1	pjɛn ɕɪŋ	变形	zh
+wizardreal:mutatio.chant.ja.0:0	wizardreal:mutatio	-1		印よ、ムタティオに息を貸せ	ja
+wizardreal:mutatio.chant.ja.0:1	wizardreal:mutatio	-1		印よ応えよ	ja
+wizardreal:mutatio.chant.ja.0:2	wizardreal:mutatio	-1		我が詞に以太を織れ	ja
+wizardreal:mutatio.chant.ja.0:3	wizardreal:mutatio	-1		環を我が意に縛れ	ja
+wizardreal:mutatio.chant.ja.0:4	wizardreal:mutatio	-1	mɯ ta ti o	ムタティオ	ja
+wizardreal:mutatio.chant.ja.1:0	wizardreal:mutatio	-1		印よ、ムタティオに息を貸せ	ja
+wizardreal:mutatio.chant.ja.1:1	wizardreal:mutatio	-1		声に呼び覚まれし以太	ja
+wizardreal:mutatio.chant.ja.1:2	wizardreal:mutatio	-1		環は名を憶える	ja
+wizardreal:mutatio.chant.ja.1:3	wizardreal:mutatio	-1		集え、縛られぬ印	ja
+wizardreal:mutatio.chant.ja.1:4	wizardreal:mutatio	-1	mɯ ta ti o	ムタティオ	ja
+wizardreal:nubes	wizardreal:nubes	-1	mi u ʈʂweɪ;u in;nɯ bɛ sɯ	nubes;mist cone;迷雾锥;雾隐;ヌベス;霧のブレス	en;zh;ja
+wizardreal:nubes.chant.en.0:0	wizardreal:nubes	-1		by veil, nubes awakens	en
+wizardreal:nubes.chant.en.0:1	wizardreal:nubes	-1		let the shade answer	en
+wizardreal:nubes.chant.en.0:2	wizardreal:nubes	-1		weave veil into my words	en
+wizardreal:nubes.chant.en.0:3	wizardreal:nubes	-1		bind the mirror to my will	en
+wizardreal:nubes.chant.en.0:4	wizardreal:nubes	-1		nubes	en
+wizardreal:nubes.chant.en.1:0	wizardreal:nubes	-1		by veil, nubes awakens	en
+wizardreal:nubes.chant.en.1:1	wizardreal:nubes	-1		veil wakes beneath my voice	en
+wizardreal:nubes.chant.en.1:2	wizardreal:nubes	-1		the mirror remembers my name	en
+wizardreal:nubes.chant.en.1:3	wizardreal:nubes	-1		gather, o shade unbound	en
+wizardreal:nubes.chant.en.1:4	wizardreal:nubes	-1		nubes	en
+wizardreal:nubes.chant.zh.0:0	wizardreal:nubes	-1	i xwan ɪŋ weɪ in mi u su ɕɪŋ	以幻影为引，迷雾苏醒	zh
+wizardreal:nubes.chant.zh.0:1	wizardreal:nubes	-1	i xwan ɪŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以幻影之名应召	zh
+wizardreal:nubes.chant.zh.0:2	wizardreal:nubes	-1	ʈʂɨ weɪ mu ʐu wɔ jɛn	织帷幕入我言	zh
+wizardreal:nubes.chant.zh.0:3	wizardreal:nubes	-1	fu tɕɪŋ tɕjɛ y wɔ i	缚镜界于我意	zh
+wizardreal:nubes.chant.zh.0:4	wizardreal:nubes	-1	mi u ʈʂweɪ	迷雾锥	zh
+wizardreal:nubes.chant.zh.1:0	wizardreal:nubes	-1	i xwan ɪŋ weɪ in mi u su ɕɪŋ	以幻影为引，迷雾苏醒	zh
+wizardreal:nubes.chant.zh.1:1	wizardreal:nubes	-1	weɪ mu sweɪ u ʂəŋ ɚ ɕɪŋ	帷幕随吾声而醒	zh
+wizardreal:nubes.chant.zh.1:2	wizardreal:nubes	-1	tɕɪŋ tɕjɛ ʂɨ tɤ u mɪŋ	镜界识得吾名	zh
+wizardreal:nubes.chant.zh.1:3	wizardreal:nubes	-1	laɪ ɕi u tɕi ʈʂɨ xwan ɪŋ	来兮，无羁之幻影	zh
+wizardreal:nubes.chant.zh.1:4	wizardreal:nubes	-1	mi u ʈʂweɪ	迷雾锥	zh
+wizardreal:nubes.chant.ja.0:0	wizardreal:nubes	-1		幻に導かれ、ヌベス顕現せり	ja
+wizardreal:nubes.chant.ja.0:1	wizardreal:nubes	-1		幻よ応えよ	ja
+wizardreal:nubes.chant.ja.0:2	wizardreal:nubes	-1		我が詞に帷を織れ	ja
+wizardreal:nubes.chant.ja.0:3	wizardreal:nubes	-1		鏡を我が意に縛れ	ja
+wizardreal:nubes.chant.ja.0:4	wizardreal:nubes	-1	nɯ bɛ sɯ	ヌベス	ja
+wizardreal:nubes.chant.ja.1:0	wizardreal:nubes	-1		幻に導かれ、ヌベス顕現せり	ja
+wizardreal:nubes.chant.ja.1:1	wizardreal:nubes	-1		声に呼び覚まれし帷	ja
+wizardreal:nubes.chant.ja.1:2	wizardreal:nubes	-1		鏡は名を憶える	ja
+wizardreal:nubes.chant.ja.1:3	wizardreal:nubes	-1		集え、縛られぬ幻	ja
+wizardreal:nubes.chant.ja.1:4	wizardreal:nubes	-1	nɯ bɛ sɯ	ヌベス	ja
+wizardreal:ossum	wizardreal:ossum	-1	ku maʊ;paɪ ku tan;o s sɯ mɯ;ho nɛ ja ɾi	ossum;bone spear;骨矛;白骨弹;オッスム;ほねやり	en;zh;ja
+wizardreal:ossum.chant.en.0:0	wizardreal:ossum	-1		ossum, grave of the old tongue	en
+wizardreal:ossum.chant.en.0:1	wizardreal:ossum	-1		let the grave answer	en
+wizardreal:ossum.chant.en.0:2	wizardreal:ossum	-1		weave wraith into my words	en
+wizardreal:ossum.chant.en.0:3	wizardreal:ossum	-1		bind the bone to my will	en
+wizardreal:ossum.chant.en.0:4	wizardreal:ossum	-1		ossum	en
+wizardreal:ossum.chant.en.1:0	wizardreal:ossum	-1		ossum, grave of the old tongue	en
+wizardreal:ossum.chant.en.1:1	wizardreal:ossum	-1		wraith wakes beneath my voice	en
+wizardreal:ossum.chant.en.1:2	wizardreal:ossum	-1		the bone remembers my name	en
+wizardreal:ossum.chant.en.1:3	wizardreal:ossum	-1		gather, o grave unbound	en
+wizardreal:ossum.chant.en.1:4	wizardreal:ossum	-1		ossum	en
+wizardreal:ossum.chant.zh.0:0	wizardreal:ossum	-1	ku maʊ ʈʂʰu ɕjɛn joʊ ʈʂʊŋ weɪ ʈʂəŋ	骨矛初现，幽冢为证	zh
+wizardreal:ossum.chant.zh.0:1	wizardreal:ossum	-1	i joʊ ʈʂʊŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以幽冢之名应召	zh
+wizardreal:ossum.chant.zh.0:2	wizardreal:ossum	-1	ʈʂɨ wɑŋ ɪŋ ʐu wɔ jɛn	织亡影入我言	zh
+wizardreal:ossum.chant.zh.0:3	wizardreal:ossum	-1	fu paɪ ku y wɔ i	缚白骨于我意	zh
+wizardreal:ossum.chant.zh.0:4	wizardreal:ossum	-1	ku maʊ	骨矛	zh
+wizardreal:ossum.chant.zh.1:0	wizardreal:ossum	-1	ku maʊ ʈʂʰu ɕjɛn joʊ ʈʂʊŋ weɪ ʈʂəŋ	骨矛初现，幽冢为证	zh
+wizardreal:ossum.chant.zh.1:1	wizardreal:ossum	-1	wɑŋ ɪŋ sweɪ u ʂəŋ ɚ ɕɪŋ	亡影随吾声而醒	zh
+wizardreal:ossum.chant.zh.1:2	wizardreal:ossum	-1	paɪ ku ʂɨ tɤ u mɪŋ	白骨识得吾名	zh
+wizardreal:ossum.chant.zh.1:3	wizardreal:ossum	-1	laɪ ɕi u tɕi ʈʂɨ joʊ ʈʂʊŋ	来兮，无羁之幽冢	zh
+wizardreal:ossum.chant.zh.1:4	wizardreal:ossum	-1	ku maʊ	骨矛	zh
+wizardreal:ossum.chant.ja.0:0	wizardreal:ossum	-1		オッスムよ、墓とともに	ja
+wizardreal:ossum.chant.ja.0:1	wizardreal:ossum	-1		墓よ応えよ	ja
+wizardreal:ossum.chant.ja.0:2	wizardreal:ossum	-1		我が詞に亡霊を織れ	ja
+wizardreal:ossum.chant.ja.0:3	wizardreal:ossum	-1		骨を我が意に縛れ	ja
+wizardreal:ossum.chant.ja.0:4	wizardreal:ossum	-1	o s sɯ mɯ	オッスム	ja
+wizardreal:ossum.chant.ja.1:0	wizardreal:ossum	-1		オッスムよ、墓とともに	ja
+wizardreal:ossum.chant.ja.1:1	wizardreal:ossum	-1		声に呼び覚まれし亡霊	ja
+wizardreal:ossum.chant.ja.1:2	wizardreal:ossum	-1		骨は名を憶える	ja
+wizardreal:ossum.chant.ja.1:3	wizardreal:ossum	-1		集え、縛られぬ墓	ja
+wizardreal:ossum.chant.ja.1:4	wizardreal:ossum	-1	o s sɯ mɯ	オッスム	ja
+wizardreal:petra_catena	wizardreal:petra_catena	-1	ʂɨ kwan;pɛ to ɾa ka tɛ na	petra catena;petra;catena;石棺;ペトラ・カテナ;ペトラカテナ	en;zh;ja
+wizardreal:petra_catena.chant.en.0:0	wizardreal:petra_catena	-1		petra catena, mountain of the old tongue	en
+wizardreal:petra_catena.chant.en.0:1	wizardreal:petra_catena	-1		let the stone answer	en
+wizardreal:petra_catena.chant.en.0:2	wizardreal:petra_catena	-1		weave bedrock into my words	en
+wizardreal:petra_catena.chant.en.0:3	wizardreal:petra_catena	-1		bind the mountain to my will	en
+wizardreal:petra_catena.chant.en.0:4	wizardreal:petra_catena	-1		petra catena	en
+wizardreal:petra_catena.chant.en.1:0	wizardreal:petra_catena	-1		petra catena, mountain of the old tongue	en
+wizardreal:petra_catena.chant.en.1:1	wizardreal:petra_catena	-1		bedrock wakes beneath my voice	en
+wizardreal:petra_catena.chant.en.1:2	wizardreal:petra_catena	-1		the mountain remembers my name	en
+wizardreal:petra_catena.chant.en.1:3	wizardreal:petra_catena	-1		gather, o stone unbound	en
+wizardreal:petra_catena.chant.en.1:4	wizardreal:petra_catena	-1		petra catena	en
+wizardreal:petra_catena.chant.zh.0:0	wizardreal:petra_catena	-1	ʂɨ kwan ʈʂʰu ɕjɛn ta ti weɪ ʈʂəŋ	石棺初现，大地为证	zh
+wizardreal:petra_catena.chant.zh.0:1	wizardreal:petra_catena	-1	i pʰan ʂɨ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以磐石之名应召	zh
+wizardreal:petra_catena.chant.zh.0:2	wizardreal:petra_catena	-1	ʈʂɨ ta ti ʐu wɔ jɛn	织大地入我言	zh
+wizardreal:petra_catena.chant.zh.0:3	wizardreal:petra_catena	-1	fu ʂan ɥɛ y wɔ i	缚山岳于我意	zh
+wizardreal:petra_catena.chant.zh.0:4	wizardreal:petra_catena	-1	ʂɨ kwan	石棺	zh
+wizardreal:petra_catena.chant.zh.1:0	wizardreal:petra_catena	-1	ʂɨ kwan ʈʂʰu ɕjɛn ta ti weɪ ʈʂəŋ	石棺初现，大地为证	zh
+wizardreal:petra_catena.chant.zh.1:1	wizardreal:petra_catena	-1	ta ti sweɪ u ʂəŋ ɚ ɕɪŋ	大地随吾声而醒	zh
+wizardreal:petra_catena.chant.zh.1:2	wizardreal:petra_catena	-1	ʂan ɥɛ ʂɨ tɤ u mɪŋ	山岳识得吾名	zh
+wizardreal:petra_catena.chant.zh.1:3	wizardreal:petra_catena	-1	laɪ ɕi u tɕi ʈʂɨ pʰan ʂɨ	来兮，无羁之磐石	zh
+wizardreal:petra_catena.chant.zh.1:4	wizardreal:petra_catena	-1	ʂɨ kwan	石棺	zh
+wizardreal:petra_catena.chant.ja.0:0	wizardreal:petra_catena	-1		ペトラ・カテナよ、岩とともに	ja
+wizardreal:petra_catena.chant.ja.0:1	wizardreal:petra_catena	-1		岩よ応えよ	ja
+wizardreal:petra_catena.chant.ja.0:2	wizardreal:petra_catena	-1		我が詞に大地を織れ	ja
+wizardreal:petra_catena.chant.ja.0:3	wizardreal:petra_catena	-1		山を我が意に縛れ	ja
+wizardreal:petra_catena.chant.ja.0:4	wizardreal:petra_catena	-1	pɛ to ɾa ka tɛ na	ペトラ・カテナ	ja
+wizardreal:petra_catena.chant.ja.1:0	wizardreal:petra_catena	-1		ペトラ・カテナよ、岩とともに	ja
+wizardreal:petra_catena.chant.ja.1:1	wizardreal:petra_catena	-1		声に呼び覚まれし大地	ja
+wizardreal:petra_catena.chant.ja.1:2	wizardreal:petra_catena	-1		山は名を憶える	ja
+wizardreal:petra_catena.chant.ja.1:3	wizardreal:petra_catena	-1		集え、縛られぬ岩	ja
+wizardreal:petra_catena.chant.ja.1:4	wizardreal:petra_catena	-1	pɛ to ɾa ka tɛ na	ペトラ・カテナ	ja
+wizardreal:portus	wizardreal:portus	-1	ʈʂʰwan sʊŋ;po ɾɯ tɯ sɯ	portus;传送;ポルトゥス	en;zh;ja
+wizardreal:portus.chant.en.0:0	wizardreal:portus	-1		portus rises on sigil wings	en
+wizardreal:portus.chant.en.0:1	wizardreal:portus	-1		let the sigil answer	en
+wizardreal:portus.chant.en.0:2	wizardreal:portus	-1		weave aether into my words	en
+wizardreal:portus.chant.en.0:3	wizardreal:portus	-1		bind the nexus to my will	en
+wizardreal:portus.chant.en.0:4	wizardreal:portus	-1		portus	en
+wizardreal:portus.chant.en.1:0	wizardreal:portus	-1		portus rises on sigil wings	en
+wizardreal:portus.chant.en.1:1	wizardreal:portus	-1		aether wakes beneath my voice	en
+wizardreal:portus.chant.en.1:2	wizardreal:portus	-1		the nexus remembers my name	en
+wizardreal:portus.chant.en.1:3	wizardreal:portus	-1		gather, o sigil unbound	en
+wizardreal:portus.chant.en.1:4	wizardreal:portus	-1		portus	en
+wizardreal:portus.chant.zh.0:0	wizardreal:portus	-1	ʈʂʰwan sʊŋ ʈʂʰəŋ i tʰaɪ ɚ ʈʂɨ	传送乘以太而至	zh
+wizardreal:portus.chant.zh.0:1	wizardreal:portus	-1	i mi in ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以秘印之名应召	zh
+wizardreal:portus.chant.zh.0:2	wizardreal:portus	-1	ʈʂɨ i tʰaɪ ʐu wɔ jɛn	织以太入我言	zh
+wizardreal:portus.chant.zh.0:3	wizardreal:portus	-1	fu ʂu njoʊ y wɔ i	缚枢纽于我意	zh
+wizardreal:portus.chant.zh.0:4	wizardreal:portus	-1	ʈʂʰwan sʊŋ	传送	zh
+wizardreal:portus.chant.zh.1:0	wizardreal:portus	-1	ʈʂʰwan sʊŋ ʈʂʰəŋ i tʰaɪ ɚ ʈʂɨ	传送乘以太而至	zh
+wizardreal:portus.chant.zh.1:1	wizardreal:portus	-1	i tʰaɪ sweɪ u ʂəŋ ɚ ɕɪŋ	以太随吾声而醒	zh
+wizardreal:portus.chant.zh.1:2	wizardreal:portus	-1	ʂu njoʊ ʂɨ tɤ u mɪŋ	枢纽识得吾名	zh
+wizardreal:portus.chant.zh.1:3	wizardreal:portus	-1	laɪ ɕi u tɕi ʈʂɨ mi in	来兮，无羁之秘印	zh
+wizardreal:portus.chant.zh.1:4	wizardreal:portus	-1	ʈʂʰwan sʊŋ	传送	zh
+wizardreal:portus.chant.ja.0:0	wizardreal:portus	-1		ポルトゥスは印に乗て立つ	ja
+wizardreal:portus.chant.ja.0:1	wizardreal:portus	-1		印よ応えよ	ja
+wizardreal:portus.chant.ja.0:2	wizardreal:portus	-1		我が詞に以太を織れ	ja
+wizardreal:portus.chant.ja.0:3	wizardreal:portus	-1		環を我が意に縛れ	ja
+wizardreal:portus.chant.ja.0:4	wizardreal:portus	-1	po ɾɯ tɯ sɯ	ポルトゥス	ja
+wizardreal:portus.chant.ja.1:0	wizardreal:portus	-1		ポルトゥスは印に乗て立つ	ja
+wizardreal:portus.chant.ja.1:1	wizardreal:portus	-1		声に呼び覚まれし以太	ja
+wizardreal:portus.chant.ja.1:2	wizardreal:portus	-1		環は名を憶える	ja
+wizardreal:portus.chant.ja.1:3	wizardreal:portus	-1		集え、縛られぬ印	ja
+wizardreal:portus.chant.ja.1:4	wizardreal:portus	-1	po ɾɯ tɯ sɯ	ポルトゥス	ja
+wizardreal:procella	wizardreal:procella	-1	tɕʰi lɑŋ;fəŋ paʊ;pɯ ɾo kɛ ɾa	procella;gale burst;气浪;风爆;プロケラ;突風	en;zh;ja
+wizardreal:procella.chant.en.0:0	wizardreal:procella	-1		procella rises on gale wings	en
+wizardreal:procella.chant.en.0:1	wizardreal:procella	-1		let the gale answer	en
+wizardreal:procella.chant.en.0:2	wizardreal:procella	-1		weave zephyr into my words	en
+wizardreal:procella.chant.en.0:3	wizardreal:procella	-1		bind the sky to my will	en
+wizardreal:procella.chant.en.0:4	wizardreal:procella	-1		procella	en
+wizardreal:procella.chant.en.1:0	wizardreal:procella	-1		procella rises on gale wings	en
+wizardreal:procella.chant.en.1:1	wizardreal:procella	-1		zephyr wakes beneath my voice	en
+wizardreal:procella.chant.en.1:2	wizardreal:procella	-1		the sky remembers my name	en
+wizardreal:procella.chant.en.1:3	wizardreal:procella	-1		gather, o gale unbound	en
+wizardreal:procella.chant.en.1:4	wizardreal:procella	-1		procella	en
+wizardreal:procella.chant.zh.0:0	wizardreal:procella	-1	tɕʰi lɑŋ ʈʂʰəŋ tɕʰɪŋ fəŋ ɚ ʈʂɨ	气浪乘清风而至	zh
+wizardreal:procella.chant.zh.0:1	wizardreal:procella	-1	tɕjɛ fɑŋ kwɑŋ fəŋ	以罡风之名应召	zh
+wizardreal:procella.chant.zh.0:2	wizardreal:procella	-1	kwɑŋ fəŋ	织清风入我言	zh
+wizardreal:procella.chant.zh.0:3	wizardreal:procella	-1	fu ʈʂɑŋ kʰʊŋ y wɔ i	缚长空于我意	zh
+wizardreal:procella.chant.zh.0:4	wizardreal:procella	-1	tɕʰi lɑŋ	气浪	zh
+wizardreal:procella.chant.zh.1:0	wizardreal:procella	-1	tɕʰi lɑŋ ʈʂʰəŋ tɕʰɪŋ fəŋ ɚ ʈʂɨ	气浪乘清风而至	zh
+wizardreal:procella.chant.zh.1:1	wizardreal:procella	-1	tɕʰɪŋ fəŋ sweɪ u ʂəŋ ɚ ɕɪŋ	清风随吾声而醒	zh
+wizardreal:procella.chant.zh.1:2	wizardreal:procella	-1	ʈʂɑŋ kʰʊŋ ʂɨ tɤ u mɪŋ	长空识得吾名	zh
+wizardreal:procella.chant.zh.1:3	wizardreal:procella	-1	laɪ ɕi u tɕi ʈʂɨ kɑŋ fəŋ	来兮，无羁之罡风	zh
+wizardreal:procella.chant.zh.1:4	wizardreal:procella	-1	tɕʰi lɑŋ	气浪	zh
+wizardreal:procella.chant.ja.0:0	wizardreal:procella	-1		プロケラは疾風に乗て立つ	ja
+wizardreal:procella.chant.ja.0:1	wizardreal:procella	-1		疾風よ応えよ	ja
+wizardreal:procella.chant.ja.0:2	wizardreal:procella	-1		我が詞に微風を織れ	ja
+wizardreal:procella.chant.ja.0:3	wizardreal:procella	-1		空を我が意に縛れ	ja
+wizardreal:procella.chant.ja.0:4	wizardreal:procella	-1	pɯ ɾo kɛ ɾa	プロケラ	ja
+wizardreal:procella.chant.ja.1:0	wizardreal:procella	-1		プロケラは疾風に乗て立つ	ja
+wizardreal:procella.chant.ja.1:1	wizardreal:procella	-1		声に呼び覚まれし微風	ja
+wizardreal:procella.chant.ja.1:2	wizardreal:procella	-1		空は名を憶える	ja
+wizardreal:procella.chant.ja.1:3	wizardreal:procella	-1		集え、縛られぬ疾風	ja
+wizardreal:procella.chant.ja.1:4	wizardreal:procella	-1	pɯ ɾo kɛ ɾa	プロケラ	ja
+wizardreal:radix	wizardreal:radix	-1	ʈʂʰan kən;tʰəŋ man ʈʂʰan ʐaʊ;ɾa di kɯ sɯ	radix;root cone;缠根;藤蔓缠绕;ラディクス;根のブレス	en;zh;ja
+wizardreal:radix.chant.en.0:0	wizardreal:radix	-1		by bloom, radix awakens	en
+wizardreal:radix.chant.en.0:1	wizardreal:radix	-1		let the root answer	en
+wizardreal:radix.chant.en.0:2	wizardreal:radix	-1		weave bloom into my words	en
+wizardreal:radix.chant.en.0:3	wizardreal:radix	-1		bind the thorn to my will	en
+wizardreal:radix.chant.en.0:4	wizardreal:radix	-1		radix	en
+wizardreal:radix.chant.en.1:0	wizardreal:radix	-1		by bloom, radix awakens	en
+wizardreal:radix.chant.en.1:1	wizardreal:radix	-1		bloom wakes beneath my voice	en
+wizardreal:radix.chant.en.1:2	wizardreal:radix	-1		the thorn remembers my name	en
+wizardreal:radix.chant.en.1:3	wizardreal:radix	-1		gather, o root unbound	en
+wizardreal:radix.chant.en.1:4	wizardreal:radix	-1		radix	en
+wizardreal:radix.chant.zh.0:0	wizardreal:radix	-1	i kən ɕy weɪ in ʈʂʰan kən su ɕɪŋ	以根须为引，缠根苏醒	zh
+wizardreal:radix.chant.zh.0:1	wizardreal:radix	-1	ʂəŋ ʈʂɑŋ kaɪ xwa	以根须之名应召	zh
+wizardreal:radix.chant.zh.0:2	wizardreal:radix	-1	tsɨ ʐan	织新芽入我言	zh
+wizardreal:radix.chant.zh.0:3	wizardreal:radix	-1	fu tɕɪŋ tɕi y wɔ i	缚荆棘于我意	zh
+wizardreal:radix.chant.zh.0:4	wizardreal:radix	-1	ʈʂʰan kən	缠根	zh
+wizardreal:radix.chant.zh.1:0	wizardreal:radix	-1	i kən ɕy weɪ in ʈʂʰan kən su ɕɪŋ	以根须为引，缠根苏醒	zh
+wizardreal:radix.chant.zh.1:1	wizardreal:radix	-1	ɕin ja sweɪ u ʂəŋ ɚ ɕɪŋ	新芽随吾声而醒	zh
+wizardreal:radix.chant.zh.1:2	wizardreal:radix	-1	tɕɪŋ tɕi ʂɨ tɤ u mɪŋ	荆棘识得吾名	zh
+wizardreal:radix.chant.zh.1:3	wizardreal:radix	-1	laɪ ɕi u tɕi ʈʂɨ kən ɕy	来兮，无羁之根须	zh
+wizardreal:radix.chant.zh.1:4	wizardreal:radix	-1	ʈʂʰan kən	缠根	zh
+wizardreal:radix.chant.ja.0:0	wizardreal:radix	-1		根に導かれ、ラディクス顕現せり	ja
+wizardreal:radix.chant.ja.0:1	wizardreal:radix	-1		根よ応えよ	ja
+wizardreal:radix.chant.ja.0:2	wizardreal:radix	-1		我が詞に芽を織れ	ja
+wizardreal:radix.chant.ja.0:3	wizardreal:radix	-1		茨を我が意に縛れ	ja
+wizardreal:radix.chant.ja.0:4	wizardreal:radix	-1	ɾa di kɯ sɯ	ラディクス	ja
+wizardreal:radix.chant.ja.1:0	wizardreal:radix	-1		根に導かれ、ラディクス顕現せり	ja
+wizardreal:radix.chant.ja.1:1	wizardreal:radix	-1		声に呼び覚まれし芽	ja
+wizardreal:radix.chant.ja.1:2	wizardreal:radix	-1		茨は名を憶える	ja
+wizardreal:radix.chant.ja.1:3	wizardreal:radix	-1		集え、縛られぬ根	ja
+wizardreal:radix.chant.ja.1:4	wizardreal:radix	-1	ɾa di kɯ sɯ	ラディクス	ja
+wizardreal:rift	wizardreal:rift	-1	ɕy kʰʊŋ ljɛ ɕi;ljɛ ɕi;ɾi ɸɯ to	rift;void rift;虚空裂隙;裂隙;リフト;虚空の裂け目	en;zh;ja
+wizardreal:rift.chant.en.0:0	wizardreal:rift	-1		by rune, rift awakens	en
+wizardreal:rift.chant.en.0:1	wizardreal:rift	-1		let the sigil answer	en
+wizardreal:rift.chant.en.0:2	wizardreal:rift	-1		weave aether into my words	en
+wizardreal:rift.chant.en.0:3	wizardreal:rift	-1		bind the nexus to my will	en
+wizardreal:rift.chant.en.0:4	wizardreal:rift	-1		by the first sigil, i swear	en
+wizardreal:rift.chant.en.0:5	wizardreal:rift	-1		rift	en
+wizardreal:rift.chant.en.1:0	wizardreal:rift	-1		by rune, rift awakens	en
+wizardreal:rift.chant.en.1:1	wizardreal:rift	-1		aether wakes beneath my voice	en
+wizardreal:rift.chant.en.1:2	wizardreal:rift	-1		the nexus remembers my name	en
+wizardreal:rift.chant.en.1:3	wizardreal:rift	-1		gather, o sigil unbound	en
+wizardreal:rift.chant.en.1:4	wizardreal:rift	-1		the rune leans close to listen	en
+wizardreal:rift.chant.en.1:5	wizardreal:rift	-1		rift	en
+wizardreal:rift.chant.zh.0:0	wizardreal:rift	-1	i i tʰaɪ weɪ in ɕy kʰʊŋ ljɛ ɕi su ɕɪŋ	以以太为引，虚空裂隙苏醒	zh
+wizardreal:rift.chant.zh.0:1	wizardreal:rift	-1	i mi in ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以秘印之名应召	zh
+wizardreal:rift.chant.zh.0:2	wizardreal:rift	-1	ʈʂɨ i tʰaɪ ʐu wɔ jɛn	织以太入我言	zh
+wizardreal:rift.chant.zh.0:3	wizardreal:rift	-1	fu ʂu njoʊ y wɔ i	缚枢纽于我意	zh
+wizardreal:rift.chant.zh.0:4	wizardreal:rift	-1	ʈʂʰu xwɔ mi in weɪ ʂɨ	初火秘印为誓	zh
+wizardreal:rift.chant.zh.0:5	wizardreal:rift	-1	ɕy kʰʊŋ ljɛ ɕi	虚空裂隙	zh
+wizardreal:rift.chant.zh.1:0	wizardreal:rift	-1	i i tʰaɪ weɪ in ɕy kʰʊŋ ljɛ ɕi su ɕɪŋ	以以太为引，虚空裂隙苏醒	zh
+wizardreal:rift.chant.zh.1:1	wizardreal:rift	-1	i tʰaɪ sweɪ u ʂəŋ ɚ ɕɪŋ	以太随吾声而醒	zh
+wizardreal:rift.chant.zh.1:2	wizardreal:rift	-1	ʂu njoʊ ʂɨ tɤ u mɪŋ	枢纽识得吾名	zh
+wizardreal:rift.chant.zh.1:3	wizardreal:rift	-1	laɪ ɕi u tɕi ʈʂɨ mi in	来兮，无羁之秘印	zh
+wizardreal:rift.chant.zh.1:4	wizardreal:rift	-1	fu wən tsʰɤ ɚ lɪŋ tʰɪŋ	符文侧耳聆听	zh
+wizardreal:rift.chant.zh.1:5	wizardreal:rift	-1	ɕy kʰʊŋ ljɛ ɕi	虚空裂隙	zh
+wizardreal:rift.chant.ja.0:0	wizardreal:rift	-1		印に導かれ、ウィウム顕現せり	ja
+wizardreal:rift.chant.ja.0:1	wizardreal:rift	-1		印よ応えよ	ja
+wizardreal:rift.chant.ja.0:2	wizardreal:rift	-1		我が詞に以太を織れ	ja
+wizardreal:rift.chant.ja.0:3	wizardreal:rift	-1		環を我が意に縛れ	ja
+wizardreal:rift.chant.ja.0:4	wizardreal:rift	-1		原初の印に誓う	ja
+wizardreal:rift.chant.ja.0:5	wizardreal:rift	-1	ɾi ɸɯ to	リフト	ja
+wizardreal:rift.chant.ja.1:0	wizardreal:rift	-1		印に導かれ、ウィウム顕現せり	ja
+wizardreal:rift.chant.ja.1:1	wizardreal:rift	-1		声に呼び覚まれし以太	ja
+wizardreal:rift.chant.ja.1:2	wizardreal:rift	-1		環は名を憶える	ja
+wizardreal:rift.chant.ja.1:3	wizardreal:rift	-1		集え、縛られぬ印	ja
+wizardreal:rift.chant.ja.1:4	wizardreal:rift	-1		ルーンは耳を傾ける	ja
+wizardreal:rift.chant.ja.1:5	wizardreal:rift	-1	ɾi ɸɯ to	リフト	ja
+wizardreal:sagitta	wizardreal:sagitta	-1	ʂəŋ kwɑŋ ʂɨ;kwɑŋ tɕjɛn;sa dʑi t ta;sɛ i ko ɯ ja	sagitta;holy arrow;圣光矢;光箭;サジッタ;せいこうや	en;zh;ja
+wizardreal:sagitta.chant.en.0:0	wizardreal:sagitta	-1		sagitta, light of the old tongue	en
+wizardreal:sagitta.chant.en.0:1	wizardreal:sagitta	-1		let the light answer	en
+wizardreal:sagitta.chant.en.0:2	wizardreal:sagitta	-1		weave hymn into my words	en
+wizardreal:sagitta.chant.en.0:3	wizardreal:sagitta	-1		bind the halo to my will	en
+wizardreal:sagitta.chant.en.0:4	wizardreal:sagitta	-1		sagitta	en
+wizardreal:sagitta.chant.en.1:0	wizardreal:sagitta	-1		sagitta, light of the old tongue	en
+wizardreal:sagitta.chant.en.1:1	wizardreal:sagitta	-1		hymn wakes beneath my voice	en
+wizardreal:sagitta.chant.en.1:2	wizardreal:sagitta	-1		the halo remembers my name	en
+wizardreal:sagitta.chant.en.1:3	wizardreal:sagitta	-1		gather, o light unbound	en
+wizardreal:sagitta.chant.en.1:4	wizardreal:sagitta	-1		sagitta	en
+wizardreal:sagitta.chant.zh.0:0	wizardreal:sagitta	-1	ʂəŋ kwɑŋ ʂɨ ʈʂʰu ɕjɛn ʂəŋ kwɑŋ weɪ ʈʂəŋ	圣光矢初现，圣光为证	zh
+wizardreal:sagitta.chant.zh.0:1	wizardreal:sagitta	-1	i ʂəŋ kwɑŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以圣光之名应召	zh
+wizardreal:sagitta.chant.zh.0:2	wizardreal:sagitta	-1	ʈʂɨ ʂəŋ jʊŋ ʐu wɔ jɛn	织圣咏入我言	zh
+wizardreal:sagitta.chant.zh.0:3	wizardreal:sagitta	-1	fu xweɪ xwan y wɔ i	缚辉环于我意	zh
+wizardreal:sagitta.chant.zh.0:4	wizardreal:sagitta	-1	ʂəŋ kwɑŋ ʂɨ	圣光矢	zh
+wizardreal:sagitta.chant.zh.1:0	wizardreal:sagitta	-1	ʂəŋ kwɑŋ ʂɨ ʈʂʰu ɕjɛn ʂəŋ kwɑŋ weɪ ʈʂəŋ	圣光矢初现，圣光为证	zh
+wizardreal:sagitta.chant.zh.1:1	wizardreal:sagitta	-1	ʂəŋ jʊŋ sweɪ u ʂəŋ ɚ ɕɪŋ	圣咏随吾声而醒	zh
+wizardreal:sagitta.chant.zh.1:2	wizardreal:sagitta	-1	xweɪ xwan ʂɨ tɤ u mɪŋ	辉环识得吾名	zh
+wizardreal:sagitta.chant.zh.1:3	wizardreal:sagitta	-1	laɪ ɕi u tɕi ʈʂɨ ʂəŋ kwɑŋ	来兮，无羁之圣光	zh
+wizardreal:sagitta.chant.zh.1:4	wizardreal:sagitta	-1	ʂəŋ kwɑŋ ʂɨ	圣光矢	zh
+wizardreal:sagitta.chant.ja.0:0	wizardreal:sagitta	-1		サギッタよ、光とともに	ja
+wizardreal:sagitta.chant.ja.0:1	wizardreal:sagitta	-1		光よ応えよ	ja
+wizardreal:sagitta.chant.ja.0:2	wizardreal:sagitta	-1		我が詞に聖歌を織れ	ja
+wizardreal:sagitta.chant.ja.0:3	wizardreal:sagitta	-1		光輪を我が意に縛れ	ja
+wizardreal:sagitta.chant.ja.0:4	wizardreal:sagitta	-1	sa dʑi t ta	サジッタ	ja
+wizardreal:sagitta.chant.ja.1:0	wizardreal:sagitta	-1		サギッタよ、光とともに	ja
+wizardreal:sagitta.chant.ja.1:1	wizardreal:sagitta	-1		声に呼び覚まれし聖歌	ja
+wizardreal:sagitta.chant.ja.1:2	wizardreal:sagitta	-1		光輪は名を憶える	ja
+wizardreal:sagitta.chant.ja.1:3	wizardreal:sagitta	-1		集え、縛られぬ光	ja
+wizardreal:sagitta.chant.ja.1:4	wizardreal:sagitta	-1	sa dʑi t ta	サジッタ	ja
+wizardreal:sanare	wizardreal:sanare	-1	tɕɪŋ xwa;ʂəŋ y;sa naː ɾɛ;sɛ i dʑo	sanare;cleanse;净化;圣愈;サナーレ;セイジョ	en;zh;ja
+wizardreal:sanare.chant.en.0:0	wizardreal:sanare	-1		o grace, lend sanare thy breath	en
+wizardreal:sanare.chant.en.0:1	wizardreal:sanare	-1		let the light answer	en
+wizardreal:sanare.chant.en.0:2	wizardreal:sanare	-1		weave hymn into my words	en
+wizardreal:sanare.chant.en.0:3	wizardreal:sanare	-1		bind the halo to my will	en
+wizardreal:sanare.chant.en.0:4	wizardreal:sanare	-1		sanare	en
+wizardreal:sanare.chant.en.1:0	wizardreal:sanare	-1		o grace, lend sanare thy breath	en
+wizardreal:sanare.chant.en.1:1	wizardreal:sanare	-1		hymn wakes beneath my voice	en
+wizardreal:sanare.chant.en.1:2	wizardreal:sanare	-1		the halo remembers my name	en
+wizardreal:sanare.chant.en.1:3	wizardreal:sanare	-1		gather, o light unbound	en
+wizardreal:sanare.chant.en.1:4	wizardreal:sanare	-1		sanare	en
+wizardreal:sanare.chant.zh.0:0	wizardreal:sanare	-1	ʂəŋ kwɑŋ a tɕjɛ tɕɪŋ xwa i ɕi	圣光啊，借净化以息	zh
+wizardreal:sanare.chant.zh.0:1	wizardreal:sanare	-1	i ʂəŋ kwɑŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以圣光之名应召	zh
+wizardreal:sanare.chant.zh.0:2	wizardreal:sanare	-1	ʈʂɨ ʂəŋ jʊŋ ʐu wɔ jɛn	织圣咏入我言	zh
+wizardreal:sanare.chant.zh.0:3	wizardreal:sanare	-1	fu xweɪ xwan y wɔ i	缚辉环于我意	zh
+wizardreal:sanare.chant.zh.0:4	wizardreal:sanare	-1	tɕɪŋ xwa	净化	zh
+wizardreal:sanare.chant.zh.1:0	wizardreal:sanare	-1	ʂəŋ kwɑŋ a tɕjɛ tɕɪŋ xwa i ɕi	圣光啊，借净化以息	zh
+wizardreal:sanare.chant.zh.1:1	wizardreal:sanare	-1	ʂəŋ jʊŋ sweɪ u ʂəŋ ɚ ɕɪŋ	圣咏随吾声而醒	zh
+wizardreal:sanare.chant.zh.1:2	wizardreal:sanare	-1	xweɪ xwan ʂɨ tɤ u mɪŋ	辉环识得吾名	zh
+wizardreal:sanare.chant.zh.1:3	wizardreal:sanare	-1	laɪ ɕi u tɕi ʈʂɨ ʂəŋ kwɑŋ	来兮，无羁之圣光	zh
+wizardreal:sanare.chant.zh.1:4	wizardreal:sanare	-1	tɕɪŋ xwa	净化	zh
+wizardreal:sanare.chant.ja.0:0	wizardreal:sanare	-1		光よ、サナレに息を貸せ	ja
+wizardreal:sanare.chant.ja.0:1	wizardreal:sanare	-1		光よ応えよ	ja
+wizardreal:sanare.chant.ja.0:2	wizardreal:sanare	-1		我が詞に聖歌を織れ	ja
+wizardreal:sanare.chant.ja.0:3	wizardreal:sanare	-1		光輪を我が意に縛れ	ja
+wizardreal:sanare.chant.ja.0:4	wizardreal:sanare	-1	sa naː ɾɛ	サナーレ	ja
+wizardreal:sanare.chant.ja.1:0	wizardreal:sanare	-1		光よ、サナレに息を貸せ	ja
+wizardreal:sanare.chant.ja.1:1	wizardreal:sanare	-1		声に呼び覚まれし聖歌	ja
+wizardreal:sanare.chant.ja.1:2	wizardreal:sanare	-1		光輪は名を憶える	ja
+wizardreal:sanare.chant.ja.1:3	wizardreal:sanare	-1		集え、縛られぬ光	ja
+wizardreal:sanare.chant.ja.1:4	wizardreal:sanare	-1	sa naː ɾɛ	サナーレ	ja
+wizardreal:saxum	wizardreal:saxum	-1	ʂɨ maʊ;jɛn tɕʰjɑŋ;sa kɯ sɯ mɯ;i ɕi ja ɾi	saxum;stone spear;石矛;岩枪;サクスム;いしやり	en;zh;ja
+wizardreal:saxum.chant.en.0:0	wizardreal:saxum	-1		saxum, stone of the old tongue	en
+wizardreal:saxum.chant.en.0:1	wizardreal:saxum	-1		let the stone answer	en
+wizardreal:saxum.chant.en.0:2	wizardreal:saxum	-1		weave bedrock into my words	en
+wizardreal:saxum.chant.en.0:3	wizardreal:saxum	-1		bind the mountain to my will	en
+wizardreal:saxum.chant.en.0:4	wizardreal:saxum	-1		saxum	en
+wizardreal:saxum.chant.en.1:0	wizardreal:saxum	-1		saxum, stone of the old tongue	en
+wizardreal:saxum.chant.en.1:1	wizardreal:saxum	-1		bedrock wakes beneath my voice	en
+wizardreal:saxum.chant.en.1:2	wizardreal:saxum	-1		the mountain remembers my name	en
+wizardreal:saxum.chant.en.1:3	wizardreal:saxum	-1		gather, o stone unbound	en
+wizardreal:saxum.chant.en.1:4	wizardreal:saxum	-1		saxum	en
+wizardreal:saxum.chant.zh.0:0	wizardreal:saxum	-1	ʂɨ maʊ ʈʂʰu ɕjɛn pʰan ʂɨ weɪ ʈʂəŋ	石矛初现，磐石为证	zh
+wizardreal:saxum.chant.zh.0:1	wizardreal:saxum	-1	i pʰan ʂɨ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以磐石之名应召	zh
+wizardreal:saxum.chant.zh.0:2	wizardreal:saxum	-1	ʈʂɨ ta ti ʐu wɔ jɛn	织大地入我言	zh
+wizardreal:saxum.chant.zh.0:3	wizardreal:saxum	-1	fu ʂan ɥɛ y wɔ i	缚山岳于我意	zh
+wizardreal:saxum.chant.zh.0:4	wizardreal:saxum	-1	ʂɨ maʊ	石矛	zh
+wizardreal:saxum.chant.zh.1:0	wizardreal:saxum	-1	ʂɨ maʊ ʈʂʰu ɕjɛn pʰan ʂɨ weɪ ʈʂəŋ	石矛初现，磐石为证	zh
+wizardreal:saxum.chant.zh.1:1	wizardreal:saxum	-1	ta ti sweɪ u ʂəŋ ɚ ɕɪŋ	大地随吾声而醒	zh
+wizardreal:saxum.chant.zh.1:2	wizardreal:saxum	-1	ʂan ɥɛ ʂɨ tɤ u mɪŋ	山岳识得吾名	zh
+wizardreal:saxum.chant.zh.1:3	wizardreal:saxum	-1	laɪ ɕi u tɕi ʈʂɨ pʰan ʂɨ	来兮，无羁之磐石	zh
+wizardreal:saxum.chant.zh.1:4	wizardreal:saxum	-1	ʂɨ maʊ	石矛	zh
+wizardreal:saxum.chant.ja.0:0	wizardreal:saxum	-1		サクスムよ、岩とともに	ja
+wizardreal:saxum.chant.ja.0:1	wizardreal:saxum	-1		岩よ応えよ	ja
+wizardreal:saxum.chant.ja.0:2	wizardreal:saxum	-1		我が詞に大地を織れ	ja
+wizardreal:saxum.chant.ja.0:3	wizardreal:saxum	-1		山を我が意に縛れ	ja
+wizardreal:saxum.chant.ja.0:4	wizardreal:saxum	-1	sa kɯ sɯ mɯ	サクスム	ja
+wizardreal:saxum.chant.ja.1:0	wizardreal:saxum	-1		サクスムよ、岩とともに	ja
+wizardreal:saxum.chant.ja.1:1	wizardreal:saxum	-1		声に呼び覚まれし大地	ja
+wizardreal:saxum.chant.ja.1:2	wizardreal:saxum	-1		山は名を憶える	ja
+wizardreal:saxum.chant.ja.1:3	wizardreal:saxum	-1		集え、縛られぬ岩	ja
+wizardreal:saxum.chant.ja.1:4	wizardreal:saxum	-1	sa kɯ sɯ mɯ	サクスム	ja
+wizardreal:semina	wizardreal:semina	-1	ˈsɛmɪna;ˈsɛmɪna;ˈsɛmɪna;neɪtʃɚ;fəŋʂou;fəŋʂəu;fəŋsou;fəŋʐɑŋʈʂufu;fəŋʐɑŋtsufu	semina;green bounty;丰收;丰穰祝福;セミナ;ホウジョウ	en;zh;ja
+wizardreal:semina.chant.en.0:0	wizardreal:semina	-1		o wildwood, lend semina thy breath	en
+wizardreal:semina.chant.en.0:1	wizardreal:semina	-1		let the root answer	en
+wizardreal:semina.chant.en.0:2	wizardreal:semina	-1		weave bloom into my words	en
+wizardreal:semina.chant.en.0:3	wizardreal:semina	-1		bind the thorn to my will	en
+wizardreal:semina.chant.en.0:4	wizardreal:semina	-1	ˈsɛmɪna	semina	en
+wizardreal:semina.chant.en.1:0	wizardreal:semina	-1		o wildwood, lend semina thy breath	en
+wizardreal:semina.chant.en.1:1	wizardreal:semina	-1		bloom wakes beneath my voice	en
+wizardreal:semina.chant.en.1:2	wizardreal:semina	-1		the thorn remembers my name	en
+wizardreal:semina.chant.en.1:3	wizardreal:semina	-1		gather, o root unbound	en
+wizardreal:semina.chant.en.1:4	wizardreal:semina	-1	ˈsɛmɪna	semina	en
+wizardreal:semina.chant.zh.0:0	wizardreal:semina	-1	kən ɕy a tɕjɛ fəŋ ʂoʊ i ɕi	根须啊，借丰收以息	zh
+wizardreal:semina.chant.zh.0:1	wizardreal:semina	-1	ʂəŋ ʈʂɑŋ kaɪ xwa	以根须之名应召	zh
+wizardreal:semina.chant.zh.0:2	wizardreal:semina	-1	tsɨ ʐan	织新芽入我言	zh
+wizardreal:semina.chant.zh.0:3	wizardreal:semina	-1	fu tɕɪŋ tɕi y wɔ i	缚荆棘于我意	zh
+wizardreal:semina.chant.zh.0:4	wizardreal:semina	-1	ˈsɛmɪna	丰收	zh
+wizardreal:semina.chant.zh.1:0	wizardreal:semina	-1	kən ɕy a tɕjɛ fəŋ ʂoʊ i ɕi	根须啊，借丰收以息	zh
+wizardreal:semina.chant.zh.1:1	wizardreal:semina	-1	ɕin ja sweɪ u ʂəŋ ɚ ɕɪŋ	新芽随吾声而醒	zh
+wizardreal:semina.chant.zh.1:2	wizardreal:semina	-1	tɕɪŋ tɕi ʂɨ tɤ u mɪŋ	荆棘识得吾名	zh
+wizardreal:semina.chant.zh.1:3	wizardreal:semina	-1	laɪ ɕi u tɕi ʈʂɨ kən ɕy	来兮，无羁之根须	zh
+wizardreal:semina.chant.zh.1:4	wizardreal:semina	-1	ˈsɛmɪna	丰收	zh
+wizardreal:semina.chant.ja.0:0	wizardreal:semina	-1		根よ、セミナに息を貸せ	ja
+wizardreal:semina.chant.ja.0:1	wizardreal:semina	-1		根よ応えよ	ja
+wizardreal:semina.chant.ja.0:2	wizardreal:semina	-1		我が詞に芽を織れ	ja
+wizardreal:semina.chant.ja.0:3	wizardreal:semina	-1		茨を我が意に縛れ	ja
+wizardreal:semina.chant.ja.0:4	wizardreal:semina	-1	ˈsɛmɪna	セミナ	ja
+wizardreal:semina.chant.ja.1:0	wizardreal:semina	-1		根よ、セミナに息を貸せ	ja
+wizardreal:semina.chant.ja.1:1	wizardreal:semina	-1		声に呼び覚まれし芽	ja
+wizardreal:semina.chant.ja.1:2	wizardreal:semina	-1		茨は名を憶える	ja
+wizardreal:semina.chant.ja.1:3	wizardreal:semina	-1		集え、縛られぬ根	ja
+wizardreal:semina.chant.ja.1:4	wizardreal:semina	-1	ˈsɛmɪna	セミナ	ja
+wizardreal:silva_voco	wizardreal:silva_voco	-1	xwan lin;ɕi ɾɯ a o ko	silva voco;silva;voco;唤林;シルウァ・ウォコ;シルウァウォコ	en;zh;ja
+wizardreal:silva_voco.chant.en.0:0	wizardreal:silva_voco	-1		let bloom crown silva voco	en
+wizardreal:silva_voco.chant.en.0:1	wizardreal:silva_voco	-1		let the root answer	en
+wizardreal:silva_voco.chant.en.0:2	wizardreal:silva_voco	-1		weave bloom into my words	en
+wizardreal:silva_voco.chant.en.0:3	wizardreal:silva_voco	-1		bind the thorn to my will	en
+wizardreal:silva_voco.chant.en.0:4	wizardreal:silva_voco	-1		silva voco	en
+wizardreal:silva_voco.chant.en.1:0	wizardreal:silva_voco	-1		let bloom crown silva voco	en
+wizardreal:silva_voco.chant.en.1:1	wizardreal:silva_voco	-1		bloom wakes beneath my voice	en
+wizardreal:silva_voco.chant.en.1:2	wizardreal:silva_voco	-1		the thorn remembers my name	en
+wizardreal:silva_voco.chant.en.1:3	wizardreal:silva_voco	-1		gather, o root unbound	en
+wizardreal:silva_voco.chant.en.1:4	wizardreal:silva_voco	-1		silva voco	en
+wizardreal:silva_voco.chant.zh.0:0	wizardreal:silva_voco	-1	i ɕin ja tɕja mjɛn xwan lin	以新芽加冕唤林	zh
+wizardreal:silva_voco.chant.zh.0:1	wizardreal:silva_voco	-1	ʂəŋ ʈʂɑŋ kaɪ xwa	以根须之名应召	zh
+wizardreal:silva_voco.chant.zh.0:2	wizardreal:silva_voco	-1	tsɨ ʐan	织新芽入我言	zh
+wizardreal:silva_voco.chant.zh.0:3	wizardreal:silva_voco	-1	fu tɕɪŋ tɕi y wɔ i	缚荆棘于我意	zh
+wizardreal:silva_voco.chant.zh.0:4	wizardreal:silva_voco	-1	xwan lin	唤林	zh
+wizardreal:silva_voco.chant.zh.1:0	wizardreal:silva_voco	-1	i ɕin ja tɕja mjɛn xwan lin	以新芽加冕唤林	zh
+wizardreal:silva_voco.chant.zh.1:1	wizardreal:silva_voco	-1	ɕin ja sweɪ u ʂəŋ ɚ ɕɪŋ	新芽随吾声而醒	zh
+wizardreal:silva_voco.chant.zh.1:2	wizardreal:silva_voco	-1	tɕɪŋ tɕi ʂɨ tɤ u mɪŋ	荆棘识得吾名	zh
+wizardreal:silva_voco.chant.zh.1:3	wizardreal:silva_voco	-1	laɪ ɕi u tɕi ʈʂɨ kən ɕy	来兮，无羁之根须	zh
+wizardreal:silva_voco.chant.zh.1:4	wizardreal:silva_voco	-1	xwan lin	唤林	zh
+wizardreal:silva_voco.chant.ja.0:0	wizardreal:silva_voco	-1		根をもってシルウァ・ウォコを飾れ	ja
+wizardreal:silva_voco.chant.ja.0:1	wizardreal:silva_voco	-1		根よ応えよ	ja
+wizardreal:silva_voco.chant.ja.0:2	wizardreal:silva_voco	-1		我が詞に芽を織れ	ja
+wizardreal:silva_voco.chant.ja.0:3	wizardreal:silva_voco	-1		茨を我が意に縛れ	ja
+wizardreal:silva_voco.chant.ja.0:4	wizardreal:silva_voco	-1	ɕi ɾɯ a o ko	シルウァ・ウォコ	ja
+wizardreal:silva_voco.chant.ja.1:0	wizardreal:silva_voco	-1		根をもってシルウァ・ウォコを飾れ	ja
+wizardreal:silva_voco.chant.ja.1:1	wizardreal:silva_voco	-1		声に呼び覚まれし芽	ja
+wizardreal:silva_voco.chant.ja.1:2	wizardreal:silva_voco	-1		茨は名を憶える	ja
+wizardreal:silva_voco.chant.ja.1:3	wizardreal:silva_voco	-1		集え、縛られぬ根	ja
+wizardreal:silva_voco.chant.ja.1:4	wizardreal:silva_voco	-1	ɕi ɾɯ a o ko	シルウァ・ウォコ	ja
+wizardreal:siphon	wizardreal:siphon	-1	xʊŋ ɕi;si ɸo	siphon;虹吸;スィフォ	en;zh;ja
+wizardreal:siphon.chant.en.0:0	wizardreal:siphon	-1		siphon, nexus of the old tongue	en
+wizardreal:siphon.chant.en.0:1	wizardreal:siphon	-1		let the sigil answer	en
+wizardreal:siphon.chant.en.0:2	wizardreal:siphon	-1		weave aether into my words	en
+wizardreal:siphon.chant.en.0:3	wizardreal:siphon	-1		bind the nexus to my will	en
+wizardreal:siphon.chant.en.0:4	wizardreal:siphon	-1		siphon	en
+wizardreal:siphon.chant.en.1:0	wizardreal:siphon	-1		siphon, nexus of the old tongue	en
+wizardreal:siphon.chant.en.1:1	wizardreal:siphon	-1		aether wakes beneath my voice	en
+wizardreal:siphon.chant.en.1:2	wizardreal:siphon	-1		the nexus remembers my name	en
+wizardreal:siphon.chant.en.1:3	wizardreal:siphon	-1		gather, o sigil unbound	en
+wizardreal:siphon.chant.en.1:4	wizardreal:siphon	-1		siphon	en
+wizardreal:siphon.chant.zh.0:0	wizardreal:siphon	-1	xʊŋ ɕi ʈʂʰu ɕjɛn i tʰaɪ weɪ ʈʂəŋ	虹吸初现，以太为证	zh
+wizardreal:siphon.chant.zh.0:1	wizardreal:siphon	-1	i mi in ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以秘印之名应召	zh
+wizardreal:siphon.chant.zh.0:2	wizardreal:siphon	-1	ʈʂɨ i tʰaɪ ʐu wɔ jɛn	织以太入我言	zh
+wizardreal:siphon.chant.zh.0:3	wizardreal:siphon	-1	fu ʂu njoʊ y wɔ i	缚枢纽于我意	zh
+wizardreal:siphon.chant.zh.0:4	wizardreal:siphon	-1	xʊŋ ɕi	虹吸	zh
+wizardreal:siphon.chant.zh.1:0	wizardreal:siphon	-1	xʊŋ ɕi ʈʂʰu ɕjɛn i tʰaɪ weɪ ʈʂəŋ	虹吸初现，以太为证	zh
+wizardreal:siphon.chant.zh.1:1	wizardreal:siphon	-1	i tʰaɪ sweɪ u ʂəŋ ɚ ɕɪŋ	以太随吾声而醒	zh
+wizardreal:siphon.chant.zh.1:2	wizardreal:siphon	-1	ʂu njoʊ ʂɨ tɤ u mɪŋ	枢纽识得吾名	zh
+wizardreal:siphon.chant.zh.1:3	wizardreal:siphon	-1	laɪ ɕi u tɕi ʈʂɨ mi in	来兮，无羁之秘印	zh
+wizardreal:siphon.chant.zh.1:4	wizardreal:siphon	-1	xʊŋ ɕi	虹吸	zh
+wizardreal:siphon.chant.ja.0:0	wizardreal:siphon	-1		スィフォよ、印とともに	ja
+wizardreal:siphon.chant.ja.0:1	wizardreal:siphon	-1		印よ応えよ	ja
+wizardreal:siphon.chant.ja.0:2	wizardreal:siphon	-1		我が詞に以太を織れ	ja
+wizardreal:siphon.chant.ja.0:3	wizardreal:siphon	-1		環を我が意に縛れ	ja
+wizardreal:siphon.chant.ja.0:4	wizardreal:siphon	-1	si ɸo	スィフォ	ja
+wizardreal:siphon.chant.ja.1:0	wizardreal:siphon	-1		スィフォよ、印とともに	ja
+wizardreal:siphon.chant.ja.1:1	wizardreal:siphon	-1		声に呼び覚まれし以太	ja
+wizardreal:siphon.chant.ja.1:2	wizardreal:siphon	-1		環は名を憶える	ja
+wizardreal:siphon.chant.ja.1:3	wizardreal:siphon	-1		集え、縛られぬ印	ja
+wizardreal:siphon.chant.ja.1:4	wizardreal:siphon	-1	si ɸo	スィフォ	ja
+wizardreal:somnus	wizardreal:somnus	-1	tsʰweɪ mjɛn;tsʰweɪ mjɛn lɪŋ y;so mɯ nɯ sɯ	somnus;sleep;催眠;催眠领域;ソムヌス;催眠	en;zh;ja
+wizardreal:somnus.chant.en.0:0	wizardreal:somnus	-1		somnus, hear the mirror	en
+wizardreal:somnus.chant.en.0:1	wizardreal:somnus	-1		let the shade answer	en
+wizardreal:somnus.chant.en.0:2	wizardreal:somnus	-1		weave veil into my words	en
+wizardreal:somnus.chant.en.0:3	wizardreal:somnus	-1		bind the mirror to my will	en
+wizardreal:somnus.chant.en.0:4	wizardreal:somnus	-1		somnus	en
+wizardreal:somnus.chant.en.1:0	wizardreal:somnus	-1		somnus, hear the mirror	en
+wizardreal:somnus.chant.en.1:1	wizardreal:somnus	-1		veil wakes beneath my voice	en
+wizardreal:somnus.chant.en.1:2	wizardreal:somnus	-1		the mirror remembers my name	en
+wizardreal:somnus.chant.en.1:3	wizardreal:somnus	-1		gather, o shade unbound	en
+wizardreal:somnus.chant.en.1:4	wizardreal:somnus	-1		somnus	en
+wizardreal:somnus.chant.zh.0:0	wizardreal:somnus	-1	tsʰweɪ mjɛn a ti tʰɪŋ xwan ɪŋ	催眠啊，谛听幻影	zh
+wizardreal:somnus.chant.zh.0:1	wizardreal:somnus	-1	i xwan ɪŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以幻影之名应召	zh
+wizardreal:somnus.chant.zh.0:2	wizardreal:somnus	-1	ʈʂɨ weɪ mu ʐu wɔ jɛn	织帷幕入我言	zh
+wizardreal:somnus.chant.zh.0:3	wizardreal:somnus	-1	fu tɕɪŋ tɕjɛ y wɔ i	缚镜界于我意	zh
+wizardreal:somnus.chant.zh.0:4	wizardreal:somnus	-1	tsʰweɪ mjɛn	催眠	zh
+wizardreal:somnus.chant.zh.1:0	wizardreal:somnus	-1	tsʰweɪ mjɛn a ti tʰɪŋ xwan ɪŋ	催眠啊，谛听幻影	zh
+wizardreal:somnus.chant.zh.1:1	wizardreal:somnus	-1	weɪ mu sweɪ u ʂəŋ ɚ ɕɪŋ	帷幕随吾声而醒	zh
+wizardreal:somnus.chant.zh.1:2	wizardreal:somnus	-1	tɕɪŋ tɕjɛ ʂɨ tɤ u mɪŋ	镜界识得吾名	zh
+wizardreal:somnus.chant.zh.1:3	wizardreal:somnus	-1	laɪ ɕi u tɕi ʈʂɨ xwan ɪŋ	来兮，无羁之幻影	zh
+wizardreal:somnus.chant.zh.1:4	wizardreal:somnus	-1	tsʰweɪ mjɛn	催眠	zh
+wizardreal:somnus.chant.ja.0:0	wizardreal:somnus	-1		ソムヌスよ、幻を聴け	ja
+wizardreal:somnus.chant.ja.0:1	wizardreal:somnus	-1		幻よ応えよ	ja
+wizardreal:somnus.chant.ja.0:2	wizardreal:somnus	-1		我が詞に帷を織れ	ja
+wizardreal:somnus.chant.ja.0:3	wizardreal:somnus	-1		鏡を我が意に縛れ	ja
+wizardreal:somnus.chant.ja.0:4	wizardreal:somnus	-1	so mɯ nɯ sɯ	ソムヌス	ja
+wizardreal:somnus.chant.ja.1:0	wizardreal:somnus	-1		ソムヌスよ、幻を聴け	ja
+wizardreal:somnus.chant.ja.1:1	wizardreal:somnus	-1		声に呼び覚まれし帷	ja
+wizardreal:somnus.chant.ja.1:2	wizardreal:somnus	-1		鏡は名を憶える	ja
+wizardreal:somnus.chant.ja.1:3	wizardreal:somnus	-1		集え、縛られぬ幻	ja
+wizardreal:somnus.chant.ja.1:4	wizardreal:somnus	-1	so mɯ nɯ sɯ	ソムヌス	ja
+wizardreal:spectra	wizardreal:spectra	-1	xwan tɕʰjɑŋ;sɯ pɛ kɯ to ɾa	spectra;幻墙;スペクトラ	en;zh;ja
+wizardreal:spectra.chant.en.0:0	wizardreal:spectra	-1		let veil crown spectra	en
+wizardreal:spectra.chant.en.0:1	wizardreal:spectra	-1		let the shade answer	en
+wizardreal:spectra.chant.en.0:2	wizardreal:spectra	-1		weave veil into my words	en
+wizardreal:spectra.chant.en.0:3	wizardreal:spectra	-1		bind the mirror to my will	en
+wizardreal:spectra.chant.en.0:4	wizardreal:spectra	-1		spectra	en
+wizardreal:spectra.chant.en.1:0	wizardreal:spectra	-1		let veil crown spectra	en
+wizardreal:spectra.chant.en.1:1	wizardreal:spectra	-1		veil wakes beneath my voice	en
+wizardreal:spectra.chant.en.1:2	wizardreal:spectra	-1		the mirror remembers my name	en
+wizardreal:spectra.chant.en.1:3	wizardreal:spectra	-1		gather, o shade unbound	en
+wizardreal:spectra.chant.en.1:4	wizardreal:spectra	-1		spectra	en
+wizardreal:spectra.chant.zh.0:0	wizardreal:spectra	-1	i weɪ mu tɕja mjɛn xwan tɕʰjɑŋ	以帷幕加冕幻墙	zh
+wizardreal:spectra.chant.zh.0:1	wizardreal:spectra	-1	i xwan ɪŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以幻影之名应召	zh
+wizardreal:spectra.chant.zh.0:2	wizardreal:spectra	-1	ʈʂɨ weɪ mu ʐu wɔ jɛn	织帷幕入我言	zh
+wizardreal:spectra.chant.zh.0:3	wizardreal:spectra	-1	fu tɕɪŋ tɕjɛ y wɔ i	缚镜界于我意	zh
+wizardreal:spectra.chant.zh.0:4	wizardreal:spectra	-1	xwan tɕʰjɑŋ	幻墙	zh
+wizardreal:spectra.chant.zh.1:0	wizardreal:spectra	-1	i weɪ mu tɕja mjɛn xwan tɕʰjɑŋ	以帷幕加冕幻墙	zh
+wizardreal:spectra.chant.zh.1:1	wizardreal:spectra	-1	weɪ mu sweɪ u ʂəŋ ɚ ɕɪŋ	帷幕随吾声而醒	zh
+wizardreal:spectra.chant.zh.1:2	wizardreal:spectra	-1	tɕɪŋ tɕjɛ ʂɨ tɤ u mɪŋ	镜界识得吾名	zh
+wizardreal:spectra.chant.zh.1:3	wizardreal:spectra	-1	laɪ ɕi u tɕi ʈʂɨ xwan ɪŋ	来兮，无羁之幻影	zh
+wizardreal:spectra.chant.zh.1:4	wizardreal:spectra	-1	xwan tɕʰjɑŋ	幻墙	zh
+wizardreal:spectra.chant.ja.0:0	wizardreal:spectra	-1		幻をもってスペクトラを飾れ	ja
+wizardreal:spectra.chant.ja.0:1	wizardreal:spectra	-1		幻よ応えよ	ja
+wizardreal:spectra.chant.ja.0:2	wizardreal:spectra	-1		我が詞に帷を織れ	ja
+wizardreal:spectra.chant.ja.0:3	wizardreal:spectra	-1		鏡を我が意に縛れ	ja
+wizardreal:spectra.chant.ja.0:4	wizardreal:spectra	-1	sɯ pɛ kɯ to ɾa	スペクトラ	ja
+wizardreal:spectra.chant.ja.1:0	wizardreal:spectra	-1		幻をもってスペクトラを飾れ	ja
+wizardreal:spectra.chant.ja.1:1	wizardreal:spectra	-1		声に呼び覚まれし帷	ja
+wizardreal:spectra.chant.ja.1:2	wizardreal:spectra	-1		鏡は名を憶える	ja
+wizardreal:spectra.chant.ja.1:3	wizardreal:spectra	-1		集え、縛られぬ幻	ja
+wizardreal:spectra.chant.ja.1:4	wizardreal:spectra	-1	sɯ pɛ kɯ to ɾa	スペクトラ	ja
+wizardreal:spina	wizardreal:spina	-1	tɕɪŋ tɕi ʈʂʊŋ;tɕi tan;sɯ piː na;i ba ɾa no ta nɛ	spina;thorn seed;荆棘种;棘弹;スピーナ;いばらのたね	en;zh;ja
+wizardreal:spina.chant.en.0:0	wizardreal:spina	-1		spina, root of the old tongue	en
+wizardreal:spina.chant.en.0:1	wizardreal:spina	-1		let the root answer	en
+wizardreal:spina.chant.en.0:2	wizardreal:spina	-1		weave bloom into my words	en
+wizardreal:spina.chant.en.0:3	wizardreal:spina	-1		bind the thorn to my will	en
+wizardreal:spina.chant.en.0:4	wizardreal:spina	-1		spina	en
+wizardreal:spina.chant.en.1:0	wizardreal:spina	-1		spina, root of the old tongue	en
+wizardreal:spina.chant.en.1:1	wizardreal:spina	-1		bloom wakes beneath my voice	en
+wizardreal:spina.chant.en.1:2	wizardreal:spina	-1		the thorn remembers my name	en
+wizardreal:spina.chant.en.1:3	wizardreal:spina	-1		gather, o root unbound	en
+wizardreal:spina.chant.en.1:4	wizardreal:spina	-1		spina	en
+wizardreal:spina.chant.zh.0:0	wizardreal:spina	-1	tɕɪŋ tɕi ʈʂʰu ɕjɛn kən ɕy weɪ ʈʂəŋ	荆棘初现，根须为证	zh
+wizardreal:spina.chant.zh.0:1	wizardreal:spina	-1	ʂəŋ ʈʂɑŋ kaɪ xwa	以根须之名应召	zh
+wizardreal:spina.chant.zh.0:2	wizardreal:spina	-1	tsɨ ʐan	织新芽入我言	zh
+wizardreal:spina.chant.zh.0:3	wizardreal:spina	-1	fu tɕɪŋ tɕi y wɔ i	缚荆棘于我意	zh
+wizardreal:spina.chant.zh.0:4	wizardreal:spina	-1	tɕɪŋ tɕi ʈʂʊŋ	荆棘种	zh
+wizardreal:spina.chant.zh.1:0	wizardreal:spina	-1	tɕɪŋ tɕi ʈʂʰu ɕjɛn kən ɕy weɪ ʈʂəŋ	荆棘初现，根须为证	zh
+wizardreal:spina.chant.zh.1:1	wizardreal:spina	-1	ɕin ja sweɪ u ʂəŋ ɚ ɕɪŋ	新芽随吾声而醒	zh
+wizardreal:spina.chant.zh.1:2	wizardreal:spina	-1	tɕɪŋ tɕi ʂɨ tɤ u mɪŋ	荆棘识得吾名	zh
+wizardreal:spina.chant.zh.1:3	wizardreal:spina	-1	laɪ ɕi u tɕi ʈʂɨ kən ɕy	来兮，无羁之根须	zh
+wizardreal:spina.chant.zh.1:4	wizardreal:spina	-1	tɕɪŋ tɕi ʈʂʊŋ	荆棘种	zh
+wizardreal:spina.chant.ja.0:0	wizardreal:spina	-1		スピナよ、根とともに	ja
+wizardreal:spina.chant.ja.0:1	wizardreal:spina	-1		根よ応えよ	ja
+wizardreal:spina.chant.ja.0:2	wizardreal:spina	-1		我が詞に芽を織れ	ja
+wizardreal:spina.chant.ja.0:3	wizardreal:spina	-1		茨を我が意に縛れ	ja
+wizardreal:spina.chant.ja.0:4	wizardreal:spina	-1	sɯ piː na	スピーナ	ja
+wizardreal:spina.chant.ja.1:0	wizardreal:spina	-1		スピナよ、根とともに	ja
+wizardreal:spina.chant.ja.1:1	wizardreal:spina	-1		声に呼び覚まれし芽	ja
+wizardreal:spina.chant.ja.1:2	wizardreal:spina	-1		茨は名を憶える	ja
+wizardreal:spina.chant.ja.1:3	wizardreal:spina	-1		集え、縛られぬ根	ja
+wizardreal:spina.chant.ja.1:4	wizardreal:spina	-1	sɯ piː na	スピーナ	ja
+wizardreal:spiritus	wizardreal:spiritus	-1	xwən təŋ;sɯ pi ɾi tɯ sɯ	spiritus;魂灯;スピリトゥス	en;zh;ja
+wizardreal:spiritus.chant.en.0:0	wizardreal:spiritus	-1		spiritus, bone of the old tongue	en
+wizardreal:spiritus.chant.en.0:1	wizardreal:spiritus	-1		let the grave answer	en
+wizardreal:spiritus.chant.en.0:2	wizardreal:spiritus	-1		weave wraith into my words	en
+wizardreal:spiritus.chant.en.0:3	wizardreal:spiritus	-1		bind the bone to my will	en
+wizardreal:spiritus.chant.en.0:4	wizardreal:spiritus	-1		spiritus	en
+wizardreal:spiritus.chant.en.1:0	wizardreal:spiritus	-1		spiritus, bone of the old tongue	en
+wizardreal:spiritus.chant.en.1:1	wizardreal:spiritus	-1		wraith wakes beneath my voice	en
+wizardreal:spiritus.chant.en.1:2	wizardreal:spiritus	-1		the bone remembers my name	en
+wizardreal:spiritus.chant.en.1:3	wizardreal:spiritus	-1		gather, o grave unbound	en
+wizardreal:spiritus.chant.en.1:4	wizardreal:spiritus	-1		spiritus	en
+wizardreal:spiritus.chant.zh.0:0	wizardreal:spiritus	-1	xwən təŋ ʈʂʰu ɕjɛn wɑŋ ɪŋ weɪ ʈʂəŋ	魂灯初现，亡影为证	zh
+wizardreal:spiritus.chant.zh.0:1	wizardreal:spiritus	-1	i joʊ ʈʂʊŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以幽冢之名应召	zh
+wizardreal:spiritus.chant.zh.0:2	wizardreal:spiritus	-1	ʈʂɨ wɑŋ ɪŋ ʐu wɔ jɛn	织亡影入我言	zh
+wizardreal:spiritus.chant.zh.0:3	wizardreal:spiritus	-1	fu paɪ ku y wɔ i	缚白骨于我意	zh
+wizardreal:spiritus.chant.zh.0:4	wizardreal:spiritus	-1	xwən təŋ	魂灯	zh
+wizardreal:spiritus.chant.zh.1:0	wizardreal:spiritus	-1	xwən təŋ ʈʂʰu ɕjɛn wɑŋ ɪŋ weɪ ʈʂəŋ	魂灯初现，亡影为证	zh
+wizardreal:spiritus.chant.zh.1:1	wizardreal:spiritus	-1	wɑŋ ɪŋ sweɪ u ʂəŋ ɚ ɕɪŋ	亡影随吾声而醒	zh
+wizardreal:spiritus.chant.zh.1:2	wizardreal:spiritus	-1	paɪ ku ʂɨ tɤ u mɪŋ	白骨识得吾名	zh
+wizardreal:spiritus.chant.zh.1:3	wizardreal:spiritus	-1	laɪ ɕi u tɕi ʈʂɨ joʊ ʈʂʊŋ	来兮，无羁之幽冢	zh
+wizardreal:spiritus.chant.zh.1:4	wizardreal:spiritus	-1	xwən təŋ	魂灯	zh
+wizardreal:spiritus.chant.ja.0:0	wizardreal:spiritus	-1		スピリトゥスよ、墓とともに	ja
+wizardreal:spiritus.chant.ja.0:1	wizardreal:spiritus	-1		墓よ応えよ	ja
+wizardreal:spiritus.chant.ja.0:2	wizardreal:spiritus	-1		我が詞に亡霊を織れ	ja
+wizardreal:spiritus.chant.ja.0:3	wizardreal:spiritus	-1		骨を我が意に縛れ	ja
+wizardreal:spiritus.chant.ja.0:4	wizardreal:spiritus	-1	sɯ pi ɾi tɯ sɯ	スピリトゥス	ja
+wizardreal:spiritus.chant.ja.1:0	wizardreal:spiritus	-1		スピリトゥスよ、墓とともに	ja
+wizardreal:spiritus.chant.ja.1:1	wizardreal:spiritus	-1		声に呼び覚まれし亡霊	ja
+wizardreal:spiritus.chant.ja.1:2	wizardreal:spiritus	-1		骨は名を憶える	ja
+wizardreal:spiritus.chant.ja.1:3	wizardreal:spiritus	-1		集え、縛られぬ墓	ja
+wizardreal:spiritus.chant.ja.1:4	wizardreal:spiritus	-1	sɯ pi ɾi tɯ sɯ	スピリトゥス	ja
+wizardreal:suctus	wizardreal:suctus	-1	tɕi tɕʰy;tɕi tɕʰy ʈʂweɪ;sɯ kɯ tɯ sɯ	suctus;drain cone;汲取;汲取锥;スクトゥス;吸収のブレス	en;zh;ja
+wizardreal:suctus.chant.en.0:0	wizardreal:suctus	-1		by wraith, suctus awakens	en
+wizardreal:suctus.chant.en.0:1	wizardreal:suctus	-1		let the grave answer	en
+wizardreal:suctus.chant.en.0:2	wizardreal:suctus	-1		weave wraith into my words	en
+wizardreal:suctus.chant.en.0:3	wizardreal:suctus	-1		bind the bone to my will	en
+wizardreal:suctus.chant.en.0:4	wizardreal:suctus	-1		suctus	en
+wizardreal:suctus.chant.en.1:0	wizardreal:suctus	-1		by wraith, suctus awakens	en
+wizardreal:suctus.chant.en.1:1	wizardreal:suctus	-1		wraith wakes beneath my voice	en
+wizardreal:suctus.chant.en.1:2	wizardreal:suctus	-1		the bone remembers my name	en
+wizardreal:suctus.chant.en.1:3	wizardreal:suctus	-1		gather, o grave unbound	en
+wizardreal:suctus.chant.en.1:4	wizardreal:suctus	-1		suctus	en
+wizardreal:suctus.chant.zh.0:0	wizardreal:suctus	-1	i joʊ ʈʂʊŋ weɪ in tɕi tɕʰy su ɕɪŋ	以幽冢为引，汲取苏醒	zh
+wizardreal:suctus.chant.zh.0:1	wizardreal:suctus	-1	i joʊ ʈʂʊŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以幽冢之名应召	zh
+wizardreal:suctus.chant.zh.0:2	wizardreal:suctus	-1	ʈʂɨ wɑŋ ɪŋ ʐu wɔ jɛn	织亡影入我言	zh
+wizardreal:suctus.chant.zh.0:3	wizardreal:suctus	-1	fu paɪ ku y wɔ i	缚白骨于我意	zh
+wizardreal:suctus.chant.zh.0:4	wizardreal:suctus	-1	tɕi tɕʰy	汲取	zh
+wizardreal:suctus.chant.zh.1:0	wizardreal:suctus	-1	i joʊ ʈʂʊŋ weɪ in tɕi tɕʰy su ɕɪŋ	以幽冢为引，汲取苏醒	zh
+wizardreal:suctus.chant.zh.1:1	wizardreal:suctus	-1	wɑŋ ɪŋ sweɪ u ʂəŋ ɚ ɕɪŋ	亡影随吾声而醒	zh
+wizardreal:suctus.chant.zh.1:2	wizardreal:suctus	-1	paɪ ku ʂɨ tɤ u mɪŋ	白骨识得吾名	zh
+wizardreal:suctus.chant.zh.1:3	wizardreal:suctus	-1	laɪ ɕi u tɕi ʈʂɨ joʊ ʈʂʊŋ	来兮，无羁之幽冢	zh
+wizardreal:suctus.chant.zh.1:4	wizardreal:suctus	-1	tɕi tɕʰy	汲取	zh
+wizardreal:suctus.chant.ja.0:0	wizardreal:suctus	-1		墓に導かれ、スクトゥス顕現せり	ja
+wizardreal:suctus.chant.ja.0:1	wizardreal:suctus	-1		墓よ応えよ	ja
+wizardreal:suctus.chant.ja.0:2	wizardreal:suctus	-1		我が詞に亡霊を織れ	ja
+wizardreal:suctus.chant.ja.0:3	wizardreal:suctus	-1		骨を我が意に縛れ	ja
+wizardreal:suctus.chant.ja.0:4	wizardreal:suctus	-1	sɯ kɯ tɯ sɯ	スクトゥス	ja
+wizardreal:suctus.chant.ja.1:0	wizardreal:suctus	-1		墓に導かれ、スクトゥス顕現せり	ja
+wizardreal:suctus.chant.ja.1:1	wizardreal:suctus	-1		声に呼び覚まれし亡霊	ja
+wizardreal:suctus.chant.ja.1:2	wizardreal:suctus	-1		骨は名を憶える	ja
+wizardreal:suctus.chant.ja.1:3	wizardreal:suctus	-1		集え、縛られぬ墓	ja
+wizardreal:suctus.chant.ja.1:4	wizardreal:suctus	-1	sɯ kɯ tɯ sɯ	スクトゥス	ja
+wizardreal:telum	wizardreal:telum	-1	aʊ ʂu ʂɨ;mi fa tan;tɛː ɾɯ mɯ;çi ho ɯ da n	telum;arcane bolt;奥术矢;秘法弹;テールム;ひほうだん	en;zh;ja
+wizardreal:telum.chant.en.0:0	wizardreal:telum	-1		telum, sigil of the old tongue	en
+wizardreal:telum.chant.en.0:1	wizardreal:telum	-1		let the sigil answer	en
+wizardreal:telum.chant.en.0:2	wizardreal:telum	-1		weave aether into my words	en
+wizardreal:telum.chant.en.0:3	wizardreal:telum	-1		bind the nexus to my will	en
+wizardreal:telum.chant.en.0:4	wizardreal:telum	-1		telum	en
+wizardreal:telum.chant.en.1:0	wizardreal:telum	-1		telum, sigil of the old tongue	en
+wizardreal:telum.chant.en.1:1	wizardreal:telum	-1		aether wakes beneath my voice	en
+wizardreal:telum.chant.en.1:2	wizardreal:telum	-1		the nexus remembers my name	en
+wizardreal:telum.chant.en.1:3	wizardreal:telum	-1		gather, o sigil unbound	en
+wizardreal:telum.chant.en.1:4	wizardreal:telum	-1		telum	en
+wizardreal:telum.chant.zh.0:0	wizardreal:telum	-1	aʊ ʂu ʂɨ ʈʂʰu ɕjɛn mi in weɪ ʈʂəŋ	奥术矢初现，秘印为证	zh
+wizardreal:telum.chant.zh.0:1	wizardreal:telum	-1	i mi in ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以秘印之名应召	zh
+wizardreal:telum.chant.zh.0:2	wizardreal:telum	-1	ʈʂɨ i tʰaɪ ʐu wɔ jɛn	织以太入我言	zh
+wizardreal:telum.chant.zh.0:3	wizardreal:telum	-1	fu ʂu njoʊ y wɔ i	缚枢纽于我意	zh
+wizardreal:telum.chant.zh.0:4	wizardreal:telum	-1	aʊ ʂu ʂɨ	奥术矢	zh
+wizardreal:telum.chant.zh.1:0	wizardreal:telum	-1	aʊ ʂu ʂɨ ʈʂʰu ɕjɛn mi in weɪ ʈʂəŋ	奥术矢初现，秘印为证	zh
+wizardreal:telum.chant.zh.1:1	wizardreal:telum	-1	i tʰaɪ sweɪ u ʂəŋ ɚ ɕɪŋ	以太随吾声而醒	zh
+wizardreal:telum.chant.zh.1:2	wizardreal:telum	-1	ʂu njoʊ ʂɨ tɤ u mɪŋ	枢纽识得吾名	zh
+wizardreal:telum.chant.zh.1:3	wizardreal:telum	-1	laɪ ɕi u tɕi ʈʂɨ mi in	来兮，无羁之秘印	zh
+wizardreal:telum.chant.zh.1:4	wizardreal:telum	-1	aʊ ʂu ʂɨ	奥术矢	zh
+wizardreal:telum.chant.ja.0:0	wizardreal:telum	-1		テルムよ、印とともに	ja
+wizardreal:telum.chant.ja.0:1	wizardreal:telum	-1		印よ応えよ	ja
+wizardreal:telum.chant.ja.0:2	wizardreal:telum	-1		我が詞に以太を織れ	ja
+wizardreal:telum.chant.ja.0:3	wizardreal:telum	-1		環を我が意に縛れ	ja
+wizardreal:telum.chant.ja.0:4	wizardreal:telum	-1	tɛː ɾɯ mɯ	テールム	ja
+wizardreal:telum.chant.ja.1:0	wizardreal:telum	-1		テルムよ、印とともに	ja
+wizardreal:telum.chant.ja.1:1	wizardreal:telum	-1		声に呼び覚まれし以太	ja
+wizardreal:telum.chant.ja.1:2	wizardreal:telum	-1		環は名を憶える	ja
+wizardreal:telum.chant.ja.1:3	wizardreal:telum	-1		集え、縛られぬ印	ja
+wizardreal:telum.chant.ja.1:4	wizardreal:telum	-1	tɛː ɾɯ mɯ	テールム	ja
+wizardreal:tempestas	wizardreal:tempestas	-1	xwan leɪ;tɛ n pɛ sɯ ta sɯ	tempestas;唤雷;テンペスタス	en;zh;ja
+wizardreal:tempestas.chant.en.0:0	wizardreal:tempestas	-1		tempestas rises on storm wings	en
+wizardreal:tempestas.chant.en.0:1	wizardreal:tempestas	-1		let the storm answer	en
+wizardreal:tempestas.chant.en.0:2	wizardreal:tempestas	-1		weave spark into my words	en
+wizardreal:tempestas.chant.en.0:3	wizardreal:tempestas	-1		bind the thunder to my will	en
+wizardreal:tempestas.chant.en.0:4	wizardreal:tempestas	-1		tempestas	en
+wizardreal:tempestas.chant.en.1:0	wizardreal:tempestas	-1		tempestas rises on storm wings	en
+wizardreal:tempestas.chant.en.1:1	wizardreal:tempestas	-1		spark wakes beneath my voice	en
+wizardreal:tempestas.chant.en.1:2	wizardreal:tempestas	-1		the thunder remembers my name	en
+wizardreal:tempestas.chant.en.1:3	wizardreal:tempestas	-1		gather, o storm unbound	en
+wizardreal:tempestas.chant.en.1:4	wizardreal:tempestas	-1		tempestas	en
+wizardreal:tempestas.chant.zh.0:0	wizardreal:tempestas	-1	xwan leɪ ʈʂʰəŋ tjɛn kwɑŋ ɚ ʈʂɨ	唤雷乘电光而至	zh
+wizardreal:tempestas.chant.zh.0:1	wizardreal:tempestas	-1	i leɪ paʊ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以雷暴之名应召	zh
+wizardreal:tempestas.chant.zh.0:2	wizardreal:tempestas	-1	ʈʂɨ tjɛn kwɑŋ ʐu wɔ jɛn	织电光入我言	zh
+wizardreal:tempestas.chant.zh.0:3	wizardreal:tempestas	-1	fu tɕɪŋ leɪ y wɔ i	缚惊雷于我意	zh
+wizardreal:tempestas.chant.zh.0:4	wizardreal:tempestas	-1	xwan leɪ	唤雷	zh
+wizardreal:tempestas.chant.zh.1:0	wizardreal:tempestas	-1	xwan leɪ ʈʂʰəŋ tjɛn kwɑŋ ɚ ʈʂɨ	唤雷乘电光而至	zh
+wizardreal:tempestas.chant.zh.1:1	wizardreal:tempestas	-1	tjɛn kwɑŋ sweɪ u ʂəŋ ɚ ɕɪŋ	电光随吾声而醒	zh
+wizardreal:tempestas.chant.zh.1:2	wizardreal:tempestas	-1	tɕɪŋ leɪ ʂɨ tɤ u mɪŋ	惊雷识得吾名	zh
+wizardreal:tempestas.chant.zh.1:3	wizardreal:tempestas	-1	laɪ ɕi u tɕi ʈʂɨ leɪ paʊ	来兮，无羁之雷暴	zh
+wizardreal:tempestas.chant.zh.1:4	wizardreal:tempestas	-1	xwan leɪ	唤雷	zh
+wizardreal:tempestas.chant.ja.0:0	wizardreal:tempestas	-1		テンペスタスは嵐に乗て立つ	ja
+wizardreal:tempestas.chant.ja.0:1	wizardreal:tempestas	-1		嵐よ応えよ	ja
+wizardreal:tempestas.chant.ja.0:2	wizardreal:tempestas	-1		我が詞に火花を織れ	ja
+wizardreal:tempestas.chant.ja.0:3	wizardreal:tempestas	-1		雷鳴を我が意に縛れ	ja
+wizardreal:tempestas.chant.ja.0:4	wizardreal:tempestas	-1	tɛ n pɛ sɯ ta sɯ	テンペスタス	ja
+wizardreal:tempestas.chant.ja.1:0	wizardreal:tempestas	-1		テンペスタスは嵐に乗て立つ	ja
+wizardreal:tempestas.chant.ja.1:1	wizardreal:tempestas	-1		声に呼び覚まれし火花	ja
+wizardreal:tempestas.chant.ja.1:2	wizardreal:tempestas	-1		雷鳴は名を憶える	ja
+wizardreal:tempestas.chant.ja.1:3	wizardreal:tempestas	-1		集え、縛られぬ嵐	ja
+wizardreal:tempestas.chant.ja.1:4	wizardreal:tempestas	-1	tɛ n pɛ sɯ ta sɯ	テンペスタス	ja
+wizardreal:terra	wizardreal:terra	-1	ti ɕjɛn;ta ti ʈʂʰən ɕjɛn;tɛ ɾa	terra;ground sink;地陷;大地沉陷;テラ;地割れ	en;zh;ja
+wizardreal:terra.chant.en.0:0	wizardreal:terra	-1		terra, hear the mountain	en
+wizardreal:terra.chant.en.0:1	wizardreal:terra	-1		let the stone answer	en
+wizardreal:terra.chant.en.0:2	wizardreal:terra	-1		weave bedrock into my words	en
+wizardreal:terra.chant.en.0:3	wizardreal:terra	-1		bind the mountain to my will	en
+wizardreal:terra.chant.en.0:4	wizardreal:terra	-1		terra	en
+wizardreal:terra.chant.en.1:0	wizardreal:terra	-1		terra, hear the mountain	en
+wizardreal:terra.chant.en.1:1	wizardreal:terra	-1		bedrock wakes beneath my voice	en
+wizardreal:terra.chant.en.1:2	wizardreal:terra	-1		the mountain remembers my name	en
+wizardreal:terra.chant.en.1:3	wizardreal:terra	-1		gather, o stone unbound	en
+wizardreal:terra.chant.en.1:4	wizardreal:terra	-1		terra	en
+wizardreal:terra.chant.zh.0:0	wizardreal:terra	-1	ti ɕjɛn a ti tʰɪŋ pʰan ʂɨ	地陷啊，谛听磐石	zh
+wizardreal:terra.chant.zh.0:1	wizardreal:terra	-1	i pʰan ʂɨ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以磐石之名应召	zh
+wizardreal:terra.chant.zh.0:2	wizardreal:terra	-1	ʈʂɨ ta ti ʐu wɔ jɛn	织大地入我言	zh
+wizardreal:terra.chant.zh.0:3	wizardreal:terra	-1	fu ʂan ɥɛ y wɔ i	缚山岳于我意	zh
+wizardreal:terra.chant.zh.0:4	wizardreal:terra	-1	ti ɕjɛn	地陷	zh
+wizardreal:terra.chant.zh.1:0	wizardreal:terra	-1	ti ɕjɛn a ti tʰɪŋ pʰan ʂɨ	地陷啊，谛听磐石	zh
+wizardreal:terra.chant.zh.1:1	wizardreal:terra	-1	ta ti sweɪ u ʂəŋ ɚ ɕɪŋ	大地随吾声而醒	zh
+wizardreal:terra.chant.zh.1:2	wizardreal:terra	-1	ʂan ɥɛ ʂɨ tɤ u mɪŋ	山岳识得吾名	zh
+wizardreal:terra.chant.zh.1:3	wizardreal:terra	-1	laɪ ɕi u tɕi ʈʂɨ pʰan ʂɨ	来兮，无羁之磐石	zh
+wizardreal:terra.chant.zh.1:4	wizardreal:terra	-1	ti ɕjɛn	地陷	zh
+wizardreal:terra.chant.ja.0:0	wizardreal:terra	-1		テラよ、岩を聴け	ja
+wizardreal:terra.chant.ja.0:1	wizardreal:terra	-1		岩よ応えよ	ja
+wizardreal:terra.chant.ja.0:2	wizardreal:terra	-1		我が詞に大地を織れ	ja
+wizardreal:terra.chant.ja.0:3	wizardreal:terra	-1		山を我が意に縛れ	ja
+wizardreal:terra.chant.ja.0:4	wizardreal:terra	-1	tɛ ɾa	テラ	ja
+wizardreal:terra.chant.ja.1:0	wizardreal:terra	-1		テラよ、岩を聴け	ja
+wizardreal:terra.chant.ja.1:1	wizardreal:terra	-1		声に呼び覚まれし大地	ja
+wizardreal:terra.chant.ja.1:2	wizardreal:terra	-1		山は名を憶える	ja
+wizardreal:terra.chant.ja.1:3	wizardreal:terra	-1		集え、縛られぬ岩	ja
+wizardreal:terra.chant.ja.1:4	wizardreal:terra	-1	tɛ ɾa	テラ	ja
+wizardreal:tonitrus	wizardreal:tonitrus	-1	ljɛn tjɛn;ljɛn swɔ leɪ;to ni to ɾɯ sɯ	tonitrus;chain lightning;链电;连锁雷;トニトルス;連鎖雷	en;zh;ja
+wizardreal:tonitrus.chant.en.0:0	wizardreal:tonitrus	-1		by spark, tonitrus awakens	en
+wizardreal:tonitrus.chant.en.0:1	wizardreal:tonitrus	-1		let the storm answer	en
+wizardreal:tonitrus.chant.en.0:2	wizardreal:tonitrus	-1		weave spark into my words	en
+wizardreal:tonitrus.chant.en.0:3	wizardreal:tonitrus	-1		bind the thunder to my will	en
+wizardreal:tonitrus.chant.en.0:4	wizardreal:tonitrus	-1		tonitrus	en
+wizardreal:tonitrus.chant.en.1:0	wizardreal:tonitrus	-1		by spark, tonitrus awakens	en
+wizardreal:tonitrus.chant.en.1:1	wizardreal:tonitrus	-1		spark wakes beneath my voice	en
+wizardreal:tonitrus.chant.en.1:2	wizardreal:tonitrus	-1		the thunder remembers my name	en
+wizardreal:tonitrus.chant.en.1:3	wizardreal:tonitrus	-1		gather, o storm unbound	en
+wizardreal:tonitrus.chant.en.1:4	wizardreal:tonitrus	-1		tonitrus	en
+wizardreal:tonitrus.chant.zh.0:0	wizardreal:tonitrus	-1	i leɪ paʊ weɪ in ljɛn tjɛn su ɕɪŋ	以雷暴为引，链电苏醒	zh
+wizardreal:tonitrus.chant.zh.0:1	wizardreal:tonitrus	-1	i leɪ paʊ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以雷暴之名应召	zh
+wizardreal:tonitrus.chant.zh.0:2	wizardreal:tonitrus	-1	ʈʂɨ tjɛn kwɑŋ ʐu wɔ jɛn	织电光入我言	zh
+wizardreal:tonitrus.chant.zh.0:3	wizardreal:tonitrus	-1	fu tɕɪŋ leɪ y wɔ i	缚惊雷于我意	zh
+wizardreal:tonitrus.chant.zh.0:4	wizardreal:tonitrus	-1	ljɛn tjɛn	链电	zh
+wizardreal:tonitrus.chant.zh.1:0	wizardreal:tonitrus	-1	i leɪ paʊ weɪ in ljɛn tjɛn su ɕɪŋ	以雷暴为引，链电苏醒	zh
+wizardreal:tonitrus.chant.zh.1:1	wizardreal:tonitrus	-1	tjɛn kwɑŋ sweɪ u ʂəŋ ɚ ɕɪŋ	电光随吾声而醒	zh
+wizardreal:tonitrus.chant.zh.1:2	wizardreal:tonitrus	-1	tɕɪŋ leɪ ʂɨ tɤ u mɪŋ	惊雷识得吾名	zh
+wizardreal:tonitrus.chant.zh.1:3	wizardreal:tonitrus	-1	laɪ ɕi u tɕi ʈʂɨ leɪ paʊ	来兮，无羁之雷暴	zh
+wizardreal:tonitrus.chant.zh.1:4	wizardreal:tonitrus	-1	ljɛn tjɛn	链电	zh
+wizardreal:tonitrus.chant.ja.0:0	wizardreal:tonitrus	-1		嵐に導かれ、トニトルス顕現せり	ja
+wizardreal:tonitrus.chant.ja.0:1	wizardreal:tonitrus	-1		嵐よ応えよ	ja
+wizardreal:tonitrus.chant.ja.0:2	wizardreal:tonitrus	-1		我が詞に火花を織れ	ja
+wizardreal:tonitrus.chant.ja.0:3	wizardreal:tonitrus	-1		雷鳴を我が意に縛れ	ja
+wizardreal:tonitrus.chant.ja.0:4	wizardreal:tonitrus	-1	to ni to ɾɯ sɯ	トニトルス	ja
+wizardreal:tonitrus.chant.ja.1:0	wizardreal:tonitrus	-1		嵐に導かれ、トニトルス顕現せり	ja
+wizardreal:tonitrus.chant.ja.1:1	wizardreal:tonitrus	-1		声に呼び覚まれし火花	ja
+wizardreal:tonitrus.chant.ja.1:2	wizardreal:tonitrus	-1		雷鳴は名を憶える	ja
+wizardreal:tonitrus.chant.ja.1:3	wizardreal:tonitrus	-1		集え、縛られぬ嵐	ja
+wizardreal:tonitrus.chant.ja.1:4	wizardreal:tonitrus	-1	to ni to ɾɯ sɯ	トニトルス	ja
+wizardreal:torpor	wizardreal:torpor	-1	tɕɪŋ ʈʂɨ;ma pi lɪŋ y;to ɾɯ po ɾɯ	torpor;stasis field;静滞;麻痹领域;トルポル;静止の域	en;zh;ja
+wizardreal:torpor.chant.en.0:0	wizardreal:torpor	-1		torpor, hear the thunder	en
+wizardreal:torpor.chant.en.0:1	wizardreal:torpor	-1		let the storm answer	en
+wizardreal:torpor.chant.en.0:2	wizardreal:torpor	-1		weave spark into my words	en
+wizardreal:torpor.chant.en.0:3	wizardreal:torpor	-1		bind the thunder to my will	en
+wizardreal:torpor.chant.en.0:4	wizardreal:torpor	-1		torpor	en
+wizardreal:torpor.chant.en.1:0	wizardreal:torpor	-1		torpor, hear the thunder	en
+wizardreal:torpor.chant.en.1:1	wizardreal:torpor	-1		spark wakes beneath my voice	en
+wizardreal:torpor.chant.en.1:2	wizardreal:torpor	-1		the thunder remembers my name	en
+wizardreal:torpor.chant.en.1:3	wizardreal:torpor	-1		gather, o storm unbound	en
+wizardreal:torpor.chant.en.1:4	wizardreal:torpor	-1		torpor	en
+wizardreal:torpor.chant.zh.0:0	wizardreal:torpor	-1	tɕɪŋ ʈʂɨ a ti tʰɪŋ leɪ paʊ	静滞啊，谛听雷暴	zh
+wizardreal:torpor.chant.zh.0:1	wizardreal:torpor	-1	i leɪ paʊ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以雷暴之名应召	zh
+wizardreal:torpor.chant.zh.0:2	wizardreal:torpor	-1	ʈʂɨ tjɛn kwɑŋ ʐu wɔ jɛn	织电光入我言	zh
+wizardreal:torpor.chant.zh.0:3	wizardreal:torpor	-1	fu tɕɪŋ leɪ y wɔ i	缚惊雷于我意	zh
+wizardreal:torpor.chant.zh.0:4	wizardreal:torpor	-1	tɕɪŋ ʈʂɨ	静滞	zh
+wizardreal:torpor.chant.zh.1:0	wizardreal:torpor	-1	tɕɪŋ ʈʂɨ a ti tʰɪŋ leɪ paʊ	静滞啊，谛听雷暴	zh
+wizardreal:torpor.chant.zh.1:1	wizardreal:torpor	-1	tjɛn kwɑŋ sweɪ u ʂəŋ ɚ ɕɪŋ	电光随吾声而醒	zh
+wizardreal:torpor.chant.zh.1:2	wizardreal:torpor	-1	tɕɪŋ leɪ ʂɨ tɤ u mɪŋ	惊雷识得吾名	zh
+wizardreal:torpor.chant.zh.1:3	wizardreal:torpor	-1	laɪ ɕi u tɕi ʈʂɨ leɪ paʊ	来兮，无羁之雷暴	zh
+wizardreal:torpor.chant.zh.1:4	wizardreal:torpor	-1	tɕɪŋ ʈʂɨ	静滞	zh
+wizardreal:torpor.chant.ja.0:0	wizardreal:torpor	-1		トルポルよ、嵐を聴け	ja
+wizardreal:torpor.chant.ja.0:1	wizardreal:torpor	-1		嵐よ応えよ	ja
+wizardreal:torpor.chant.ja.0:2	wizardreal:torpor	-1		我が詞に火花を織れ	ja
+wizardreal:torpor.chant.ja.0:3	wizardreal:torpor	-1		雷鳴を我が意に縛れ	ja
+wizardreal:torpor.chant.ja.0:4	wizardreal:torpor	-1	to ɾɯ po ɾɯ	トルポル	ja
+wizardreal:torpor.chant.ja.1:0	wizardreal:torpor	-1		トルポルよ、嵐を聴け	ja
+wizardreal:torpor.chant.ja.1:1	wizardreal:torpor	-1		声に呼び覚まれし火花	ja
+wizardreal:torpor.chant.ja.1:2	wizardreal:torpor	-1		雷鳴は名を憶える	ja
+wizardreal:torpor.chant.ja.1:3	wizardreal:torpor	-1		集え、縛られぬ嵐	ja
+wizardreal:torpor.chant.ja.1:4	wizardreal:torpor	-1	to ɾɯ po ɾɯ	トルポル	ja
+wizardreal:turbo	wizardreal:turbo	-1	lʊŋ tɕɥɛn;lʊŋ tɕɥɛn fəŋ;tɯ ɾɯ bo	turbo;tornado cone;龙卷;龙卷风;トゥルボ;竜巻	en;zh;ja
+wizardreal:turbo.chant.en.0:0	wizardreal:turbo	-1		o whisper, lend turbo thy breath	en
+wizardreal:turbo.chant.en.0:1	wizardreal:turbo	-1		let the gale answer	en
+wizardreal:turbo.chant.en.0:2	wizardreal:turbo	-1		weave zephyr into my words	en
+wizardreal:turbo.chant.en.0:3	wizardreal:turbo	-1		bind the sky to my will	en
+wizardreal:turbo.chant.en.0:4	wizardreal:turbo	-1		turbo	en
+wizardreal:turbo.chant.en.1:0	wizardreal:turbo	-1		o whisper, lend turbo thy breath	en
+wizardreal:turbo.chant.en.1:1	wizardreal:turbo	-1		zephyr wakes beneath my voice	en
+wizardreal:turbo.chant.en.1:2	wizardreal:turbo	-1		the sky remembers my name	en
+wizardreal:turbo.chant.en.1:3	wizardreal:turbo	-1		gather, o gale unbound	en
+wizardreal:turbo.chant.en.1:4	wizardreal:turbo	-1		turbo	en
+wizardreal:turbo.chant.zh.0:0	wizardreal:turbo	-1	kɑŋ fəŋ a tɕjɛ lʊŋ tɕɥɛn i ɕi	罡风啊，借龙卷以息	zh
+wizardreal:turbo.chant.zh.0:1	wizardreal:turbo	-1	tɕjɛ fɑŋ kwɑŋ fəŋ	以罡风之名应召	zh
+wizardreal:turbo.chant.zh.0:2	wizardreal:turbo	-1	kwɑŋ fəŋ	织清风入我言	zh
+wizardreal:turbo.chant.zh.0:3	wizardreal:turbo	-1	fu ʈʂɑŋ kʰʊŋ y wɔ i	缚长空于我意	zh
+wizardreal:turbo.chant.zh.0:4	wizardreal:turbo	-1	lʊŋ tɕɥɛn	龙卷	zh
+wizardreal:turbo.chant.zh.1:0	wizardreal:turbo	-1	kɑŋ fəŋ a tɕjɛ lʊŋ tɕɥɛn i ɕi	罡风啊，借龙卷以息	zh
+wizardreal:turbo.chant.zh.1:1	wizardreal:turbo	-1	tɕʰɪŋ fəŋ sweɪ u ʂəŋ ɚ ɕɪŋ	清风随吾声而醒	zh
+wizardreal:turbo.chant.zh.1:2	wizardreal:turbo	-1	ʈʂɑŋ kʰʊŋ ʂɨ tɤ u mɪŋ	长空识得吾名	zh
+wizardreal:turbo.chant.zh.1:3	wizardreal:turbo	-1	laɪ ɕi u tɕi ʈʂɨ kɑŋ fəŋ	来兮，无羁之罡风	zh
+wizardreal:turbo.chant.zh.1:4	wizardreal:turbo	-1	lʊŋ tɕɥɛn	龙卷	zh
+wizardreal:turbo.chant.ja.0:0	wizardreal:turbo	-1		疾風よ、トゥルボに息を貸せ	ja
+wizardreal:turbo.chant.ja.0:1	wizardreal:turbo	-1		疾風よ応えよ	ja
+wizardreal:turbo.chant.ja.0:2	wizardreal:turbo	-1		我が詞に微風を織れ	ja
+wizardreal:turbo.chant.ja.0:3	wizardreal:turbo	-1		空を我が意に縛れ	ja
+wizardreal:turbo.chant.ja.0:4	wizardreal:turbo	-1	tɯ ɾɯ bo	トゥルボ	ja
+wizardreal:turbo.chant.ja.1:0	wizardreal:turbo	-1		疾風よ、トゥルボに息を貸せ	ja
+wizardreal:turbo.chant.ja.1:1	wizardreal:turbo	-1		声に呼び覚まれし微風	ja
+wizardreal:turbo.chant.ja.1:2	wizardreal:turbo	-1		空は名を憶える	ja
+wizardreal:turbo.chant.ja.1:3	wizardreal:turbo	-1		集え、縛られぬ疾風	ja
+wizardreal:turbo.chant.ja.1:4	wizardreal:turbo	-1	tɯ ɾɯ bo	トゥルボ	ja
+wizardreal:umbra_mortis	wizardreal:umbra_mortis	-1	tɕy ɪŋ;ɯ n bɯ ɾa mo ɾɯ ti sɯ	umbra mortis;umbra;mortis;惧影;ウンブラ・モルティス;ウンブラモルティス	en;zh;ja
+wizardreal:umbra_mortis.chant.en.0:0	wizardreal:umbra_mortis	-1		umbra mortis rises on grave wings	en
+wizardreal:umbra_mortis.chant.en.0:1	wizardreal:umbra_mortis	-1		let the grave answer	en
+wizardreal:umbra_mortis.chant.en.0:2	wizardreal:umbra_mortis	-1		weave wraith into my words	en
+wizardreal:umbra_mortis.chant.en.0:3	wizardreal:umbra_mortis	-1		bind the bone to my will	en
+wizardreal:umbra_mortis.chant.en.0:4	wizardreal:umbra_mortis	-1		umbra mortis	en
+wizardreal:umbra_mortis.chant.en.1:0	wizardreal:umbra_mortis	-1		umbra mortis rises on grave wings	en
+wizardreal:umbra_mortis.chant.en.1:1	wizardreal:umbra_mortis	-1		wraith wakes beneath my voice	en
+wizardreal:umbra_mortis.chant.en.1:2	wizardreal:umbra_mortis	-1		the bone remembers my name	en
+wizardreal:umbra_mortis.chant.en.1:3	wizardreal:umbra_mortis	-1		gather, o grave unbound	en
+wizardreal:umbra_mortis.chant.en.1:4	wizardreal:umbra_mortis	-1		umbra mortis	en
+wizardreal:umbra_mortis.chant.zh.0:0	wizardreal:umbra_mortis	-1	tɕy ɪŋ ʈʂʰəŋ wɑŋ ɪŋ ɚ ʈʂɨ	惧影乘亡影而至	zh
+wizardreal:umbra_mortis.chant.zh.0:1	wizardreal:umbra_mortis	-1	i joʊ ʈʂʊŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以幽冢之名应召	zh
+wizardreal:umbra_mortis.chant.zh.0:2	wizardreal:umbra_mortis	-1	ʈʂɨ wɑŋ ɪŋ ʐu wɔ jɛn	织亡影入我言	zh
+wizardreal:umbra_mortis.chant.zh.0:3	wizardreal:umbra_mortis	-1	fu paɪ ku y wɔ i	缚白骨于我意	zh
+wizardreal:umbra_mortis.chant.zh.0:4	wizardreal:umbra_mortis	-1	tɕy ɪŋ	惧影	zh
+wizardreal:umbra_mortis.chant.zh.1:0	wizardreal:umbra_mortis	-1	tɕy ɪŋ ʈʂʰəŋ wɑŋ ɪŋ ɚ ʈʂɨ	惧影乘亡影而至	zh
+wizardreal:umbra_mortis.chant.zh.1:1	wizardreal:umbra_mortis	-1	wɑŋ ɪŋ sweɪ u ʂəŋ ɚ ɕɪŋ	亡影随吾声而醒	zh
+wizardreal:umbra_mortis.chant.zh.1:2	wizardreal:umbra_mortis	-1	paɪ ku ʂɨ tɤ u mɪŋ	白骨识得吾名	zh
+wizardreal:umbra_mortis.chant.zh.1:3	wizardreal:umbra_mortis	-1	laɪ ɕi u tɕi ʈʂɨ joʊ ʈʂʊŋ	来兮，无羁之幽冢	zh
+wizardreal:umbra_mortis.chant.zh.1:4	wizardreal:umbra_mortis	-1	tɕy ɪŋ	惧影	zh
+wizardreal:umbra_mortis.chant.ja.0:0	wizardreal:umbra_mortis	-1		ウンブラ・モルティスは墓に乗て立つ	ja
+wizardreal:umbra_mortis.chant.ja.0:1	wizardreal:umbra_mortis	-1		墓よ応えよ	ja
+wizardreal:umbra_mortis.chant.ja.0:2	wizardreal:umbra_mortis	-1		我が詞に亡霊を織れ	ja
+wizardreal:umbra_mortis.chant.ja.0:3	wizardreal:umbra_mortis	-1		骨を我が意に縛れ	ja
+wizardreal:umbra_mortis.chant.ja.0:4	wizardreal:umbra_mortis	-1	ɯ n bɯ ɾa mo ɾɯ ti sɯ	ウンブラ・モルティス	ja
+wizardreal:umbra_mortis.chant.ja.1:0	wizardreal:umbra_mortis	-1		ウンブラ・モルティスは墓に乗て立つ	ja
+wizardreal:umbra_mortis.chant.ja.1:1	wizardreal:umbra_mortis	-1		声に呼び覚まれし亡霊	ja
+wizardreal:umbra_mortis.chant.ja.1:2	wizardreal:umbra_mortis	-1		骨は名を憶える	ja
+wizardreal:umbra_mortis.chant.ja.1:3	wizardreal:umbra_mortis	-1		集え、縛られぬ墓	ja
+wizardreal:umbra_mortis.chant.ja.1:4	wizardreal:umbra_mortis	-1	ɯ n bɯ ɾa mo ɾɯ ti sɯ	ウンブラ・モルティス	ja
+wizardreal:unda	wizardreal:unda	-1	ʂweɪ tan;ʈʂʰaʊ ʈʂu;ɯ n da;mi zɯ da ma	unda;water orb;水弹;潮珠;ウンダ;みずだま	en;zh;ja
+wizardreal:unda.chant.en.0:0	wizardreal:unda	-1		unda, tide of the old tongue	en
+wizardreal:unda.chant.en.0:1	wizardreal:unda	-1		let the tide answer	en
+wizardreal:unda.chant.en.0:2	wizardreal:unda	-1		weave deep into my words	en
+wizardreal:unda.chant.en.0:3	wizardreal:unda	-1		bind the mist to my will	en
+wizardreal:unda.chant.en.0:4	wizardreal:unda	-1		unda	en
+wizardreal:unda.chant.en.1:0	wizardreal:unda	-1		unda, tide of the old tongue	en
+wizardreal:unda.chant.en.1:1	wizardreal:unda	-1		deep wakes beneath my voice	en
+wizardreal:unda.chant.en.1:2	wizardreal:unda	-1		the mist remembers my name	en
+wizardreal:unda.chant.en.1:3	wizardreal:unda	-1		gather, o tide unbound	en
+wizardreal:unda.chant.en.1:4	wizardreal:unda	-1		unda	en
+wizardreal:unda.chant.zh.0:0	wizardreal:unda	-1	ʂweɪ tan ʈʂʰu ɕjɛn ʈʂʰaʊ ɕi weɪ ʈʂəŋ	水弹初现，潮汐为证	zh
+wizardreal:unda.chant.zh.0:1	wizardreal:unda	-1	i ʈʂʰaʊ ɕi ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以潮汐之名应召	zh
+wizardreal:unda.chant.zh.0:2	wizardreal:unda	-1	ʈʂɨ ʂən ɥɛn ʐu wɔ jɛn	织深渊入我言	zh
+wizardreal:unda.chant.zh.0:3	wizardreal:unda	-1	fu jɛn pwɔ y wɔ i	缚烟波于我意	zh
+wizardreal:unda.chant.zh.0:4	wizardreal:unda	-1	ʂweɪ tan	水弹	zh
+wizardreal:unda.chant.zh.1:0	wizardreal:unda	-1	ʂweɪ tan ʈʂʰu ɕjɛn ʈʂʰaʊ ɕi weɪ ʈʂəŋ	水弹初现，潮汐为证	zh
+wizardreal:unda.chant.zh.1:1	wizardreal:unda	-1	ʂən ɥɛn sweɪ u ʂəŋ ɚ ɕɪŋ	深渊随吾声而醒	zh
+wizardreal:unda.chant.zh.1:2	wizardreal:unda	-1	jɛn pwɔ ʂɨ tɤ u mɪŋ	烟波识得吾名	zh
+wizardreal:unda.chant.zh.1:3	wizardreal:unda	-1	laɪ ɕi u tɕi ʈʂɨ ʈʂʰaʊ ɕi	来兮，无羁之潮汐	zh
+wizardreal:unda.chant.zh.1:4	wizardreal:unda	-1	ʂweɪ tan	水弹	zh
+wizardreal:unda.chant.ja.0:0	wizardreal:unda	-1		ウンダよ、潮とともに	ja
+wizardreal:unda.chant.ja.0:1	wizardreal:unda	-1		潮よ応えよ	ja
+wizardreal:unda.chant.ja.0:2	wizardreal:unda	-1		我が詞に深淵を織れ	ja
+wizardreal:unda.chant.ja.0:3	wizardreal:unda	-1		霧を我が意に縛れ	ja
+wizardreal:unda.chant.ja.0:4	wizardreal:unda	-1	ɯ n da	ウンダ	ja
+wizardreal:unda.chant.ja.1:0	wizardreal:unda	-1		ウンダよ、潮とともに	ja
+wizardreal:unda.chant.ja.1:1	wizardreal:unda	-1		声に呼び覚まれし深淵	ja
+wizardreal:unda.chant.ja.1:2	wizardreal:unda	-1		霧は名を憶える	ja
+wizardreal:unda.chant.ja.1:3	wizardreal:unda	-1		集え、縛られぬ潮	ja
+wizardreal:unda.chant.ja.1:4	wizardreal:unda	-1	ɯ n da	ウンダ	ja
+wizardreal:velum	wizardreal:velum	-1	in mu;ni ɪŋ;ɛː ɾɯ mɯ;ka kɯ ɾɛ mi no	velum;veil;隐幕;匿影;ウェールム;カクレミノ	en;zh;ja
+wizardreal:velum.chant.en.0:0	wizardreal:velum	-1		o dream, lend velum thy breath	en
+wizardreal:velum.chant.en.0:1	wizardreal:velum	-1		let the shade answer	en
+wizardreal:velum.chant.en.0:2	wizardreal:velum	-1		weave veil into my words	en
+wizardreal:velum.chant.en.0:3	wizardreal:velum	-1		bind the mirror to my will	en
+wizardreal:velum.chant.en.0:4	wizardreal:velum	-1		velum	en
+wizardreal:velum.chant.en.1:0	wizardreal:velum	-1		o dream, lend velum thy breath	en
+wizardreal:velum.chant.en.1:1	wizardreal:velum	-1		veil wakes beneath my voice	en
+wizardreal:velum.chant.en.1:2	wizardreal:velum	-1		the mirror remembers my name	en
+wizardreal:velum.chant.en.1:3	wizardreal:velum	-1		gather, o shade unbound	en
+wizardreal:velum.chant.en.1:4	wizardreal:velum	-1		velum	en
+wizardreal:velum.chant.zh.0:0	wizardreal:velum	-1	xwan ɪŋ a tɕjɛ in mu i ɕi	幻影啊，借隐幕以息	zh
+wizardreal:velum.chant.zh.0:1	wizardreal:velum	-1	i xwan ɪŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以幻影之名应召	zh
+wizardreal:velum.chant.zh.0:2	wizardreal:velum	-1	ʈʂɨ weɪ mu ʐu wɔ jɛn	织帷幕入我言	zh
+wizardreal:velum.chant.zh.0:3	wizardreal:velum	-1	fu tɕɪŋ tɕjɛ y wɔ i	缚镜界于我意	zh
+wizardreal:velum.chant.zh.0:4	wizardreal:velum	-1	in mu	隐幕	zh
+wizardreal:velum.chant.zh.1:0	wizardreal:velum	-1	xwan ɪŋ a tɕjɛ in mu i ɕi	幻影啊，借隐幕以息	zh
+wizardreal:velum.chant.zh.1:1	wizardreal:velum	-1	weɪ mu sweɪ u ʂəŋ ɚ ɕɪŋ	帷幕随吾声而醒	zh
+wizardreal:velum.chant.zh.1:2	wizardreal:velum	-1	tɕɪŋ tɕjɛ ʂɨ tɤ u mɪŋ	镜界识得吾名	zh
+wizardreal:velum.chant.zh.1:3	wizardreal:velum	-1	laɪ ɕi u tɕi ʈʂɨ xwan ɪŋ	来兮，无羁之幻影	zh
+wizardreal:velum.chant.zh.1:4	wizardreal:velum	-1	in mu	隐幕	zh
+wizardreal:velum.chant.ja.0:0	wizardreal:velum	-1		幻よ、ウェルムに息を貸せ	ja
+wizardreal:velum.chant.ja.0:1	wizardreal:velum	-1		幻よ応えよ	ja
+wizardreal:velum.chant.ja.0:2	wizardreal:velum	-1		我が詞に帷を織れ	ja
+wizardreal:velum.chant.ja.0:3	wizardreal:velum	-1		鏡を我が意に縛れ	ja
+wizardreal:velum.chant.ja.0:4	wizardreal:velum	-1	ɛː ɾɯ mɯ	ウェールム	ja
+wizardreal:velum.chant.ja.1:0	wizardreal:velum	-1		幻よ、ウェルムに息を貸せ	ja
+wizardreal:velum.chant.ja.1:1	wizardreal:velum	-1		声に呼び覚まれし帷	ja
+wizardreal:velum.chant.ja.1:2	wizardreal:velum	-1		鏡は名を憶える	ja
+wizardreal:velum.chant.ja.1:3	wizardreal:velum	-1		集え、縛られぬ幻	ja
+wizardreal:velum.chant.ja.1:4	wizardreal:velum	-1	ɛː ɾɯ mɯ	ウェールム	ja
+wizardreal:ventus	wizardreal:ventus	-1	ˈvɛntʊs;ˈvɛntʊs;ˈvɛntʊs;ɡeɪl;fəŋʐən;fəŋɹən;fəŋɻən;tɕiʐən;tɕhiʐən;tɕʰiʐən	ventus;wind blade;风刃;气刃;ウェンタス;カゼノヤイバ	en;zh;ja
+wizardreal:ventus.chant.en.0:0	wizardreal:ventus	-1		ventus, hear the sky	en
+wizardreal:ventus.chant.en.0:1	wizardreal:ventus	-1		let the gale answer	en
+wizardreal:ventus.chant.en.0:2	wizardreal:ventus	-1		weave zephyr into my words	en
+wizardreal:ventus.chant.en.0:3	wizardreal:ventus	-1		bind the sky to my will	en
+wizardreal:ventus.chant.en.0:4	wizardreal:ventus	-1	ˈvɛntʊs	ventus	en
+wizardreal:ventus.chant.en.1:0	wizardreal:ventus	-1		ventus, hear the sky	en
+wizardreal:ventus.chant.en.1:1	wizardreal:ventus	-1		zephyr wakes beneath my voice	en
+wizardreal:ventus.chant.en.1:2	wizardreal:ventus	-1		the sky remembers my name	en
+wizardreal:ventus.chant.en.1:3	wizardreal:ventus	-1		gather, o gale unbound	en
+wizardreal:ventus.chant.en.1:4	wizardreal:ventus	-1	ˈvɛntʊs	ventus	en
+wizardreal:ventus.chant.zh.0:0	wizardreal:ventus	-1	fəŋ ʐən a ti tʰɪŋ kɑŋ fəŋ	风刃啊，谛听罡风	zh
+wizardreal:ventus.chant.zh.0:1	wizardreal:ventus	-1	tɕjɛ fɑŋ kwɑŋ fəŋ	以罡风之名应召	zh
+wizardreal:ventus.chant.zh.0:2	wizardreal:ventus	-1	kwɑŋ fəŋ	织清风入我言	zh
+wizardreal:ventus.chant.zh.0:3	wizardreal:ventus	-1	fu ʈʂɑŋ kʰʊŋ y wɔ i	缚长空于我意	zh
+wizardreal:ventus.chant.zh.0:4	wizardreal:ventus	-1	ˈvɛntʊs	风刃	zh
+wizardreal:ventus.chant.zh.1:0	wizardreal:ventus	-1	fəŋ ʐən a ti tʰɪŋ kɑŋ fəŋ	风刃啊，谛听罡风	zh
+wizardreal:ventus.chant.zh.1:1	wizardreal:ventus	-1	tɕʰɪŋ fəŋ sweɪ u ʂəŋ ɚ ɕɪŋ	清风随吾声而醒	zh
+wizardreal:ventus.chant.zh.1:2	wizardreal:ventus	-1	ʈʂɑŋ kʰʊŋ ʂɨ tɤ u mɪŋ	长空识得吾名	zh
+wizardreal:ventus.chant.zh.1:3	wizardreal:ventus	-1	laɪ ɕi u tɕi ʈʂɨ kɑŋ fəŋ	来兮，无羁之罡风	zh
+wizardreal:ventus.chant.zh.1:4	wizardreal:ventus	-1	ˈvɛntʊs	风刃	zh
+wizardreal:ventus.chant.ja.0:0	wizardreal:ventus	-1		ウェントゥスよ、疾風を聴け	ja
+wizardreal:ventus.chant.ja.0:1	wizardreal:ventus	-1		疾風よ応えよ	ja
+wizardreal:ventus.chant.ja.0:2	wizardreal:ventus	-1		我が詞に微風を織れ	ja
+wizardreal:ventus.chant.ja.0:3	wizardreal:ventus	-1		空を我が意に縛れ	ja
+wizardreal:ventus.chant.ja.0:4	wizardreal:ventus	-1	ˈvɛntʊs	ウェンタス	ja
+wizardreal:ventus.chant.ja.1:0	wizardreal:ventus	-1		ウェントゥスよ、疾風を聴け	ja
+wizardreal:ventus.chant.ja.1:1	wizardreal:ventus	-1		声に呼び覚まれし微風	ja
+wizardreal:ventus.chant.ja.1:2	wizardreal:ventus	-1		空は名を憶える	ja
+wizardreal:ventus.chant.ja.1:3	wizardreal:ventus	-1		集え、縛られぬ疾風	ja
+wizardreal:ventus.chant.ja.1:4	wizardreal:ventus	-1	ˈvɛntʊs	ウェンタス	ja
+wizardreal:vestibulum	wizardreal:vestibulum	-1	xwɔ tɕʰjɑŋ;ɛ sɯ ti bɯ ɾɯ mɯ	vestibulum;火墙;ウェスティブルム	en;zh;ja
+wizardreal:vestibulum.chant.en.0:0	wizardreal:vestibulum	-1		let ash crown vestibulum	en
+wizardreal:vestibulum.chant.en.0:1	wizardreal:vestibulum	-1		let the ember answer	en
+wizardreal:vestibulum.chant.en.0:2	wizardreal:vestibulum	-1		weave ash into my words	en
+wizardreal:vestibulum.chant.en.0:3	wizardreal:vestibulum	-1		bind the pyre to my will	en
+wizardreal:vestibulum.chant.en.0:4	wizardreal:vestibulum	-1		vestibulum	en
+wizardreal:vestibulum.chant.en.1:0	wizardreal:vestibulum	-1		let ash crown vestibulum	en
+wizardreal:vestibulum.chant.en.1:1	wizardreal:vestibulum	-1		ash wakes beneath my voice	en
+wizardreal:vestibulum.chant.en.1:2	wizardreal:vestibulum	-1		the pyre remembers my name	en
+wizardreal:vestibulum.chant.en.1:3	wizardreal:vestibulum	-1		gather, o ember unbound	en
+wizardreal:vestibulum.chant.en.1:4	wizardreal:vestibulum	-1		vestibulum	en
+wizardreal:vestibulum.chant.zh.0:0	wizardreal:vestibulum	-1	i xweɪ tɕin tɕja mjɛn xwɔ tɕʰjɑŋ	以灰烬加冕火墙	zh
+wizardreal:vestibulum.chant.zh.0:1	wizardreal:vestibulum	-1	i ʈʂʰɨ jɛn ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以赤炎之名应召	zh
+wizardreal:vestibulum.chant.zh.0:2	wizardreal:vestibulum	-1	ʈʂɨ xweɪ tɕin ʐu wɔ jɛn	织灰烬入我言	zh
+wizardreal:vestibulum.chant.zh.0:3	wizardreal:vestibulum	-1	fu ljɛ jɛn y wɔ i	缚烈焰于我意	zh
+wizardreal:vestibulum.chant.zh.0:4	wizardreal:vestibulum	-1	xwɔ tɕʰjɑŋ	火墙	zh
+wizardreal:vestibulum.chant.zh.1:0	wizardreal:vestibulum	-1	i xweɪ tɕin tɕja mjɛn xwɔ tɕʰjɑŋ	以灰烬加冕火墙	zh
+wizardreal:vestibulum.chant.zh.1:1	wizardreal:vestibulum	-1	xweɪ tɕin sweɪ u ʂəŋ ɚ ɕɪŋ	灰烬随吾声而醒	zh
+wizardreal:vestibulum.chant.zh.1:2	wizardreal:vestibulum	-1	ljɛ jɛn ʂɨ tɤ u mɪŋ	烈焰识得吾名	zh
+wizardreal:vestibulum.chant.zh.1:3	wizardreal:vestibulum	-1	laɪ ɕi u tɕi ʈʂɨ ʈʂʰɨ jɛn	来兮，无羁之赤炎	zh
+wizardreal:vestibulum.chant.zh.1:4	wizardreal:vestibulum	-1	xwɔ tɕʰjɑŋ	火墙	zh
+wizardreal:vestibulum.chant.ja.0:0	wizardreal:vestibulum	-1		紅蓮をもってウェスティブルムを飾れ	ja
+wizardreal:vestibulum.chant.ja.0:1	wizardreal:vestibulum	-1		紅蓮よ応えよ	ja
+wizardreal:vestibulum.chant.ja.0:2	wizardreal:vestibulum	-1		我が詞に灰を織れ	ja
+wizardreal:vestibulum.chant.ja.0:3	wizardreal:vestibulum	-1		焔を我が意に縛れ	ja
+wizardreal:vestibulum.chant.ja.0:4	wizardreal:vestibulum	-1	ɛ sɯ ti bɯ ɾɯ mɯ	ウェスティブルム	ja
+wizardreal:vestibulum.chant.ja.1:0	wizardreal:vestibulum	-1		紅蓮をもってウェスティブルムを飾れ	ja
+wizardreal:vestibulum.chant.ja.1:1	wizardreal:vestibulum	-1		声に呼び覚まれし灰	ja
+wizardreal:vestibulum.chant.ja.1:2	wizardreal:vestibulum	-1		焔は名を憶える	ja
+wizardreal:vestibulum.chant.ja.1:3	wizardreal:vestibulum	-1		集え、縛られぬ紅蓮	ja
+wizardreal:vestibulum.chant.ja.1:4	wizardreal:vestibulum	-1	ɛ sɯ ti bɯ ɾɯ mɯ	ウェスティブルム	ja
+wizardreal:vincula	wizardreal:vincula	-1	tʰjɛn swɔ fu;tʰjɛn swɔ	vincula;sky chains;天锁缚;天锁;ヴィンクラ;天の鎖	en;zh;ja
+wizardreal:vincula.chant.en.0:0	wizardreal:vincula	-1		by grace, vincula awakens	en
+wizardreal:vincula.chant.en.0:1	wizardreal:vincula	-1		let the light answer	en
+wizardreal:vincula.chant.en.0:2	wizardreal:vincula	-1		weave hymn into my words	en
+wizardreal:vincula.chant.en.0:3	wizardreal:vincula	-1		bind the halo to my will	en
+wizardreal:vincula.chant.en.0:4	wizardreal:vincula	-1		by the first light, i swear	en
+wizardreal:vincula.chant.en.0:5	wizardreal:vincula	-1		vincula	en
+wizardreal:vincula.chant.en.1:0	wizardreal:vincula	-1		by grace, vincula awakens	en
+wizardreal:vincula.chant.en.1:1	wizardreal:vincula	-1		hymn wakes beneath my voice	en
+wizardreal:vincula.chant.en.1:2	wizardreal:vincula	-1		the halo remembers my name	en
+wizardreal:vincula.chant.en.1:3	wizardreal:vincula	-1		gather, o light unbound	en
+wizardreal:vincula.chant.en.1:4	wizardreal:vincula	-1		the grace leans close to listen	en
+wizardreal:vincula.chant.en.1:5	wizardreal:vincula	-1		vincula	en
+wizardreal:vincula.chant.zh.0:0	wizardreal:vincula	-1	i ʂəŋ jʊŋ weɪ in tʰjɛn swɔ su ɕɪŋ	以圣咏为引，天锁苏醒	zh
+wizardreal:vincula.chant.zh.0:1	wizardreal:vincula	-1	i ʂəŋ kwɑŋ ʈʂɨ mɪŋ ɪŋ ʈʂaʊ	以圣光之名应召	zh
+wizardreal:vincula.chant.zh.0:2	wizardreal:vincula	-1	ʈʂɨ ʂəŋ jʊŋ ʐu wɔ jɛn	织圣咏入我言	zh
+wizardreal:vincula.chant.zh.0:3	wizardreal:vincula	-1	fu xweɪ xwan y wɔ i	缚辉环于我意	zh
+wizardreal:vincula.chant.zh.0:4	wizardreal:vincula	-1	ʈʂʰu xwɔ ʂəŋ kwɑŋ weɪ ʂɨ	初火圣光为誓	zh
+wizardreal:vincula.chant.zh.0:5	wizardreal:vincula	-1	tʰjɛn swɔ fu	天锁缚	zh
+wizardreal:vincula.chant.zh.1:0	wizardreal:vincula	-1	i ʂəŋ jʊŋ weɪ in tʰjɛn swɔ su ɕɪŋ	以圣咏为引，天锁苏醒	zh
+wizardreal:vincula.chant.zh.1:1	wizardreal:vincula	-1	ʂəŋ jʊŋ sweɪ u ʂəŋ ɚ ɕɪŋ	圣咏随吾声而醒	zh
+wizardreal:vincula.chant.zh.1:2	wizardreal:vincula	-1	xweɪ xwan ʂɨ tɤ u mɪŋ	辉环识得吾名	zh
+wizardreal:vincula.chant.zh.1:3	wizardreal:vincula	-1	laɪ ɕi u tɕi ʈʂɨ ʂəŋ kwɑŋ	来兮，无羁之圣光	zh
+wizardreal:vincula.chant.zh.1:4	wizardreal:vincula	-1	ən tsɤ tsʰɤ ɚ lɪŋ tʰɪŋ	恩泽侧耳聆听	zh
+wizardreal:vincula.chant.zh.1:5	wizardreal:vincula	-1	tʰjɛn swɔ fu	天锁缚	zh
+wizardreal:vincula.chant.ja.0:0	wizardreal:vincula	-1		光に導かれ、ウィンクラ顕現せり	ja
+wizardreal:vincula.chant.ja.0:1	wizardreal:vincula	-1		光よ応えよ	ja
+wizardreal:vincula.chant.ja.0:2	wizardreal:vincula	-1		我が詞に聖歌を織れ	ja
+wizardreal:vincula.chant.ja.0:3	wizardreal:vincula	-1		光輪を我が意に縛れ	ja
+wizardreal:vincula.chant.ja.0:4	wizardreal:vincula	-1		原初の光に誓う	ja
+wizardreal:vincula.chant.ja.0:5	wizardreal:vincula	-1		ヴィンクラ	ja
+wizardreal:vincula.chant.ja.1:0	wizardreal:vincula	-1		光に導かれ、ウィンクラ顕現せり	ja
+wizardreal:vincula.chant.ja.1:1	wizardreal:vincula	-1		声に呼び覚まれし聖歌	ja
+wizardreal:vincula.chant.ja.1:2	wizardreal:vincula	-1		光輪は名を憶える	ja
+wizardreal:vincula.chant.ja.1:3	wizardreal:vincula	-1		集え、縛られぬ光	ja
+wizardreal:vincula.chant.ja.1:4	wizardreal:vincula	-1		恵みは耳を傾ける	ja
+wizardreal:vincula.chant.ja.1:5	wizardreal:vincula	-1		ヴィンクラ	ja
+wizardreal:vireo	wizardreal:vireo	-1	ʂu fu tʰəŋ;tʰəŋ fu;i ɾɛ o	vireo;binding vine;束缚藤;藤缚;ウィレオ;束縛蔓	en;zh;ja
+wizardreal:vireo.chant.en.0:0	wizardreal:vireo	-1		vireo, hear the thorn	en
+wizardreal:vireo.chant.en.0:1	wizardreal:vireo	-1		let the root answer	en
+wizardreal:vireo.chant.en.0:2	wizardreal:vireo	-1		weave bloom into my words	en
+wizardreal:vireo.chant.en.0:3	wizardreal:vireo	-1		bind the thorn to my will	en
+wizardreal:vireo.chant.en.0:4	wizardreal:vireo	-1		vireo	en
+wizardreal:vireo.chant.en.1:0	wizardreal:vireo	-1		vireo, hear the thorn	en
+wizardreal:vireo.chant.en.1:1	wizardreal:vireo	-1		bloom wakes beneath my voice	en
+wizardreal:vireo.chant.en.1:2	wizardreal:vireo	-1		the thorn remembers my name	en
+wizardreal:vireo.chant.en.1:3	wizardreal:vireo	-1		gather, o root unbound	en
+wizardreal:vireo.chant.en.1:4	wizardreal:vireo	-1		vireo	en
+wizardreal:vireo.chant.zh.0:0	wizardreal:vireo	-1	ʂu fu tʰəŋ a ti tʰɪŋ kən ɕy	束缚藤啊，谛听根须	zh
+wizardreal:vireo.chant.zh.0:1	wizardreal:vireo	-1	ʂəŋ ʈʂɑŋ kaɪ xwa	以根须之名应召	zh
+wizardreal:vireo.chant.zh.0:2	wizardreal:vireo	-1	tsɨ ʐan	织新芽入我言	zh
+wizardreal:vireo.chant.zh.0:3	wizardreal:vireo	-1	fu tɕɪŋ tɕi y wɔ i	缚荆棘于我意	zh
+wizardreal:vireo.chant.zh.0:4	wizardreal:vireo	-1	ʂu fu tʰəŋ	束缚藤	zh
+wizardreal:vireo.chant.zh.1:0	wizardreal:vireo	-1	ʂu fu tʰəŋ a ti tʰɪŋ kən ɕy	束缚藤啊，谛听根须	zh
+wizardreal:vireo.chant.zh.1:1	wizardreal:vireo	-1	ɕin ja sweɪ u ʂəŋ ɚ ɕɪŋ	新芽随吾声而醒	zh
+wizardreal:vireo.chant.zh.1:2	wizardreal:vireo	-1	tɕɪŋ tɕi ʂɨ tɤ u mɪŋ	荆棘识得吾名	zh
+wizardreal:vireo.chant.zh.1:3	wizardreal:vireo	-1	laɪ ɕi u tɕi ʈʂɨ kən ɕy	来兮，无羁之根须	zh
+wizardreal:vireo.chant.zh.1:4	wizardreal:vireo	-1	ʂu fu tʰəŋ	束缚藤	zh
+wizardreal:vireo.chant.ja.0:0	wizardreal:vireo	-1		ウィレオよ、根を聴け	ja
+wizardreal:vireo.chant.ja.0:1	wizardreal:vireo	-1		根よ応えよ	ja
+wizardreal:vireo.chant.ja.0:2	wizardreal:vireo	-1		我が詞に芽を織れ	ja
+wizardreal:vireo.chant.ja.0:3	wizardreal:vireo	-1		茨を我が意に縛れ	ja
+wizardreal:vireo.chant.ja.0:4	wizardreal:vireo	-1	i ɾɛ o	ウィレオ	ja
+wizardreal:vireo.chant.ja.1:0	wizardreal:vireo	-1		ウィレオよ、根を聴け	ja
+wizardreal:vireo.chant.ja.1:1	wizardreal:vireo	-1		声に呼び覚まれし芽	ja
+wizardreal:vireo.chant.ja.1:2	wizardreal:vireo	-1		茨は名を憶える	ja
+wizardreal:vireo.chant.ja.1:3	wizardreal:vireo	-1		集え、縛られぬ根	ja
+wizardreal:vireo.chant.ja.1:4	wizardreal:vireo	-1	i ɾɛ o	ウィレオ	ja
+wizardreal:volatus	wizardreal:volatus	-1	tɕi fəŋ pu;fəŋ ɕɪŋ;o ɾa tɯ sɯ	volatus;wind step;疾风步;风行;ウォラトゥス;疾風歩	en;zh;ja
+wizardreal:volatus.chant.en.0:0	wizardreal:volatus	-1		let zephyr crown volatus	en
+wizardreal:volatus.chant.en.0:1	wizardreal:volatus	-1		let the gale answer	en
+wizardreal:volatus.chant.en.0:2	wizardreal:volatus	-1		weave zephyr into my words	en
+wizardreal:volatus.chant.en.0:3	wizardreal:volatus	-1		bind the sky to my will	en
+wizardreal:volatus.chant.en.0:4	wizardreal:volatus	-1		volatus	en
+wizardreal:volatus.chant.en.1:0	wizardreal:volatus	-1		let zephyr crown volatus	en
+wizardreal:volatus.chant.en.1:1	wizardreal:volatus	-1		zephyr wakes beneath my voice	en
+wizardreal:volatus.chant.en.1:2	wizardreal:volatus	-1		the sky remembers my name	en
+wizardreal:volatus.chant.en.1:3	wizardreal:volatus	-1		gather, o gale unbound	en
+wizardreal:volatus.chant.en.1:4	wizardreal:volatus	-1		volatus	en
+wizardreal:volatus.chant.zh.0:0	wizardreal:volatus	-1	i tɕʰɪŋ fəŋ tɕja mjɛn tɕi fəŋ pu	以清风加冕疾风步	zh
+wizardreal:volatus.chant.zh.0:1	wizardreal:volatus	-1	tɕjɛ fɑŋ kwɑŋ fəŋ	以罡风之名应召	zh
+wizardreal:volatus.chant.zh.0:2	wizardreal:volatus	-1	kwɑŋ fəŋ	织清风入我言	zh
+wizardreal:volatus.chant.zh.0:3	wizardreal:volatus	-1	fu ʈʂɑŋ kʰʊŋ y wɔ i	缚长空于我意	zh
+wizardreal:volatus.chant.zh.0:4	wizardreal:volatus	-1	tɕi fəŋ pu	疾风步	zh
+wizardreal:volatus.chant.zh.1:0	wizardreal:volatus	-1	i tɕʰɪŋ fəŋ tɕja mjɛn tɕi fəŋ pu	以清风加冕疾风步	zh
+wizardreal:volatus.chant.zh.1:1	wizardreal:volatus	-1	tɕʰɪŋ fəŋ sweɪ u ʂəŋ ɚ ɕɪŋ	清风随吾声而醒	zh
+wizardreal:volatus.chant.zh.1:2	wizardreal:volatus	-1	ʈʂɑŋ kʰʊŋ ʂɨ tɤ u mɪŋ	长空识得吾名	zh
+wizardreal:volatus.chant.zh.1:3	wizardreal:volatus	-1	laɪ ɕi u tɕi ʈʂɨ kɑŋ fəŋ	来兮，无羁之罡风	zh
+wizardreal:volatus.chant.zh.1:4	wizardreal:volatus	-1	tɕi fəŋ pu	疾风步	zh
+wizardreal:volatus.chant.ja.0:0	wizardreal:volatus	-1		疾風をもってウォラトゥスを飾れ	ja
+wizardreal:volatus.chant.ja.0:1	wizardreal:volatus	-1		疾風よ応えよ	ja
+wizardreal:volatus.chant.ja.0:2	wizardreal:volatus	-1		我が詞に微風を織れ	ja
+wizardreal:volatus.chant.ja.0:3	wizardreal:volatus	-1		空を我が意に縛れ	ja
+wizardreal:volatus.chant.ja.0:4	wizardreal:volatus	-1	o ɾa tɯ sɯ	ウォラトゥス	ja
+wizardreal:volatus.chant.ja.1:0	wizardreal:volatus	-1		疾風をもってウォラトゥスを飾れ	ja
+wizardreal:volatus.chant.ja.1:1	wizardreal:volatus	-1		声に呼び覚まれし微風	ja
+wizardreal:volatus.chant.ja.1:2	wizardreal:volatus	-1		空は名を憶える	ja
+wizardreal:volatus.chant.ja.1:3	wizardreal:volatus	-1		集え、縛られぬ疾風	ja
+wizardreal:volatus.chant.ja.1:4	wizardreal:volatus	-1	o ɾa tɯ sɯ	ウォラトゥス	ja

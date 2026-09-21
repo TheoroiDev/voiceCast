@@ -1,6 +1,6 @@
 package com.theo.voicecast.server;
 
-import com.theo.voicecast.api.Pronunciation;
+import com.theo.voicecast.api.SessionVocabulary;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
@@ -19,26 +19,26 @@ class CastModeRoutingTest {
     // Production-shaped ids: trigger = <spell>, chant lines = <spell>.chant.<lang>.<v>:<i>
     // (chain 0: line 0 = chant trigger, line 1 = body, line 2 = cast/release);
     // chant lines carry a single-language bucket exactly like langLine() builds them.
-    private static final Pronunciation IGNIS_TRIGGER = new Pronunciation("wizardreal:ignis",
-            List.of(), List.of(), Map.of("en", List.of("ignis"), "zh", List.of("火球")));
-    private static final Pronunciation IGNIS_L1 = new Pronunciation("wizardreal:ignis.chant.en.0:0",
-            List.of(), List.of(), Map.of("en", List.of("ignis, ember of the old tongue")));
-    private static final Pronunciation IGNIS_BODY = new Pronunciation("wizardreal:ignis.chant.en.0:1",
-            List.of(), List.of(), Map.of("en", List.of("let the ember answer")));
-    private static final Pronunciation IGNIS_CAST = new Pronunciation("wizardreal:ignis.chant.en.0:2",
-            List.of(), List.of(), Map.of("en", List.of("ignis")));
-    private static final Pronunciation IGNIS_ZH_CAST = new Pronunciation("wizardreal:ignis.chant.zh.0:2",
-            List.of(), List.of(), Map.of("zh", List.of("火球")));
-    private static final Pronunciation UMBRA_TRIGGER = new Pronunciation("wizardreal:umbra_mortis",
-            List.of(), List.of(), Map.of("en", List.of("umbra mortis")));
-    private static final Pronunciation UMBRA_CAST = new Pronunciation("wizardreal:umbra_mortis.chant.en.0:1",
-            List.of(), List.of(), Map.of("en", List.of("umbra mortis")));
+    private static final SessionVocabulary.Entry IGNIS_TRIGGER = new SessionVocabulary.Entry("wizardreal:ignis",
+            List.of(), List.of(), Map.of("en", List.of("ignis"), "zh", List.of("火球")), null);
+    private static final SessionVocabulary.Entry IGNIS_L1 = new SessionVocabulary.Entry("wizardreal:ignis.chant.en.0:0",
+            List.of(), List.of(), Map.of("en", List.of("ignis, ember of the old tongue")), null);
+    private static final SessionVocabulary.Entry IGNIS_BODY = new SessionVocabulary.Entry("wizardreal:ignis.chant.en.0:1",
+            List.of(), List.of(), Map.of("en", List.of("let the ember answer")), null);
+    private static final SessionVocabulary.Entry IGNIS_CAST = new SessionVocabulary.Entry("wizardreal:ignis.chant.en.0:2",
+            List.of(), List.of(), Map.of("en", List.of("ignis")), null);
+    private static final SessionVocabulary.Entry IGNIS_ZH_CAST = new SessionVocabulary.Entry("wizardreal:ignis.chant.zh.0:2",
+            List.of(), List.of(), Map.of("zh", List.of("火球")), null);
+    private static final SessionVocabulary.Entry UMBRA_TRIGGER = new SessionVocabulary.Entry("wizardreal:umbra_mortis",
+            List.of(), List.of(), Map.of("en", List.of("umbra mortis")), null);
+    private static final SessionVocabulary.Entry UMBRA_CAST = new SessionVocabulary.Entry("wizardreal:umbra_mortis.chant.en.0:1",
+            List.of(), List.of(), Map.of("en", List.of("umbra mortis")), null);
 
-    private static final Collection<Pronunciation> VOCAB = List.of(
+    private static final Collection<SessionVocabulary.Entry> VOCAB = List.of(
             IGNIS_TRIGGER, IGNIS_L1, IGNIS_BODY, IGNIS_CAST, IGNIS_ZH_CAST, UMBRA_TRIGGER, UMBRA_CAST);
 
-    private static List<String> ids(Collection<Pronunciation> vocab) {
-        return vocab.stream().map(Pronunciation::id).toList();
+    private static List<String> ids(Collection<SessionVocabulary.Entry> vocab) {
+        return vocab.stream().map(SessionVocabulary.Entry::id).toList();
     }
 
     @Test
@@ -64,7 +64,7 @@ class CastModeRoutingTest {
 
     @Test
     void chantConfirmNarrowsToDeclaredSpellAllAliases() {
-        Collection<Pronunciation> confirm = VocabularyRouter.forSpells(
+        Collection<SessionVocabulary.Entry> confirm = VocabularyRouter.forSpells(
                 VOCAB, CastMode.CHANT_CONFIRM, List.of("wizardreal:ignis"));
         assertEquals(List.of(
                 "wizardreal:ignis",
@@ -76,7 +76,7 @@ class CastModeRoutingTest {
 
     @Test
     void practiceConfirmSameCandidateShapeAsChantConfirm() {
-        Collection<Pronunciation> practice = VocabularyRouter.forSpells(
+        Collection<SessionVocabulary.Entry> practice = VocabularyRouter.forSpells(
                 VOCAB, CastMode.PRACTICE_CONFIRM, List.of("wizardreal:umbra_mortis"));
         assertEquals(List.of("wizardreal:umbra_mortis", "wizardreal:umbra_mortis.chant.en.0:1"), ids(practice));
     }
@@ -93,18 +93,18 @@ class CastModeRoutingTest {
     void grayNarrowAddsTopConfusionNeighbors() {
         // wizardreal:falsum ships in confusion_neighbors.tsv with wizardreal:telum
         // as its top neighbor (M2E E-2 red list, rate-descending / judged-id-ascending).
-        Pronunciation falsum = new Pronunciation("wizardreal:falsum", List.of(), List.of("falsum"));
-        Pronunciation telum = new Pronunciation("wizardreal:telum", List.of(), List.of("telum"));
-        Pronunciation bystander = new Pronunciation("wizardreal:ignis", List.of(), List.of("ignis"));
-        Collection<Pronunciation> narrow = VocabularyRouter.forSpells(
+        SessionVocabulary.Entry falsum = new SessionVocabulary.Entry("wizardreal:falsum", List.of(), List.of("falsum"), null, null);
+        SessionVocabulary.Entry telum = new SessionVocabulary.Entry("wizardreal:telum", List.of(), List.of("telum"), null, null);
+        SessionVocabulary.Entry bystander = new SessionVocabulary.Entry("wizardreal:ignis", List.of(), List.of("ignis"), null, null);
+        Collection<SessionVocabulary.Entry> narrow = VocabularyRouter.forSpells(
                 List.of(falsum, telum, bystander), CastMode.GRAY_NARROW, List.of("wizardreal:falsum"));
         assertEquals(List.of("wizardreal:falsum", "wizardreal:telum"), ids(narrow));
     }
 
     @Test
     void grayNarrowDeclaredOnlyWhenSpellHasNoNeighbors() {
-        Pronunciation unknown = new Pronunciation("wizardreal:not_in_ledger", List.of(), List.of("x"));
-        Collection<Pronunciation> narrow = VocabularyRouter.forSpells(
+        SessionVocabulary.Entry unknown = new SessionVocabulary.Entry("wizardreal:not_in_ledger", List.of(), List.of("x"), null, null);
+        Collection<SessionVocabulary.Entry> narrow = VocabularyRouter.forSpells(
                 List.of(unknown), CastMode.GRAY_NARROW, List.of("wizardreal:not_in_ledger"));
         assertEquals(List.of("wizardreal:not_in_ledger"), ids(narrow));
     }
@@ -114,7 +114,7 @@ class CastModeRoutingTest {
         // "∩单语言桶": mode first, then the engine-language buckets. Entries
         // stay in the vocabulary (language trim empties foreign buckets), so
         // assert on the heard aliases per id.
-        Collection<Pronunciation> routed = VocabularyRouter.forLanguages(
+        Collection<SessionVocabulary.Entry> routed = VocabularyRouter.forLanguages(
                 VocabularyRouter.forSpells(VOCAB, CastMode.CHANT_CONFIRM, List.of("wizardreal:ignis")),
                 List.of("en"));
         assertEquals(5, routed.size());
@@ -127,7 +127,7 @@ class CastModeRoutingTest {
 
     @Test
     void openThenLanguageProjectionDropsForeignBuckets() {
-        Collection<Pronunciation> routed = VocabularyRouter.forLanguages(
+        Collection<SessionVocabulary.Entry> routed = VocabularyRouter.forLanguages(
                 VocabularyRouter.forSpells(VOCAB, CastMode.OPEN, List.of()), List.of("zh"));
         assertEquals(List.of("火球"), aliasesOf(routed, "wizardreal:ignis"));
         assertEquals(List.of("火球"), aliasesOf(routed, "wizardreal:ignis.chant.zh.0:2"));
@@ -136,7 +136,7 @@ class CastModeRoutingTest {
         assertTrue(aliasesOf(routed, "wizardreal:umbra_mortis.chant.en.0:1").isEmpty());
     }
 
-    private static List<String> aliasesOf(Collection<Pronunciation> vocab, String id) {
+    private static List<String> aliasesOf(Collection<SessionVocabulary.Entry> vocab, String id) {
         return vocab.stream().filter(p -> p.id().equals(id)).findFirst().orElseThrow().aliases();
     }
 
@@ -152,10 +152,10 @@ class CastModeRoutingTest {
     void unparseableChantIdsPassThroughOpenKeptInConfirm() {
         // Marker present, no numeric chain index: OPEN keeps everything (full
         // vocabulary); CONFIRM keeps it as part of its declared spell.
-        Pronunciation odd = new Pronunciation("wizardreal:odd.chant.en", List.of(), List.of("odd"));
-        Collection<Pronunciation> open = VocabularyRouter.forSpells(List.of(odd), CastMode.OPEN, List.of());
+        SessionVocabulary.Entry odd = new SessionVocabulary.Entry("wizardreal:odd.chant.en", List.of(), List.of("odd"), null, null);
+        Collection<SessionVocabulary.Entry> open = VocabularyRouter.forSpells(List.of(odd), CastMode.OPEN, List.of());
         assertEquals(1, open.size());
-        Collection<Pronunciation> confirm = VocabularyRouter.forSpells(
+        Collection<SessionVocabulary.Entry> confirm = VocabularyRouter.forSpells(
                 List.of(odd), CastMode.CHANT_CONFIRM, List.of("wizardreal:odd"));
         assertEquals(1, confirm.size());
     }
@@ -163,8 +163,8 @@ class CastModeRoutingTest {
     @Test
     void prefixSpellIdsDoNotCollide() {
         // "wizardreal:ignis_boost" must not be captured by declaring "wizardreal:ignis".
-        Pronunciation boost = new Pronunciation("wizardreal:ignis_boost", List.of(), List.of("ignis boost"));
-        Collection<Pronunciation> confirm = VocabularyRouter.forSpells(
+        SessionVocabulary.Entry boost = new SessionVocabulary.Entry("wizardreal:ignis_boost", List.of(), List.of("ignis boost"), null, null);
+        Collection<SessionVocabulary.Entry> confirm = VocabularyRouter.forSpells(
                 List.of(IGNIS_TRIGGER, boost), CastMode.CHANT_CONFIRM, List.of("wizardreal:ignis"));
         assertEquals(List.of("wizardreal:ignis"), ids(confirm));
     }

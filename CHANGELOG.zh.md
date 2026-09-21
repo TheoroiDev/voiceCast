@@ -50,9 +50,15 @@
 - 新增：施法期词表路由 API（D-15 四模式定稿，wizardreal#30）：`CastMode`（OPEN / CHANT_CONFIRM / PRACTICE_CONFIRM / GRAY_NARROW）与 `VoiceCastServer.setCastMode(player, mode, spellIds)`，玩法侧集成据此声明玩家识别 grammar 的内容——OPEN = 全词表（保留该模式 id，供集成显式声明自由施法）；CHANT_CONFIRM = 声明法术的全部别名（阶梯咏唱进行中）；PRACTICE_CONFIRM = 同形态，供练习入口（M4）；GRAY_NARROW = 声明 + top-3 混淆邻居（随包资产 `assets/voicecast/confusion_neighbors.tsv`，源自 M2E 红黄账本）；per-mode CTC forward 阈值随包为 `assets/voicecast/mode_thresholds.tsv`（首批镜像出厂 0.10 常数，重标定行落盘即生效、不改代码）。无语言引擎（ipa-phonemes、noop）永不参与模式路由——IPA 线维持全词表；未声明任何模式的会话与 0.5.0 前路由逐位一致
 - OPEN 维持全词表（P30 复验后监工裁决）：0.5.0 的候选集定义"触发语 + 释放语别名"已回退——生产语义复验（S9ProductionRematch harness）表明 SpellMatcher 的 Phonetics 层会把缩圈后的 OPEN 误触发"重排"而非消除；四模式机制本身不变
 
+- breaking：语义化识别契约 v2（engine-swap C1b）——`RecognitionResult` 重构为 `record(utteranceText, ipa, language, decision, spellId, pronId, score, alternatives, startMs, endMs)`，由 voicecast 自行裁定：`Decision` = `EXACT / NEAR / AMBIGUOUS / REJECTED`（融合优先级：文本 EXACT > zipa EXACT > 文本 NEAR > zipa NEAR > AMBIGUOUS/REJECTED），`spellId`/`pronId` 指向胜出词表条目，`alternatives` 携带至多 3 个次优候选。引擎内部的 CTC 后验图与 `ctcPresent` 旗标移出结果契约——仅经独立 `RecognitionDiagnostics` 访问器（`SpeechRecognizer.lastDiagnostics()`）可达，只作诊断、永非判决输入。partial 结果 decision=null（HUD 专用）。跨仓行为由共享等价性向量（`c1b_vectors.json`，voicecast + wizardreal 测试共用）与契约文档 `docs/ref/voicecast-recognition-contract.md` 钉死
+- breaking：词表推送改为 `SessionVocabulary`（唯一入口：spell id × 语言别名 × IPA 模板 × 可选 `ThresholdHint`）——`Pronunciation` 与共享工具 `IpaText` 从 api 删除（v0 硬切，无 deprecated 过渡）；引擎形状（ZIPA token 模板、qwen3 热词串、匹配面）全部由 voicecast 内部派生，禁止引擎形状 payload 过界
+- breaking：matcher/阈值归属移入 voicecast（`com.theo.voicecast.match`：`SpellMatcher`、`PhonemeMatcher` + 混淆代价资产 `assets/voicecast/phoneme_costs.tsv`、`Phonetics`、`IpaText`、`UtteranceAdjudicator`）——引擎校准默认改为 voicecast 配置（`[match] forwardThreshold` 0.10 / `phonemeThreshold` 0.6 / `textThreshold` 0.65 / `ctcMargin` 0.02，经 `SpeechOptions` 新组件 `Calibration` 下发）；玩法侧调优（per-spell threshold、per-mode 校准行、rejectLevel）以 per-entry `ThresholdHint` 数据过界（分量 > 1.0 = 该条目该档禁用），不再走消费方逻辑
+- `SpeechRecognizer.setVocabulary` 改收 `SessionVocabulary`；新增 `lastDiagnostics()` 默认方法暴露最近一次裁定的引擎内部数值
+
 ### Protocol
 
 - `audio/select` 帧（客户端 → 服务端引擎选择）现可承载最长 256 字符的引擎 id——v2 模型名超出原 32 字符上限；客户端与服务端本就要求版本匹配
+- breaking：S2C transcript 包新增裁定结果（decision 序数，-1 = partial）与胜出 spell id（伴随 score），客户端 HUD 与服务器裁定同口径；客户端与服务器须版本匹配（C1b）
 
 ### Infrastructure
 

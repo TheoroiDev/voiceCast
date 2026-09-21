@@ -1,0 +1,1171 @@
+{
+  "version": 1,
+  "source": "engine-swap C1b 共享等价性向量；期望值=旧链(ChantGate+matcher 链)语义在共享词表上的判定。证据来源：ChantGateTest 现有用例、lab fixtures/heard-tokens.tsv 真实听写（v17/v18=aegis en_us_arianeural ±15% 行）、G-ZIPA anemos zh 近同音真值 0.6694、ZipaPhonemeRecognizerMarginTest margin 语义。向量即规格：两仓测试共用本文件（逐字节一致），不一致时修映射不得改向量。",
+  "calibration": {
+    "forward": 0.1,
+    "phoneme": 0.6,
+    "text": 0.65,
+    "margin": 0.02
+  },
+  "levelOverlay": {
+    "rule": "rejectLevel 经词表 hint 过界（数据）：level>=1 -> trigger 条目 text/phoneme=1.01（杀 SpellMatcher 面）；level>=2 -> 追加首行条目 text/phoneme=1.01（杀 L1 面）。forward 不受 level 影响。"
+  },
+  "vocabulary": [
+    {
+      "id": "wizardreal:ignis",
+      "aliases": [],
+      "languages": {
+        "en": [
+          "ignis",
+          "fireball",
+          "fire"
+        ],
+        "zh": [
+          "火球",
+          "烈焰弹"
+        ]
+      },
+      "ipa": [
+        "ˈɪɡnɪs",
+        "xwɔ tɕʰjoʊ"
+      ]
+    },
+    {
+      "id": "wizardreal:ignis.chant.en.0:0",
+      "aliases": [
+        "ignis, ember of the old tongue"
+      ],
+      "languages": {
+        "en": [
+          "ignis, ember of the old tongue"
+        ]
+      },
+      "ipa": [
+        "ˈɪɡnɪs ɛmbə ɔv ðə əʊld tʌŋ"
+      ]
+    },
+    {
+      "id": "wizardreal:ignis.chant.en.0:1",
+      "aliases": [
+        "let the ember answer"
+      ],
+      "languages": {
+        "en": [
+          "let the ember answer"
+        ]
+      },
+      "ipa": []
+    },
+    {
+      "id": "wizardreal:ignis.chant.en.0:2",
+      "aliases": [
+        "ignis"
+      ],
+      "languages": {
+        "en": [
+          "ignis"
+        ]
+      },
+      "ipa": [
+        "ˈɪɡnɪs"
+      ]
+    },
+    {
+      "id": "wizardreal:ignis.chant.zh.0:0",
+      "aliases": [
+        "火球初现，赤炎为证"
+      ],
+      "languages": {
+        "zh": [
+          "火球初现，赤炎为证"
+        ]
+      },
+      "ipa": [
+        "xwɔ tɕʰjoʊ ʈʂʰu ɕjɛn ʈʂʰɨ jɛn weɪ ʈʂəŋ"
+      ]
+    },
+    {
+      "id": "wizardreal:ignis.chant.zh.0:1",
+      "aliases": [
+        "以赤炎之名应召"
+      ],
+      "languages": {
+        "zh": [
+          "以赤炎之名应召"
+        ]
+      },
+      "ipa": [
+        "i ʈʂʰɨ jɛn ʈʂɨ mɪŋ ɪŋ ʈʂaʊ"
+      ]
+    },
+    {
+      "id": "wizardreal:ignis.chant.zh.0:2",
+      "aliases": [
+        "火球"
+      ],
+      "languages": {
+        "zh": [
+          "火球"
+        ]
+      },
+      "ipa": [
+        "xwɔ tɕʰjoʊ"
+      ]
+    },
+    {
+      "id": "wizardreal:mare",
+      "aliases": [
+        "mare"
+      ],
+      "ipa": [
+        "ˈmaːɾɛ"
+      ]
+    },
+    {
+      "id": "wizardreal:mare.chant.en.0:0",
+      "aliases": [
+        "o tide and storm"
+      ],
+      "languages": {
+        "en": [
+          "o tide and storm"
+        ]
+      },
+      "ipa": [
+        "əʊ taɪd ænd stɔːm"
+      ]
+    },
+    {
+      "id": "wizardreal:mare.chant.en.0:1",
+      "aliases": [
+        "drown the field"
+      ],
+      "languages": {
+        "en": [
+          "drown the field"
+        ]
+      },
+      "ipa": []
+    },
+    {
+      "id": "wizardreal:mare.chant.en.0:2",
+      "aliases": [
+        "mare"
+      ],
+      "languages": {
+        "en": [
+          "mare"
+        ]
+      },
+      "ipa": [
+        "ˈmaːɾɛ"
+      ]
+    },
+    {
+      "id": "wizardreal:mare.chant.zh.0:0",
+      "aliases": [
+        "潮汐听我号令"
+      ],
+      "languages": {
+        "zh": [
+          "潮汐听我号令"
+        ]
+      },
+      "ipa": [
+        "ʈʂʰaʊ ɕi tʰɪŋ wɔ xɑʊ lɪŋ"
+      ]
+    },
+    {
+      "id": "wizardreal:mare.chant.zh.0:1",
+      "aliases": [
+        "淹没战场"
+      ],
+      "languages": {
+        "zh": [
+          "淹没战场"
+        ]
+      },
+      "ipa": [
+        "jɛn mə ʈʂən ʈʂʰaŋ"
+      ]
+    },
+    {
+      "id": "wizardreal:mare.chant.zh.0:2",
+      "aliases": [
+        "玛蕾"
+      ],
+      "languages": {
+        "zh": [
+          "玛蕾"
+        ]
+      },
+      "ipa": [
+        "mɑ lɛ"
+      ]
+    },
+    {
+      "id": "wizardreal:aegis",
+      "aliases": [
+        "aegis"
+      ],
+      "ipa": [
+        "iːdʒɪs"
+      ]
+    },
+    {
+      "id": "wizardreal:anemos",
+      "aliases": [
+        "anemos"
+      ],
+      "ipa": [
+        "anəmɔs",
+        "ʈʂən kɔŋ ʐɛn"
+      ]
+    },
+    {
+      "id": "wizardreal:falsum",
+      "aliases": [
+        "falsum",
+        "幻弹"
+      ],
+      "ipa": [
+        "fɑlsəm"
+      ]
+    },
+    {
+      "id": "wizardreal:fulgur",
+      "aliases": [
+        "雷蓄"
+      ],
+      "ipa": [
+        "lei ɕy"
+      ]
+    }
+  ],
+  "vectors": [
+    {
+      "id": "v01_trigger_exact_en",
+      "lang": "en",
+      "lines": [
+        "text"
+      ],
+      "level": 0,
+      "text": "ignis",
+      "ipa": "",
+      "ctc": {},
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:ignis",
+        "pronId": "wizardreal:ignis",
+        "score": 1.0,
+        "altCount": 0,
+        "kind": "SKIP",
+        "variant": null
+      }
+    },
+    {
+      "id": "v02_whole_word_containment_en",
+      "lang": "en",
+      "lines": [
+        "text"
+      ],
+      "level": 0,
+      "text": "please cast fire now",
+      "ipa": "",
+      "ctc": {},
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:ignis",
+        "pronId": "wizardreal:ignis",
+        "score": 0.9,
+        "altCount": 0,
+        "kind": "SKIP",
+        "variant": null
+      }
+    },
+    {
+      "id": "v03_multiword_containment_firstline_en",
+      "lang": "en",
+      "lines": [
+        "text"
+      ],
+      "level": 0,
+      "text": "speak: ignis, ember of the old tongue!",
+      "ipa": "",
+      "ctc": {},
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:ignis",
+        "pronId": "wizardreal:ignis.chant.en.0:0",
+        "score": 1.0,
+        "altCount": 1,
+        "kind": "ENTER",
+        "variant": 0,
+        "alternatives": [
+          {
+            "spellId": "wizardreal:ignis",
+            "pronId": "wizardreal:ignis",
+            "score": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "id": "v04_l1_firstline_exact_en",
+      "lang": "en",
+      "lines": [
+        "text"
+      ],
+      "level": 0,
+      "text": "o tide and storm",
+      "ipa": "",
+      "ctc": {},
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:mare",
+        "pronId": "wizardreal:mare.chant.en.0:0",
+        "score": 1.0,
+        "altCount": 0,
+        "kind": "ENTER",
+        "variant": 0
+      }
+    },
+    {
+      "id": "v05_l1_token_coverage_en",
+      "lang": "en",
+      "lines": [
+        "text"
+      ],
+      "level": 0,
+      "text": "o tide and the storm",
+      "ipa": "",
+      "ctc": {},
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:mare",
+        "pronId": "wizardreal:mare.chant.en.0:0",
+        "score": 1.0,
+        "altCount": 0,
+        "kind": "ENTER",
+        "variant": 0
+      }
+    },
+    {
+      "id": "v06_trigger_of_ritual_skips_en",
+      "lang": "en",
+      "lines": [
+        "text"
+      ],
+      "level": 0,
+      "text": "mare",
+      "ipa": "",
+      "ctc": {},
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:mare",
+        "pronId": "wizardreal:mare",
+        "score": 1.0,
+        "altCount": 0,
+        "kind": "SKIP",
+        "variant": null
+      }
+    },
+    {
+      "id": "v07_middle_line_text_is_no_candidate_en",
+      "lang": "en",
+      "lines": [
+        "text"
+      ],
+      "level": 0,
+      "text": "drown the field",
+      "ipa": "",
+      "ctc": {},
+      "expected": {
+        "decision": "REJECTED",
+        "spellId": "",
+        "pronId": "",
+        "score": 0.0,
+        "altCount": 0,
+        "kind": "NONE",
+        "variant": null
+      }
+    },
+    {
+      "id": "v08_garbage_rejected_en",
+      "lang": "en",
+      "lines": [
+        "text"
+      ],
+      "level": 0,
+      "text": "zzz qqq",
+      "ipa": "",
+      "ctc": {},
+      "expected": {
+        "decision": "REJECTED",
+        "spellId": "",
+        "pronId": "",
+        "score": 0.0,
+        "altCount": 0,
+        "kind": "NONE",
+        "variant": null
+      }
+    },
+    {
+      "id": "v09_unrelated_text_rejected_en",
+      "lang": "en",
+      "lines": [
+        "text"
+      ],
+      "level": 0,
+      "text": "bananarama",
+      "ipa": "",
+      "ctc": {},
+      "expected": {
+        "decision": "REJECTED",
+        "spellId": "",
+        "pronId": "",
+        "score": 0.0,
+        "altCount": 0,
+        "kind": "NONE",
+        "variant": null
+      }
+    },
+    {
+      "id": "v10_zh_pinyin_homophone_near_zh",
+      "lang": "zh",
+      "lines": [
+        "text"
+      ],
+      "level": 0,
+      "text": "换蛋",
+      "ipa": "",
+      "ctc": {},
+      "expected": {
+        "decision": "NEAR",
+        "spellId": "wizardreal:falsum",
+        "pronId": "wizardreal:falsum",
+        "score": null,
+        "altCount": 0,
+        "kind": "INSTANT",
+        "variant": null
+      }
+    },
+    {
+      "id": "v11_zh_pinyin_homophone2_near_zh",
+      "lang": "zh",
+      "lines": [
+        "text"
+      ],
+      "level": 0,
+      "text": "雷续。",
+      "ipa": "",
+      "ctc": {},
+      "expected": {
+        "decision": "NEAR",
+        "spellId": "wizardreal:fulgur",
+        "pronId": "wizardreal:fulgur",
+        "score": null,
+        "altCount": 0,
+        "kind": "INSTANT",
+        "variant": null
+      }
+    },
+    {
+      "id": "v12_latin_fuzzy_near_en",
+      "lang": "en",
+      "lines": [
+        "text"
+      ],
+      "level": 0,
+      "text": "falsome",
+      "ipa": "",
+      "ctc": {},
+      "expected": {
+        "decision": "NEAR",
+        "spellId": "wizardreal:falsum",
+        "pronId": "wizardreal:falsum",
+        "score": null,
+        "altCount": 0,
+        "kind": "INSTANT",
+        "variant": null
+      }
+    },
+    {
+      "id": "v13_zh_cjk_run_containment_zh",
+      "lang": "zh",
+      "lines": [
+        "text"
+      ],
+      "level": 0,
+      "text": "给我火球",
+      "ipa": "",
+      "ctc": {},
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:ignis",
+        "pronId": "wizardreal:ignis",
+        "score": 0.9,
+        "altCount": 0,
+        "kind": "SKIP",
+        "variant": null
+      }
+    },
+    {
+      "id": "v14_zh_firstline_exact_zh",
+      "lang": "zh",
+      "lines": [
+        "text"
+      ],
+      "level": 0,
+      "text": "潮汐听我号令",
+      "ipa": "",
+      "ctc": {},
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:mare",
+        "pronId": "wizardreal:mare.chant.zh.0:0",
+        "score": 1.0,
+        "altCount": 1,
+        "kind": "ENTER",
+        "variant": 1,
+        "alternatives": [
+          {
+            "spellId": "wizardreal:fulgur",
+            "pronId": "wizardreal:fulgur",
+            "score": 0.6667
+          }
+        ]
+      }
+    },
+    {
+      "id": "v15_chantline_alias_not_on_text_surface_zh",
+      "lang": "zh",
+      "lines": [
+        "text"
+      ],
+      "level": 0,
+      "text": "玛蕾",
+      "ipa": "",
+      "ctc": {},
+      "expected": {
+        "decision": "REJECTED",
+        "spellId": "",
+        "pronId": "",
+        "score": 0.0,
+        "altCount": 0,
+        "kind": "NONE",
+        "variant": null
+      }
+    },
+    {
+      "id": "v17_ctc_exact_instant_en",
+      "lang": "en",
+      "lines": [
+        "phoneme"
+      ],
+      "level": 0,
+      "text": "",
+      "ipa": "i dʒ e s",
+      "ctc": {
+        "wizardreal:aegis": 0.55
+      },
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:aegis",
+        "pronId": "wizardreal:aegis",
+        "score": 0.55,
+        "altCount": 0,
+        "kind": "INSTANT",
+        "variant": null
+      }
+    },
+    {
+      "id": "v18_phoneme_near_after_ctc_miss_en",
+      "lang": "en",
+      "lines": [
+        "phoneme"
+      ],
+      "level": 0,
+      "text": "",
+      "ipa": "i dʒ a s",
+      "ctc": {
+        "wizardreal:aegis": 0.07
+      },
+      "expected": {
+        "decision": "NEAR",
+        "spellId": "wizardreal:aegis",
+        "pronId": "wizardreal:aegis",
+        "score": 0.7639,
+        "altCount": 0,
+        "kind": "INSTANT",
+        "variant": null
+      }
+    },
+    {
+      "id": "v19_zh_trigger_template_phoneme_near_zh",
+      "lang": "zh",
+      "lines": [
+        "phoneme"
+      ],
+      "level": 0,
+      "text": "",
+      "ipa": "x w ɔ tɕʰ j o ʊ",
+      "ctc": {},
+      "expected": {
+        "decision": "NEAR",
+        "spellId": "wizardreal:ignis",
+        "pronId": "wizardreal:ignis",
+        "score": 1.0,
+        "altCount": 0,
+        "kind": "SKIP",
+        "variant": null
+      }
+    },
+    {
+      "id": "v20_ctc_enter_firstline_en",
+      "lang": "en",
+      "lines": [
+        "both"
+      ],
+      "level": 0,
+      "text": "whatever",
+      "ipa": "əʊ taɪd ænd stɔːm",
+      "ctc": {
+        "wizardreal:mare.chant.en.0:0": 0.85
+      },
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:mare",
+        "pronId": "wizardreal:mare.chant.en.0:0",
+        "score": 1.0,
+        "altCount": 0,
+        "kind": "ENTER",
+        "variant": 0
+      }
+    },
+    {
+      "id": "v21_ctc_middle_line_ignored_en",
+      "lang": "en",
+      "lines": [
+        "phoneme"
+      ],
+      "level": 0,
+      "text": "",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:mare.chant.en.0:1": 0.9
+      },
+      "expected": {
+        "decision": "REJECTED",
+        "spellId": "",
+        "pronId": "",
+        "score": 0.0,
+        "altCount": 0,
+        "kind": "NONE",
+        "variant": null
+      }
+    },
+    {
+      "id": "v22_ctc_lastline_zh_skip_zh",
+      "lang": "zh",
+      "lines": [
+        "phoneme"
+      ],
+      "level": 0,
+      "text": "",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:mare.chant.zh.0:2": 0.95
+      },
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:mare",
+        "pronId": "wizardreal:mare.chant.zh.0:2",
+        "score": 0.95,
+        "altCount": 0,
+        "kind": "SKIP",
+        "variant": null
+      }
+    },
+    {
+      "id": "v23_language_routing_drops_foreign_line_en",
+      "lang": "en",
+      "lines": [
+        "phoneme"
+      ],
+      "level": 0,
+      "text": "",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:mare.chant.zh.0:0": 0.95
+      },
+      "routedLanguages": [
+        "en"
+      ],
+      "expected": {
+        "decision": "REJECTED",
+        "spellId": "",
+        "pronId": "",
+        "score": 0.0,
+        "altCount": 0,
+        "kind": "NONE",
+        "variant": null
+      }
+    },
+    {
+      "id": "v24_per_entry_forward_hint_blocks",
+      "lang": "en",
+      "lines": [
+        "phoneme"
+      ],
+      "level": 0,
+      "text": "",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:aegis": 0.15
+      },
+      "entryThresholdOverride": {
+        "wizardreal:aegis": {
+          "forward": 0.3
+        }
+      },
+      "expected": {
+        "decision": "REJECTED",
+        "spellId": "",
+        "pronId": "",
+        "score": 0.0,
+        "altCount": 0,
+        "kind": "NONE",
+        "variant": null
+      }
+    },
+    {
+      "id": "v25_per_entry_forward_hint_passes",
+      "lang": "en",
+      "lines": [
+        "phoneme"
+      ],
+      "level": 0,
+      "text": "",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:aegis": 0.35
+      },
+      "entryThresholdOverride": {
+        "wizardreal:aegis": {
+          "forward": 0.3
+        }
+      },
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:aegis",
+        "pronId": "wizardreal:aegis",
+        "score": 0.35,
+        "altCount": 0,
+        "kind": "INSTANT",
+        "variant": null
+      }
+    },
+    {
+      "id": "v26_margin_ambiguous_anemos_zh",
+      "lang": "zh",
+      "lines": [
+        "phoneme"
+      ],
+      "level": 0,
+      "text": "",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:anemos": 0.6694,
+        "wizardreal:aegis": 0.655
+      },
+      "expected": {
+        "decision": "AMBIGUOUS",
+        "spellId": "wizardreal:anemos",
+        "pronId": "wizardreal:anemos",
+        "score": 0.6694,
+        "altCount": 0,
+        "kind": "NONE",
+        "variant": null
+      }
+    },
+    {
+      "id": "v27_margin_reject_below_threshold_en",
+      "lang": "en",
+      "lines": [
+        "phoneme"
+      ],
+      "level": 0,
+      "text": "",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:aegis": 0.05,
+        "wizardreal:mare": 0.045
+      },
+      "expected": {
+        "decision": "REJECTED",
+        "spellId": "",
+        "pronId": "",
+        "score": 0.0,
+        "altCount": 0,
+        "kind": "NONE",
+        "variant": null
+      }
+    },
+    {
+      "id": "v28_clear_gap_ctc_exact_en",
+      "lang": "en",
+      "lines": [
+        "phoneme"
+      ],
+      "level": 0,
+      "text": "",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:aegis": 0.55,
+        "wizardreal:mare": 0.3
+      },
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:aegis",
+        "pronId": "wizardreal:aegis",
+        "score": 0.55,
+        "altCount": 1,
+        "kind": "INSTANT",
+        "variant": null,
+        "alternatives": [
+          {
+            "spellId": "wizardreal:mare",
+            "pronId": "wizardreal:mare",
+            "score": 0.3
+          }
+        ]
+      }
+    },
+    {
+      "id": "v29_level0_text_fallback_wins_over_low_ctc",
+      "lang": "en",
+      "lines": [
+        "both"
+      ],
+      "level": 0,
+      "text": "ignis",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:ignis": 0.05
+      },
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:ignis",
+        "pronId": "wizardreal:ignis",
+        "score": 1.0,
+        "altCount": 0,
+        "kind": "SKIP",
+        "variant": null
+      }
+    },
+    {
+      "id": "v30_level1_suppresses_trigger_text_en",
+      "lang": "en",
+      "lines": [
+        "both"
+      ],
+      "level": 1,
+      "text": "ignis",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:ignis": 0.05
+      },
+      "expected": {
+        "decision": "REJECTED",
+        "spellId": "",
+        "pronId": "",
+        "score": 0.0,
+        "altCount": 0,
+        "kind": "NONE",
+        "variant": null
+      }
+    },
+    {
+      "id": "v31_level1_keeps_firstline_enter_en",
+      "lang": "en",
+      "lines": [
+        "both"
+      ],
+      "level": 1,
+      "text": "o tide and storm",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:mare.chant.en.0:2": 0.9
+      },
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:mare",
+        "pronId": "wizardreal:mare.chant.en.0:0",
+        "score": 1.0,
+        "altCount": 1,
+        "kind": "ENTER",
+        "variant": 0,
+        "alternatives": [
+          {
+            "spellId": "wizardreal:mare",
+            "pronId": "wizardreal:mare.chant.en.0:2",
+            "score": 0.9
+          }
+        ]
+      }
+    },
+    {
+      "id": "v32_level2_ctc_authoritative_skip_en",
+      "lang": "en",
+      "lines": [
+        "both"
+      ],
+      "level": 2,
+      "text": "o tide and storm",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:mare.chant.en.0:2": 0.9
+      },
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:mare",
+        "pronId": "wizardreal:mare.chant.en.0:2",
+        "score": 0.9,
+        "altCount": 0,
+        "kind": "SKIP",
+        "variant": null
+      }
+    },
+    {
+      "id": "v33_level1_no_ctc_l1_still_enters_en",
+      "lang": "en",
+      "lines": [
+        "text"
+      ],
+      "level": 1,
+      "text": "o tide and storm",
+      "ipa": "",
+      "ctc": {},
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:mare",
+        "pronId": "wizardreal:mare.chant.en.0:0",
+        "score": 1.0,
+        "altCount": 0,
+        "kind": "ENTER",
+        "variant": 0
+      }
+    },
+    {
+      "id": "v34_level2_passing_ctc_decides_en",
+      "lang": "en",
+      "lines": [
+        "phoneme"
+      ],
+      "level": 2,
+      "text": "",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:ignis": 0.9
+      },
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:ignis",
+        "pronId": "wizardreal:ignis",
+        "score": 0.9,
+        "altCount": 0,
+        "kind": "SKIP",
+        "variant": null
+      }
+    },
+    {
+      "id": "v35_ctc_exact_beats_text_near",
+      "lang": "en",
+      "lines": [
+        "both"
+      ],
+      "level": 0,
+      "text": "ignus",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:ignis": 0.5
+      },
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:ignis",
+        "pronId": "wizardreal:ignis",
+        "score": 0.5,
+        "altCount": 0,
+        "kind": "SKIP",
+        "variant": null
+      }
+    },
+    {
+      "id": "v36_alternative_carries_runner_up",
+      "lang": "en",
+      "lines": [
+        "both"
+      ],
+      "level": 0,
+      "text": "ignis",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:mare": 0.5
+      },
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:ignis",
+        "pronId": "wizardreal:ignis",
+        "score": 1.0,
+        "altCount": 1,
+        "kind": "SKIP",
+        "variant": null,
+        "alternatives": [
+          {
+            "spellId": "wizardreal:mare",
+            "pronId": "wizardreal:mare",
+            "score": 0.5
+          }
+        ]
+      }
+    },
+    {
+      "id": "v37_gate_promotes_firstline_alternative",
+      "lang": "en",
+      "lines": [
+        "both"
+      ],
+      "level": 0,
+      "text": "mare",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:mare.chant.en.0:0": 0.85
+      },
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:mare",
+        "pronId": "wizardreal:mare",
+        "score": 1.0,
+        "altCount": 1,
+        "kind": "ENTER",
+        "variant": 0,
+        "alternatives": [
+          {
+            "spellId": "wizardreal:mare",
+            "pronId": "wizardreal:mare.chant.en.0:0",
+            "score": 0.85
+          }
+        ]
+      }
+    },
+    {
+      "id": "v38_empty_utterance_rejected",
+      "lang": "en",
+      "lines": [],
+      "level": 0,
+      "text": "",
+      "ipa": "",
+      "ctc": {},
+      "expected": {
+        "decision": "REJECTED",
+        "spellId": "",
+        "pronId": "",
+        "score": 0.0,
+        "altCount": 0,
+        "kind": "NONE",
+        "variant": null
+      }
+    },
+    {
+      "id": "v39_ctc_trigger_zh_skip_zh",
+      "lang": "zh",
+      "lines": [
+        "phoneme"
+      ],
+      "level": 0,
+      "text": "",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:ignis": 0.45
+      },
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:ignis",
+        "pronId": "wizardreal:ignis",
+        "score": 0.45,
+        "altCount": 0,
+        "kind": "SKIP",
+        "variant": null
+      }
+    },
+    {
+      "id": "v40_ctc_firstline_zh_enters_zh",
+      "lang": "zh",
+      "lines": [
+        "phoneme"
+      ],
+      "level": 0,
+      "text": "",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:mare.chant.zh.0:0": 0.85
+      },
+      "expected": {
+        "decision": "EXACT",
+        "spellId": "wizardreal:mare",
+        "pronId": "wizardreal:mare.chant.zh.0:0",
+        "score": 0.85,
+        "altCount": 0,
+        "kind": "ENTER",
+        "variant": 1
+      }
+    },
+    {
+      "id": "v42_real_anemos_negative_text_fallback_zh",
+      "lang": "zh",
+      "lines": [
+        "both"
+      ],
+      "level": 0,
+      "text": "今天阳光真好",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:anemos": 0.6694,
+        "wizardreal:aegis": 0.655
+      },
+      "expected": {
+        "decision": "NEAR",
+        "spellId": "wizardreal:ignis",
+        "pronId": "wizardreal:ignis",
+        "score": 0.6667,
+        "altCount": 0,
+        "kind": "SKIP",
+        "variant": null
+      }
+    },
+    {
+      "id": "v41_margin_ambiguous_en",
+      "lang": "en",
+      "lines": [
+        "both"
+      ],
+      "level": 0,
+      "text": "hello there friends",
+      "ipa": "",
+      "ctc": {
+        "wizardreal:mare": 0.6694,
+        "wizardreal:aegis": 0.655
+      },
+      "expected": {
+        "decision": "AMBIGUOUS",
+        "spellId": "wizardreal:mare",
+        "pronId": "wizardreal:mare",
+        "score": 0.6694,
+        "altCount": 0,
+        "kind": "NONE",
+        "variant": null
+      }
+    }
+  ]
+}

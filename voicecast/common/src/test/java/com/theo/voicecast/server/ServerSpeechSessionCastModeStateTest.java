@@ -1,7 +1,7 @@
 package com.theo.voicecast.server;
 
 import com.mojang.authlib.GameProfile;
-import com.theo.voicecast.api.Pronunciation;
+import com.theo.voicecast.api.SessionVocabulary;
 import com.theo.voicecast.api.SpeechRecognizer;
 import com.theo.voicecast.api.SpeechOptions;
 import net.minecraft.SharedConstants;
@@ -15,7 +15,7 @@ import sun.misc.Unsafe;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collection;
+
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -59,7 +59,7 @@ class ServerSpeechSessionCastModeStateTest {
     /** Records every setVocabulary payload (order-preserving); else a stub. */
     private static final class RecordingRecognizer implements SpeechRecognizer {
         final CountDownLatch calls;
-        final List<Collection<Pronunciation>> received = new ArrayList<>();
+        final List<SessionVocabulary> received = new ArrayList<>();
 
         RecordingRecognizer(int expectedCalls) { this.calls = new CountDownLatch(expectedCalls); }
 
@@ -68,12 +68,12 @@ class ServerSpeechSessionCastModeStateTest {
         @Override public void start(SpeechOptions options) {}
         @Override public void stop() {}
         @Override public boolean isActive() { return true; }
-        @Override public synchronized void setVocabulary(Collection<Pronunciation> vocabulary) {
-            received.add(vocabulary == null ? List.of() : List.copyOf(vocabulary));
+        @Override public synchronized void setVocabulary(SessionVocabulary vocabulary) {
+            received.add(vocabulary == null ? SessionVocabulary.EMPTY : vocabulary);
             calls.countDown();
         }
 
-        Collection<Pronunciation> awaitLastPayload() throws InterruptedException {
+        SessionVocabulary awaitLastPayload() throws InterruptedException {
             assertTrue(calls.await(5, TimeUnit.SECONDS), "recognizer calls did not arrive in time");
             synchronized (this) { return received.get(received.size() - 1); }
         }
@@ -129,7 +129,7 @@ class ServerSpeechSessionCastModeStateTest {
     private static ServerSpeechSession detachedSession() throws Exception {
         ServerSpeechSession s = (ServerSpeechSession) unsafe().allocateInstance(ServerSpeechSession.class);
         setField(ServerSpeechSession.class, s, "engine", "noop");
-        setField(ServerSpeechSession.class, s, "vocabulary", List.of());
+        setField(ServerSpeechSession.class, s, "vocabulary", SessionVocabulary.EMPTY);
         ThreadPoolExecutor worker = new ThreadPoolExecutor(1, 1, 10L, TimeUnit.SECONDS,
                 new LinkedBlockingQueue<>(), r -> {
             Thread t = new Thread(r, "test-castmode-state-worker");
@@ -156,7 +156,7 @@ class ServerSpeechSessionCastModeStateTest {
         setField(VoiceCastServer.class, VoiceCastServer.INSTANCE, "sessions", new ConcurrentHashMap<>());
         setField(VoiceCastServer.class, VoiceCastServer.INSTANCE, "castModes", new ConcurrentHashMap<>());
         setField(VoiceCastServer.class, VoiceCastServer.INSTANCE, "defaultEngine", "noop");
-        setField(VoiceCastServer.class, VoiceCastServer.INSTANCE, "vocabulary", List.of());
+        setField(VoiceCastServer.class, VoiceCastServer.INSTANCE, "vocabulary", SessionVocabulary.EMPTY);
     }
 
     private static ServerSpeechSession createSessionViaPrivateMethod(ServerPlayer sp) throws Exception {
@@ -209,12 +209,12 @@ class ServerSpeechSessionCastModeStateTest {
         UUID id = UUID.randomUUID();
         ServerPlayer sp = fakePlayer(id);
         List<String> spells = List.of("wizardreal:ignis");
-        Pronunciation p = new Pronunciation("wizardreal:ignis", List.of(), List.of("ignis"));
-        setField(VoiceCastServer.class, VoiceCastServer.INSTANCE, "vocabulary", List.of(p));
+        SessionVocabulary p0 = new SessionVocabulary(List.of(new SessionVocabulary.Entry("wizardreal:ignis", List.of(), List.of("ignis"), null, null)));
+        setField(VoiceCastServer.class, VoiceCastServer.INSTANCE, "vocabulary", p0);
 
         ServerSpeechSession s = detachedSession();
         // Seed the session's vocabulary the way session()/setVocabulary would.
-        setField(ServerSpeechSession.class, s, "vocabulary", List.of(p));
+        setField(ServerSpeechSession.class, s, "vocabulary", p0);
         RecordingRecognizer recognizer = new RecordingRecognizer(2); // one call per setCastMode
         setField(ServerSpeechSession.class, s, "recognizer", recognizer);
         sessions().put(id, s);
@@ -233,7 +233,7 @@ class ServerSpeechSessionCastModeStateTest {
                 "null mode must clear the session's declaration");
         assertEquals(List.of(), getField(ServerSpeechSession.class, s, "castSpellIds"));
         // The clearing re-route still reaches the recognizer (null mode = full vocabulary).
-        assertEquals(List.of(p.id()), recognizer.awaitLastPayload().stream().map(Pronunciation::id).toList());
+        assertEquals(List.of("wizardreal:ignis"), recognizer.awaitLastPayload().entries().stream().map(SessionVocabulary.Entry::id).toList());
 
         s.dispose();
     }

@@ -1,6 +1,6 @@
 package com.theo.voicecast.server;
 
-import com.theo.voicecast.api.Pronunciation;
+import com.theo.voicecast.api.SessionVocabulary;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -11,7 +11,7 @@ import java.util.Set;
 
 /**
  * Session-level vocabulary routing (0.4.0, voice overhaul D-A2): the selected
- * engine decides which language bucket of each pronunciation reaches its
+ * engine decides which language bucket of each vocabulary entry reaches its
  * recognizer. A session sees {@code bucket[engineLang] ∪ legacy}; engines
  * without a language (zipa-ipa, noop) get the vocabulary unchanged.
  *
@@ -21,13 +21,17 @@ import java.util.Set;
  * ({@code mode == null}) is never mode-routed — its behavior is bit-identical
  * to the pre-#30 routing.
  *
+ * <p>Semantic contract v2 (C1b): operates on {@link SessionVocabulary.Entry};
+ * ids, IPA templates and threshold hints pass through intact (only the alias
+ * projection changes).
+ *
  * <p>Pure and unit-testable: no Minecraft or engine types.
  */
 final class VocabularyRouter {
     /** Chant-line id scheme marker ({@code <spell>.chant.<lang>.<v>:<i>} keyed,
-     *  {@code <spell>.chant.<v>:<i>} legacy) — same convention as the wizardreal
-     *  matcher's line-id parsing; what groups chant rows under their parent
-     *  spell for the CONFIRM/GRAY_NARROW candidate sets. */
+     *  {@code <spell>.chant.<v>:<i>} legacy) — same convention as the shared
+     *  vocabulary id scheme; what groups chant rows under their parent spell
+     *  for the CONFIRM/GRAY_NARROW candidate sets. */
     private static final String CHANT_MARKER = ".chant.";
 
     private VocabularyRouter() {}
@@ -37,44 +41,26 @@ final class VocabularyRouter {
      * collection when nothing needs trimming (language-agnostic engine or
      * fully-legacy vocabularies).
      */
-    static Collection<Pronunciation> forLanguage(Collection<Pronunciation> vocabulary, String language) {
+    static Collection<SessionVocabulary.Entry> forLanguage(Collection<SessionVocabulary.Entry> vocabulary,
+                                                           String language) {
         if (language != null && language.isBlank()) language = null;
         return forLanguages(vocabulary, language == null ? List.of() : List.of(language));
     }
 
     /** Multi-bucket routing (bilingual/multilingual engines): the session hears
      * the union of its language buckets plus the legacy bucket. */
-    static Collection<Pronunciation> forLanguages(Collection<Pronunciation> vocabulary, List<String> languages) {
+    static Collection<SessionVocabulary.Entry> forLanguages(Collection<SessionVocabulary.Entry> vocabulary,
+                                                            List<String> languages) {
         if (vocabulary.isEmpty()) return vocabulary;
         if (languages == null || languages.isEmpty()) return vocabulary;
-        List<Pronunciation> out = new ArrayList<>(vocabulary.size());
+        List<SessionVocabulary.Entry> out = new ArrayList<>(vocabulary.size());
         boolean anyChanged = false;
-        for (Pronunciation p : vocabulary) {
+        for (SessionVocabulary.Entry p : vocabulary) {
             List<String> routed = p.aliasesForLanguages(languages);
             if (routed.equals(p.aliases())) {
                 out.add(p);
             } else {
-                out.add(new Pronunciation(p.id(), p.ipa(), routed, Map.of()));
-                anyChanged = true;
-            }
-        }
-        return anyChanged ? List.copyOf(out) : vocabulary;
-    }
-
-    static Collection<Pronunciation> forLanguage0(Collection<Pronunciation> vocabulary, String language) {
-        if (vocabulary.isEmpty()) return vocabulary;
-        if (language == null || language.isBlank()) return vocabulary;
-        List<Pronunciation> out = new ArrayList<>(vocabulary.size());
-        boolean anyChanged = false;
-        for (Pronunciation p : vocabulary) {
-            List<String> routed = p.aliasesFor(language);
-            if (routed.equals(p.aliases())) {
-                out.add(p);
-            } else {
-                // The routed instance is legacy-shaped (no buckets): engines
-                // consuming aliases() see exactly the routed aliases; id/ipa
-                // (templateScores keying, CTC templates) pass through intact.
-                out.add(new Pronunciation(p.id(), p.ipa(), routed, Map.of()));
+                out.add(new SessionVocabulary.Entry(p.id(), p.ipa(), routed, Map.of(), p.threshold()));
                 anyChanged = true;
             }
         }
@@ -106,12 +92,13 @@ final class VocabularyRouter {
      *       top-3 confusion neighbors ({@code confusion_neighbors.tsv}).</li>
      * </ul>
      *
-     * <p>Spell association is by pronunciation id: the trigger row's id is the
+     * <p>Spell association is by vocabulary id: the trigger row's id is the
      * spell id, chant-line ids carry the {@code .chant.} marker. Returns the
      * original collection when nothing needs trimming.
      */
-    static Collection<Pronunciation> forSpells(Collection<Pronunciation> vocabulary, CastMode mode,
-                                               Collection<String> spellIds) {
+    static Collection<SessionVocabulary.Entry> forSpells(Collection<SessionVocabulary.Entry> vocabulary,
+                                                         CastMode mode,
+                                                         Collection<String> spellIds) {
         if (mode == null || vocabulary.isEmpty()) return vocabulary;
         return switch (mode) {
             case OPEN -> vocabulary;
@@ -122,8 +109,8 @@ final class VocabularyRouter {
 
     /** CONFIRM modes = the declared spells' every row (+ neighbor spells' rows
      *  for GRAY_NARROW). Rows of non-declared spells are dropped. */
-    private static Collection<Pronunciation> forDeclared(Collection<Pronunciation> vocabulary,
-                                                         Collection<String> spellIds, Set<String> extra) {
+    private static Collection<SessionVocabulary.Entry> forDeclared(Collection<SessionVocabulary.Entry> vocabulary,
+                                                                   Collection<String> spellIds, Set<String> extra) {
         if (spellIds == null || spellIds.isEmpty()) return vocabulary;
         Set<String> spells = new LinkedHashSet<>();
         for (String id : spellIds) {
@@ -131,9 +118,9 @@ final class VocabularyRouter {
         }
         if (spells.isEmpty()) return vocabulary;
         spells.addAll(extra);
-        List<Pronunciation> out = new ArrayList<>(vocabulary.size());
+        List<SessionVocabulary.Entry> out = new ArrayList<>(vocabulary.size());
         boolean anyChanged = false;
-        for (Pronunciation p : vocabulary) {
+        for (SessionVocabulary.Entry p : vocabulary) {
             if (spells.contains(spellOf(p.id()))) {
                 out.add(p);
             } else {
@@ -152,7 +139,7 @@ final class VocabularyRouter {
         return out;
     }
 
-    /** Spell a pronunciation belongs to: the id up to the {@code .chant.}
+    /** Spell a vocabulary entry belongs to: the id up to the {@code .chant.}
      *  marker (chant lines), or the whole id (trigger rows / foreign ids). */
     static String spellOf(String id) {
         if (id == null) return "";

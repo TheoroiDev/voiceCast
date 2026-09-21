@@ -1,6 +1,6 @@
 package com.theo.voicecast.engine;
 
-import com.theo.voicecast.api.Pronunciation;
+import com.theo.voicecast.api.SessionVocabulary;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -16,30 +16,34 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 class Qwen3HotwordsTest {
 
+    private static SessionVocabulary.Entry entry(String id, String... aliases) {
+        return new SessionVocabulary.Entry(id, List.of(), List.of(aliases), null, null);
+    }
+
     @Test
     void triggerAliasesOnly() {
-        List<String> hotwords = SherpaQwen3Recognizer.extractHotwords(List.of(
-                new Pronunciation("fulmen", List.of(), List.of("fulmen", "lightning")),
-                new Pronunciation("fulmen.chant.en.0:0", List.of(), List.of("rods from the sky")),
-                new Pronunciation("aegis", List.of(), List.of("aegis"))));
+        List<String> hotwords = SherpaQwen3Recognizer.extractHotwords(new SessionVocabulary(List.of(
+                entry("fulmen", "fulmen", "lightning"),
+                entry("fulmen.chant.en.0:0", "rods from the sky"),
+                entry("aegis", "aegis"))));
         assertEquals(List.of("fulmen", "lightning", "aegis"), hotwords);
     }
 
     @Test
     void dedupesAndSkipsBlank() {
-        List<String> hotwords = SherpaQwen3Recognizer.extractHotwords(List.of(
-                new Pronunciation("fulmen", List.of(), List.of("fulmen", " fulmen ", "")),
-                new Pronunciation("aegis", List.of(), List.of("aegis", " "))));
+        List<String> hotwords = SherpaQwen3Recognizer.extractHotwords(new SessionVocabulary(List.of(
+                entry("fulmen", "fulmen", " fulmen ", ""),
+                entry("aegis", "aegis", " "))));
         assertEquals(List.of("fulmen", "aegis"), hotwords);
     }
 
     @Test
     void capsAt100Entries() {
-        var vocab = new java.util.ArrayList<Pronunciation>();
+        var vocab = new java.util.ArrayList<SessionVocabulary.Entry>();
         for (int i = 0; i < 150; i++) {
-            vocab.add(new Pronunciation("spell" + i, List.of(), List.of("alias" + i)));
+            vocab.add(entry("spell" + i, "alias" + i));
         }
-        List<String> hotwords = SherpaQwen3Recognizer.extractHotwords(vocab);
+        List<String> hotwords = SherpaQwen3Recognizer.extractHotwords(new SessionVocabulary(vocab));
         assertEquals(100, hotwords.size());
         assertEquals("alias0", hotwords.get(0));
         assertEquals("alias99", hotwords.get(99));
@@ -47,7 +51,7 @@ class Qwen3HotwordsTest {
 
     @Test
     void emptyAndNullVocabulariesYieldNoHotwords() {
-        assertTrue(SherpaQwen3Recognizer.extractHotwords(List.of()).isEmpty());
+        assertTrue(SherpaQwen3Recognizer.extractHotwords(SessionVocabulary.EMPTY).isEmpty());
         assertTrue(SherpaQwen3Recognizer.extractHotwords(null).isEmpty());
         assertTrue(SherpaQwen3Recognizer.hotwordsCsv(List.of()).isEmpty());
     }

@@ -3,12 +3,12 @@
 # Format (exactly three columns, tab-separated): <mode> <spell> <threshold>.
 #   mode     = CastMode name (OPEN / CHANT_CONFIRM / PRACTICE_CONFIRM / GRAY_NARROW), case-insensitive.
 #   spell    = spell id for a per-spell row, or * for the mode-wide default row.
-#   threshold= the CTC forward-tier acceptance threshold for that mode/spell (FORWARD_MATCH_THRESHOLD
-#              semantics; token-length calibrated posterior scale). Rows may be added/edited without
-#              touching code; unknown (mode, spell) pairs fall back to the mode row, then to the
-#              shipped constant (ServerVoiceCast.FORWARD_MATCH_THRESHOLD = 0.10).
+#   threshold= the CTC forward-tier acceptance threshold for that mode/spell (the voicecast
+#              [match] forwardThreshold calibration scale, default 0.10). Rows may be added/edited
+#              without touching code; unknown (mode, spell) pairs fall back to the mode row, then to
+#              the voicecast calibration default. The provider ships the row as a ThresholdHint.
 # Tier scope: only the forward (CTC posterior) tier is table-driven. The phoneme tier
-#   (PhonemeMatcher 0.6) and text tier (SpellMatcher 0.65) keep their shipped constants until
+#   (0.6) and text tier (0.65) keep their voicecast calibration defaults until
 #   their own per-mode recalibration lands — S9 validated the 0.65 text threshold unchanged
 #   across all four candidate sets (s9_sherpa_report.md), and the S7b recalibration protocol
 #   (same-protocol negatives, 1% quantile + 0.03) governs future rows.

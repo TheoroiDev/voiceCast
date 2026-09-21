@@ -4,7 +4,7 @@ import com.k2fsa.sherpa.onnx.OfflineModelConfig;
 import com.k2fsa.sherpa.onnx.OfflineQwen3AsrModelConfig;
 import com.k2fsa.sherpa.onnx.OfflineRecognizer;
 import com.k2fsa.sherpa.onnx.OfflineRecognizerConfig;
-import com.theo.voicecast.api.Pronunciation;
+import com.theo.voicecast.api.SessionVocabulary;
 import com.theo.voicecast.api.SpeechOptions;
 import com.theo.voicecast.api.engine.EngineSpec;
 import com.theo.voicecast.config.VoiceCastConfig;
@@ -47,8 +47,8 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  * <p>The ONNX session is heavyweight (~2 GB RAM), so recognizers are cached per
  * (model dir, hotword set) across all sessions; decode is serialized inside the
- * native recognizer. Confidence is a constant 1.0; {@code templateScores}/
- * {@code ipaTokens} stay empty — adjudication lives in wizardreal's matchers.
+ * native recognizer. The emitted result carries the adjudicated Decision
+ * (text line only — no phoneme/CTC evidence on this engine).
  *
  * <p>Non-final by design: the two-pass fallback flow is scripted in tests via
  * a {@code decode} override; addons may likewise adapt decoding.
@@ -86,13 +86,13 @@ public class SherpaQwen3Recognizer extends AbstractBufferedRecognizer {
      * Trigger aliases of the routed session vocabulary: rows WITHOUT the
      * {@code .chant.} marker (chant-line ids are pronunciation ids of chant
      * lines — the trigger rows are what biasing targets), aliases already
-     * projected onto the session's language buckets by VocabularyRouter.
+     * projected onto the session's language buckets by the session router.
      * Dedup in encounter order, hard cap {@link #MAX_HOTWORDS}.
      */
-    static List<String> extractHotwords(Collection<Pronunciation> vocabulary) {
+    static List<String> extractHotwords(SessionVocabulary vocabulary) {
         LinkedHashSet<String> out = new LinkedHashSet<>();
         if (vocabulary != null) {
-            for (Pronunciation p : vocabulary) {
+            for (SessionVocabulary.Entry p : vocabulary.entries()) {
                 if (p == null) continue;
                 if (p.id() != null && p.id().contains(".chant.")) continue;
                 for (String alias : p.aliases()) {
@@ -158,7 +158,7 @@ public class SherpaQwen3Recognizer extends AbstractBufferedRecognizer {
     }
 
     @Override
-    public synchronized void setVocabulary(Collection<Pronunciation> v) {
+    public synchronized void setVocabulary(SessionVocabulary v) {
         super.setVocabulary(v);
         // Hotwords are baked into the native recognizer at construction; a live
         // vocabulary change rebuilds it only when already running (rare — reload).
@@ -166,7 +166,8 @@ public class SherpaQwen3Recognizer extends AbstractBufferedRecognizer {
             try {
                 stop();                 // base stop clears the vocabulary list
                 super.setVocabulary(v); // re-seed before start re-extracts hotwords
-                start(new SpeechOptions(true, 0.65f, spec.modelDir().toString(), true));
+                start(new SpeechOptions(true, 0.65f, spec.modelDir().toString(), true,
+                        options == null ? null : options.calibration()));
             } catch (Exception e) {
                 LOGGER.warn("hotwords reload failed for {}", spec.engineId(), e);
             }
@@ -206,7 +207,11 @@ public class SherpaQwen3Recognizer extends AbstractBufferedRecognizer {
                 text = decode(shared(List.of()), floats);
             }
             if (text == null || text.isBlank()) return;
-            emit(text.trim().toLowerCase(Locale.ROOT), List.of(), 1.0f, startMs);
+            // Semantic contract v2: the text line is adjudicated against the
+            // routed vocabulary (the "qwen3 vocab gate" — a transcript that
+            // hits no entry is REJECTED, never cast on).
+            emitAdjudicated(text.trim().toLowerCase(Locale.ROOT), List.of(), startMs,
+                    null, null, String.join(",", spec.languages()));
         } catch (Throwable t) {
             LOGGER.warn("Qwen3-ASR decode failed (engine={})", spec.engineId(), t);
         }

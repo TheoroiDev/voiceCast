@@ -64,12 +64,12 @@ public final class VoiceCastHud {
         });
         VoiceCastEvents.subscribe(RecognitionPartialEvent.class, e -> {
             if (e.result() == null) return;
-            String t = e.result().text();
+            String t = e.result().utteranceText();
             partialText = t == null ? "" : t.trim();
         });
         VoiceCastEvents.subscribe(RecognitionFinalEvent.class, e -> {
             if (e.result() == null) return;
-            String t = e.result().text();
+            String t = e.result().utteranceText();
             finalText = t == null ? "" : t.trim();
             finalAtMs = System.currentTimeMillis();
             partialText = "";

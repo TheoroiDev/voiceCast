@@ -1,4 +1,4 @@
-package com.theo.voicecast.api;
+package com.theo.voicecast.match;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Shared IPA text utilities: normalization (stress/diacritic stripping plus the
+ * IPA text utilities: normalization (stress/diacritic stripping plus the
  * systematic wav2vec2-espeak confusions documented in
  * {@code workspace-root docs/IPA识别问题.md}) and phoneme tokenization.
  *
- * <p>Used by the IPA engine to turn {@link Pronunciation#ipa()} templates into
- * comparable token sequences for CTC vocabulary scoring, and by WizardReal's
- * phoneme matcher so both sides always normalize identically.
+ * <p>Moved out of the api package (semantic contract v2, C1b): normalization
+ * is an engine-internal mechanism now — the heard side of the ZIPA matcher
+ * and the template side of CTC scoring. Not part of the cross-mod contract.
  */
 public final class IpaText {
     private IpaText() {}

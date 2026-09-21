@@ -1,9 +1,9 @@
 package com.theo.voicecast.engine;
 
 import com.theo.voicecast.VoiceCast;
-import com.theo.voicecast.api.Pronunciation;
-import com.theo.voicecast.api.RecognitionResult;
+import com.theo.voicecast.api.SessionVocabulary;
 import com.theo.voicecast.api.SpeechOptions;
+import com.theo.voicecast.match.UtteranceAdjudicator;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -21,16 +21,26 @@ import java.util.Map;
  * Unicode IPA phoneme symbols with the word-boundary marker stripped.
  *
  * <p>When an IPA vocabulary is pushed (spells/chant lines), each decode also
- * runs an exact CTC forward pass per vocabulary template and emits posterior
- * probabilities ({@code templateScores} on the result): greedy per-frame argmax
- * systematically drops weak consonants or shifts vowels, but the forward pass
- * sums all alignments and stays robust to those errors. Scoring happens inside
- * the decode worker, so the numbers always belong to the emitted utterance (no
- * cross-thread logits races between sessions). Template symbols resolve in the
- * ZIPA emission space ({@link ZipaShared#mapTemplate}); the CTC
- * margin/posterior semantics and the {@code templateScores}/{@code ctcPresent}
- * contract are unchanged from the previous espeak backend (WizardReal's
- * ChantGate consumes them unchanged).
+ * runs an exact CTC forward pass per vocabulary template: greedy per-frame
+ * argmax systematically drops weak consonants or shifts vowels, but the
+ * forward pass sums all alignments and stays robust to those errors. Scoring
+ * happens inside the decode worker, so the numbers always belong to the
+ * emitted utterance (no cross-thread logits races between sessions).
+ * Template symbols resolve in the ZIPA emission space
+ * ({@link ZipaShared#mapTemplate}).
+ *
+ * <p>Semantic contract v2 (C1b): the CTC posterior map and the margin gate
+ * are PRIVATE engine mechanisms — the emitted result carries the adjudicated
+ * {@code Decision} (the CTC line is the zipa EXACT tier of the
+ * {@link UtteranceAdjudicator} fusion); the posteriors/margin stay reachable
+ * only through the {@link RecognitionDiagnostics} accessor. The margin
+ * semantics are unchanged (m1_retest calibration): a CTC posterior set only
+ * counts as an acceptance candidate when the gap between the best score and
+ * the best NON-top1 template score is at least {@link #CTC_MARGIN}; a closer
+ * runner-up makes the win ambiguous — the adjudicator turns that into
+ * {@code Decision.AMBIGUOUS} when the top1 would have passed its forward
+ * threshold (pre-v2: the scores were zeroed and the utterance fell through
+ * like any other CTC miss — same net acceptance behavior, richer verdict).
  */
 public final class ZipaPhonemeRecognizer extends AbstractBufferedRecognizer {
     private static final org.slf4j.Logger LOGGER = org.slf4j.LoggerFactory.getLogger("VoiceCast");
@@ -40,17 +50,13 @@ public final class ZipaPhonemeRecognizer extends AbstractBufferedRecognizer {
      * backend (S6-MATCHER WO D1/D3, issue #29 P6): a CTC posterior set only
      * counts as an acceptance candidate when the gap between the best score
      * and the best NON-top1 template score is at least this value. Utterances
-     * with a closer runner-up are ambiguous, so {@link #scoreVocabulary}
-     * zeroes every emitted score (never a partial suppression — the runner-up
-     * must not inherit the win): downstream consumers see "CTC present,
-     * nothing above threshold", which keeps {@code ctcPresent}-gated fallback
-     * suppression intact in WizardReal's ChantGate and lets the utterance fall
-     * through like any other CTC miss. WizardReal's {@code
-     * FORWARD_MATCH_THRESHOLD} (0.10) still applies on top — the gap rule is
-     * an additional condition, not a replacement. Package-visible non-final so
-     * the boundary test can pin the exact float difference (no public API
-     * surface). Calibration: m1_retest_v3_report §1.1 (build/accent_calibration)
-     * — margin 0.02 -> FPR 0.3% / recall 42.8% / misfire 3.5%.
+     * with a closer runner-up are ambiguous: {@link #applyCtcMargin} zeroes
+     * every emitted score (never a partial suppression — the runner-up must
+     * not inherit the win), and the adjudicator records the pre-margin gap as
+     * AMBIGUOUS evidence. Calibration: m1_retest_v3_report §1.1
+     * (build/accent_calibration) — margin 0.02 -> FPR 0.3% / recall 42.8% /
+     * misfire 3.5%. The engine-calibration default is overridable via the
+     * {@code [match] ctcMargin} server config key.
      */
     static float CTC_MARGIN = 0.02f;
 
@@ -77,9 +83,10 @@ public final class ZipaPhonemeRecognizer extends AbstractBufferedRecognizer {
         // the server already loaded it).
         ZipaShared.getOrLoad(java.nio.file.Path.of(options.modelPath()));
         prepared = null; // rebuild against the now-available vocabulary mapping
+        if (options.calibration() != null) CTC_MARGIN = options.calibration().margin();
         super.start(options);
-        LOGGER.info("ZIPA phoneme recognizer ready (shared tokens={})",
-                ZipaShared.get().idToToken.size());
+        LOGGER.info("ZIPA phoneme recognizer ready (shared tokens={}, ctcMargin={})",
+                ZipaShared.get().idToToken.size(), CTC_MARGIN);
     }
 
     @Override
@@ -142,18 +149,23 @@ public final class ZipaPhonemeRecognizer extends AbstractBufferedRecognizer {
         ZipaShared.Decoded decoded = shared.decodeFull(wave);
         long dt = System.currentTimeMillis() - t0;
         List<String> tokens = decoded.greedy().tokens();
-        Map<String, Float> scores = scoreVocabulary(shared, decoded.logProb());
+        CtcResult ctc = scoreVocabulary(shared, decoded.logProb());
         if (tokens.isEmpty()) {
             LOGGER.debug("[ZIPA] decoded no phonemes in {} ms", dt);
-            if (!scores.isEmpty()) emit("", tokens, decoded.greedy().confidence(), startMs, scores);
+            // Empty greedy decode but CTC evidence present: still adjudicated
+            // (the CTC line may fire alone — pre-v2 behavior).
+            emitAdjudicated("", tokens, startMs, ctc.posteriors(), ctc.margin(), "");
             return;
         }
         String text = String.join(" ", tokens);
         float confidence = decoded.greedy().confidence();
         LOGGER.info("[ZIPA] '{}' ({} phonemes, conf={}, {} ms)",
                 text, tokens.size(), String.format(java.util.Locale.ROOT, "%.2f", confidence), dt);
-        emit(text, tokens, confidence, startMs, scores);
+        emitAdjudicated(text, tokens, startMs, ctc.posteriors(), ctc.margin(), "");
     }
+
+    /** CTC posteriors + margin evidence of one decode. */
+    private record CtcResult(Map<String, Float> posteriors, UtteranceAdjudicator.MarginInfo margin) {}
 
     /**
      * CTC forward score of every vocabulary template against this utterance,
@@ -164,9 +176,9 @@ public final class ZipaPhonemeRecognizer extends AbstractBufferedRecognizer {
      * quantity the automaton actually scored); the null competitor stays a raw
      * frame-sum (it emits zero tokens, per-token division is undefined).
      */
-    private Map<String, Float> scoreVocabulary(ZipaShared shared, float[][] logProb) {
+    private CtcResult scoreVocabulary(ZipaShared shared, float[][] logProb) {
         List<Prepared> templates = ensurePrepared(shared);
-        if (templates.isEmpty()) return Map.of();
+        if (templates.isEmpty()) return new CtcResult(Map.of(), null);
         try {
             double nullLp = ZipaShared.nullLogProb(logProb);
             Map<String, double[]> best = new LinkedHashMap<>(); // id -> {bestLp, bestLen}
@@ -185,7 +197,7 @@ public final class ZipaPhonemeRecognizer extends AbstractBufferedRecognizer {
                             (a, b) -> a[0] >= b[0] ? a : b);
                 }
             }
-            if (best.isEmpty()) return Map.of();
+            if (best.isEmpty()) return new CtcResult(Map.of(), null);
             double max = nullLp;
             for (double[] v : best.values()) {
                 double norm = v[0] / Math.max(1, v[1]);
@@ -197,31 +209,27 @@ public final class ZipaPhonemeRecognizer extends AbstractBufferedRecognizer {
             for (Map.Entry<String, double[]> e : best.entrySet()) {
                 out.put(e.getKey(), (float) (Math.exp(e.getValue()[0] / Math.max(1, e.getValue()[1]) - max) / denom));
             }
+            // Margin evidence BEFORE the gate (the adjudicator needs the
+            // would-have-passed top1 for the AMBIGUOUS verdict).
+            Top top = top1Top2(out);
             applyCtcMargin(out);
+            UtteranceAdjudicator.MarginInfo margin = new UtteranceAdjudicator.MarginInfo(
+                    top.top1Id(), top.top1(), top.top2(), top.top1() - top.top2() < CTC_MARGIN);
             if (com.theo.voicecast.config.VoiceCastConfig.INSTANCE.verboseLogging) {
                 LOGGER.info("[ZIPA CTC] null={} {}", String.format(java.util.Locale.ROOT, "%.3f",
                         Math.exp(nullLp - max) / denom), out);
             }
-            return out;
+            return new CtcResult(out, margin);
         } catch (Throwable t) {
             LOGGER.warn("ZIPA CTC vocabulary scoring failed", t);
-            return Map.of();
+            return new CtcResult(Map.of(), null);
         }
     }
 
-    /**
-     * S6 WO D1/D3 margin gate on the final posterior map (ported unchanged
-     * from the espeak backend): find the top1 template score and the top2 —
-     * the best score among the templates that are NOT the top1 entry; when
-     * {@code top1 - top2 < CTC_MARGIN} the win is ambiguous and EVERY score is
-     * zeroed (the CTC tier then cannot fire downstream, and the utterance
-     * falls through exactly like any other CTC miss). With no runner-up entry
-     * the decision is unambiguous (gap = top1 - 0), matching the lab rule.
-     * Deliberate template-level top2: the recognizer only knows pronunciation
-     * ids — the spell grouping lives in WizardReal.
-     */
-    static void applyCtcMargin(Map<String, Float> posteriors) {
-        if (posteriors == null || posteriors.isEmpty()) return;
+    /** Top1/top2 of a posterior map (top2 = best non-top1; 0 when no runner-up). */
+    private record Top(String top1Id, float top1, float top2) {}
+
+    private static Top top1Top2(Map<String, Float> posteriors) {
         String top1Id = null;
         float top1 = 0f;
         for (Map.Entry<String, Float> e : posteriors.entrySet()) {
@@ -230,19 +238,37 @@ public final class ZipaPhonemeRecognizer extends AbstractBufferedRecognizer {
                 top1Id = e.getKey();
             }
         }
-        float top2 = 0f; // no runner-up -> unambiguous (gap = top1 - 0)
+        float top2 = 0f;
         for (Map.Entry<String, Float> e : posteriors.entrySet()) {
             if (!e.getKey().equals(top1Id) && e.getValue() > top2) top2 = e.getValue();
         }
-        if (top1 - top2 < CTC_MARGIN) {
+        return new Top(top1Id, top1, top2);
+    }
+
+    /**
+     * S6 WO D1/D3 margin gate on the final posterior map (ported unchanged
+     * from the espeak backend): find the top1 template score and the top2 —
+     * the best score among the templates that are NOT the top1 entry; when
+     * {@code top1 - top2 < CTC_MARGIN} the win is ambiguous and EVERY score is
+     * zeroed (the CTC tier then cannot fire downstream, and the adjudicator
+     * sees the pre-margin gap via the MarginInfo and may rule AMBIGUOUS).
+     * With no runner-up entry the decision is unambiguous (gap = top1 - 0),
+     * matching the lab rule. Deliberate template-level top2: the recognizer
+     * only knows pronunciation ids — the spell grouping lives in the
+     * adjudicator's vocabulary structure now.
+     */
+    static void applyCtcMargin(Map<String, Float> posteriors) {
+        if (posteriors == null || posteriors.isEmpty()) return;
+        Top top = top1Top2(posteriors);
+        if (top.top1() - top.top2() < CTC_MARGIN) {
             // Rejection observability (verbose only, never a decision input):
-            // the actual gap values behind a silent all-zero templateScores map.
+            // the actual gap values behind a silent all-zero posterior map.
             if (com.theo.voicecast.config.VoiceCastConfig.INSTANCE.verboseLogging) {
                 LOGGER.info("[ZIPA CTC] margin reject: top1 '{}'={} top2={} gap={} < margin={}",
-                        top1Id,
-                        String.format(java.util.Locale.ROOT, "%.4f", top1),
-                        String.format(java.util.Locale.ROOT, "%.4f", top2),
-                        String.format(java.util.Locale.ROOT, "%.4f", top1 - top2),
+                        top.top1Id(),
+                        String.format(java.util.Locale.ROOT, "%.4f", top.top1()),
+                        String.format(java.util.Locale.ROOT, "%.4f", top.top2()),
+                        String.format(java.util.Locale.ROOT, "%.4f", top.top1() - top.top2()),
                         String.format(java.util.Locale.ROOT, "%.4f", CTC_MARGIN));
             }
             posteriors.replaceAll((k, v) -> 0.0f);
@@ -256,13 +282,13 @@ public final class ZipaPhonemeRecognizer extends AbstractBufferedRecognizer {
         synchronized (this) {
             if (prepared != null) return prepared;
             List<Prepared> out = new ArrayList<>();
-            for (Pronunciation pron : vocabulary) {
+            for (SessionVocabulary.Entry entry : vocabulary.entries()) {
                 List<int[]> targets = new ArrayList<>();
-                for (String template : pron.ipa()) {
+                for (String template : entry.ipa()) {
                     int[] ids = ZipaShared.mapTemplate(shared, template);
                     if (ids.length > 0) targets.add(ids);
                 }
-                if (!targets.isEmpty()) out.add(new Prepared(pron.id(), List.copyOf(targets)));
+                if (!targets.isEmpty()) out.add(new Prepared(entry.id(), List.copyOf(targets)));
             }
             prepared = List.copyOf(out);
             if (!out.isEmpty()) {

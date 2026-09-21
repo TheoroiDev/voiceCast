@@ -1,6 +1,8 @@
 package com.theo.voicecast.engine;
 
-import com.theo.voicecast.api.Pronunciation;
+import com.theo.voicecast.api.Decision;
+import com.theo.voicecast.api.RecognitionDiagnostics;
+import com.theo.voicecast.api.SessionVocabulary;
 import com.theo.voicecast.api.RecognitionResult;
 import com.theo.voicecast.api.SpeechOptions;
 import com.theo.voicecast.model.ModelConfig;
@@ -94,9 +96,9 @@ class ZipaDecodeE2ETest {
         recognizer.setResultSink(received::set);
         // Template written in the template symbol space (clear l, ɡ etc.) — the
         // CTC target mapping resolves it into the ZIPA emission space.
-        recognizer.setVocabulary(List.of(
-                new Pronunciation("fulmen", List.of("ˈfʊlmɛn"), List.of("fulmen", "lightning"))));
-        recognizer.start(new SpeechOptions(true, 0.65f, model.toString(), false));
+        recognizer.setVocabulary(new SessionVocabulary(List.of(
+                new SessionVocabulary.Entry("fulmen", List.of("ˈfʊlmɛn"), List.of("fulmen", "lightning"), null, null))));
+        recognizer.start(new SpeechOptions(true, 0.65f, model.toString(), false, null));
         float[] wave = TestWav.readMono16k(wav);
         short[] pcm = new short[wave.length];
         for (int i = 0; i < wave.length; i++) pcm[i] = (short) Math.max(Short.MIN_VALUE,
@@ -109,9 +111,13 @@ class ZipaDecodeE2ETest {
         recognizer.stop();
         RecognitionResult r = received.get();
         assertNotNull(r, "recognizer must emit the decoded utterance");
-        Map<String, Float> scores = r.templateScores();
-        assertNotNull(scores, "templateScores must be non-null when a vocabulary is pushed");
-        assertTrue(!scores.isEmpty(), "ctcPresent contract: templateScores non-empty with a pushed vocabulary");
-        assertTrue(scores.containsKey("fulmen"), "posterior keyed by pronunciation id, got " + scores.keySet());
+        RecognitionDiagnostics diag = r.decision() == null ? null : recognizer.lastDiagnostics();
+        assertNotNull(diag, "diagnostics accessor must carry the CTC line (the old ctcPresent)");
+        assertTrue(diag.ctcPresent(), "ctcPresent contract: CTC scoring ran with a pushed vocabulary");
+        assertTrue(diag.templateScores().containsKey("fulmen"),
+                "posterior keyed by pronunciation id (diagnostics), got " + diag.templateScores().keySet());
+        // Semantic contract v2: the decision is adjudicated, not raw scores.
+        assertEquals(Decision.EXACT, r.decision(), "fulmen template must adjudicate EXACT");
+        assertEquals("fulmen", r.pronId());
     }
 }
