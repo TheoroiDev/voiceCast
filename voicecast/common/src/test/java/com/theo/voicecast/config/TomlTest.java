@@ -23,14 +23,14 @@ class TomlTest {
         out.setString("server", "name", "voicecast");
         out.setBool("server", "enabled", true);
         out.setInt("server", "rate", -42);
-        out.setStringList("engines", "allowed", List.of("vosk-text", "ipa-phonemes"));
+        out.setStringList("engines", "allowed", List.of("qwen3-asr-0.6b-int8", "zipa-ipa"));
         out.save(file);
 
         Toml in = Toml.load(file);
         assertEquals("voicecast", in.getString("server", "name", null));
         assertTrue(in.getBool("server", "enabled", false));
         assertEquals(-42L, in.getInt("server", "rate", 0));
-        assertEquals(List.of("vosk-text", "ipa-phonemes"), in.getStringList("engines", "allowed", null));
+        assertEquals(List.of("qwen3-asr-0.6b-int8", "zipa-ipa"), in.getStringList("engines", "allowed", null));
     }
 
     @Test

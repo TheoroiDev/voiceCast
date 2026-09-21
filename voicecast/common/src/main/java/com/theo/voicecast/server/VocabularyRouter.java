@@ -13,7 +13,7 @@ import java.util.Set;
  * Session-level vocabulary routing (0.4.0, voice overhaul D-A2): the selected
  * engine decides which language bucket of each pronunciation reaches its
  * recognizer. A session sees {@code bucket[engineLang] ∪ legacy}; engines
- * without a language (ipa-phonemes, noop) get the vocabulary unchanged.
+ * without a language (zipa-ipa, noop) get the vocabulary unchanged.
  *
  * <p>0.5.0 adds the casting-time mode layer (issue #30, D-15 four-mode
  * decision): {@link #forSpells} narrows the vocabulary to a mode's candidate

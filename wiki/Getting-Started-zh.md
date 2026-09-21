@@ -21,20 +21,15 @@ VoiceCast 是**库模组**：识别在**服务器端**进行，客户端只推�
 
 | 引擎 | 大小 | 适合 |
 |---|---|---|
-| **词语识别 - 英文（Vosk）** `vosk-en` | ~40 MB | 直接说英文触发词 |
-| **词语识别 - 中文（Vosk）** `vosk-cn` | ~44 MB | 直接说中文触发词 |
-| **词语识别 - 日文（Vosk）** `vosk-jp` | ~50 MB | 直接说日文触发词（识别假名/汉字） |
-| **词语识别 - 韩文（Vosk）** `vosk-kr` | ~87 MB | 直接说韩文触发词 |
-| **音素识别（IPA）** `ipa-phonemes` | ~150 MB | 按发音念拉丁/中/日文咒语 |
+| **整句识别** `qwen3-asr-0.6b-int8` | ~880 MB | 自由说出的触发词与咒语吟唱，覆盖 en/zh/ja/ko/yue/de/fr/es/ru（默认） |
+| **音素识别（IPA）** `zipa-ipa` | ~70 MB | 按发音念拉丁/中/日文咒语（音素匹配） |
 
-模型只在**首次选用时下载一次**到 `config/voicecast/models/`（sha256 校验）。Vosk 模型默认仅从 **alphacephei.com** 下载；**IPA（wav2vec2）** 模型走 hf-mirror.com 镜像——也可在 `models.json` 自行追加镜像。随时切换：
+模型只在**首次选用时下载一次**到 `config/voicecast/models/`（sha256 校验）。Qwen3-ASR 模型来自 **sherpa-onnx 官方 GitHub release**；**IPA（ZIPA）** 模型来自 HuggingFace 并带 hf-mirror.com 镜像——也可在 `models.json` 自行追加镜像。随时切换：
 
 ```
-/voicecast engine vosk    # 词语识别（英文）
-/voicecast engine zh      # 词语识别（中文）
-/voicecast engine ja      # 词语识别（日文）
-/voicecast engine ko      # 词语识别（韩文）
-/voicecast engine ipa     # 音素识别
+/voicecast engine en      # 整句识别（Qwen3-ASR，默认）
+/voicecast engine zh      # 同一引擎的语言码路由
+/voicecast engine ipa     # IPA 音素识别（ZIPA）
 ```
 
 ## 首次识别

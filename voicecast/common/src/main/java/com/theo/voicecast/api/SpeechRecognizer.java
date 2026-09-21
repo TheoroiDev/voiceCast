@@ -3,7 +3,7 @@ package com.theo.voicecast.api;
 import java.util.Collection;
 
 /**
- * A speech recognition engine. Implementations may wrap Vosk, sherpa-onnx,
+ * A speech recognition engine. Implementations may wrap sherpa-onnx, ONNX Runtime,
  * Whisper, an external library mod, or any future backend.
  *
  * <p>All methods must be safe to call from the Minecraft client thread;
@@ -11,7 +11,7 @@ import java.util.Collection;
  */
 public interface SpeechRecognizer {
 
-    /** Stable id, e.g. {@code "sherpa-ipa"} or {@code "vosk-en"}. */
+    /** Stable id, e.g. {@code "qwen3-asr-0.6b-int8"} or {@code "zipa-ipa"}. */
     String id();
 
     /** Human-readable name shown in the config UI. */
@@ -44,7 +44,7 @@ public interface SpeechRecognizer {
 
     /**
      * Flush any buffered audio and produce a final result for the current
-     * utterance. Called when the user releases PTT so Vosk-like engines
+     * utterance. Called when the user releases PTT so buffered engines
      * that wait for an endpoint (silence) still return their last result.
      */
     default void finishUtterance() {}

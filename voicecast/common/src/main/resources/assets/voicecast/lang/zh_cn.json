@@ -1,9 +1,8 @@
 {
   "voicecast.engine.title": "VoiceCast - 选择识别引擎",
   "voicecast.engine.subtitle": "服务器只需加载一次模型并共享，随时可切换。",
-  "voicecast.engine.sherpa_zipformer_bilingual_zh_en_int8": "流式识别 - 中英双语（sherpa，约 230 MB）",
-  "voicecast.engine.sherpa_sensevoice_small_int8": "离线整句 - 中/英/日/韩/粤（sherpa，约 230 MB）",
-  "voicecast.engine.wav2vec2_espeak_ipa": "音素识别（IPA，约 150 MB）",
+  "voicecast.engine.qwen3_asr_0.6b_int8": "离线整句识别 - en/zh/ja/ko/yue/de/fr/es/ru（sherpa，约 880 MB）",
+  "voicecast.engine.zipa_ipa": "音素识别（IPA，约 70 MB）",
   "voicecast.engine.done": "完成",
   "voicecast.engine.cmd.set": "已请求 VoiceCast 引擎：%s",
   "voicecast.engine.cmd.current": "VoiceCast 当前引擎：%s",

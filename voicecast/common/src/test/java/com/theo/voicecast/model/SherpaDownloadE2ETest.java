@@ -9,9 +9,9 @@ import java.nio.file.Path;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Manual end-to-end check: really downloads the default bilingual sherpa
- * archive (≈230 MB, GitHub release) and verifies the extraction pipeline
- * lands tokens.txt + .onnx at the model root. Opt-in because it needs the
+ * Manual end-to-end check: really downloads the default Qwen3-ASR sherpa
+ * archive (≈879 MB, GitHub release) and verifies the extraction pipeline
+ * lands the onnx files at the model root. Opt-in because it needs the
  * network (proxy via HTTPS_PROXY env or -Dhttps.proxyHost):
  * {@code gradlew :voicecast-common:test --tests '*SherpaDownloadE2E*' -Dvoicecast.e2eDownload=true}
  */
@@ -23,8 +23,8 @@ class SherpaDownloadE2ETest {
         Path gameDir = Files.createTempDirectory("voicecast-e2e");
         try {
             ModelConfig config = ModelConfig.load(gameDir);
-            ModelConfig.ModelEntry entry = config.model("sherpa-zipformer-bilingual-zh-en-int8");
-            assertTrue(entry != null, "default catalog must carry the bilingual streaming model");
+            ModelConfig.ModelEntry entry = config.model("qwen3-asr-0.6b-int8");
+            assertTrue(entry != null, "default catalog must carry the qwen3 offline model");
 
             Path dir = SherpaModel.resolveOrDownload(gameDir, config, entry,
                     (done, total) -> System.out.printf("download: %.1f MB / %s%n",

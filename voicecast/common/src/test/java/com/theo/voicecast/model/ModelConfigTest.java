@@ -15,7 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 /**
  * models.json v2 catalog: one model = one engine; selection by model name or
  * language code (first declared wins); v1/foreign files are rewritten with
- * defaults (v0 policy — no migrations).
+ * defaults (v0 policy — no migrations). Engine-swap C1 default lineup:
+ * qwen3-asr-0.6b-int8 → zipa-ipa → gtcrn-simple-denoiser.
  */
 class ModelConfigTest {
 
@@ -31,26 +32,21 @@ class ModelConfigTest {
     @Test
     void defaultCatalogIsV2AndSelectable() {
         ModelConfig cfg = ModelConfig.load(runDir);
-        assertEquals(List.of(
-                "sherpa-zipformer-bilingual-zh-en-int8",
-                "sherpa-sensevoice-small-int8",
-                "sherpa-sensevoice-full",
-                "wav2vec2-espeak-ipa"), cfg.engineIds());
-        assertEquals(List.of(
-                "sherpa-zipformer-bilingual-zh-en-int8",
-                "sherpa-sensevoice-small-int8",
-                "sherpa-sensevoice-full",
-                "wav2vec2-espeak-ipa",
-                "gtcrn-simple-denoiser"), cfg.modelIds());
-        assertEquals("stream", cfg.model("sherpa-zipformer-bilingual-zh-en-int8").type());
-        assertEquals(List.of("zh", "en"), cfg.languagesFor("sherpa-zipformer-bilingual-zh-en-int8"));
-        assertEquals("sherpa-streaming", cfg.familyFor("sherpa-zipformer-bilingual-zh-en-int8"));
-        assertEquals("sherpa-sensevoice", cfg.familyFor("sherpa-sensevoice-small-int8"));
-        assertEquals("sherpa-sensevoice", cfg.familyFor("sherpa-sensevoice-full"));
-        assertEquals("ipa", cfg.familyFor("wav2vec2-espeak-ipa"));
-        assertEquals("cjkchar+bpe", cfg.optionsFor("sherpa-zipformer-bilingual-zh-en-int8").get("modeling_unit"));
-        // fp32 A/B entry: points at the float weights inside the full archive
-        assertEquals("model.onnx", cfg.optionsFor("sherpa-sensevoice-full").get("onnx"));
+        assertEquals(List.of("qwen3-asr-0.6b-int8", "zipa-ipa"), cfg.engineIds());
+        assertEquals(List.of("qwen3-asr-0.6b-int8", "zipa-ipa", "gtcrn-simple-denoiser"),
+                cfg.modelIds());
+        assertEquals("offline", cfg.model("qwen3-asr-0.6b-int8").type());
+        assertEquals(List.of("en", "zh", "ja", "ko", "yue", "de", "fr", "es", "ru"),
+                cfg.languagesFor("qwen3-asr-0.6b-int8"));
+        assertEquals("sherpa-qwen3", cfg.familyFor("qwen3-asr-0.6b-int8"));
+        assertEquals("encoder.int8.onnx", cfg.optionsFor("qwen3-asr-0.6b-int8").get("encoder"));
+        assertEquals("tokenizer", cfg.optionsFor("qwen3-asr-0.6b-int8").get("tokenizer"));
+        assertEquals("ipa", cfg.familyFor("zipa-ipa"));
+        assertEquals("ipa", cfg.model("zipa-ipa").type());
+        // integrity: archive size gate + pinned zipa weights checksum
+        assertTrue(cfg.model("qwen3-asr-0.6b-int8").sizeBytes() > 800_000_000L);
+        assertTrue(cfg.model("zipa-ipa").files().stream()
+                .anyMatch(f -> "model.int8.onnx".equals(f.name()) && f.sha256() != null));
     }
 
     @Test
@@ -61,7 +57,7 @@ class ModelConfigTest {
         assertEquals("denoiser", denoiser.type());
         assertNull(cfg.resolveModel("gtcrn-simple-denoiser"),
                 "denoiser models must not be selectable as engines");
-        assertEquals("sherpa-zipformer-bilingual-zh-en-int8", cfg.resolveModel("en").id(),
+        assertEquals("qwen3-asr-0.6b-int8", cfg.resolveModel("en").id(),
                 "language resolution must skip the denoiser entry");
         assertNull(cfg.familyFor("gtcrn-simple-denoiser"));
         // it still resolves through the model download pipeline
@@ -81,7 +77,7 @@ class ModelConfigTest {
         assertTrue(!json.contains("\"engines\""), "v2 has no engines section");
         // round trip: loading the saved file again yields the same catalog
         long before = ModelConfig.load(runDir).modelIds().size();
-        assertTrue(before >= 4);
+        assertTrue(before >= 3);
     }
 
     @Test
@@ -92,17 +88,9 @@ class ModelConfigTest {
                 + "\"urls\":[\"https://example.com/a.tar.bz2\"]}},\"engines\":{\"e\":{\"model\":\"m\"}}}");
         ModelConfig cfg = ModelConfig.load(runDir);
         assertNull(cfg.model("m"), "v1 entries must not survive (v0 hard switch)");
-        assertEquals(List.of(
-                "sherpa-zipformer-bilingual-zh-en-int8",
-                "sherpa-sensevoice-small-int8",
-                "sherpa-sensevoice-full",
-                "wav2vec2-espeak-ipa",
-                "gtcrn-simple-denoiser"), cfg.modelIds());
-        assertEquals(List.of(
-                "sherpa-zipformer-bilingual-zh-en-int8",
-                "sherpa-sensevoice-small-int8",
-                "sherpa-sensevoice-full",
-                "wav2vec2-espeak-ipa"), cfg.engineIds());
+        assertEquals(List.of("qwen3-asr-0.6b-int8", "zipa-ipa", "gtcrn-simple-denoiser"),
+                cfg.modelIds());
+        assertEquals(List.of("qwen3-asr-0.6b-int8", "zipa-ipa"), cfg.engineIds());
     }
 
     // ---- v2 parsing --------------------------------------------------------
@@ -116,7 +104,7 @@ class ModelConfigTest {
                                "source": {"kind": "sherpa-archive", "urls": ["https://example.com/small.tar.bz2"]}},
                   "my-big": {"properties": {"lang": ["zh", "en"], "type": "stream"},
                              "source": {"kind": "sherpa-archive", "urls": ["https://example.com/big.tar.bz2"]}},
-                  "my-sv": {"properties": {"lang": ["ja"], "type": "offline"},
+                  "my-sv": {"properties": {"lang": ["ja"], "type": "offline", "family": "my-addon-family"},
                             "source": {"kind": "sherpa-archive", "urls": ["https://example.com/sv.tar.bz2"]}}
                 }}""");
         ModelConfig cfg = ModelConfig.load(runDir);
@@ -125,9 +113,10 @@ class ModelConfigTest {
         assertEquals("my-small", cfg.resolveModel("zh").id());
         assertEquals("my-small", cfg.resolveModel("en").id());
         assertEquals("my-sv", cfg.resolveModel("ja").id());
-        // explicit family override + derived family
-        assertEquals("sherpa-streaming", cfg.familyFor("my-small"));
-        assertEquals("sherpa-sensevoice", cfg.familyFor("my-sv"));
+        // builtin derivations cover only the ipa kind; every other family must
+        // be declared explicitly (and registered by its owner addon)
+        assertNull(cfg.familyFor("my-small"));
+        assertEquals("my-addon-family", cfg.familyFor("my-sv"));
     }
 
     @Test
@@ -135,9 +124,9 @@ class ModelConfigTest {
         Files.createDirectories(file().getParent());
         Files.writeString(file(), """
                 {"version": 2, "models": {
-                  "en-model": {"properties": {"lang": ["en"], "type": "stream"},
+                  "en-model": {"properties": {"lang": ["en"], "type": "offline"},
                                "source": {"kind": "sherpa-archive", "urls": ["https://example.com/en.tar.bz2"]}},
-                  "zh-model": {"properties": {"lang": ["zh"], "type": "stream"},
+                  "zh-model": {"properties": {"lang": ["zh"], "type": "offline"},
                                "source": {"kind": "sherpa-archive", "urls": ["https://example.com/zh.tar.bz2"]}}
                 }}""");
         ModelConfig cfg = ModelConfig.load(runDir);
@@ -157,25 +146,29 @@ class ModelConfigTest {
         Files.createDirectories(file().getParent());
         Files.writeString(file(), """
                 {"version": 2, "models": {
-                  "custom": {"properties": {"lang": ["zh"], "type": "stream", "family": "my-family"},
+                  "custom": {"properties": {"lang": ["zh"], "type": "offline", "family": "my-family"},
                              "source": {"kind": "sherpa-archive", "urls": ["https://example.com/c.tar.bz2"]}}
                 }}""");
         ModelConfig cfg = ModelConfig.load(runDir);
         assertEquals("my-family", cfg.familyFor("custom"));
     }
 
-    // ---- ipa defaults ------------------------------------------------------
+    // ---- zipa defaults -----------------------------------------------------
 
     @Test
-    void ipaEntryHasNoFloat32Fallback() {
+    void zipaEntryPinsWeightsAndTokens() {
         ModelConfig cfg = ModelConfig.load(runDir);
-        ModelConfig.ModelEntry ipa = cfg.model("wav2vec2-espeak-ipa");
-        assertNotNull(ipa);
-        assertTrue(ipa.files().stream().noneMatch(f -> f.name().equals("model.onnx")),
-                "float32 model.onnx fallback must not be configured");
-        assertTrue(ipa.files().stream().anyMatch(f -> f.name().equals(IpaModel.Q4_FILE)),
-                "q4 weights must stay configured");
-        assertTrue(ipa.files().stream().anyMatch(f -> f.name().equals(IpaModel.VOCAB_FILE)),
-                "vocab must stay configured");
+        ModelConfig.ModelEntry zipa = cfg.model("zipa-ipa");
+        assertNotNull(zipa);
+        assertTrue(zipa.files().stream().anyMatch(f -> f.name().equals(ZipaModel.MODEL_FILE)),
+                "int8 weights must stay configured");
+        assertTrue(zipa.files().stream().anyMatch(f -> f.name().equals(ZipaModel.TOKENS_FILE)),
+                "tokens must stay configured");
+        ModelConfig.FileEntry weights = zipa.files().stream()
+                .filter(f -> f.name().equals(ZipaModel.MODEL_FILE)).findFirst().orElseThrow();
+        assertTrue(weights.minBytes() >= 60L * 1024 * 1024, "weights size gate");
+        assertTrue(weights.sha256() != null && weights.sha256().length() == 64, "pinned weights checksum");
+        assertTrue(weights.urls().stream().anyMatch(u -> u.contains("huggingface.co/anyspeech/zipa")));
+        assertTrue(weights.urls().stream().anyMatch(u -> u.contains("hf-mirror.com/anyspeech/zipa")));
     }
 }

@@ -205,9 +205,7 @@ public enum VoiceCastClient {
                     "voicecast.state.listening", java.util.List.of()));
             if (!voiceModNoticeLogged) {
                 voiceModNoticeLogged = true;
-                if (ModDetection.hasVoskLib()) {
-                    com.theo.voicecast.VoiceCast.LOGGER.warn("vosklib detected: another mod bundles its own Vosk — duplicate native libraries on the classpath may conflict with VoiceCast");
-                } else if (ModDetection.hasPlasmoVoice()) {
+                if (ModDetection.hasPlasmoVoice()) {
                     com.theo.voicecast.VoiceCast.LOGGER.info("Plasmo Voice detected — VoiceCast holds the mic only during push-to-talk");
                 } else if (ModDetection.hasShriek()) {
                     com.theo.voicecast.VoiceCast.LOGGER.info("Shriek detected — VoiceCast holds the mic only during push-to-talk");

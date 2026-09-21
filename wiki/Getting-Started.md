@@ -21,20 +21,15 @@ Via the Mod Menu / Mods-list **config button**, or the `/voicecast settings` com
 
 | Engine | Size | Best for |
 |---|---|---|
-| **Word recognition - English (Vosk)** `vosk-en` | ~40 MB | Speaking English trigger words |
-| **Word recognition - Chinese (Vosk)** `vosk-cn` | ~44 MB | Speaking Chinese trigger words |
-| **Word recognition - Japanese (Vosk)** `vosk-jp` | ~50 MB | Speaking Japanese trigger words (recognizes kana/kanji) |
-| **Word recognition - Korean (Vosk)** `vosk-kr` | ~87 MB | Speaking Korean trigger words |
-| **Phoneme recognition (IPA)** `ipa-phonemes` | ~150 MB | Pronouncing Latin/English/Chinese/Japanese incantations |
+| **Utterance recognition** `qwen3-asr-0.6b-int8` | ~880 MB | Free-form spoken triggers and chant lines in en/zh/ja/ko/yue/de/fr/es/ru (default) |
+| **Phoneme recognition (IPA)** `zipa-ipa` | ~70 MB | Pronouncing Latin/English/Chinese/Japanese incantations (phoneme matching) |
 
-The model downloads **once** on first selection into `config/voicecast/models/` (sha256-verified). Vosk models come from **alphacephei.com** by default; the **IPA (wav2vec2)** model uses the hf-mirror.com mirror — you can add your own mirrors in `models.json`. Switch any time:
+The model downloads **once** on first selection into `config/voicecast/models/` (sha256-verified). The Qwen3-ASR model comes from the official **sherpa-onnx GitHub release**; the **IPA (ZIPA)** model comes from HuggingFace with the hf-mirror.com mirror — you can add your own mirrors in `models.json`. Switch any time:
 
 ```
-/voicecast engine vosk    # word recognition (English)
-/voicecast engine zh      # word recognition (Chinese)
-/voicecast engine ja      # word recognition (Japanese)
-/voicecast engine ko      # word recognition (Korean)
-/voicecast engine ipa     # phoneme recognition
+/voicecast engine en      # utterance recognition (Qwen3-ASR, default)
+/voicecast engine zh      # same engine via the language route
+/voicecast engine ipa     # IPA phoneme recognition (ZIPA)
 ```
 
 ## First recognition

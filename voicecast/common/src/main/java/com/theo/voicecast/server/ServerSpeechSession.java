@@ -117,7 +117,7 @@ public final class ServerSpeechSession {
 
     /** Vocabulary routed for this session: the cast-mode candidate set
      *  (0.5.0) intersected with the engine's language buckets (D-A2).
-     *  Language-agnostic engines (ipa-phonemes, noop) are never mode-routed —
+     *  Language-agnostic engines (zipa-ipa, noop) are never mode-routed —
      *  the IPA line stays full-vocabulary (issue #30 D5). */
     private Collection<Pronunciation> routedVocabulary() {
         List<String> languages = VoiceCastServer.INSTANCE.engineLanguages(engine);

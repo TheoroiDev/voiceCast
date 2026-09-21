@@ -57,6 +57,8 @@ dependencies {
     voicecastFat("com.microsoft.onnxruntime:onnxruntime:${rootProject.onnxruntime_version}") {
         transitive = false
     }
+    // natives included; the zipa recognizer e2e tests run the real session
+    testRuntimeOnly("com.microsoft.onnxruntime:onnxruntime:${rootProject.onnxruntime_version}")
 
     // Simple Voice Chat client-API integration (M7b). compileOnly + never
     // bundled: SVC provides the API classes at runtime; our plugin class is

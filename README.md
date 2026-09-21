@@ -7,8 +7,8 @@ A reusable, offline **voice-recognition library mod** for Minecraft 1.20.1 — t
 ## What it does
 
 - External push-to-talk microphone capture at 16 kHz / 16-bit / mono — the mic opens only while a gameplay mod drives PTT (in the base setup: WizardReal, hold a staff and right-click), with a silence endpoint that finishes an incantation when you pause.
-- Two offline recognizers (no cloud, no API key): **Vosk** word recognition (~40 MB) and **wav2vec2-espeak IPA phoneme recognition** (~150 MB q4) via ONNX Runtime.
-- First-run model download with retry and checksum/size verification — Vosk models come from **alphacephei.com** by default; the **hf-mirror.com** mirror serves the IPA (wav2vec2) model, and you can add your own mirrors for Vosk models in `models.json`.
+- Two offline recognizers (no cloud, no API key): **Qwen3-ASR-0.6B** utterance recognition in nine languages (~880 MB int8, sherpa-onnx, hotword-biased with an automatic hotword-free second pass) and **ZIPA IPA phoneme recognition** (~70 MB int8, direct ONNX Runtime with a Java kaldi-fbank port and a CTC template-scoring layer).
+- First-run model download with retry and checksum/size verification — models come from the official **sherpa-onnx GitHub releases** and **HuggingFace** (the **hf-mirror.com** mirror serves the ZIPA model), and you can add your own mirrors in `models.json`.
 - Server-authoritative recognition: the client only streams Opus audio; models and inference live on the server, with localized status messages.
 - Server access control: `[server] enabled` master switch + `[players]` UUID whitelist, with a pluggable `AccessCheck` hook for permission mods.
 - An engine SPI (**planned feature**): the `RecognizerRegistry.register(...)` interface is ready, but server-side engine selection/creation is not yet wired to the registry — only the built-in engine ids are selectable today (tracked in the voicecast issue tracker).
@@ -36,7 +36,7 @@ $env:Path="$env:JAVA_HOME\bin;$env:Path"
 
 | Coordinate | Contents |
 |---|---|
-| `com.theo.voicecast:voicecast-common-1.20.1:<version>` | platform-independent fat dev jar (bundles Vosk/ONNX/Concentus classes + natives) — compile/test dependency |
+| `com.theo.voicecast:voicecast-common-1.20.1:<version>` | platform-independent fat dev jar (bundles sherpa-onnx/ONNX/Concentus classes + natives) — compile/test dependency |
 | `com.theo.voicecast:voicecast-fabric-1.20.1:<version>` | production Fabric mod jar |
 | `com.theo.voicecast:voicecast-forge-1.20.1:<version>` | production Forge mod jar |
 
@@ -57,8 +57,8 @@ RecognizerRegistry.register("my-engine", MyEngine::new);
 
 > **Planned feature** — the `RecognizerRegistry.register(...)` interface exists, but server-side engine selection/creation is not yet wired to the registry: only the built-in engine ids are selectable today. Progress is tracked in the voicecast issue tracker.
 
-The public API (`com.theo.voicecast.api`) has **no** reference to `org.vosk` / `com.sun.jna` / `ai.onnxruntime` — compile against the published artifacts; the bundled implementation is provided at runtime. See [AGENTS-voicecast.md](../AGENTS-voicecast.md) for packaging/classloader rules.
+The public API (`com.theo.voicecast.api`) has **no** reference to `com.sun.jna` / `ai.onnxruntime` / the sherpa-onnx Java API — compile against the published artifacts; the bundled implementation is provided at runtime. See [AGENTS-voicecast.md](../AGENTS-voicecast.md) for packaging/classloader rules.
 
 ## License
 
-MIT (see [`LICENSE`](LICENSE)). Bundled third-party components keep their own licenses and ship inside every jar as `META-INF/legal/NOTICE` + `META-INF/legal/THIRD-PARTY-NOTICES.md`: Vosk + libvosk (Apache-2.0), ONNX Runtime (MIT), Concentus (MIT), JNA (Apache-2.0 / LGPL-2.1-or-later). Full attribution: [`legal/THIRD-PARTY-NOTICES.md`](legal/THIRD-PARTY-NOTICES.md) in this repository; notices ship inside the jars.
+MIT (see [`LICENSE`](LICENSE)). Bundled third-party components keep their own licenses and ship inside every jar as `META-INF/legal/NOTICE` + `META-INF/legal/THIRD-PARTY-NOTICES.md`: sherpa-onnx (Apache-2.0), ONNX Runtime (MIT), Concentus (MIT), JNA (Apache-2.0 / LGPL-2.1-or-later). Full attribution: [`legal/THIRD-PARTY-NOTICES.md`](legal/THIRD-PARTY-NOTICES.md) in this repository; notices ship inside the jars.

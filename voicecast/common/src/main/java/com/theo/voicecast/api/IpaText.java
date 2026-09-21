@@ -79,6 +79,16 @@ public final class IpaText {
                  .replace('ʊ', 'u')
                  .replace('ɛ', 'e')
                  .replace('ʌ', 'ə');
+        // Rhotic family merge + ASCII g (lab IpaText classes, engine-swap C1):
+        // the ZIPA recognizer (0.5.0 ipa backend) emits the ASCII letters "r"
+        // and "g" where our templates write "ɹ"/"ɡ" (U+0261), and the flap "ɾ"
+        // rides the same rhotic family (bench round 2: mare/mortis). Merge onto
+        // the template symbols so both sides normalize identically. NOTE: this
+        // is the HEARD/template MATCHING space only — the CTC template target
+        // ids resolve in the model's own emission space (ZipaShared.mapTemplate).
+        out = out.replace('ɾ', 'ɹ')
+                 .replace('r', 'ɹ')
+                 .replace('g', 'ɡ');
         return out;
     }
 }

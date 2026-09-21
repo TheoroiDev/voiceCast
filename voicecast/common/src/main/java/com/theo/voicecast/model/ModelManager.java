@@ -204,9 +204,9 @@ public final class ModelManager {
     /**
      * Single, shared HTTP fetch: opens the connection honoring proxies, streams
      * the response to {@code target} with progress callbacks, and optionally
-     * verifies SHA-256. Both the loose-file downloads (IPA weights/vocab) and the
-     * archive downloads (Vosk zip) route through this so proxy/retry behaviour
-     * is identical for every model.
+     * verifies SHA-256. Both the loose-file downloads (ZIPA weights/tokens) and
+     * the archive downloads (sherpa tar.bz2) route through this so proxy/retry
+     * behaviour is identical for every model.
      */
     private void fetchUrlToFile(String url, Path target, String expectedSha256,
                                 DownloadListener progress) throws IOException {

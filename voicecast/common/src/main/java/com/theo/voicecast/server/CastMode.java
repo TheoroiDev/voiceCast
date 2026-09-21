@@ -30,7 +30,7 @@ package com.theo.voicecast.server;
  *
  * <p>All modes compose with the engine-language projection (the routed
  * candidates are intersected with the engine's language buckets, "∩单语言桶"
- * in the D-15 table). Engines without a language (ipa-phonemes, noop) are
+ * in the D-15 table). Engines without a language (zipa-ipa, noop) are
  * never mode-routed: the IPA line stays full-vocabulary (issue #30 D5).
  * A session with no declared mode (the library default) is routed exactly as
  * before this enum existed.

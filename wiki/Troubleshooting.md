@@ -14,7 +14,7 @@
 
 Red = the model isn't ready. Read the **status line** above the waveform:
 
-- **Gold** "preparing/downloading model": first download, wait a moment (Vosk ~40 MB / IPA ~150 MB);
+- **Gold** "preparing/downloading model": first download, wait a moment (Qwen3-ASR ~880 MB / IPA ~70 MB);
 - **Red** "engine failed / model missing": check `logs/latest.log`. If the server set `autoDownload = false`, an admin must place the model files manually ([Configuration](Configuration));
 - **Red** "Microphone unavailable": next section.
 
@@ -28,17 +28,15 @@ Red = the model isn't ready. Read the **status line** above the waveform:
 ## My trigger word doesn't match
 
 - Slow down and pronounce clearly;
-- **`vosk-en` only understands English** — for Chinese/Japanese use the native-language engines `vosk-cn` / `vosk-jp` (Korean: `vosk-kr`); the IPA engine is the phoneme-matching alternative;
+- **Qwen3-ASR covers 9 languages in one engine** (en/zh/ja/ko/yue/de/fr/es/ru) — route by language code or pick it directly; the IPA engine is the phoneme-matching alternative;
 - The IPA engine matches by phonemes and is forgiving to non-native accents (tolerates tense/lax vowel shifts, dropped syllable-final consonants);
 - The gray text under the crosshair is the live recognition — if it's far from any trigger word, first confirm the model finished loading (red status line gone).
 
 ## Switching engines
 
 ```
-/voicecast engine en      # word recognition (English, vosk-en)
-/voicecast engine zh      # word recognition (Chinese, vosk-cn)
-/voicecast engine ja      # word recognition (Japanese, vosk-jp)
-/voicecast engine ko      # word recognition (Korean, vosk-kr)
+/voicecast engine en      # utterance recognition (Qwen3-ASR, default)
+/voicecast engine ipa     # IPA phoneme recognition (ZIPA)
 /voicecast engine ipa     # phoneme recognition
 /voicecast settings       # picker UI
 ```
@@ -53,6 +51,6 @@ Applies immediately; remembered in `config/voicecast/voicecast.toml` under `[cli
 
 ## Advanced diagnostics
 
-- Start with `-Dvoicecast.verbose=true` to log the recognition pipeline (`[Mic]`, `[Vosk]`, `[IPA DEBUG]`);
+- Start with `-Dvoicecast.verbose=true` to log the recognition pipeline (`[Mic]`, `[ZIPA]`, `[ZIPA CTC]`);
 - Logs: `logs/latest.log`; crashes: `crash-reports/`;
 - A client-side debug WAV recording (`VoiceCastConfig.saveDebugWav` source constant, off by default) proves whether capture works — separate from whether recognition works.

@@ -14,7 +14,7 @@
 
 红色 = 模型尚未就绪。看波形上方的**状态行**：
 
-- **金色**"正在下载/准备模型"：首次下载，耐心等待（Vosk ~40 MB / IPA ~150 MB）；
+- **金色**"正在下载/准备模型"：首次下载，耐心等待（Qwen3-ASR ~880 MB / IPA ~70 MB）；
 - **红色**"引擎加载失败/模型缺失"：看 `logs/latest.log`。若服务器设置了 `autoDownload = false`，需要管理员手动放置模型文件（见[配置参考](Configuration-zh)）；
 - **红色**"麦克风不可用"：见下一条。
 
@@ -28,17 +28,15 @@
 ## 识别不到触发词
 
 - **语速放慢、发音清晰**；
-- **`vosk-en` 只认英文**——中文/日文请用母语引擎 `vosk-cn` / `vosk-jp`（韩语 `vosk-kr`），IPA 引擎是按音素匹配的替代项；
+- **Qwen3-ASR 一个引擎覆盖 9 语种**（en/zh/ja/ko/yue/de/fr/es/ru）——按语言码路由或直接指定；IPA 引擎是按音素匹配的替代项；
 - IPA 引擎按音素匹配，对非母语发音更宽容（自动容忍松紧元音偏移、吞掉音节尾的辅音）；
 - 准星下方的灰色文字是实时识别结果——如果显示的内容离触发词太远，先确认模型下载完整（红色状态行消失）。
 
 ## 切换引擎
 
 ```
-/voicecast engine en      # 词语识别（英文，vosk-en）
-/voicecast engine zh      # 词语识别（中文，vosk-cn）
-/voicecast engine ja      # 词语识别（日文，vosk-jp）
-/voicecast engine ko      # 词语识别（韩文，vosk-kr）
+/voicecast engine en      # 整句识别（Qwen3-ASR，默认）
+/voicecast engine ipa     # IPA 音素识别（ZIPA）
 /voicecast engine ipa     # 音素识别
 /voicecast settings       # 打开选择界面
 ```
@@ -53,6 +51,6 @@
 
 ## 高级诊断
 
-- 启动时加 `-Dvoicecast.verbose=true` 输出识别管线日志（`[Mic]`/`[Vosk]`/`[IPA DEBUG]`）；
+- 启动时加 `-Dvoicecast.verbose=true` 输出识别管线日志（`[Mic]`/`[ZIPA]`/`[ZIPA CTC]`）；
 - 日志：`logs/latest.log`；崩溃看 `crash-reports/`；
 - 客户端调试 WAV 录音（源码常量 `VoiceCastConfig.saveDebugWav`，默认关）可证明"录音是否正常"，区别于"识别是否正常"。

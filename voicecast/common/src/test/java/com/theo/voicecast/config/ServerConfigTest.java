@@ -36,14 +36,14 @@ class ServerConfigTest {
         ServerConfig c = ServerConfig.load(runDir);
         assertTrue(c.allowedEngines.isEmpty(), "default whitelist is empty (= all catalog models)");
         assertTrue(c.engineAllowed("any-model-name"));
-        assertTrue(c.engineAllowed("sherpa-zipformer-bilingual-zh-en-int8"));
+        assertTrue(c.engineAllowed("qwen3-asr-0.6b-int8"));
     }
 
     @Test
     void customAllowlistIsExact() {
-        seedAllowed(runDir, List.of("my-small", "wav2vec2-espeak-ipa"));
+        seedAllowed(runDir, List.of("my-small", "qwen3-asr-0.6b-int8"));
         ServerConfig c = ServerConfig.load(runDir);
-        assertEquals(List.of("my-small", "wav2vec2-espeak-ipa"), c.allowedEngines);
+        assertEquals(List.of("my-small", "qwen3-asr-0.6b-int8"), c.allowedEngines);
         assertTrue(c.engineAllowed("my-small"));
         assertFalse(c.engineAllowed("my-other"), "non-listed engines are refused");
     }

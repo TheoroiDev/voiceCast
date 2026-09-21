@@ -8,8 +8,8 @@ A reusable, offline **voice-recognition library mod** for Minecraft 1.20.1 (Fabr
 
 ## Quick facts
 
-- **Engines**: Vosk word recognition (~40 MB) / wav2vec2-espeak IPA phoneme recognition (~150 MB q4)
-- **Model hosting**: auto-download, sha256-verified, fully self-hostable — Vosk models come from alphacephei.com by default, the IPA (wav2vec2) model uses the hf-mirror.com mirror, and you can add your own mirrors in `models.json`
+- **Engines**: Qwen3-ASR-0.6B offline utterance recognition in 9 languages (~880 MB, default) / ZIPA IPA phoneme recognition (~70 MB int8)
+- **Model hosting**: auto-download, sha256-verified, fully self-hostable — models come from the official sherpa-onnx GitHub releases and HuggingFace (hf-mirror.com mirror) by default, and you can add your own mirrors in `models.json`
 - **Server access control**: `[server] enabled` + `[players]` UUID whitelist + pluggable `AccessCheck` hook
 - **Simple Voice Chat**: first-class coexistence integration (share) — see [Simple Voice Chat Integration](Simple-Voice-Chat-Integration)
 - **Engine SPI** (planned): the `RecognizerRegistry.register(...)` hook is ready, but server-side engine selection is not yet wired to the registry — only built-in engine ids are selectable today (see the voicecast issue tracker)
@@ -47,6 +47,6 @@ RecognizerRegistry.register("my-engine", MyEngine::new);
 
 > **Planned feature** — the registration interface exists, but server-side engine selection/creation is not yet wired to the registry: only built-in engine ids are selectable today (tracked in the voicecast issue tracker).
 
-The public API (`com.theo.voicecast.api`) never references `org.vosk` / `com.sun.jna` / `ai.onnxruntime` — compile against the published maven artifacts (`com.theo.voicecast:voicecast-common-1.20.1` etc.); the bundled implementation is provided at runtime.
+The public API (`com.theo.voicecast.api`) never references `com.sun.jna` / `ai.onnxruntime` / the sherpa-onnx Java API — compile against the published maven artifacts (`com.theo.voicecast:voicecast-common-1.20.1` etc.); the bundled implementation is provided at runtime.
 
 > Next: [Getting Started](Getting-Started)

@@ -10,7 +10,7 @@ import net.minecraft.client.Minecraft;
 
 /**
  * Client-side "recognizer" that performs no recognition locally: it Opus-encodes
- * the mic audio and streams it to the server, which runs Vosk/IPA and sends back
+ * the mic audio and streams it to the server, which runs the engines and sends back
  * transcripts. The client downloads no speech model and does no inference.
  */
 public final class RemoteSpeechSession implements SpeechRecognizer {

@@ -49,7 +49,7 @@ noiseSuppression = false      # recognition-path mic denoising (GTCRN); see note
 | `[client] engine` | Player-local engine preference: a model name, a language code (`en`/`zh`/`ja`/`ko`...), or empty for the catalog default. Adjustable via `/voicecast engine <arg>` and `/voicecast settings` |
 | `[client] noiseSuppression` | Microphone noise suppression (GTCRN via sherpa-onnx) for the **recognition path only** — default off. What other players hear through Simple Voice Chat is a separate capture: use SVC's own noise suppression for that channel |
 
-> Engine ids are **model names** from `models.json` (one model = one engine). Default catalog: `sherpa-zipformer-bilingual-zh-en-int8` (streaming zh/en, default), `sherpa-sensevoice-small-int8` (offline zh/yue/en/ja/ko), `wav2vec2-espeak-ipa` (phonemes). Each model downloads once, server-side, and is shared by every session using it.
+> Engine ids are **model names** from `models.json` (one model = one engine). Default catalog: `qwen3-asr-0.6b-int8` (offline utterance, en/zh/ja/ko/yue/de/fr/es/ru, default), `zipa-ipa` (IPA phonemes), `gtcrn-simple-denoiser` (auxiliary denoiser). Each model downloads once, server-side, and is shared by every session using it.
 
 ## models.json (model catalog, v2)
 
@@ -60,21 +60,22 @@ Auto-created with defaults and **fully user-owned** (saved back as-parsed; there
   "version": 2,
   "$schema": "docs/schemas/voicecast-models-v2.schema.json",
   "models": {
-    "sherpa-zipformer-bilingual-zh-en-int8": {
+    "qwen3-asr-0.6b-int8": {
       "properties": {
-        "lang": ["zh", "en"], "type": "stream",
-        "encoder": "encoder-epoch-99-avg-1.int8.onnx",
-        "decoder": "decoder-epoch-99-avg-1.int8.onnx",
-        "joiner": "joiner-epoch-99-avg-1.int8.onnx",
-        "tokens": "tokens.txt", "bpe_vocab": "bpe.vocab",
-        "modeling_unit": "cjkchar+bpe", "decoding_method": "modified_beam_search",
-        "num_threads": "2", "hotwords_score": "1.5"
+        "lang": ["en","zh","ja","ko","yue","de","fr","es","ru"], "type": "offline",
+        "family": "sherpa-qwen3",
+        "conv_frontend": "conv_frontend.onnx", "encoder": "encoder.int8.onnx",
+        "decoder": "decoder.int8.onnx", "tokenizer": "tokenizer",
+        "num_threads": "8", "max_total_len": "600", "max_new_tokens": "256"
       },
-      "source": { "kind": "sherpa-archive", "urls": ["https://github.com/k2-fsa/sherpa-onnx/releases/download/...tar.bz2"] }
+      "source": { "kind": "sherpa-archive", "size_bytes": 878702423,
+                  "urls": ["https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-qwen3-asr-0.6B-int8-2026-03-25.tar.bz2"] }
     },
-    "wav2vec2-espeak-ipa": {
+    "zipa-ipa": {
       "properties": { "type": "ipa" },
-      "source": { "kind": "loose-files", "files": [ { "name": "vocab.json", "urls": ["..."] }, { "name": "model_q4.onnx", "minBytes": 150000000, "urls": ["..."] } ] }
+      "source": { "kind": "loose-files", "files": [
+        { "name": "model.int8.onnx", "minBytes": 62914560, "sha256": "e79c5ec3...", "urls": ["https://huggingface.co/anyspeech/zipa-small-crctc-ns-no-diacritics-700k/resolve/main/model.int8.onnx", "https://hf-mirror.com/anyspeech/..."] },
+        { "name": "tokens.txt", "sha256": "f8e042a0...", "urls": [".../tokens.txt"] } ] }
     },
     "gtcrn-simple-denoiser": {
       "properties": { "type": "denoiser" },
@@ -89,7 +90,7 @@ Key points:
 
 - **One model = one engine**: the model name doubles as the engine id and the model directory; there is no separate `engines` section;
 - **Per-language defaults follow declaration order**: the first declared model whose `lang` contains a language wins for that language (`/voicecast engine en` picks it);
-- **`properties.type`**: `stream` (streaming ASR), `offline` (utterance ASR), `ipa` (phonemes), `denoiser` (auxiliary enhancement model — downloadable but never listed/selected as an engine); `properties.family` overrides the engine family for addons;
+- **`properties.type`**: `offline` (utterance ASR), `ipa` (phonemes), `denoiser` (auxiliary enhancement model — downloadable but never listed/selected as an engine); `properties.family` selects the engine family — derived by default only for the ipa kind, everything else (e.g. `sherpa-qwen3`) must be declared explicitly;
 - **Mirror probing**: with multiple `source.urls` the server probes them concurrently (ranged GET, throughput-ranked) and downloads **fastest-first**; small files skip probing;
 - **Self-hosting**: point `urls` at your own HTTP endpoints (LAN mirror, object storage);
 - Manual placement: with `autoDownload=false` put extracted files under `config/voicecast/models/<modelName>/` (sherpa archives need `tokens.txt` + the `.onnx` files at the model root).

@@ -26,6 +26,5 @@ public final class ModDetection {
 
     public static boolean hasSimpleVoiceChat() { return isLoaded("voicechat"); }
     public static boolean hasShriek() { return isLoaded("shriek"); }
-    public static boolean hasVoskLib() { return isLoaded("vosklib"); }
     public static boolean hasPlasmoVoice() { return isLoaded("plasmo_voice"); }
 }

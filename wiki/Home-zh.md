@@ -8,8 +8,8 @@
 
 ## 核心特性
 
-- **双引擎**：Vosk 词语识别（~40 MB）/ wav2vec2-espeak IPA 音素识别（~150 MB q4）
-- **模型托管**：自动下载 + sha256 校验，支持完全自托管——Vosk 模型默认仅从 alphacephei.com 下载，IPA（wav2vec2）模型走 hf-mirror.com 镜像，也可在 `models.json` 自行追加镜像
+- **双引擎**：Qwen3-ASR-0.6B 离线整句识别，9 语种（~880 MB，默认）/ ZIPA IPA 音素识别（~70 MB int8）
+- **模型托管**：自动下载 + sha256 校验，支持完全自托管——模型默认从 sherpa-onnx 官方 GitHub release 与 HuggingFace（hf-mirror.com 镜像）下载，也可在 `models.json` 自行追加镜像
 - **服务器访问控制**：`[server] enabled` 总开关 + `[players]` UUID 白名单 + 可插拔 `AccessCheck` 钩子
 - **Simple Voice Chat 集成**：与语音聊天共存（share） — 见 [SVC 集成](Simple-Voice-Chat-Integration-zh)
 - **引擎 SPI**（计划中）：`RecognizerRegistry.register(...)` 接口已就绪，但服务端引擎选择/创建尚未接入注册表——当前仅内置引擎 id 可选（见 voicecast 仓库 issue）
@@ -47,4 +47,4 @@ RecognizerRegistry.register("my-engine", MyEngine::new);
 
 > **计划中特性**——注册接口已就绪，但服务端的引擎选择/创建尚未接入注册表：当前仅内置引擎 id 可选（见 voicecast 仓库 issue 跟踪）。
 
-公共 API（`com.theo.voicecast.api`）不引用 `org.vosk` / `com.sun.jna` / `ai.onnxruntime`——请针对发布的 maven 产物编译（`com.theo.voicecast:voicecast-common-1.20.1` 等），捆绑实现在运行时提供。
+公共 API（`com.theo.voicecast.api`）不引用 `com.sun.jna` / `ai.onnxruntime` / sherpa-onnx Java API——请针对发布的 maven 产物编译（`com.theo.voicecast:voicecast-common-1.20.1` 等），捆绑实现在运行时提供。

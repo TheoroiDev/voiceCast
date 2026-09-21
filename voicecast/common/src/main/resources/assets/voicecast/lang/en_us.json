@@ -1,9 +1,8 @@
 {
   "voicecast.engine.title": "VoiceCast - Choose Recognition Engine",
   "voicecast.engine.subtitle": "The server loads the model once and shares it. Switch any time.",
-  "voicecast.engine.sherpa_zipformer_bilingual_zh_en_int8": "Streaming - Chinese/English (sherpa, ~230 MB)",
-  "voicecast.engine.sherpa_sensevoice_small_int8": "Offline utterance - zh/en/ja/ko/yue (sherpa, ~230 MB)",
-  "voicecast.engine.wav2vec2_espeak_ipa": "Phoneme recognition (IPA, ~150 MB)",
+  "voicecast.engine.qwen3_asr_0.6b_int8": "Offline utterance - en/zh/ja/ko/yue/de/fr/es/ru (sherpa, ~880 MB)",
+  "voicecast.engine.zipa_ipa": "Phoneme recognition (IPA, ~70 MB)",
   "voicecast.engine.done": "Done",
   "voicecast.engine.cmd.set": "VoiceCast engine requested: %s",
   "voicecast.engine.cmd.current": "VoiceCast current engine: %s",

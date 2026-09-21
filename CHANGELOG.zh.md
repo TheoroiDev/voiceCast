@@ -11,6 +11,9 @@
 - 可选麦克风采播降噪（`[client] noiseSuppression`，默认关）：流式 GTCRN 语音增强（sherpa-onnx，16 kHz 原生，约 523 KB 模型经目录自动下载），只作用于施法识别通路——其他玩家通过 Simple Voice Chat 听到的声音不受影响；降噪器任何失败自动降级为干净直通
 - models.json v2 目录——模型目录即引擎列表（voicecast#42）：一个模型 = 一个引擎，模型名兼作引擎 id 与模型目录名；语言默认按声明顺序（第一个声明支持该语言的模型胜出）；选择接受模型名与二字语言码/常见语言名（`/voicecast engine en`、`zh`、`japanese`）；附属可通过 `properties.family` + 引擎族 SPI 声明自定义族；引擎选择界面与 `/voicecast engine list` 均由目录生成
 
+- Qwen3-ASR-0.6B 离线多语引擎（`qwen3-asr-0.6b-int8`，en/zh/ja/ko/yue/de/fr/es/ru）作为默认整句识别引擎，带咒语别名热词偏置（会话语言路由后的 trigger 别名，上限 100 条）与空转录自动无热词二次解码
+- ZIPA IPA 音素引擎（`zipa-ipa`，约 70 MB int8），CTC 模板层原样保留：`templateScores`/`ctcPresent` 语义（margin 拒识 0.02、null 竞争者）不变，ChantGate 一级的下游零改动
+
 ### Changes
 
 - breaking：models.json schema v2 将每模型的 `properties`（lang/type/选项）与 `source`（kind/urls/files）嵌套化，取消独立 `engines` 节——不做迁移（v0 政策，AGENTS §3）：非 v2 形态的文件按默认目录重写，旧引擎 id（`sherpa-zh-en`、`sherpa-sensevoice`、`ipa-phonemes` 及全部 vosk id）不再解析——请改用目录模型名（`sherpa-zipformer-bilingual-zh-en-int8`、`sherpa-sensevoice-small-int8`、`wav2vec2-espeak-ipa`）
@@ -32,7 +35,14 @@
 - sherpa 模型下载后现在会真正解压：下载器此前只解 `.zip`（vosk 的格式），sherpa 的 `tar.bz2` 归档被原样搁置，每次加载都报 "Downloaded model is missing expected files"；现同时支持 tar.bz2 / tgz / 裸 tar，并把归档内嵌的顶层目录提升为模型根目录（voicecast#42）
 - 模型下载 HUD 对 sherpa 下载显示"正在下载 Vosk 模型"，现已改为"正在下载模型"
 
+- breaking：识别阵容更换（引擎更换）：移除流式双语 zipformer（`sherpa-zipformer-bilingual-zh-en-int8`）、两个 SenseVoice 条目（`sherpa-sensevoice-small-int8`、`sherpa-sensevoice-full`）与 wav2vec2 IPA 模型（`wav2vec2-espeak-ipa`）。默认目录现为 `qwen3-asr-0.6b-int8` -> `zipa-ipa` -> `gtcrn-simple-denoiser`（声明顺序 = 语言默认优先级）。旧引擎 id 不再解析、不提供别名（v0 政策，无迁移）：请按新目录名重新选择引擎；0.4.x 的 `models.json` 首次加载时按新默认重写
+- breaking：IPA 音素引擎后端换为 ZIPA（zipa-small-crctc-ns-no-diacritics，Apache-2.0）：输出零变音符，引擎更换 lab 回测对 wav2vec2 触发命中率 zh +31.9pp / en +1.4pp（同路线三臂），CPU RTF 0.014；heard 侧归一化将 ZIPA 的 ASCII `r`/`g` 合并到模板符号（`ɹ`/`ɡ`）并剥除词界符
+- 音素代价表为 ZIPA 符号清单增补显式默认代价行（ð/æ/œ/ʁ/ø/ɳ/ɖ/ʈ/ʂ/ɻ/ʒ）；表外替换保持平权 1.0，匹配对未见符号不再有异常路径
+
 ### Modding/API
+
+- breaking：内建引擎族现为 `ipa`（ZIPA 后端）与 `sherpa-qwen3`；`sherpa-streaming` 与 `sherpa-sensevoice` 移除，且 offline 族不再从 `type=offline` 推导——请在 models.json 显式声明 `properties.family`（附属注册自定义族的方式不变）
+- new：`ZipaPhonemeRecognizer`/`ZipaShared`（直连 ONNX Runtime + Java kaldi-fbank 移植，经研究管线 fixture 校验）与 `SherpaQwen3Recognizer`（离线 `OfflineQwen3AsrModelConfig` + `setHotwords`，greedy）取代原识别器类；CTC 模板评分语义不变
 
 - breaking：`Pronunciation` 新增按语言分桶的别名（`languages()`，两位码 en/zh/ja/ko）；平铺构造器保留（deprecated），其别名构成 legacy 桶、进入所有引擎 grammar；服务端按会话选中引擎的语言路由词表——引擎决定桶
 - breaking：引擎 id 即目录模型名；deprecated 的 `ENGINE_*` 常量与 normalize 别名表已移除——请改用 `ModelConfig.resolveModel(...)`（精确名，其次按声明序的语言码）

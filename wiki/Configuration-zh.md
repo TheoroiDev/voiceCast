@@ -49,7 +49,7 @@ noiseSuppression = false      # 识别通路麦克风采播降噪（GTCRN）；�
 | `[client] engine` | 玩家本地引擎偏好：模型名、语言码（`en`/`zh`/`ja`/`ko`…）或留空取目录默认。可通过 `/voicecast engine <参数>` 与 `/voicecast settings` 调整 |
 | `[client] noiseSuppression` | 麦克风采播降噪（sherpa-onnx GTCRN），**只影响施法识别通路**——默认关。其他玩家听到的声音走 Simple Voice Chat 的独立采集，请使用 SVC 自带的降噪 |
 
-> 引擎 id 即 `models.json` 中的**模型名**（一个模型 = 一个引擎）。默认目录：`sherpa-zipformer-bilingual-zh-en-int8`（流式中英双语，默认）、`sherpa-sensevoice-small-int8`（离线 zh/yue/en/ja/ko）、`wav2vec2-espeak-ipa`（音素）。每个模型服务端只下载一次并全服共享。
+> 引擎 id 即 `models.json` 中的**模型名**（一个模型 = 一个引擎）。默认目录：`qwen3-asr-0.6b-int8`（离线整句，en/zh/ja/ko/yue/de/fr/es/ru，默认）、`zipa-ipa`（IPA 音素）、`gtcrn-simple-denoiser`（辅助降噪）。每个模型服务端只下载一次并全服共享。
 
 ## models.json（模型目录，v2）
 
@@ -60,21 +60,22 @@ noiseSuppression = false      # 识别通路麦克风采播降噪（GTCRN）；�
   "version": 2,
   "$schema": "docs/schemas/voicecast-models-v2.schema.json",
   "models": {
-    "sherpa-zipformer-bilingual-zh-en-int8": {
+    "qwen3-asr-0.6b-int8": {
       "properties": {
-        "lang": ["zh", "en"], "type": "stream",
-        "encoder": "encoder-epoch-99-avg-1.int8.onnx",
-        "decoder": "decoder-epoch-99-avg-1.int8.onnx",
-        "joiner": "joiner-epoch-99-avg-1.int8.onnx",
-        "tokens": "tokens.txt", "bpe_vocab": "bpe.vocab",
-        "modeling_unit": "cjkchar+bpe", "decoding_method": "modified_beam_search",
-        "num_threads": "2", "hotwords_score": "1.5"
+        "lang": ["en","zh","ja","ko","yue","de","fr","es","ru"], "type": "offline",
+        "family": "sherpa-qwen3",
+        "conv_frontend": "conv_frontend.onnx", "encoder": "encoder.int8.onnx",
+        "decoder": "decoder.int8.onnx", "tokenizer": "tokenizer",
+        "num_threads": "8", "max_total_len": "600", "max_new_tokens": "256"
       },
-      "source": { "kind": "sherpa-archive", "urls": ["https://github.com/k2-fsa/sherpa-onnx/releases/download/...tar.bz2"] }
+      "source": { "kind": "sherpa-archive", "size_bytes": 878702423,
+                  "urls": ["https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-qwen3-asr-0.6B-int8-2026-03-25.tar.bz2"] }
     },
-    "wav2vec2-espeak-ipa": {
+    "zipa-ipa": {
       "properties": { "type": "ipa" },
-      "source": { "kind": "loose-files", "files": [ { "name": "vocab.json", "urls": ["..."] }, { "name": "model_q4.onnx", "minBytes": 150000000, "urls": ["..."] } ] }
+      "source": { "kind": "loose-files", "files": [
+        { "name": "model.int8.onnx", "minBytes": 62914560, "sha256": "e79c5ec3...", "urls": ["https://huggingface.co/anyspeech/zipa-small-crctc-ns-no-diacritics-700k/resolve/main/model.int8.onnx", "https://hf-mirror.com/anyspeech/..."] },
+        { "name": "tokens.txt", "sha256": "f8e042a0...", "urls": [".../tokens.txt"] } ] }
     },
     "gtcrn-simple-denoiser": {
       "properties": { "type": "denoiser" },
@@ -89,7 +90,7 @@ noiseSuppression = false      # 识别通路麦克风采播降噪（GTCRN）；�
 
 - **一个模型 = 一个引擎**：模型名兼作引擎 id 与模型目录名；没有独立的 `engines` 节；
 - **语言默认按声明顺序**：第一个 `lang` 包含某语言的模型即为该语言默认（`/voicecast engine en` 选中它）；
-- **`properties.type`**：`stream`（流式 ASR）、`offline`（整句 ASR）、`ipa`（音素）、`denoiser`（辅助增强模型——走同一下载管线但绝不作为引擎列出/选择）；`properties.family` 可为附属自定义引擎族显式覆盖；
+- **`properties.type`**：`offline`（整句 ASR）、`ipa`（音素）、`denoiser`（辅助增强模型——走同一下载管线但绝不作为引擎列出/选择）；`properties.family` 决定引擎族——仅 ipa 类有默认推导，其余（如 `sherpa-qwen3`）必须显式声明；
 - **多镜像测速**：`source.urls` 配多个地址时并发 Range-GET 探测吞吐，**最快者先下载**；小文件跳过探测；
 - **自托管模型**：把 `urls` 换成你自己的 HTTP 地址即可（内网镜像、对象存储都行）；
 - 手动放置：`autoDownload=false` 时把解压后的文件放到 `config/voicecast/models/<模型名>/`（sherpa 归档需 `tokens.txt` 与 `.onnx` 文件位于模型根目录）。

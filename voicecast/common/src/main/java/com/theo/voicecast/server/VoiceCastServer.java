@@ -8,12 +8,11 @@ import com.theo.voicecast.api.event.RecognizerState;
 import com.theo.voicecast.config.ServerConfig;
 import com.theo.voicecast.api.engine.EngineFamilies;
 import com.theo.voicecast.api.engine.EngineSpec;
-import com.theo.voicecast.engine.IpaPhonemeRecognizer;
-import com.theo.voicecast.engine.IpaShared;
-import com.theo.voicecast.model.IpaModel;
+import com.theo.voicecast.engine.ZipaShared;
 import com.theo.voicecast.model.ModelConfig;
 import com.theo.voicecast.model.ModelManager;
 import com.theo.voicecast.model.SherpaModel;
+import com.theo.voicecast.model.ZipaModel;
 import com.theo.voicecast.net.VoiceCastNetwork;
 import dev.architectury.networking.NetworkManager;
 import net.minecraft.server.MinecraftServer;
@@ -92,7 +91,7 @@ public enum VoiceCastServer {
         if (scheduler != null) { scheduler.shutdownNow(); scheduler = null; }
         sessions.values().forEach(ServerSpeechSession::dispose);
         sessions.clear();
-        try { IpaShared.shutdown(); } catch (Throwable ignored) {}
+        try { ZipaShared.shutdown(); } catch (Throwable ignored) {}
         engineStates.clear();
         server = null;
     }
@@ -226,14 +225,14 @@ public enum VoiceCastServer {
 
     /**
      * Resolve the model directory for an engine (download/extract when needed).
-     * Dispatch by the configured model kind — loose-files (IPA) or
+     * Dispatch by the configured model kind — loose-files (ZIPA) or
      * sherpa-archive (tar.bz2 with tokens + onnx files).
      */
     Path resolveEngineModelDir(String engine) throws Exception, InterruptedException {
         ModelConfig.ModelEntry entry = modelConfig == null ? null : modelConfig.model(engine);
         String kind = entry == null ? null : entry.kind();
         if (ModelConfig.KIND_LOOSE_FILES.equals(kind)) {
-            return IpaModel.directory(runDir, entry.id());
+            return ZipaModel.directory(runDir, entry.id());
         }
         if (ModelConfig.KIND_SHERPA_ARCHIVE.equals(kind)) {
             return SherpaModel.resolveOrDownload(runDir, modelConfig, entry,
@@ -280,20 +279,20 @@ public enum VoiceCastServer {
     private void loadEngine(String engine) {
         try {
             // Dispatch by the configured model kind (models.json): loose-files
-            // (IPA ONNX) or sherpa-archive (tar.bz2 with tokens + onnx files).
+            // (ZIPA ONNX + tokens) or sherpa-archive (tar.bz2 with onnx files).
             if (isLooseFilesEngine(engine)) {
                 ModelConfig.ModelEntry entry = modelConfig.model(engine);
                 Path dir;
                 if (config.autoDownload) {
                     if (entry == null) throw new java.io.IOException("No model configured for engine " + engine);
-                    dir = IpaModel.resolveOrDownload(runDir, modelConfig, entry, (done, total) ->
+                    dir = ZipaModel.resolveOrDownload(runDir, modelConfig, entry, (done, total) ->
                             broadcastState(RecognizerState.LOADING, "voicecast.state.downloading_ipa", SherpaModel.describeSize(done)));
                 } else {
-                    dir = IpaModel.directory(runDir, entry.id());
-                    if (!IpaModel.isValidModelDir(dir))
-                        throw new java.io.IOException("IPA model missing and autoDownload=false");
+                    dir = ZipaModel.directory(runDir, entry.id());
+                    if (!ZipaModel.isValidModelDir(dir, entry))
+                        throw new java.io.IOException("ZIPA model missing and autoDownload=false");
                 }
-                IpaShared.getOrLoad(dir);
+                ZipaShared.getOrLoad(dir);
             } else if (modelConfig != null
                     && ModelConfig.KIND_SHERPA_ARCHIVE.equals(modelConfig.kindFor(engine))) {
                 ModelConfig.ModelEntry entry = modelConfig.model(engine);
@@ -328,7 +327,7 @@ public enum VoiceCastServer {
 
     /**
      * Language bucket served by an engine (two-letter code, e.g. "en"/"zh"),
-     * or null for language-agnostic engines (ipa-phonemes/noop). Resolution:
+     * or null for language-agnostic engines (zipa-ipa/noop). Resolution:
      * models.json {@code engines.<id>.language} first, then the unified
      * {@code vosk-<langcode>} id suffix (0.4.0 two-letter codes).
      */

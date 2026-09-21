@@ -27,15 +27,14 @@ import java.util.Map;
  *   "version": 2,
  *   "mirrorProbe": { "enabled": true, "probeBytes": 262144, "timeoutMs": 5000, "minFileSizeBytes": 8388608 },
  *   "models": {
- *     "sherpa-zipformer-bilingual-zh-en-int8": {
+ *     "qwen3-asr-0.6b-int8": {
  *       "properties": {
- *         "lang": ["zh", "en"], "type": "stream",
- *         "encoder": "encoder-epoch-99-avg-1.int8.onnx", "tokens": "tokens.txt",
- *         "bpe_vocab": "bpe.vocab", "num_threads": "2", ...
+ *         "lang": ["en","zh","ja","ko","yue","de","fr","es","ru"], "type": "offline",
+ *         "family": "sherpa-qwen3", "encoder": "encoder.int8.onnx", "tokens": "tokenizer", ...
  *       },
- *       "source": { "kind": "sherpa-archive", "urls": ["https://..."], "sha256": "...", "size_bytes": 123 }
+ *       "source": { "kind": "sherpa-archive", "urls": ["https://..."], "size_bytes": 878702423 }
  *     },
- *     "wav2vec2-espeak-ipa": {
+ *     "zipa-ipa": {
  *       "properties": { "type": "ipa" },
  *       "source": { "kind": "loose-files", "files": [ { "name": ..., "urls": [...], "minBytes": ... } ] }
  *     }
@@ -49,8 +48,7 @@ import java.util.Map;
  * contains it — declaration order in this file is the per-language default
  * precedence. The engine family for {@link com.theo.voicecast.api.engine.EngineFamilies}
  * comes from {@code properties.family} when declared, else derived from
- * {@code properties.type} + {@code source.kind} (stream → sherpa-streaming,
- * offline+sherpa-archive → sherpa-sensevoice, ipa/loose-files → ipa).
+ * {@code properties.type} + {@code source.kind} (ipa/loose-files → ipa).
  *
  * <p>{@code properties.type = "denoiser"} marks an auxiliary speech-enhancement
  * model (e.g. gtcrn): it downloads through the same pipeline but is excluded
@@ -134,8 +132,6 @@ public final class ModelConfig {
         String explicit = m.options().get("family");
         if (explicit != null && !explicit.isBlank()) return explicit.trim().toLowerCase(Locale.ROOT);
         if ("ipa".equals(m.type()) || KIND_LOOSE_FILES.equals(m.kind())) return "ipa";
-        if ("stream".equals(m.type())) return "sherpa-streaming";
-        if ("offline".equals(m.type())) return "sherpa-sensevoice";
         return null;
     }
 
@@ -331,40 +327,25 @@ public final class ModelConfig {
         }
     }
 
-    /** The default catalog (also the schema example): bilingual streaming, SenseVoice offline, IPA. */
+    /**
+     * The default catalog (also the schema example): Qwen3-ASR offline
+     * multilingual, ZIPA IPA phonemes, GTCRN denoiser. Declaration order is
+     * the per-language default precedence (qwen3 wins every language it
+     * declares; zipa-ipa is language-agnostic — the explicit {@code ipa}
+     * selection).
+     */
     private static Map<String, Object> defaultRoot() {
-        Map<String, Object> bilingualProps = new LinkedHashMap<>();
-        bilingualProps.put("lang", List.of("zh", "en"));
-        bilingualProps.put("type", "stream");
-        bilingualProps.put("encoder", "encoder-epoch-99-avg-1.int8.onnx");
-        bilingualProps.put("decoder", "decoder-epoch-99-avg-1.int8.onnx");
-        bilingualProps.put("joiner", "joiner-epoch-99-avg-1.int8.onnx");
-        bilingualProps.put("tokens", "tokens.txt");
-        bilingualProps.put("bpe_vocab", "bpe.vocab");
-        bilingualProps.put("modeling_unit", "cjkchar+bpe");
-        bilingualProps.put("decoding_method", "modified_beam_search");
-        bilingualProps.put("num_threads", "2");
-        bilingualProps.put("hotwords_score", "1.5");
-
-        Map<String, Object> senseProps = new LinkedHashMap<>();
-        senseProps.put("lang", List.of("zh", "en", "ja", "ko", "yue"));
-        senseProps.put("type", "offline");
-        senseProps.put("onnx", "model.int8.onnx");
-        senseProps.put("tokens", "tokens.txt");
-        senseProps.put("language", "auto");
-        senseProps.put("itn", "true");
-        senseProps.put("num_threads", "2");
-
-        Map<String, Object> senseFullProps = new LinkedHashMap<>();
-        senseFullProps.put("lang", List.of("zh", "en", "ja", "ko", "yue"));
-        senseFullProps.put("type", "offline");
-        // full archive carries float32 model.onnx (~937 MB) + int8; the fp32
-        // file is the point of this entry (A/B against the int8-only one)
-        senseFullProps.put("onnx", "model.onnx");
-        senseFullProps.put("tokens", "tokens.txt");
-        senseFullProps.put("language", "auto");
-        senseFullProps.put("itn", "true");
-        senseFullProps.put("num_threads", "2");
+        Map<String, Object> qwen3Props = new LinkedHashMap<>();
+        qwen3Props.put("lang", List.of("en", "zh", "ja", "ko", "yue", "de", "fr", "es", "ru"));
+        qwen3Props.put("type", "offline");
+        qwen3Props.put("family", "sherpa-qwen3");
+        qwen3Props.put("conv_frontend", "conv_frontend.onnx");
+        qwen3Props.put("encoder", "encoder.int8.onnx");
+        qwen3Props.put("decoder", "decoder.int8.onnx");
+        qwen3Props.put("tokenizer", "tokenizer");
+        qwen3Props.put("num_threads", "8");
+        qwen3Props.put("max_total_len", "600");
+        qwen3Props.put("max_new_tokens", "256");
 
         Map<String, Object> ipaProps = new LinkedHashMap<>();
         ipaProps.put("type", "ipa");
@@ -372,30 +353,23 @@ public final class ModelConfig {
         Map<String, Object> gtcrnProps = new LinkedHashMap<>();
         gtcrnProps.put("type", "denoiser");
 
-        String senseInt8 = "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-int8-2024-07-17.tar.bz2";
-        String senseFull = "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17.tar.bz2";
+        // Official sherpa-onnx release archive (the only verified source; the
+        // 1.7B model has no official sherpa package — trigger-tracked, not shipped).
+        String qwen3Url = "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/"
+                + "sherpa-onnx-qwen3-asr-0.6B-int8-2026-03-25.tar.bz2";
 
-        Map<String, Object> models = new LinkedHashMap<>();
-        models.put("sherpa-zipformer-bilingual-zh-en-int8", model(bilingualProps,
-                Map.of("kind", KIND_SHERPA_ARCHIVE,
-                        "urls", List.of("https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/sherpa-onnx-streaming-zipformer-bilingual-zh-en-2023-02-20.tar.bz2"))));
-        models.put("sherpa-sensevoice-small-int8", model(senseProps,
-                Map.of("kind", KIND_SHERPA_ARCHIVE, "urls", List.of(senseInt8))));
-        models.put("sherpa-sensevoice-full", model(senseFullProps,
-                Map.of("kind", KIND_SHERPA_ARCHIVE, "urls", List.of(senseFull))));
-
-        String hfMirror = "https://hf-mirror.com/onnx-community/wav2vec2-lv-60-espeak-cv-ft-ONNX/resolve/main";
-        String hf = "https://huggingface.co/onnx-community/wav2vec2-lv-60-espeak-cv-ft-ONNX/resolve/main";
-        Map<String, Object> vocab = new LinkedHashMap<>();
-        vocab.put("name", "vocab.json");
-        vocab.put("minBytes", 1L);
-        vocab.put("urls", List.of(hfMirror + "/vocab.json", hf + "/vocab.json"));
-        Map<String, Object> q4 = new LinkedHashMap<>();
-        q4.put("name", "model_q4.onnx");
-        q4.put("minBytes", 150L * 1024 * 1024);
-        q4.put("urls", List.of(hfMirror + "/onnx/model_q4.onnx", hf + "/onnx/model_q4.onnx"));
-        models.put("wav2vec2-espeak-ipa", model(ipaProps,
-                Map.of("kind", KIND_LOOSE_FILES, "files", List.of(vocab, q4))));
+        String zipaHf = "https://huggingface.co/anyspeech/zipa-small-crctc-ns-no-diacritics-700k/resolve/main";
+        String zipaMirror = "https://hf-mirror.com/anyspeech/zipa-small-crctc-ns-no-diacritics-700k/resolve/main";
+        Map<String, Object> zipaModel = new LinkedHashMap<>();
+        zipaModel.put("name", "model.int8.onnx");
+        zipaModel.put("minBytes", 60L * 1024 * 1024);
+        zipaModel.put("sha256", "e79c5ec351001b8d1d05c167e5cb294c84dd616dc1733479b05971b953378c9a");
+        zipaModel.put("urls", List.of(zipaHf + "/model.int8.onnx", zipaMirror + "/model.int8.onnx"));
+        Map<String, Object> zipaTokens = new LinkedHashMap<>();
+        zipaTokens.put("name", "tokens.txt");
+        zipaTokens.put("minBytes", 1L);
+        zipaTokens.put("sha256", "f8e042a0c9130532b22d03ec7cae2f75a23fbec70c450c31a8efb51787b2b8fe");
+        zipaTokens.put("urls", List.of(zipaHf + "/tokens.txt", zipaMirror + "/tokens.txt"));
 
         Map<String, Object> gtcrnFile = new LinkedHashMap<>();
         gtcrnFile.put("name", "gtcrn_simple.onnx");
@@ -403,6 +377,16 @@ public final class ModelConfig {
         gtcrnFile.put("optional", false);
         gtcrnFile.put("urls", List.of(
                 "https://github.com/k2-fsa/sherpa-onnx/releases/download/speech-enhancement-models/gtcrn_simple.onnx"));
+
+        Map<String, Object> models = new LinkedHashMap<>();
+        models.put("qwen3-asr-0.6b-int8", model(qwen3Props,
+                Map.of("kind", KIND_SHERPA_ARCHIVE,
+                        "urls", List.of(qwen3Url),
+                        // sha256: no official value published for this asset; the
+                        // size gate (from the GitHub release API) is the integrity check
+                        "size_bytes", 878_702_423L)));
+        models.put("zipa-ipa", model(ipaProps,
+                Map.of("kind", KIND_LOOSE_FILES, "files", List.of(zipaModel, zipaTokens))));
         models.put("gtcrn-simple-denoiser", model(gtcrnProps,
                 Map.of("kind", KIND_LOOSE_FILES, "files", List.of(gtcrnFile))));
 

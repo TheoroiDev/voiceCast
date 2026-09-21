@@ -57,7 +57,7 @@ class ModelManagerArchiveTest {
 
     @Test
     void tarBz2ExtractsAndFlattensNestedDirectory() throws IOException {
-        Path dir = temp.resolve("sherpa-zipformer-bilingual-zh-en-int8");
+        Path dir = temp.resolve("qwen3-asr-0.6b-int8");
         Files.createDirectories(dir);
         Path archive = writeNestedSherpaTarBz2("model.tar.bz2");
 

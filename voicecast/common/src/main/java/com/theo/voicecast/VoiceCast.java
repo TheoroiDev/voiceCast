@@ -4,10 +4,9 @@ import com.theo.voicecast.api.RecognizerRegistry;
 import com.theo.voicecast.api.VoiceCastEvents;
 import com.theo.voicecast.api.event.RecognitionFinalEvent;
 import com.theo.voicecast.api.engine.EngineFamilies;
-import com.theo.voicecast.engine.IpaPhonemeRecognizer;
 import com.theo.voicecast.engine.NoopRecognizer;
-import com.theo.voicecast.engine.SherpaSenseVoiceRecognizer;
-import com.theo.voicecast.engine.SherpaStreamingRecognizer;
+import com.theo.voicecast.engine.SherpaQwen3Recognizer;
+import com.theo.voicecast.engine.ZipaPhonemeRecognizer;
 import com.theo.voicecast.server.VoiceCastServerCommands;
 import com.theo.voicecast.net.VoiceCastNetwork;
 import com.theo.voicecast.server.VoiceCastServer;
@@ -38,21 +37,18 @@ public final class VoiceCast {
         LOGGER.info("VoiceCast common initializing");
 
         RecognizerRegistry.register("noop", NoopRecognizer::new);
-        // All Vosk word engines share VoskTextRecognizer; the language comes
-        // from the engine id's two-letter code (vosk-en/zh/ja/ko, unified in
-        // 0.4.0; legacy vosk-cn/jp/kr ids migrate via config normalize) and is
-        // resolved at configure time from models.json (VoiceCastServer.
-        // attachSharedModel/configure + engineLanguage routing).
-        RecognizerRegistry.register("sherpa-zh-en", SherpaStreamingRecognizer::new);
-        RecognizerRegistry.register("sherpa-sensevoice", SherpaSenseVoiceRecognizer::new);
-        RecognizerRegistry.register("ipa-phonemes", IpaPhonemeRecognizer::new);
-        RecognizerRegistry.setDefault("sherpa-zh-en");
+        // The builtin engine ids are catalog model names (models.json, one
+        // model = one engine). The recognizers below are the builtin family
+        // backends; the model path/word list arrive via EngineSpec/SpeechOptions
+        // at session build time (VoiceCastServer.createRecognizer/configure).
+        RecognizerRegistry.register("zipa-ipa", ZipaPhonemeRecognizer::new);
+        RecognizerRegistry.register("qwen3-asr-0.6b-int8", SherpaQwen3Recognizer::new);
+        RecognizerRegistry.setDefault("qwen3-asr-0.6b-int8");
 
         // Builtin engine families (voiceCast#42): addon mods register theirs in
         // their own init via EngineFamilies.register(type, factory).
-        EngineFamilies.register("ipa", spec -> new com.theo.voicecast.engine.IpaPhonemeRecognizer());
-        EngineFamilies.register("sherpa-streaming", com.theo.voicecast.engine.SherpaStreamingRecognizer::new);
-        EngineFamilies.register("sherpa-sensevoice", com.theo.voicecast.engine.SherpaSenseVoiceRecognizer::new);
+        EngineFamilies.register("ipa", spec -> new com.theo.voicecast.engine.ZipaPhonemeRecognizer());
+        EngineFamilies.register("sherpa-qwen3", com.theo.voicecast.engine.SherpaQwen3Recognizer::new);
 
         VoiceCastServerCommands.register(); // /voicecast status|engine|enabled|whitelist|reload (#29)
 
