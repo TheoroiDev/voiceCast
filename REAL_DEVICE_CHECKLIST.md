@@ -1,5 +1,7 @@
 # voicecast 真机测试 Checklist（0.5.0 引擎阵容）
 
+> **〔已取代 2026-09-22〕** 本文件已由 **`docs/testing/e2e_checklist.md`**（实机 E2E 唯一跟踪清单）合并取代，此后不再更新；未勾选条目已全部并入新清单（ID 沿用）。本文件保留作历史记录。
+
 > **如何使用**：① 执行环境——JDK 21 跑 Gradle，`gradlew :voicecast-<fabric|forge>:runClient / runServer`；run 目录自动分离（server 跑 `run-server/`）、runServer 自动写 eula + 关 online-mode、runClient 用户名固定 `dev`、模型按 `resources/models/manifest.txt` 硬链接预置（当前启用：qwen3-asr-0.6b-int8、zipa-ipa、gtcrn-simple-denoiser）。② 判定记录回写本文件末"判定记录"表；日志与截图写 `voicecast/test/logs/`。③ 双终端流程/排障/日志关键词以 `docs/testing/README.md` 为准，本清单不重复。
 > 分级：P0 = 挡 TRL 8 闸门（真机双端联测）；P1 = 发布前必过；P2 = 质量加固。全部条目当前均未在 0.5.0 时代真机执行过。
 
