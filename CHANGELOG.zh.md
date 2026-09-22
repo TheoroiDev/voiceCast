@@ -6,21 +6,21 @@
 
 ### Features
 
-- breaking: IPA CTC 后验校准（R3/R5 移植）：词表模板按 token 数归一的 forward log-prob（lp/L）与原始帧和 null 竞争者做 softmax，且模型词表无词界 token 时多词模板改为拼接而非丢弃——生产规模词表上，按重标定默认阈值非咒语误接收从 82% 降至 2.6%（新 per-token 量级下 0.6 阈值语义失效；下游 `FORWARD_MATCH_THRESHOLD` 0.6 → 0.10，既有 per-spell threshold 覆盖须重新标定）
+- breaking: IPA CTC 后验校准（R3/R5 移植）：词表模板按 token 数归一的 forward log-prob（lp/L）与原始帧和 null 竞争者做 softmax，且模型词表无词界 token 时多词模板改为拼接而非丢弃——生产规模词表上，按重标定默认阈值非咒语误接收从 82% 降至 2.6%（新 per-token 量级下 0.6 阈值语义失效；下游 `[match] forwardThreshold` 0.10（原下游常量），既有 per-spell threshold 覆盖须重新标定）
 
 - 可选麦克风采播降噪（`[client] noiseSuppression`，默认关）：流式 GTCRN 语音增强（sherpa-onnx，16 kHz 原生，约 523 KB 模型经目录自动下载），只作用于施法识别通路——其他玩家通过 Simple Voice Chat 听到的声音不受影响；降噪器任何失败自动降级为干净直通
 - models.json v2 目录——模型目录即引擎列表（voicecast#42）：一个模型 = 一个引擎，模型名兼作引擎 id 与模型目录名；语言默认按声明顺序（第一个声明支持该语言的模型胜出）；选择接受模型名与二字语言码/常见语言名（`/voicecast engine en`、`zh`、`japanese`）；附属可通过 `properties.family` + 引擎族 SPI 声明自定义族；引擎选择界面与 `/voicecast engine list` 均由目录生成
 
 - Qwen3-ASR-0.6B 离线多语引擎（`qwen3-asr-0.6b-int8`，en/zh/ja/ko/yue/de/fr/es/ru）作为默认整句识别引擎，带咒语别名热词偏置（会话语言路由后的 trigger 别名，上限 100 条）与空转录自动无热词二次解码
-- ZIPA IPA 音素引擎（`zipa-ipa`，约 70 MB int8），CTC 模板层原样保留：`templateScores`/`ctcPresent` 语义（margin 拒识 0.02、null 竞争者）不变，ChantGate 一级的下游零改动
+- ZIPA IPA 音素引擎（`zipa-ipa`，约 70 MB int8），CTC 模板层原样保留（margin 拒识 0.02、null 竞争者）：后验图与 margin 证据为引擎内部数据——结果携带裁定后的 `Decision`，内部数值仅经 `RecognitionDiagnostics`（`SpeechRecognizer.lastDiagnostics()`）可达（语义契约 v2，见下）
 
 ### Changes
 
-- breaking：models.json schema v2 将每模型的 `properties`（lang/type/选项）与 `source`（kind/urls/files）嵌套化，取消独立 `engines` 节——不做迁移（v0 政策，AGENTS §3）：非 v2 形态的文件按默认目录重写，旧引擎 id（`sherpa-zh-en`、`sherpa-sensevoice`、`ipa-phonemes` 及全部 vosk id）不再解析——请改用目录模型名（`sherpa-zipformer-bilingual-zh-en-int8`、`sherpa-sensevoice-small-int8`、`wav2vec2-espeak-ipa`）
-- breaking：Vosk 移除，改用 sherpa-onnx 模型（voicecast#42）：`sherpa-zipformer-bilingual-zh-en-int8`——流式 zipformer 中英双语（默认）；`sherpa-sensevoice-small-int8`——离线 SenseVoice 覆盖 zh/yue/en/ja/ko，短句高精度档（int8 专版归档约 230 MB）；`sherpa-sensevoice-full`（1.1 GB 全量归档中的 fp32 权重）作为 A/B 对比条目一并保留；IPA 音素模型不变。模型经目录按需下载
+- breaking：models.json schema v2 将每模型的 `properties`（lang/type/选项）与 `source`（kind/urls/files）嵌套化，取消独立 `engines` 节——不做迁移（v0 政策，AGENTS §3）：非 v2 形态的文件按默认目录重写，旧引擎 id（`sherpa-zh-en`、`sherpa-sensevoice`、`ipa-phonemes` 及全部 vosk id）不再解析——请改用目录模型名（`qwen3-asr-0.6b-int8`、`zipa-ipa`）
+- breaking：Vosk 移除，改用 sherpa-onnx 模型（voicecast#42）。首批 sherpa 阵容已在本版本内被引擎更换取代（见下）——最终目录为 `qwen3-asr-0.6b-int8`（默认整句识别）、`zipa-ipa`（IPA 音素）与 `gtcrn-simple-denoiser`（麦克风采播降噪）。模型经目录按需下载
 - breaking：配置语义简化——`[client] engine` 留空 = 目录默认；`[server] defaultEngine` 接受模型名或语言码（留空 = 目录默认）；`[engines] allowed` 留空 = 允许目录中全部模型；配置不再有别名归一化或旧文件导入
-- 共享的 SenseVoice 识别器实例现按（模型, 语言）缓存而非按模型路径缓存，固定语言会话与自动语言变体不再互相挤掉底层原生识别器
-- CTC margin 拒识（S6 移植）：前两名后验候选差距小于 0.02 的语句，其 `templateScores` 整组清零（lab 校准：FPR 0.3% / recall 42.8%），模糊胜出按未命中下落至下游兜底层而非误发边缘法术；阈值判定仍在下游，API 无签名变化。Verbose 日志（`/voicecast verbose`）现在会在该规则拒识时打印 top1/top2 后验值与差距——仅排障用，规则本身不变
+- CTC margin 拒识（S6 移植，随契约 v2 沿用）：前两名模板后验差距小于 0.02 的语句（lab 校准：FPR 0.3% / recall 42.8%）整组 CTC 分数清零，模糊胜出不再误发边缘法术——裁定器读取 margin 前的差距，被压制的 top1 本可过 forward 阈值时判 `AMBIGUOUS`。Verbose 日志（`/voicecast verbose`）在该门拒识时打印 top1/top2 后验值与差距——仅排障用，规则本身不变
+- 共享的 Qwen3-ASR 原生识别器缓存改为 LRU 有界——至多 2 个热词集会话（各约 1.5-2.8 GB）+ 1 个钉住的无热词实例——不再按不同施法模式词表无限累积原生会话：切换施法模式不再增长原生内存，被逐出的会话经 sherpa 原生关闭（仍有解码在跑则推迟），同集复用依旧零重载，空转录兜底实例永不多付一次重载
 
 ### Bugfixes
 
@@ -44,10 +44,10 @@
 - breaking：内建引擎族现为 `ipa`（ZIPA 后端）与 `sherpa-qwen3`；`sherpa-streaming` 与 `sherpa-sensevoice` 移除，且 offline 族不再从 `type=offline` 推导——请在 models.json 显式声明 `properties.family`（附属注册自定义族的方式不变）
 - new：`ZipaPhonemeRecognizer`/`ZipaShared`（直连 ONNX Runtime + Java kaldi-fbank 移植，经研究管线 fixture 校验）与 `SherpaQwen3Recognizer`（离线 `OfflineQwen3AsrModelConfig` + `setHotwords`，greedy）取代原识别器类；CTC 模板评分语义不变
 
-- breaking：`Pronunciation` 新增按语言分桶的别名（`languages()`，两位码 en/zh/ja/ko）；平铺构造器保留（deprecated），其别名构成 legacy 桶、进入所有引擎 grammar；服务端按会话选中引擎的语言路由词表——引擎决定桶
+- breaking：`Pronunciation` 曾在本周期内短暂获得按语言分桶的别名；随语义契约 v2 从 api 整体移除（无 deprecated 过渡）——`SessionVocabulary` 是唯一词表入口（spell id × 语言别名 × IPA 模板 × 可选 `ThresholdHint`）
 - breaking：引擎 id 即目录模型名；deprecated 的 `ENGINE_*` 常量与 normalize 别名表已移除——请改用 `ModelConfig.resolveModel(...)`（精确名，其次按声明序的语言码）
-- 新增：引擎族 SPI——`EngineFamilies.register(type, RecognizerFactory)`（`com.theo.voicecast.api.engine`），附属 mod 可注册自己的识别族，经 models.json 的 `properties.family` 选用；内置族：`sherpa-streaming`、`sherpa-sensevoice`、`ipa`（voicecast#19）
-- 新增：施法期词表路由 API（D-15 四模式定稿，wizardreal#30）：`CastMode`（OPEN / CHANT_CONFIRM / PRACTICE_CONFIRM / GRAY_NARROW）与 `VoiceCastServer.setCastMode(player, mode, spellIds)`，玩法侧集成据此声明玩家识别 grammar 的内容——OPEN = 全词表（保留该模式 id，供集成显式声明自由施法）；CHANT_CONFIRM = 声明法术的全部别名（阶梯咏唱进行中）；PRACTICE_CONFIRM = 同形态，供练习入口（M4）；GRAY_NARROW = 声明 + top-3 混淆邻居（随包资产 `assets/voicecast/confusion_neighbors.tsv`，源自 M2E 红黄账本）；per-mode CTC forward 阈值随包为 `assets/voicecast/mode_thresholds.tsv`（首批镜像出厂 0.10 常数，重标定行落盘即生效、不改代码）。无语言引擎（ipa-phonemes、noop）永不参与模式路由——IPA 线维持全词表；未声明任何模式的会话与 0.5.0 前路由逐位一致
+- 新增：引擎族 SPI——`EngineFamilies.register(type, RecognizerFactory)`（`com.theo.voicecast.api.engine`），附属 mod 可注册自己的识别族，经 models.json 的 `properties.family` 选用；内置族：`ipa`、`sherpa-qwen3`（voicecast#19）
+- 新增：施法期词表路由 API（D-15 四模式定稿，wizardreal#30）：`CastMode`（OPEN / CHANT_CONFIRM / PRACTICE_CONFIRM / GRAY_NARROW）与 `VoiceCastServer.setCastMode(player, mode, spellIds)`，玩法侧集成据此声明玩家识别 grammar 的内容——OPEN = 全词表（保留该模式 id，供集成显式声明自由施法）；CHANT_CONFIRM = 声明法术的全部别名（阶梯咏唱进行中）；PRACTICE_CONFIRM = 同形态，供练习入口（M4）；GRAY_NARROW = 声明 + top-3 混淆邻居（随包资产 `assets/voicecast/confusion_neighbors.tsv`，源自 M2E 红黄账本）；per-mode CTC forward 阈值随包为 `assets/voicecast/mode_thresholds.tsv`（首批镜像出厂 0.10 常数，重标定行落盘即生效、不改代码）。无语言引擎（zipa-ipa、noop）永不参与模式路由——IPA 线维持全词表；未声明任何模式的会话与 0.5.0 前路由逐位一致
 - OPEN 维持全词表（P30 复验后监工裁决）：0.5.0 的候选集定义"触发语 + 释放语别名"已回退——生产语义复验（S9ProductionRematch harness）表明 SpellMatcher 的 Phonetics 层会把缩圈后的 OPEN 误触发"重排"而非消除；四模式机制本身不变
 
 - breaking：语义化识别契约 v2（engine-swap C1b）——`RecognitionResult` 重构为 `record(utteranceText, ipa, language, decision, spellId, pronId, score, alternatives, startMs, endMs)`，由 voicecast 自行裁定：`Decision` = `EXACT / NEAR / AMBIGUOUS / REJECTED`（融合优先级：文本 EXACT > zipa EXACT > 文本 NEAR > zipa NEAR > AMBIGUOUS/REJECTED），`spellId`/`pronId` 指向胜出词表条目，`alternatives` 携带至多 3 个次优候选。引擎内部的 CTC 后验图与 `ctcPresent` 旗标移出结果契约——仅经独立 `RecognitionDiagnostics` 访问器（`SpeechRecognizer.lastDiagnostics()`）可达，只作诊断、永非判决输入。partial 结果 decision=null（HUD 专用）。跨仓行为由共享等价性向量（`c1b_vectors.json`，voicecast + wizardreal 测试共用）与契约文档 `docs/ref/voicecast-recognition-contract.md` 钉死

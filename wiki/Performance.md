@@ -15,7 +15,7 @@ Full math in the project's internal capacity analysis — this page is the cheat
 | Resource | Magnitude | Notes |
 |---|---|---|
 | Network | ~3 KB/s per speaking player (Opus 24 kbps) | Over the vanilla connection — **never the bottleneck**; capped at 9 KB/s by `maxFramesPerSecond=15` |
-| Memory (Qwen3-ASR) | **~1.5–2.8 GB once per hotword set** (lab peak RSS, 8 threads) | `qwen3-asr-0.6b-int8`: one shared native recognizer per (model dir, hotword set) across all sessions; sessions are thin. The empty-transcript fallback adds a second shared hotword-free instance |
+| Memory (Qwen3-ASR) | **~1.5–2.8 GB once per hotword set** (lab peak RSS, 8 threads), **at most 2 sets resident** | `qwen3-asr-0.6b-int8`: shared native recognizers are cached per (model dir, hotword set) across all sessions and LRU-bounded at 2 hotword sets (evicted sets are closed; same-set reuse never reloads); sessions are thin. The empty-transcript fallback adds one pinned shared hotword-free instance that never evicts |
 | Memory (IPA / ZIPA) | ~0.5 GB **once per server** (lab process peak incl. runtime) | `zipa-ipa`: 70 MB int8 weights in a process-wide shared ORT session; per-player sessions are thin |
 | CPU (Qwen3-ASR) | lab RTF median 0.165–0.170 hotworded @ 8 threads (single-row max spikes recorded) | decode is serialized per shared instance — CPU scales with speaking time, not session count |
 | CPU (IPA / ZIPA) | lab RTF 0.014 mean / p95 0.021 (n=1660 clips) | decoded on a shared pool fixed at `min(4, cores-1)` threads |

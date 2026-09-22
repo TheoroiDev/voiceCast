@@ -1,11 +1,11 @@
-# voicecast 真机测试 Checklist（sherpa 0.4.0）
+# voicecast 真机测试 Checklist（0.5.0 引擎阵容）
 
-> **如何使用**：① 执行环境——JDK 21 跑 Gradle，`gradlew :voicecast-<fabric|forge>:runClient / runServer`；run 目录自动分离（server 跑 `run-server/`）、runServer 自动写 eula + 关 online-mode、runClient 用户名固定 `dev`、模型按 `resources/models/manifest.txt` 硬链接预置（当前启用：wav2vec2-espeak-ipa、sherpa-zipformer-bilingual-zh-en-int8、sherpa-zipformer-small-bilingual-zh-en-int8、sherpa-sensevoice-small-int8）。② 判定记录回写本文件末"判定记录"表；日志与截图写 `voicecast/test/logs/`。③ 双终端流程/排障/日志关键词以 `docs/testing/README.md` 为准，本清单不重复。
-> 分级：P0 = 挡 TRL 8 闸门（真机双端联测）；P1 = 发布前必过；P2 = 质量加固。全部条目当前均未在 0.4.0 时代真机执行过。
+> **如何使用**：① 执行环境——JDK 21 跑 Gradle，`gradlew :voicecast-<fabric|forge>:runClient / runServer`；run 目录自动分离（server 跑 `run-server/`）、runServer 自动写 eula + 关 online-mode、runClient 用户名固定 `dev`、模型按 `resources/models/manifest.txt` 硬链接预置（当前启用：qwen3-asr-0.6b-int8、zipa-ipa、gtcrn-simple-denoiser）。② 判定记录回写本文件末"判定记录"表；日志与截图写 `voicecast/test/logs/`。③ 双终端流程/排障/日志关键词以 `docs/testing/README.md` 为准，本清单不重复。
+> 分级：P0 = 挡 TRL 8 闸门（真机双端联测）；P1 = 发布前必过；P2 = 质量加固。全部条目当前均未在 0.5.0 时代真机执行过。
 
 ## 0. 环境前置
 
-- ☐ `resources/models/manifest.txt` 列出的 4 个模型目录硬链接进 `voicecast\voicecast\<loader>\run\config\voicecast\models\`（启动时自动，查目录存在即可）。
+- ☐ `resources/models/manifest.txt` 列出的 3 个模型目录硬链接进 `voicecast\voicecast\<loader>\run\config\voicecast\models\`（启动时自动，查目录存在即可）。
 - ☐ JDK 21 环境变量已设（`$env:JAVA_HOME="C:\Program Files\Java\jdk-21.0.12"`）。
 - ☐ 麦克风权限与默认输入设备可用（排障见 `docs/testing/README.md` §5）。
 
@@ -13,12 +13,12 @@
 
 ### VC-P0-1 · 服务端冒烟：catalog 模型预置 + 引擎就绪（双 loader）
 
-- 场景：sherpa 0.4.0 换血后服务端可启动、默认引擎按 catalog 声明序就绪。
+- 场景：0.5.0 引擎换血后服务端可启动、默认引擎按 catalog 声明序就绪。
 - 前置：环境前置 3 项全过。
 - 步骤：① `.\gradlew :voicecast-fabric:runServer`（90 秒后 stdin 发 `stop`）② `:voicecast-forge:runServer` 同法。
-- 判定：日志 `Done (…s)!` → `Server voice engine ready: sherpa-zipformer-bilingual-zh-en-int8`（默认 = 第一个声明 zh 的模型）→ `Stopping the server` 优雅关停；全程无 ERROR、无 `Failed to remap mods`。
+- 判定：日志 `Done (…s)!` → `Server voice engine ready: qwen3-asr-0.6b-int8`（默认 = 目录声明序第一个引擎）→ `Stopping the server` 优雅关停；全程无 ERROR、无 `Failed to remap mods`。
 - 证据：`voicecast/test/logs/smoke-<loader>-<日期>.log`。
-- 状态：☐（上轮已过 0.3.x vosk 时代：2026-09-01，需在 sherpa 0.4.0 复测）
+- 状态：☐（上轮已过 0.3.x vosk 时代：2026-09-01，需在 0.5.0 复测）
 
 ### VC-P0-2 · 双终端 E2E：standalone 识别链路
 
@@ -38,21 +38,21 @@
 - 证据：settings 界面截图 + `voicecast/test/logs/engine-select-<日期>.log`。
 - 状态：☐
 
-### VC-P0-4 · 热词链路：bpe.vocab 接线
+### VC-P0-4 · 热词链路：qwen3 setHotwords
 
-- 场景：streaming 引擎带 spell 热词启动不崩（`cjkchar+bpe` 编码依赖 bpe.vocab）。
-- 前置：models.json 的 `sherpa-zipformer-bilingual-zh-en-int8` 含 `bpe_vocab` 属性且文件在模型目录内；或装 wizardreal 注入词表。
-- 步骤：热词生效状态下启动 streaming 会话并说话。
-- 判定：无 `Invalid OnlineRecognizerConfig: failed to create native OnlineRecognizer`；bpe.vocab 缺失时降级为无热词开放词表解码（WARN 而非失败）。
+- 场景：qwen3 引擎带 spell 热词（会话语言路由后的触发词别名，上限 100）正常识别。
+- 前置：wizardreal 法术花名册已推送（会话词表非空）。
+- 步骤：热词生效状态下念触发词别名；另念一条不在花名册内的短语。
+- 判定：识别可用、触发词命中；会话热词超 100 条时日志出现 cap WARN（非失败）。
 - 证据：`voicecast/test/logs/hotword-<日期>.log`。
 - 状态：☐
 
 ## 2. P1 — 发布前必过
 
-### VC-P1-1 · 双引擎 A/B：zipformer streaming vs sensevoice offline
+### VC-P1-1 · 双引擎 A/B：qwen3-asr offline vs zipa-ipa phonemes
 
 - 步骤：同一批短句（触发词级，zh/en 各 10 条）分别在两引擎下识别，记录命中率。
-- 判定：sensevoice（offline 短句高准确）命中 ≥ zipformer（streaming）；两者均 ≥80%。
+- 判定：两引擎命中率均 ≥80%（zipa-ipa 以 CTC 模板/裁定分为准）。
 - 证据：`voicecast/test/logs/ab-engines-<日期>.log` + 命中率记录。
 - 状态：☐
 
@@ -65,7 +65,7 @@
 
 ### VC-P1-3 · 模型按需下载：tar.bz2 解包 + HUD
 
-- 步骤：① 删除 `sherpa-sensevoice-small-int8` 模型目录 → 启动选择该引擎 ② 观察下载 HUD ③ 等待解包与就绪。
+- 步骤：① 删除 `qwen3-asr-0.6b-int8` 模型目录 → 启动选择该引擎 ② 观察下载 HUD ③ 等待解包与就绪。
 - 判定：HUD 文案为 "Downloading model"（非 Vosk）；MB 计数走动（不长期卡 999MB）；tar.bz2 解包成功（嵌套顶层目录 hoist 进模型根）；引擎最终就绪。
 - 证据：下载过程截图 + `voicecast/test/logs/download-<日期>.log`。
 - 状态：☐
@@ -86,11 +86,11 @@
 
 ## 3. P2 — 质量加固
 
-### VC-P2-1 · `sherpa-sensevoice-full`（fp32）与 int8 精度对照
+### VC-P2-1 · 引擎精度对照（0.4.0 sensevoice-full A/B 条目已随引擎更换作废）
 
-- 步骤：预下载 full 模型后与 int8 跑同语料（复用 VC-P1-1 的短句批）。
-- 判定：命中率差异记录在案（int8 损失可量化）；两模型均可加载。
-- 证据：`voicecast/test/logs/ab-sensevoice-full-<日期>.log`。状态：☐
+- 步骤：0.5.0 阵容下以同语料对照 qwen3-asr-0.6b-int8 与 zipa-ipa 的裁定命中率（复用 VC-P1-1 的短句批）。
+- 判定：差异记录在案；两引擎均可加载。
+- 证据：`voicecast/test/logs/ab-engines-<日期>.log`。状态：☐
 
 ### VC-P2-2 · 诊断开关
 
@@ -104,7 +104,7 @@
 
 ### VC-P2-4 · 加载耗时基线
 
-- 步骤：记录 4 模型各自首载（冷）与重启（热）秒数。
+- 步骤：记录各模型首载（冷）与重启（热）秒数。
 - 判定：数字落表即可（供后续回归对照，不设阈值）。证据：本文件判定记录表。状态：☐
 
 ## 4. 判定记录

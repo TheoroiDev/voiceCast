@@ -45,10 +45,17 @@ import java.util.concurrent.ConcurrentHashMap;
  * A blank first decode therefore re-runs the utterance once through a shared
  * hotword-free recognizer before giving up.
  *
- * <p>The ONNX session is heavyweight (~2 GB RAM), so recognizers are cached per
- * (model dir, hotword set) across all sessions; decode is serialized inside the
- * native recognizer. The emitted result carries the adjudicated Decision
- * (text line only — no phoneme/CTC evidence on this engine).
+ * <p>The ONNX session is heavyweight (~1.5-2.8 GB native RAM), so recognizers
+ * are cached per (model dir, hotword set) across all sessions — but BOUNDED:
+ * cast-mode switches mint one session per hotword set (the ChantManager
+ * narrows the trigger roster per mode), an unbounded map would accumulate a
+ * native session per mode x player x language routing. The cache is an LRU
+ * over {@link #SHARED_CACHE_LIMIT} hotword sets (evicted entries are closed
+ * through sherpa's {@code release()}, deferred while a decode is in flight
+ * on them); the hotword-free instance (the G-QWEN3 empty-transcript fallback)
+ * is PINNED and never evicted. Same-set reuse never reloads. The emitted
+ * result carries the adjudicated Decision (text line only — no phoneme/CTC
+ * evidence on this engine).
  *
  * <p>Non-final by design: the two-pass fallback flow is scripted in tests via
  * a {@code decode} override; addons may likewise adapt decoding.
@@ -59,8 +66,40 @@ public class SherpaQwen3Recognizer extends AbstractBufferedRecognizer {
     /** Hotword cap per session-language subset (G-QWEN3 condition ①). */
     static final int MAX_HOTWORDS = 100;
 
-    /** "(modelDir)#(hotwords csv)" -> shared recognizer, one native load per set. */
-    private static final Map<String, OfflineRecognizer> SHARED = new ConcurrentHashMap<>();
+    /**
+     * LRU bound on resident hotword-set recognizers (R1 H3 fix): every cast
+     * mode that narrows the trigger roster mints a distinct hotword set, so
+     * the bound caps the native footprint at {@code SHARED_CACHE_LIMIT}
+     * sessions (~1.5-2.8 GB each) plus the pinned hotword-free one.
+     */
+    static final int SHARED_CACHE_LIMIT = 2;
+
+    /** One shared native recognizer + the in-flight decode count that gates a
+     *  safe {@code release()} on LRU eviction (never released under a running
+     *  decode). */
+    static final class SharedRecognizer {
+        final OfflineRecognizer recognizer;
+        final boolean hotwordFree;
+        final java.util.concurrent.atomic.AtomicInteger busy =
+                new java.util.concurrent.atomic.AtomicInteger();
+        volatile boolean pendingRelease;
+
+        SharedRecognizer(OfflineRecognizer recognizer, boolean hotwordFree) {
+            this.recognizer = recognizer;
+            this.hotwordFree = hotwordFree;
+        }
+    }
+
+    /** "(modelDir)#(hotwords csv)" -> shared recognizer entry. Mutation
+     *  (create/evict/release-on-idle) happens under {@link #SHARED_LOCK};
+     *  reads are lock-free. */
+    private static final Map<String, SharedRecognizer> SHARED = new ConcurrentHashMap<>();
+    /** Create/evict gate + LRU order of SHARED keys (eldest first). */
+    private static final Object SHARED_LOCK = new Object();
+    private static final LinkedHashSet<String> SHARED_LRU = new LinkedHashSet<>();
+    /** Native loads so far (test observability: same-set reuse = no reload). */
+    private static final java.util.concurrent.atomic.AtomicLong SHARED_LOADS =
+            new java.util.concurrent.atomic.AtomicLong();
 
     private final EngineSpec spec;
     private short[] buffer = new short[32_000];
@@ -117,41 +156,151 @@ public class SherpaQwen3Recognizer extends AbstractBufferedRecognizer {
 
     // -------------------------------------------------------------- engine
 
-    private OfflineRecognizer shared(List<String> hotwords) {
+    /**
+     * Acquire the shared recognizer for this (model, hotword set): a resident
+     * instance is reused without reloading (LRU touch), a new one is loaded
+     * + cached otherwise, and the least-recently used hotword sets beyond
+     * {@link #SHARED_CACHE_LIMIT} are evicted — closed through sherpa's
+     * {@code release()}, deferred while a decode is still in flight on them.
+     * The hotword-free set is PINNED: it does not count toward the bound and
+     * is never evicted (the G-QWEN3 fallback must not pay a native reload).
+     * Callers MUST {@link #releaseShared} the returned entry.
+     */
+    SharedRecognizer acquire(List<String> hotwords) {
         Path modelDir = spec.modelDir();
         String csv = hotwordsCsv(hotwords);
         String key = modelDir.toAbsolutePath().normalize() + "#" + csv;
-        return SHARED.computeIfAbsent(key, k -> {
-            try {
-                OfflineQwen3AsrModelConfig.Builder q3 = OfflineQwen3AsrModelConfig.builder()
-                        .setConvFrontend(modelDir.resolve(spec.option("conv_frontend", "conv_frontend.onnx")).toString())
-                        .setEncoder(modelDir.resolve(spec.option("encoder", "encoder.int8.onnx")).toString())
-                        .setDecoder(modelDir.resolve(spec.option("decoder", "decoder.int8.onnx")).toString())
-                        .setTokenizer(modelDir.resolve(spec.option("tokenizer", "tokenizer")).toString())
-                        .setMaxTotalLen(spec.intOption("max_total_len", 600))
-                        .setMaxNewTokens(spec.intOption("max_new_tokens", 256));
-                if (!csv.isEmpty()) q3.setHotwords(csv);
-                OfflineRecognizerConfig cfg = OfflineRecognizerConfig.builder()
-                        .setOfflineModelConfig(OfflineModelConfig.builder()
-                                .setQwen3Asr(q3.build())
-                                .setNumThreads(spec.intOption("num_threads", 8))
-                                // sherpa's builder defaults debug=true; tie it to
-                                // -Dvoicecast.verbose / /voicecast verbose
-                                .setDebug(VoiceCastConfig.INSTANCE.verboseLogging)
-                                .build())
-                        .build();
-                LOGGER.info("Loading shared Qwen3-ASR model from {} (hotwords={})", modelDir, hotwords.size());
-                return new OfflineRecognizer(cfg);
-            } catch (Exception e) {
-                throw new RuntimeException("Failed to load Qwen3-ASR model '" + k + "'", e);
+        synchronized (SHARED_LOCK) {
+            SharedRecognizer entry = SHARED.get(key);
+            if (entry == null) {
+                try {
+                    OfflineQwen3AsrModelConfig.Builder q3 = OfflineQwen3AsrModelConfig.builder()
+                            .setConvFrontend(modelDir.resolve(spec.option("conv_frontend", "conv_frontend.onnx")).toString())
+                            .setEncoder(modelDir.resolve(spec.option("encoder", "encoder.int8.onnx")).toString())
+                            .setDecoder(modelDir.resolve(spec.option("decoder", "decoder.int8.onnx")).toString())
+                            .setTokenizer(modelDir.resolve(spec.option("tokenizer", "tokenizer")).toString())
+                            .setMaxTotalLen(spec.intOption("max_total_len", 600))
+                            .setMaxNewTokens(spec.intOption("max_new_tokens", 256));
+                    if (!csv.isEmpty()) q3.setHotwords(csv);
+                    OfflineRecognizerConfig cfg = OfflineRecognizerConfig.builder()
+                            .setOfflineModelConfig(OfflineModelConfig.builder()
+                                    .setQwen3Asr(q3.build())
+                                    .setNumThreads(spec.intOption("num_threads", 8))
+                                    // sherpa's builder defaults debug=true; tie it to
+                                    // -Dvoicecast.verbose / /voicecast verbose
+                                    .setDebug(VoiceCastConfig.INSTANCE.verboseLogging)
+                                    .build())
+                            .build();
+                    LOGGER.info("Loading shared Qwen3-ASR model from {} (hotwords={})", modelDir, hotwords.size());
+                    entry = new SharedRecognizer(new OfflineRecognizer(cfg), csv.isEmpty());
+                    SHARED_LOADS.incrementAndGet();
+                } catch (Exception e) {
+                    throw new RuntimeException("Failed to load Qwen3-ASR model '" + key + "'", e);
+                }
+                SHARED.put(key, entry);
             }
-        });
+            // LRU touch + eviction of the least recently used hotword sets.
+            SHARED_LRU.remove(key);
+            SHARED_LRU.add(key);
+            evictOverLimitLocked();
+            entry.busy.incrementAndGet();
+            return entry;
+        }
+    }
+
+    /** Evict the least recently used hotword-SET keys beyond the bound
+     *  (SHARED_LOCK held). Only hotword sets count toward the bound — the
+     *  pinned hotword-free fallback is skipped (and never evicted). */
+    private static void evictOverLimitLocked() {
+        long sets = 0;
+        for (String k : SHARED_LRU) {
+            SharedRecognizer e = SHARED.get(k);
+            if (e != null && !e.hotwordFree) sets++;
+        }
+        while (sets > SHARED_CACHE_LIMIT) {
+            String eldest = null;
+            for (String k : SHARED_LRU) {
+                SharedRecognizer e = SHARED.get(k);
+                if (e != null && !e.hotwordFree) {
+                    eldest = k;
+                    break;
+                }
+            }
+            if (eldest == null) break; // only pinned entries resident
+            SHARED_LRU.remove(eldest);
+            SharedRecognizer evicted = SHARED.remove(eldest);
+            sets--;
+            if (evicted != null) {
+                synchronized (evicted) {
+                    evicted.pendingRelease = true;
+                    if (evicted.busy.get() == 0) releaseNative(evicted);
+                }
+            }
+        }
+    }
+
+    /** Release an entry acquired via {@link #acquire} (decode pass finished).
+     *  A pending eviction fires the native close once the last decode is out.
+     *  The decrement→pendingRelease check→release sequence and the eviction
+     *  path's set→busy check→release are both atomic per entry (entry
+     *  monitor): interleaved, exactly one side observes the closing
+     *  condition — without this, a concurrent eviction and release can
+     *  both pass their checks and double-{@code release()} the native. */
+    static void releaseShared(SharedRecognizer entry) {
+        synchronized (entry) {
+            if (entry.busy.decrementAndGet() == 0 && entry.pendingRelease) {
+                releaseNative(entry);
+            }
+        }
+    }
+
+    private static void releaseNative(SharedRecognizer entry) {
+        try {
+            entry.recognizer.release();
+        } catch (Throwable t) {
+            LOGGER.warn("Failed to release shared Qwen3-ASR recognizer", t);
+        }
+    }
+
+    // -------------------------------------------------- test observability
+
+    /** Test hook: resident native recognizers (hotword sets + pinned fallback). */
+    static int sharedCacheSizeForTest() {
+        synchronized (SHARED_LOCK) {
+            return SHARED.size();
+        }
+    }
+
+    /** Test hook: native loads so far — same-set reuse must not move it. */
+    static long sharedLoadsForTest() {
+        return SHARED_LOADS.get();
+    }
+
+    /** Test hook: whether the model's hotword-free (pinned) instance is resident. */
+    static boolean hotwordFreeResidentForTest(Path modelDir) {
+        synchronized (SHARED_LOCK) {
+            return SHARED.containsKey(modelDir.toAbsolutePath().normalize() + "#");
+        }
+    }
+
+    /** Test hook: drop the whole cache (sequential tests only — releases natively). */
+    static void clearSharedForTest() {
+        synchronized (SHARED_LOCK) {
+            for (SharedRecognizer e : SHARED.values()) {
+                synchronized (e) {
+                    e.pendingRelease = true;
+                    if (e.busy.get() == 0) releaseNative(e);
+                }
+            }
+            SHARED.clear();
+            SHARED_LRU.clear();
+        }
     }
 
     @Override
     public synchronized void start(SpeechOptions options) throws Exception {
         hotwords = extractHotwords(vocabulary);
-        shared(hotwords); // fail fast if model is broken
+        releaseShared(acquire(hotwords)); // fail fast if model is broken (instance stays cached)
         super.start(options);
         LOGGER.info("sherpa Qwen3-ASR recognizer ready (engine={}, hotwords={})",
                 spec.engineId(), hotwords.size());
@@ -198,13 +347,23 @@ public class SherpaQwen3Recognizer extends AbstractBufferedRecognizer {
             floats[i] = utterance[i] / 32768.0f;
         }
         try {
-            OfflineRecognizer hot = shared(hotwords);
-            String text = decode(hot, floats);
+            String text;
+            SharedRecognizer hot = acquire(hotwords);
+            try {
+                text = decode(hot.recognizer, floats);
+            } finally {
+                releaseShared(hot);
+            }
             if ((text == null || text.isBlank()) && !hotwords.isEmpty()) {
                 // G-QWEN3 condition ②: one hotword-free re-decode of the same
                 // utterance before giving up (L2b: recovers 13/13 lab empties).
                 LOGGER.debug("[QWEN3] empty transcript with hotwords, re-decoding without");
-                text = decode(shared(List.of()), floats);
+                SharedRecognizer free = acquire(List.of());
+                try {
+                    text = decode(free.recognizer, floats);
+                } finally {
+                    releaseShared(free);
+                }
             }
             if (text == null || text.isBlank()) return;
             // Semantic contract v2: the text line is adjudicated against the
