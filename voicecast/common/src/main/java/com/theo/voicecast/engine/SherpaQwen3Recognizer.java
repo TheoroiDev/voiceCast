@@ -53,7 +53,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * over {@link #SHARED_CACHE_LIMIT} hotword sets (evicted entries are closed
  * through sherpa's {@code release()}, deferred while a decode is in flight
  * on them); the hotword-free instance (the G-QWEN3 empty-transcript fallback)
- * is PINNED and never evicted. Same-set reuse never reloads. The emitted
+ * is PINNED and never evicted. Same-set reuse never reloads. Decodes are
+ * serialized per shared entry (R2 F-a1): sherpa-onnx promises no thread
+ * safety, and only greedy decoding (temperature &le; 1e-6, the builder default
+ * this engine never overrides) keeps per-decode state free of shared mutable
+ * state. The emitted
  * result carries the adjudicated Decision (text line only — no phoneme/CTC
  * evidence on this engine).
  *
@@ -331,6 +335,50 @@ public class SherpaQwen3Recognizer extends AbstractBufferedRecognizer {
         buffered += length;
     }
 
+    // -------------------------------------------------- recitation guard (#45)
+
+    /**
+     * Recitation/echo guard (issue #45, engine-side candidates ①+②): an LLM
+     * decoder biased with a hotword list can echo the LIST itself — the lab
+     * L2b failure class where the user recites (or the model hallucinates)
+     * the spellbook instead of one utterance, and every real alias inside the
+     * string then matches verbatim through the adjudicator's containment
+     * tier. A transcript that names {@link #RECITAL_MIN_ALIASES} DISTINCT
+     * trigger aliases at once, or one longer than {@link #RECITAL_LENGTH_FACTOR}×
+     * the longest alias, is dropped before adjudication (debug log + counter).
+     *
+     * <p>Deliberately conservative: thresholds sit on top as tunable constants
+     * and the N-value calibration is a PRODUCT decision tracked in issue #45
+     * (kept open) — this is only the code-side stopgap. A genuine utterance
+     * legitimately naming ≥3 aliases would be dropped too; acceptable while
+     * the cast-mode router narrows the session's candidate set.
+     */
+    static final int RECITAL_MIN_ALIASES = 3;
+    static final int RECITAL_LENGTH_FACTOR = 4;
+    /** Test/observability: recitation drops so far. */
+    static final java.util.concurrent.atomic.AtomicLong RECITAL_DROPS =
+            new java.util.concurrent.atomic.AtomicLong();
+
+    /** Whether {@code text} reads like a recitation of the hotword list. */
+    static boolean isRecitation(List<String> hotwords, String text) {
+        if (hotwords == null || hotwords.isEmpty() || text == null || text.isEmpty()) return false;
+        int longest = 0;
+        for (String alias : hotwords) {
+            if (alias != null) longest = Math.max(longest, alias.length());
+        }
+        String t = text.toLowerCase(Locale.ROOT);
+        // R2 rework (review low item): count DISTINCT alias strings, not list
+        // positions — a hotword list containing the same alias twice must not
+        // let one string match push the count toward RECITAL_MIN_ALIASES.
+        java.util.Set<String> matched = new java.util.HashSet<>();
+        for (String alias : hotwords) {
+            String a = alias == null ? "" : alias.trim().toLowerCase(Locale.ROOT);
+            if (!a.isEmpty() && t.contains(a)) matched.add(a);
+        }
+        if (matched.size() >= RECITAL_MIN_ALIASES) return true;
+        return longest > 0 && t.length() > longest * RECITAL_LENGTH_FACTOR;
+    }
+
     @Override
     public synchronized void finishUtterance() {
         if (buffered == 0) return;
@@ -350,7 +398,21 @@ public class SherpaQwen3Recognizer extends AbstractBufferedRecognizer {
             String text;
             SharedRecognizer hot = acquire(hotwords);
             try {
-                text = decode(hot.recognizer, floats);
+                // R2 F-a1: per-entry serialization of the native decode.
+                // sherpa-onnx v1.13.7 has no internal locking (offline-recognizer
+                // impl has no mutex); greedy decoding (temperature <= 1e-6, the
+                // builder default voicecast never overrides) keeps per-decode
+                // state function-local, so concurrent decodes are PROBABLY safe
+                // — but the guarantee is undocumented and any future
+                // temperature option exposure would touch the shared mt19937
+                // rng (data race). Serializing on the entry monitor costs
+                // nothing against a 0.485-RTF decode. Same monitor as
+                // releaseShared; no nesting — release runs after decode
+                // returns, and eviction takes SHARED_LOCK then the entry
+                // monitor, never the reverse.
+                synchronized (hot) {
+                    text = decode(hot.recognizer, floats);
+                }
             } finally {
                 releaseShared(hot);
             }
@@ -360,16 +422,27 @@ public class SherpaQwen3Recognizer extends AbstractBufferedRecognizer {
                 LOGGER.debug("[QWEN3] empty transcript with hotwords, re-decoding without");
                 SharedRecognizer free = acquire(List.of());
                 try {
-                    text = decode(free.recognizer, floats);
+                    synchronized (free) { // R2 F-a1: same per-entry serialization
+                        text = decode(free.recognizer, floats);
+                    }
                 } finally {
                     releaseShared(free);
                 }
             }
             if (text == null || text.isBlank()) return;
+            String finalText = text.trim().toLowerCase(Locale.ROOT);
+            // Issue #45 stopgap: drop recitation echoes before the adjudicator
+            // can match them verbatim through the containment tier.
+            if (isRecitation(hotwords, finalText)) {
+                RECITAL_DROPS.incrementAndGet();
+                LOGGER.debug("[QWEN3] dropped recitation-echo transcript ({} chars, {} hotword aliases; issue #45)",
+                        finalText.length(), hotwords.size());
+                return;
+            }
             // Semantic contract v2: the text line is adjudicated against the
             // routed vocabulary (the "qwen3 vocab gate" — a transcript that
             // hits no entry is REJECTED, never cast on).
-            emitAdjudicated(text.trim().toLowerCase(Locale.ROOT), List.of(), startMs,
+            emitAdjudicated(finalText, List.of(), startMs,
                     null, null, String.join(",", spec.languages()));
         } catch (Throwable t) {
             LOGGER.warn("Qwen3-ASR decode failed (engine={})", spec.engineId(), t);

@@ -17,6 +17,8 @@ import net.minecraft.client.Minecraft;
  * {@link VoiceCastEvents} bus so the HUD and consumers are engine-agnostic.
  */
 public final class ClientNet {
+    private static final org.slf4j.Logger LOGGER =
+            org.slf4j.LoggerFactory.getLogger("VoiceCast");
     private static boolean initialized;
 
     private ClientNet() {}
@@ -55,11 +57,26 @@ public final class ClientNet {
                 // Semantic contract v2: the server-side session adjudicated;
                 // the wire carries the decision so client-side consumers see
                 // the same verdict. Partial results carry no decision.
-                RecognitionResult r = partial
-                        ? RecognitionResult.partial(text, "")
-                        : new RecognitionResult(text, "", "", decisionOrdinal < 0 ? null
-                                : com.theo.voicecast.api.Decision.values()[decisionOrdinal],
-                                spellId, spellId, score, java.util.List.of(), startMs, startMs);
+                RecognitionResult r;
+                if (partial) {
+                    r = RecognitionResult.partial(text, "");
+                } else {
+                    // R2 F-B5: guard the ordinal like the state decode above —
+                    // a skewing server must degrade to "undecided", not crash
+                    // the netty thread with an AIOOBE.
+                    com.theo.voicecast.api.Decision decision = null;
+                    com.theo.voicecast.api.Decision[] values = com.theo.voicecast.api.Decision.values();
+                    if (decisionOrdinal >= 0 && decisionOrdinal < values.length) {
+                        decision = values[decisionOrdinal];
+                    } else {
+                        LOGGER.warn("Unknown decision ordinal {} from server (version skew?); treating as undecided",
+                                decisionOrdinal);
+                    }
+                    // R2 F-B8: the wire carries no pronunciation id — passing
+                    // spellId here impersonated it; unknown ("") is honest.
+                    r = new RecognitionResult(text, "", "", decision, spellId, "",
+                            score, java.util.List.of(), startMs, startMs);
+                }
                 VoiceCastEvents.post(partial ? new RecognitionPartialEvent(r) : new RecognitionFinalEvent(r));
             });
         });

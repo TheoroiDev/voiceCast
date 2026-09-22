@@ -50,6 +50,11 @@ public final class ServerSpeechSession {
     private final Deque<Long> frameArrivals = new ArrayDeque<>();
     private long lastThrottleWarnMs;
 
+    /** R2 F-B2: frame-rate native reloads on a failing recognizer build are
+     *  the silent-death-loop failure mode — build attempts are gated by this
+     *  backoff once a build has failed (≥30s, doubling, 5 min cap). */
+    private final BuildBackoff buildBackoff = new BuildBackoff();
+
     ServerSpeechSession(ServerPlayer player, String engine) {
         this.player = player;
         this.engine = engine;
@@ -77,10 +82,13 @@ public final class ServerSpeechSession {
         });
     }
 
-    /** Player picked an engine; request lazy server load and (re)build when ready. */
+    /** Player picked an engine; request lazy server load and (re)build when ready.
+     *  Explicit user action — the R2 F-B2/F-B4 backoffs are reset so the retry
+     *  is immediate. */
     void requestEngine(String engineId) {
         this.engine = engineId;
-        VoiceCastServer.INSTANCE.requestEngine(engineId);
+        buildBackoff.force();
+        VoiceCastServer.INSTANCE.requestEngine(engineId, true);
         // Rebuild even if a recognizer for a (different) engine is already active;
         // ensureReady detects the change via activeEngine.
         worker.submit(() -> {
@@ -138,35 +146,58 @@ public final class ServerSpeechSession {
                     "voicecast.state.session_loading", engine);
             return;
         }
+        // R2 F-B2: a failed build (broken model dir past the file probe) must
+        // not retry at frame rate — frames are dropped until the backoff
+        // clears (or the player re-selects the engine, which forces a retry).
+        if (!buildBackoff.allowed(System.currentTimeMillis())) return;
         buildRecognizer();
     }
 
     private void buildRecognizer() {
         disposeRecognizer();
+        // R2 F-B3: the qwen3 native load happens HERE (tens of seconds) after
+        // the engine-level READY broadcast already reached the player — without
+        // this the HUD silently falls back to idle during the whole load.
+        VoiceCastServer.INSTANCE.sendState(player, RecognizerState.LOADING,
+                "voicecast.state.session_loading", engine);
         try {
             SpeechRecognizer r = VoiceCastServer.INSTANCE.createRecognizer(engine);
             r.setResultSink(this::onResult);
             // configure seeds the ROUTED vocabulary before start (single
             // setVocabulary per build — sherpa bakes hotwords at construction,
             // a post-start set would stop+rebuild the recognizer).
-            VoiceCastServer.INSTANCE.configure(r, engine, routedVocabulary());
-            if (r == null || !r.isActive()) {
-                VoiceCast.LOGGER.warn("Recognizer not active for {} ({}), will retry",
-                        player.getName().getString(), engine);
+            boolean started = VoiceCastServer.INSTANCE.configure(r, engine, routedVocabulary());
+            if (!started || !r.isActive()) {
+                // R2 F-B2: the failure is player-visible (ERROR state) and the
+                // next attempt waits out the backoff instead of frame-rate
+                // reloading the native session.
+                try { r.stop(); } catch (Throwable ignored) {}
+                buildBackoff.onFailure(System.currentTimeMillis());
+                VoiceCast.LOGGER.warn("Recognizer start failed for {} ({}); retrying after backoff",
+                        playerName(), engine);
+                VoiceCastServer.INSTANCE.sendState(player, RecognizerState.ERROR,
+                        "voicecast.state.error", engine);
                 return;
             }
             recognizer = r;
             active = true;
             activeEngine = engine;
+            buildBackoff.onSuccess();
             VoiceCastServer.INSTANCE.sendState(player, RecognizerState.READY, "voicecast.state.ready", engine);
-            VoiceCast.LOGGER.info("Speech session ready for {} ({})", player.getName().getString(), engine);
+            VoiceCast.LOGGER.info("Speech session ready for {} ({})", playerName(), engine);
         } catch (Throwable t) {
             recognizer = null;
             active = false;
-            VoiceCast.LOGGER.warn("Failed to build recognizer for {} ({})", player.getName().getString(), engine, t);
+            buildBackoff.onFailure(System.currentTimeMillis());
+            VoiceCast.LOGGER.warn("Failed to build recognizer for {} ({})", playerName(), engine, t);
             VoiceCastServer.INSTANCE.sendState(player, RecognizerState.ERROR,
                     "voicecast.state.error", String.valueOf(t.getMessage()));
         }
+    }
+
+    /** Null-safe display name for logs (the player is never null in production). */
+    private String playerName() {
+        return player == null ? "?" : player.getName().getString();
     }
 
     private void disposeRecognizer() {
@@ -242,6 +273,10 @@ public final class ServerSpeechSession {
     private void onResult(RecognitionResult result) {
         if (result == null) return;
         VoiceCastServer.INSTANCE.sendTranscript(player, result);
+        // R2 F-B7: partials are HUD-only (decision == null) — never feed one
+        // into the final-event sink, or an addon engine that emits partials
+        // would push half an utterance into the game's chant handling.
+        if (result.decision() == null) return;
         VoiceCastEvents.post(new ServerRecognitionFinalEvent(player, result));
     }
 

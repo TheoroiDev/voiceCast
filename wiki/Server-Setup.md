@@ -22,7 +22,7 @@ Drop `voicecast-<loader>-*.jar` (or the fabric build) into the `mods/` folder. R
 - Downloads go over HTTPS with checksum/size verification. The Qwen3-ASR model comes from the official **sherpa-onnx GitHub release**; the **IPA (ZIPA)** model uses HuggingFace with the hf-mirror.com mirror — you can add extra mirrors in `models.json` (multiple `urls` are probed and downloaded fastest-first);
 - **No internet / slow network**:
   - Proxy via JVM flags: `-Dhttps.proxyHost=<host> -Dhttps.proxyPort=<port>` (the downloader also detects the `HTTPS_PROXY` env var);
-  - Or set `[server] autoDownload = false` and **place models manually** into `config/voicecast/models/<modelId>/` (sherpa archives need the `.onnx` files at the model root; the ZIPA dir needs `model.int8.onnx` + `tokens.txt`);
+  - Or set `[server] autoDownload = false` and **place models manually** into `config/voicecast/models/<modelId>/` (sherpa archives need the `.onnx` files plus their tokens equivalent at the model root — a `tokens.txt`, or a `tokenizer/` directory for Qwen3-ASR; the ZIPA dir needs `model.int8.onnx` + `tokens.txt`);
 - Model catalog and checksums: [Configuration](Configuration).
 
 ## Memory & hardware

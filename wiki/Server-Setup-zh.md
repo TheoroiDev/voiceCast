@@ -22,7 +22,7 @@
 - 下载走 HTTPS + 校验和/大小校验。Qwen3-ASR 模型来自 **sherpa-onnx 官方 GitHub release**；**IPA（ZIPA）** 模型走 HuggingFace 并带 hf-mirror.com 镜像——也可在 `models.json` 自行追加镜像（多个 `urls` 会并发测速、最快者优先）；
 - **无外网/下载慢**的服务器：
   - JVM 代理参数：`-Dhttps.proxyHost=<host> -Dhttps.proxyPort=<port>`（下载器也会探测 `HTTPS_PROXY` 环境变量）；
-  - 或设 `[server] autoDownload = false` 并**手动放置**模型到 `config/voicecast/models/<模型id>/`（sherpa 归档需 `.onnx` 文件位于模型根目录；ZIPA 目录需 `model.int8.onnx` + `tokens.txt`）；
+  - 或设 `[server] autoDownload = false` 并**手动放置**模型到 `config/voicecast/models/<模型id>/`（sherpa 归档需 `.onnx` 文件与 tokens 等价物位于模型根目录——`tokens.txt`，Qwen3-ASR 则为 `tokenizer/` 目录；ZIPA 目录需 `model.int8.onnx` + `tokens.txt`）；
 - 模型目录与校验清单见[配置参考](Configuration-zh)。
 
 ## 内存与硬件建议

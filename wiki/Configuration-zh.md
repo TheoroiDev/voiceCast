@@ -93,7 +93,7 @@ noiseSuppression = false      # 识别通路麦克风采播降噪（GTCRN）；�
 - **`properties.type`**：`offline`（整句 ASR）、`ipa`（音素）、`denoiser`（辅助增强模型——走同一下载管线但绝不作为引擎列出/选择）；`properties.family` 决定引擎族——仅 ipa 类有默认推导，其余（如 `sherpa-qwen3`）必须显式声明；
 - **多镜像测速**：`source.urls` 配多个地址时并发 Range-GET 探测吞吐，**最快者先下载**；小文件跳过探测；
 - **自托管模型**：把 `urls` 换成你自己的 HTTP 地址即可（内网镜像、对象存储都行）；
-- 手动放置：`autoDownload=false` 时把解压后的文件放到 `config/voicecast/models/<模型名>/`（sherpa 归档需 `tokens.txt` 与 `.onnx` 文件位于模型根目录）。
+- 手动放置：`autoDownload=false` 时把解压后的文件放到 `config/voicecast/models/<模型名>/`（sherpa 归档需 tokens 等价物与 `.onnx` 文件位于模型根目录——`tokens.txt`，Qwen3-ASR 则为 `tokenizer/` 目录）。
 
 ## 诊断
 

@@ -59,13 +59,48 @@ public final class ZipaModel {
         }
     }
 
+    /**
+     * Content re-check of a cached file against its declared SHA-256 (R2 F-B1):
+     * a cached file only needed {@code minBytes} to skip downloading, so disk
+     * rot / a past partial write would survive forever. Hashing the ~70 MB
+     * weights costs well under a second, so every declared file is re-verified
+     * once per resolve. Package-visible for the gate unit tests.
+     */
+    static boolean fileMatchesSha256(Path p, String expectedSha256) {
+        if (expectedSha256 == null || expectedSha256.isBlank()) return true;
+        try {
+            return ModelManager.sha256(p).equalsIgnoreCase(expectedSha256.trim());
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Whether every non-optional declared file that carries a sha256 currently
+     * matches it (R2 F-B1): the cache-hit gate must judge CONTENT, not just
+     * size, or a corrupt file survives forever. Undeclared/missing files are
+     * no opinion here — the size gate handles presence.
+     */
+    private static boolean cachedFilesMatchSha256(Path dir, ModelConfig.ModelEntry entry) {
+        for (ModelConfig.FileEntry f : entry.files()) {
+            if (f.optional() || f.sha256() == null || f.sha256().isBlank()) continue;
+            Path p = dir.resolve(f.name());
+            if (!Files.isRegularFile(p)) continue;
+            if (!fileMatchesSha256(p, f.sha256())) return false;
+        }
+        return true;
+    }
+
     /** Resolve (or download with mirror speed-test) the configured ZIPA model. */
     public static Path resolveOrDownload(Path gameDir, ModelConfig config, ModelConfig.ModelEntry entry,
                                          ModelManager.DownloadListener progress)
             throws IOException, InterruptedException {
         String modelId = entry.id();
         Path target = directory(gameDir, modelId);
-        if (isValidModelDir(target, entry)) {
+        // R2 F-B1: "already installed" must pass BOTH the size gate and the
+        // sha256 re-check — a size-passing, content-rotted cache used to be
+        // adopted forever.
+        if (isValidModelDir(target, entry) && cachedFilesMatchSha256(target, entry)) {
             VoiceCast.LOGGER.info("Using existing ZIPA model at {}", target);
             return target;
         }
@@ -74,6 +109,15 @@ public final class ZipaModel {
         for (ModelConfig.FileEntry f : entry.files()) {
             Path p = target.resolve(f.name());
             boolean present = isRegularFile(p, Math.max(1, f.minBytes()));
+            // R2 F-B1: size alone never proved content — re-hash cached files
+            // that declare a sha256 and re-download on mismatch. The corrupt
+            // file is deleted first: downloadFile itself short-circuits on
+            // "file exists" and would hand back the bad bytes unchanged.
+            if (present && !fileMatchesSha256(p, f.sha256())) {
+                VoiceCast.LOGGER.warn("Cached ZIPA file {} failed its sha256 re-check; re-downloading", p);
+                try { Files.deleteIfExists(p); } catch (IOException ignored) {}
+                present = false;
+            }
             if (!present && f.optional()) continue; // optional file: best effort only
             if (!present) {
                 mgr.downloadFile(modelId, f.name(), f.urls(), f.sha256(), progress, f.minBytes());

@@ -121,13 +121,31 @@ public final class ModelManager {
         if (urls == null || urls.isEmpty()) throw new IOException("No download URLs configured for " + modelId);
         List<String> ranked = rankMirrors(urls, expectedBytes);
         Path dir = root.resolve(modelId);
+        // R2 F-B1 rework: downloads never write into the install dir. Everything
+        // this download produces (archive + extraction) goes into a staging
+        // SIBLING of the install dir, so failure cleanup (deleteRecursively) is
+        // always scoped to paths the download flow owns and can never touch a
+        // pre-existing installation at dir (e.g. a syncVoiceModels-hardlinked
+        // run-dir copy). The workspace resources/ source of truth is a
+        // different tree entirely and is unreachable from here.
+        //
+        // The "<id>.download" suffix is reserved for staging: installs only
+        // ever live at "<id>", so wiping a leftover staging dir (a previous
+        // run crashed mid-download) can never destroy an installation.
+        Path staging = dir.resolveSibling(dir.getFileName() + ".download");
+        try {
+            deleteRecursively(staging);
+        } catch (IOException e) {
+            throw new IOException("Could not clear download staging dir " + staging, e);
+        }
+        Files.createDirectories(staging);
         Files.createDirectories(dir);
-        Path archive = dir.resolve(archiveName(ranked.get(0)));
+        Path archive = staging.resolve(archiveName(ranked.get(0)));
 
         IOException lastError = null;
         for (int attempt = 1; attempt <= Math.max(1, maxAttempts); attempt++) {
             try {
-                return downloadOnce(modelId, ranked, expectedSha256, progress, probe, dir, archive, attempt, maxAttempts);
+                return downloadOnce(modelId, ranked, expectedSha256, progress, probe, dir, staging, archive, attempt, maxAttempts);
             } catch (IOException e) {
                 lastError = e;
                 VoiceCast.LOGGER.warn("Download attempt {}/{} failed: {}", attempt, maxAttempts, e.getMessage());
@@ -379,7 +397,7 @@ public final class ModelManager {
 
     private DownloadResult downloadOnce(String modelId, List<String> rankedUrls, String expectedSha256,
                                         DownloadListener progress, ModelProbe probe,
-                                        Path dir, Path archive,
+                                        Path installDir, Path staging, Path archive,
                                         int attempt, int maxAttempts) throws IOException {
         VoiceCast.LOGGER.info("Downloading {} -> {} (attempt {}/{}, fastest mirror first of {})",
                 modelId, archive, attempt, maxAttempts, rankedUrls.size());
@@ -398,15 +416,55 @@ public final class ModelManager {
         }
         if (!fetched) throw last != null ? last : new IOException("No mirror succeeded");
 
-        extractArchive(archive, dir);
+        try {
+            extractArchive(archive, staging);
 
-        flattenNested(dir, probe);
-
-        boolean ok = probe.isValid(dir);
-        if (!ok) {
-            throw new IOException("Downloaded model is missing expected files in " + dir);
+            flattenNested(staging, probe);
+        } catch (Throwable t) {
+            // R2 F-B1: a failed extraction leaves PARTIAL files behind (tar order:
+            // tokens.txt first, the big .onnx last — a mid-archive failure writes
+            // exactly the shape an existence-only probe would accept forever).
+            // R2 rework: the cleanup targets the STAGING dir — this attempt's own
+            // writes — never the pre-existing installation, which stays untouched
+            // on every failure path. The catch is Throwable-level: on Windows a
+            // tar entry with an illegal name throws InvalidPathException (a
+            // RuntimeException), which used to escape BOTH this cleanup and the
+            // IOException-only retry loop. If the cleanup itself fails we report
+            // that failure honestly and fail the attempt — a half-cleared staging
+            // dir can never pass an install gate (gates judge the install dir;
+            // staging is never adopted directly).
+            try {
+                deleteRecursively(staging);
+            } catch (Throwable cleanupFailure) {
+                throw new IOException("Extraction failed (" + t + ") and staging cleanup failed ("
+                        + cleanupFailure + "); not leaving a half-written dir at " + staging, cleanupFailure);
+            }
+            if (t instanceof IOException io) throw io;
+            throw new IOException("Extraction failed: " + t, t);
         }
-        return new DownloadResult(dir, true, "ok");
+
+        boolean ok = probe.isValid(staging);
+        if (!ok) {
+            // Same reasoning: a staging dir that fails its own probe is garbage —
+            // remove it (staging only, never the install) before the next attempt.
+            deleteRecursively(staging);
+            throw new IOException("Downloaded model is missing expected files in " + staging);
+        }
+
+        // Install: replace whatever sits at installDir with the VERIFIED staging
+        // content. The pre-existing install is only deleted HERE — after the
+        // replacement content passed its probe — never on a failure path. With
+        // hardlink semantics, deleting a run-dir copy leaves the workspace
+        // original untouched.
+        try {
+            if (Files.exists(installDir)) deleteRecursively(installDir);
+            Files.move(staging, installDir);
+        } catch (IOException e) {
+            try { deleteRecursively(staging); } catch (IOException ignored) {}
+            throw new IOException("Could not install extracted model at " + installDir
+                    + ": " + e.getMessage(), e);
+        }
+        return new DownloadResult(installDir, true, "ok");
     }
 
     /** Extract a downloaded archive into {@code dir} (zip / tar / tar.bz2 / tgz). */
@@ -441,9 +499,19 @@ public final class ModelManager {
             if (nested != null) {
                 Path tmp = dir.resolveSibling(dir.getFileName() + ".flatten");
                 if (Files.exists(tmp)) deleteRecursively(tmp);
-                Files.move(nested, tmp);
-                deleteRecursively(dir);
-                Files.move(tmp, dir);
+                try {
+                    Files.move(nested, tmp);
+                    deleteRecursively(dir);
+                    Files.move(tmp, dir);
+                } catch (IOException e) {
+                    // R2 rework low-fix: a failed move used to orphan tmp (the
+                    // "<dir>.flatten" sibling — potentially ~GBs of extracted
+                    // payload, since deleteRecursively(dir) never covered the
+                    // sibling). tmp is a staging-convention path by name;
+                    // clear it on the way out so no orphan survives.
+                    try { deleteRecursively(tmp); } catch (IOException ignored) {}
+                    throw e;
+                }
                 VoiceCast.LOGGER.info("Flattened nested model directory {}", nested.getFileName());
             }
         }
@@ -494,7 +562,9 @@ public final class ModelManager {
         return name.isBlank() ? "model.zip" : name;
     }
 
-    private static String sha256(Path p) throws IOException {
+    /** SHA-256 of a file (hex). Package-visible for the installed-cache re-checks
+     *  in {@link ZipaModel}/{@link SherpaModel} (R2 F-B1). */
+    static String sha256(Path p) throws IOException {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             try (InputStream in = Files.newInputStream(p)) {

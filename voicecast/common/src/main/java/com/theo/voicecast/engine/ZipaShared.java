@@ -45,9 +45,11 @@ public final class ZipaShared {
     public final List<String> idToToken;
     private final Map<String, Integer> tokenToId;
     private final ExecutorService pool;
+    /** Directory the singleton was loaded from (R2 F-B9 mismatch warning). */
+    private final Path modelDir;
 
     private ZipaShared(OrtEnvironment env, OrtSession session, String inputName, String lensName,
-                       List<String> idToToken, ExecutorService pool) {
+                       List<String> idToToken, ExecutorService pool, Path modelDir) {
         this.env = env;
         this.session = session;
         this.inputName = inputName;
@@ -60,6 +62,7 @@ public final class ZipaShared {
         }
         this.tokenToId = t2i;
         this.pool = pool;
+        this.modelDir = modelDir == null ? null : modelDir.toAbsolutePath().normalize();
     }
 
     /** Vocab id for an IPA symbol, or -1 when the symbol is outside the model vocabulary. */
@@ -71,7 +74,18 @@ public final class ZipaShared {
     /** Get or lazily load the shared engine from a model directory. */
     public static ZipaShared getOrLoad(Path modelDir) throws Exception {
         ZipaShared s = INSTANCE;
-        if (s != null) return s;
+        if (s != null) {
+            // R2 F-B9: the singleton ignores its request's directory — with a
+            // second loose-files model that meant silently wrong weights. Not
+            // reachable with today's single zipa catalog entry; make it loud
+            // the day it becomes reachable.
+            if (s.modelDir != null && modelDir != null
+                    && !s.modelDir.equals(modelDir.toAbsolutePath().normalize())) {
+                LOGGER.warn("ZIPA shared engine was loaded from {}; ignoring request for {} "
+                        + "(only one loose-files IPA model is supported per process)", s.modelDir, modelDir);
+            }
+            return s;
+        }
         synchronized (ZipaShared.class) {
             if (INSTANCE != null) return INSTANCE;
             INSTANCE = load(modelDir);
@@ -113,7 +127,7 @@ public final class ZipaShared {
         };
         ExecutorService pool = Executors.newFixedThreadPool(poolSize, tf);
         LOGGER.info("Shared ZIPA engine ready (tokens={}, decode threads={})", tokens.size(), poolSize);
-        return new ZipaShared(env, session, inputName, lensName, tokens, pool);
+        return new ZipaShared(env, session, inputName, lensName, tokens, pool, dir);
     }
 
     public void submit(Runnable r) { pool.submit(r); }

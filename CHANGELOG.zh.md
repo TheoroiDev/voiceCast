@@ -21,6 +21,7 @@
 - breaking：配置语义简化——`[client] engine` 留空 = 目录默认；`[server] defaultEngine` 接受模型名或语言码（留空 = 目录默认）；`[engines] allowed` 留空 = 允许目录中全部模型；配置不再有别名归一化或旧文件导入
 - CTC margin 拒识（S6 移植，随契约 v2 沿用）：前两名模板后验差距小于 0.02 的语句（lab 校准：FPR 0.3% / recall 42.8%）整组 CTC 分数清零，模糊胜出不再误发边缘法术——裁定器读取 margin 前的差距，被压制的 top1 本可过 forward 阈值时判 `AMBIGUOUS`。Verbose 日志（`/voicecast verbose`）在该门拒识时打印 top1/top2 后验值与差距——仅排障用，规则本身不变
 - 共享的 Qwen3-ASR 原生识别器缓存改为 LRU 有界——至多 2 个热词集会话（各约 1.5-2.8 GB）+ 1 个钉住的无热词实例——不再按不同施法模式词表无限累积原生会话：切换施法模式不再增长原生内存，被逐出的会话经 sherpa 原生关闭（仍有解码在跑则推迟），同集复用依旧零重载，空转录兜底实例永不多付一次重载
+- 实时部分转写预览（按住 PTT 时的灰色斜体行）暂不可用：0.5.0 的引擎是整句解码器，松开 PTT 才产出文本。客户端预览管线保留，未来接入流式引擎无需协议改动即可恢复
 
 ### Bugfixes
 
@@ -34,6 +35,12 @@
 - 客户端专属命令（`/voicecast settings`、`verbose`、`debugwav`）可执行但不在聊天补全里：服务端 `/voicecast` 管理树遮蔽了同步的补全列表；现以 level-0 服务端 stub 把客户端子命令并入补全树（Fabric 与 Forge 皆然）
 - sherpa 模型下载后现在会真正解压：下载器此前只解 `.zip`（vosk 的格式），sherpa 的 `tar.bz2` 归档被原样搁置，每次加载都报 "Downloaded model is missing expected files"；现同时支持 tar.bz2 / tgz / 裸 tar，并把归档内嵌的顶层目录提升为模型根目录（voicecast#42）
 - 模型下载 HUD 对 sherpa 下载显示"正在下载 Vosk 模型"，现已改为"正在下载模型"
+- 模型下载在解压中途失败后不再留下"半解压"目录——该目录此前能永久通过已安装校验、劫持引擎：解压/校验失败时清空目标目录并重新下载，且已安装的模型文件在使用前按内容复查（有声明的按 sha256，否则按体积形态）
+- 文件校验通过但原生加载失败（模型文件损坏）的引擎不再以帧节拍静默重载、零玩家反馈：会话向玩家报告 ERROR 态并退避（30 秒起翻倍至 5 分钟封顶；重新选择引擎立即重试），FAILED 引擎的下载重试也带退避，不再有人按住 PTT 时每帧轰炸镜像
+- 引擎级 READY 广播之后的原生模型加载（数十秒）期间，会话 HUD 显示加载态，不再静默回落空闲导致首句被吞
+- 来自版本不匹配服务端的 decision 编号不再炸掉客户端网络线程：未知编号降级为"未裁定"并告警（与 state 编号守卫同一模式）
+- 客户端侧最终识别事件不再把 spell id 冒充 pronunciation id（wire 从不携带——改报未知），partial 结果也不再能到达 addon 挂接的最终事件监听器
+- 复诵热词别名列表本身的话句（复诵/回声，issue #45）在 Qwen3 引擎侧被丢弃，不再经逐字包含层面误中法术：一次点名 ≥3 个不同别名、或长度超过最长别名 4 倍的转录会被弃用（debug 日志）；阈值刻意保守且可调
 
 - breaking：识别阵容更换（引擎更换）：移除流式双语 zipformer（`sherpa-zipformer-bilingual-zh-en-int8`）、两个 SenseVoice 条目（`sherpa-sensevoice-small-int8`、`sherpa-sensevoice-full`）与 wav2vec2 IPA 模型（`wav2vec2-espeak-ipa`）。默认目录现为 `qwen3-asr-0.6b-int8` -> `zipa-ipa` -> `gtcrn-simple-denoiser`（声明顺序 = 语言默认优先级）。旧引擎 id 不再解析、不提供别名（v0 政策，无迁移）：请按新目录名重新选择引擎；0.4.x 的 `models.json` 首次加载时按新默认重写
 - breaking：IPA 音素引擎后端换为 ZIPA（zipa-small-crctc-ns-no-diacritics，Apache-2.0）：输出零变音符，引擎更换 lab 回测对 wav2vec2 触发命中率 zh +31.9pp / en +1.4pp（同路线三臂），CPU RTF 0.014；heard 侧归一化将 ZIPA 的 ASCII `r`/`g` 合并到模板符号（`ɹ`/`ɡ`）并剥除词界符

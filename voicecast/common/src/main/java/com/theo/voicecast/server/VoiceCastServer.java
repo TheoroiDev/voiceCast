@@ -266,9 +266,34 @@ public enum VoiceCastServer {
 
     /** Make an engine available (download + load), sharing resources server-wide. */
     public void requestEngine(String engine) {
+        requestEngine(engine, false);
+    }
+
+    /**
+     * Engine-level retry backoff (R2 F-B4): a FAILED engine used to be
+     * re-requested on EVERY audio frame of a live session (auto-download on =
+     * a continuous retry stream against the mirror). After a failure the
+     * engine stays quiet for a doubling window (30 s → 5 min cap); an explicit
+     * user selection ({@code userInitiated}) clears the penalty.
+     */
+    private static final long ENGINE_RETRY_BASE_MS = 30_000;
+    private static final long ENGINE_RETRY_MAX_MS = 300_000;
+    private final Map<String, Long> engineRetryNotBefore = new ConcurrentHashMap<>();
+    private final Map<String, Integer> engineFailures = new ConcurrentHashMap<>();
+
+    /** Request an engine load; {@code userInitiated} (player selection) overrides the F-B4 backoff. */
+    public void requestEngine(String engine, boolean userInitiated) {
         if (config == null) return;
         EngineState state = engineStates.getOrDefault(engine, EngineState.UNLOADED);
         if (state == EngineState.READY || state == EngineState.DOWNLOADING) return;
+        if (state == EngineState.FAILED && !userInitiated
+                && System.currentTimeMillis() < engineRetryNotBefore.getOrDefault(engine, 0L)) {
+            return; // F-B4: quiet period after a failure — no per-frame retry stream
+        }
+        if (userInitiated) {
+            engineFailures.remove(engine);
+            engineRetryNotBefore.remove(engine);
+        }
         engineStates.put(engine, EngineState.DOWNLOADING);
         broadcastState(RecognizerState.LOADING, "voicecast.state.preparing", engine);
         final String eng = engine;
@@ -303,13 +328,15 @@ public enum VoiceCastServer {
                             broadcastState(RecognizerState.LOADING, "voicecast.state.downloading_model", SherpaModel.describeSize(done)));
                 } else {
                     Path dir = runDir.resolve("config/voicecast/models").resolve(entry.id());
-                    if (!SherpaModel.isValidModelDir(dir))
-                        throw new java.io.IOException("sherpa model missing and autoDownload=false");
+                    if (!SherpaModel.isPlausiblyComplete(dir, entry))
+                        throw new java.io.IOException("sherpa model missing or incomplete and autoDownload=false");
                 }
             } else {
                 throw new java.io.IOException("Unsupported model kind for engine '" + engine + "'");
             }
             engineStates.put(engine, EngineState.READY);
+            engineFailures.remove(engine);
+            engineRetryNotBefore.remove(engine);
             VoiceCast.LOGGER.info("Server voice engine ready: {}", engine);
             broadcastState(RecognizerState.READY, "voicecast.state.ready", engine);
             // Activate sessions that were waiting for this engine.
@@ -317,6 +344,10 @@ public enum VoiceCastServer {
         } catch (Throwable e) {
             VoiceCast.LOGGER.error("Server voice engine failed to start: {}", engine, e);
             engineStates.put(engine, EngineState.FAILED);
+            int fails = engineFailures.merge(engine, 1, Integer::sum);
+            engineRetryNotBefore.put(engine, System.currentTimeMillis()
+                    + Math.min(ENGINE_RETRY_MAX_MS,
+                            ENGINE_RETRY_BASE_MS << Math.min(fails - 1, 4)));
             broadcastState(RecognizerState.NO_MODEL, "voicecast.state.no_model", engine, String.valueOf(e.getMessage()));
         }
     }
@@ -345,15 +376,21 @@ public enum VoiceCastServer {
      *  because grammar-based engines (sherpa) bake hotwords in at construction —
      *  a second setVocabulary after start would stop+rebuild the recognizer
      *  (double construction; the pre-0.5.x seed was also mode-blind, i.e. a
-     *  "half-wrong" grammar that the routed call then had to replace). */
-    void configure(SpeechRecognizer r, String engine, SessionVocabulary routedVocabulary) {
+     *  "half-wrong" grammar that the routed call then had to replace).
+     *
+     *  @return whether the recognizer started. R2 F-B2: the failure is no
+     *          longer swallowed here — the caller reports it to the player and
+     *          backs off instead of frame-rate retrying the native load. */
+    boolean configure(SpeechRecognizer r, String engine, SessionVocabulary routedVocabulary) {
         try {
             Path modelDir = resolveEngineModelDir(engine);
             SpeechOptions opts = new SpeechOptions(true, 0.65f, modelDir.toString(), true, calibration());
             r.setVocabulary(routedVocabulary);
             r.start(opts);
+            return true;
         } catch (Throwable t) {
             VoiceCast.LOGGER.warn("recognizer start failed for engine {}", engine, t);
+            return false;
         }
     }
 
@@ -486,6 +523,7 @@ public enum VoiceCastServer {
     // ---- S2C ----------------------------------------------------------
 
     void sendState(ServerPlayer player, RecognizerState state, String key, String... args) {
+        if (player == null) return; // defensive: nothing to send to (also the detached-test seam)
         NetworkManager.sendToPlayer(player, VoiceCastNetwork.CHANNEL_STATE,
                 VoiceCastNetwork.encodeState(state.ordinal(), key, java.util.List.of(args)));
     }

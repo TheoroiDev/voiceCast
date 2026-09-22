@@ -93,7 +93,7 @@ Key points:
 - **`properties.type`**: `offline` (utterance ASR), `ipa` (phonemes), `denoiser` (auxiliary enhancement model — downloadable but never listed/selected as an engine); `properties.family` selects the engine family — derived by default only for the ipa kind, everything else (e.g. `sherpa-qwen3`) must be declared explicitly;
 - **Mirror probing**: with multiple `source.urls` the server probes them concurrently (ranged GET, throughput-ranked) and downloads **fastest-first**; small files skip probing;
 - **Self-hosting**: point `urls` at your own HTTP endpoints (LAN mirror, object storage);
-- Manual placement: with `autoDownload=false` put extracted files under `config/voicecast/models/<modelName>/` (sherpa archives need `tokens.txt` + the `.onnx` files at the model root).
+- Manual placement: with `autoDownload=false` put extracted files under `config/voicecast/models/<modelName>/` (sherpa archives need a tokens equivalent + the `.onnx` files at the model root — a `tokens.txt`, or a `tokenizer/` directory for Qwen3-ASR).
 
 ## Diagnostics
 
