@@ -110,6 +110,8 @@ public class SherpaQwen3Recognizer extends AbstractBufferedRecognizer {
     private int buffered;
     private long utteranceStart;
     private volatile List<String> hotwords = List.of();
+    /** Decode language constraint from {@link #resolveLanguageLock}; null = open. */
+    private volatile String languageLock;
 
     public SherpaQwen3Recognizer(EngineSpec spec) {
         this.spec = spec;
@@ -156,6 +158,55 @@ public class SherpaQwen3Recognizer extends AbstractBufferedRecognizer {
     /** Comma-joined hotword list for {@code setHotwords} ("" when none). */
     static String hotwordsCsv(List<String> hotwords) {
         return String.join(", ", hotwords);
+    }
+
+    // -------------------------------------------------------- language lock
+
+    /**
+     * Session language bucket (2-letter) -> qwen3 {@code setOption} language
+     * name. Only these exact spellings are language instructions — ISO codes
+     * are NOT (probed: "en" decodes as ordinary text, lab
+     * LangProbe 2026-09-26); unknown values are ignored by the native and
+     * decode stays open, so an unmapped bucket deliberately does NOT lock.
+     */
+    static final Map<String, String> LANGUAGE_NAMES = Map.of(
+            "en", "English", "zh", "Chinese", "ja", "Japanese", "ko", "Korean",
+            "yue", "Cantonese", "de", "German", "fr", "French",
+            "es", "Spanish", "ru", "Russian");
+
+    /**
+     * Decode-time language lock (en→zh drift fix, voiceCast#49): qwen3 decodes
+     * open-multilingual and a hotword-biased English utterance can come back
+     * as Chinese text (reproduced: fulmen → 法门). {@code stream.setOption
+     * ("language", ...)} constrains it natively (sherpa-onnx v1.13.7 JVM +
+     * natives, no patch needed).
+     *
+     * <p>Resolution, per the {@code language_lock} engine option
+     * ({@code spec.option}, default {@code auto}):
+     * <ul>
+     *   <li>{@code auto} (default) — lock ONLY when the routed session has
+     *       exactly one mapped language bucket ({@code [voice] languages="en"}
+     *       → {@code English}); multi-bucket sessions and unmapped buckets
+     *       stay open because a WRONG lock is worse than none (a zh utterance
+     *       under {@code English} comes back as pinyin — lab probe).</li>
+     *   <li>{@code off} — never lock (pre-#49 behavior).</li>
+     *   <li>any other value — passed through verbatim as the language name
+     *       (server-side override, e.g. {@code language_lock="English"}).</li>
+     * </ul>
+     *
+     * @return the {@code setOption} value, or {@code null} = leave open
+     */
+    static String resolveLanguageLock(String configValue, List<String> languages) {
+        String v = configValue == null ? "auto" : configValue.trim();
+        if (v.isEmpty()) v = "auto";
+        if ("off".equalsIgnoreCase(v)) return null;
+        if (!"auto".equalsIgnoreCase(v)) return v;
+        LinkedHashSet<String> buckets = new LinkedHashSet<>();
+        for (String l : languages) {
+            if (l != null && !l.isBlank()) buckets.add(l.trim().toLowerCase(Locale.ROOT));
+        }
+        if (buckets.size() != 1) return null;
+        return LANGUAGE_NAMES.get(buckets.iterator().next());
     }
 
     // -------------------------------------------------------------- engine
@@ -304,10 +355,11 @@ public class SherpaQwen3Recognizer extends AbstractBufferedRecognizer {
     @Override
     public synchronized void start(SpeechOptions options) throws Exception {
         hotwords = extractHotwords(vocabulary);
+        languageLock = resolveLanguageLock(spec.option("language_lock", "auto"), spec.languages());
         releaseShared(acquire(hotwords)); // fail fast if model is broken (instance stays cached)
         super.start(options);
-        LOGGER.info("sherpa Qwen3-ASR recognizer ready (engine={}, hotwords={})",
-                spec.engineId(), hotwords.size());
+        LOGGER.info("sherpa Qwen3-ASR recognizer ready (engine={}, hotwords={}, languageLock={})",
+                spec.engineId(), hotwords.size(), languageLock == null ? "open" : languageLock);
     }
 
     @Override
@@ -441,19 +493,25 @@ public class SherpaQwen3Recognizer extends AbstractBufferedRecognizer {
             }
             // Semantic contract v2: the text line is adjudicated against the
             // routed vocabulary (the "qwen3 vocab gate" — a transcript that
-            // hits no entry is REJECTED, never cast on).
+            // hits no entry is REJECTED, never cast on). The reported language
+            // is the ACTUAL decode constraint ("" = open multi-lingual), not
+            // the session config projection.
             emitAdjudicated(finalText, List.of(), startMs,
-                    null, null, String.join(",", spec.languages()));
+                    null, null, languageLock == null ? "" : languageLock);
         } catch (Throwable t) {
             LOGGER.warn("Qwen3-ASR decode failed (engine={})", spec.engineId(), t);
         }
     }
 
     /** One offline decode pass over the utterance (16 kHz true capture rate).
-     *  Package-private so tests can script the two-pass fallback flow. */
+     *  Package-private so tests can script the two-pass fallback flow.
+     *  Applies the session language lock (voiceCast#49) before the waveform —
+     *  the hotword-free fallback pass re-applies it the same way. */
     String decode(OfflineRecognizer recognizer, float[] floats) {
         var stream = recognizer.createStream();
         try {
+            String lock = languageLock;
+            if (lock != null) stream.setOption("language", lock);
             stream.acceptWaveform(floats, 16_000);
             recognizer.decode(stream);
             return recognizer.getResult(stream).getText();

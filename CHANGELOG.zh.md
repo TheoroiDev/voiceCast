@@ -6,6 +6,8 @@
 
 ### Features
 
+- Qwen3 解码语言锁定（voiceCast#49）：会话路由后只剩**单一**语言桶时（`[voice] languages="en"`），引擎经 sherpa 原生流级 `language` 选项把解码锁定到该语言——开放多语解码会让热词偏置的英文语句转写成中文并误施中文法术（lab 复现：fulmen → 法门）。默认 `auto`；`language_lock="off"` 恢复开放解码；其它值原样透传作为语言名（服务端覆写）。多语言会话刻意保持开放——锁错比不锁更糟（中文语音在 English 锁下会转成拼音）；识别结果现在携带**实际**解码语言（空 = 开放多语），不再填会话配置投影
+
 - breaking: IPA CTC 后验校准（R3/R5 移植）：词表模板按 token 数归一的 forward log-prob（lp/L）与原始帧和 null 竞争者做 softmax，且模型词表无词界 token 时多词模板改为拼接而非丢弃——生产规模词表上，按重标定默认阈值非咒语误接收从 82% 降至 2.6%（新 per-token 量级下 0.6 阈值语义失效；下游 `[match] forwardThreshold` 0.10（原下游常量），既有 per-spell threshold 覆盖须重新标定）
 
 - 可选麦克风采播降噪（`[client] noiseSuppression`，默认关）：流式 GTCRN 语音增强（sherpa-onnx，16 kHz 原生，约 523 KB 模型经目录自动下载），只作用于施法识别通路——其他玩家通过 Simple Voice Chat 听到的声音不受影响；降噪器任何失败自动降级为干净直通
