@@ -13,6 +13,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # release leg: tag builds publish jars to the GitHub Release
     steps:
       - uses: actions/checkout@v7
 
