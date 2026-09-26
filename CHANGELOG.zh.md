@@ -18,6 +18,9 @@
 
 ### Changes
 
+- Tier3 模糊匹配新增三重守卫（voiceCast#48 W3，wr#35、#49②），以 117 条闲聊负样本 + 234 条 zh 触发正样本标定：脚本族门（CJK 转写不再与 latin 别名模糊互撞——音素层全转 latin 后等长跨脚本对在字面 0.0 上仍得 ~0.67）、对称长度窗（转写超出别名至多 1.8×——6 字闲聊句恰以 0.5 压过旧地板对 3 字别名）、字面地板 0.4 仅约束超长转写（**等长**全同音转写是 ASR 换字书写的正确 zh 施法——施暴↔尸爆——保持豁免）。zh 闲聊 FPR 100%→0%（en 0% 不变）、zh 触发命中 94.4%→95.7%
+
+
 - breaking：models.json schema v2 将每模型的 `properties`（lang/type/选项）与 `source`（kind/urls/files）嵌套化，取消独立 `engines` 节——不做迁移（v0 政策，AGENTS §3）：非 v2 形态的文件按默认目录重写，旧引擎 id（`sherpa-zh-en`、`sherpa-sensevoice`、`ipa-phonemes` 及全部 vosk id）不再解析——请改用目录模型名（`qwen3-asr-0.6b-int8`、`zipa-ipa`）
 - breaking：Vosk 移除，改用 sherpa-onnx 模型（voicecast#42）。首批 sherpa 阵容已在本版本内被引擎更换取代（见下）——最终目录为 `qwen3-asr-0.6b-int8`（默认整句识别）、`zipa-ipa`（IPA 音素）与 `gtcrn-simple-denoiser`（麦克风采播降噪）。模型经目录按需下载
 - breaking：配置语义简化——`[client] engine` 留空 = 目录默认；`[server] defaultEngine` 接受模型名或语言码（留空 = 目录默认）；`[engines] allowed` 留空 = 允许目录中全部模型；配置不再有别名归一化或旧文件导入
