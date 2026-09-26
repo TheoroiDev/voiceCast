@@ -161,7 +161,12 @@ public final class ZipaPhonemeRecognizer extends AbstractBufferedRecognizer {
         float confidence = decoded.greedy().confidence();
         LOGGER.info("[ZIPA] '{}' ({} phonemes, conf={}, {} ms)",
                 text, tokens.size(), String.format(java.util.Locale.ROOT, "%.2f", confidence), dt);
-        emitAdjudicated(text, tokens, startMs, ctc.posteriors(), ctc.margin(), "");
+        // Phonemes travel the ipa channel ONLY (voiceCast#47): the greedy token
+        // string must not enter the adjudicator as utteranceText — the text
+        // tiers would fuzzy-match it against trigger aliases and emit confident
+        // wrong spells (short skeleton aliases scored 1.0). ipa-class engines
+        // are verdicted by the CTC/lenient/phoneme tiers alone.
+        emitAdjudicated("", tokens, startMs, ctc.posteriors(), ctc.margin(), "");
     }
 
     /** CTC posteriors + margin evidence of one decode. */

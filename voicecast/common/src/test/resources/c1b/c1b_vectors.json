@@ -525,16 +525,10 @@
         "spellId": "wizardreal:mare",
         "pronId": "wizardreal:mare.chant.zh.0:0",
         "score": 1.0,
-        "altCount": 1,
+        "altCount": 0,
         "kind": "ENTER",
         "variant": 1,
-        "alternatives": [
-          {
-            "spellId": "wizardreal:fulgur",
-            "pronId": "wizardreal:fulgur",
-            "score": 0.6667
-          }
-        ]
+        "alternatives": []
       }
     },
     {
@@ -1135,12 +1129,12 @@
         "wizardreal:aegis": 0.655
       },
       "expected": {
-        "decision": "NEAR",
-        "spellId": "wizardreal:ignis",
-        "pronId": "wizardreal:ignis",
-        "score": 0.6667,
+        "decision": "AMBIGUOUS",
+        "spellId": "wizardreal:anemos",
+        "pronId": "wizardreal:anemos",
+        "score": 0.6694,
         "altCount": 0,
-        "kind": "SKIP",
+        "kind": "NONE",
         "variant": null
       }
     },

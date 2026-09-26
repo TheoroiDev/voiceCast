@@ -132,4 +132,44 @@ class SpellMatcherTest {
         assertEquals("wizardreal:ignis", r.verbatim().entryId());
         assertTrue(r.verbatim().score() >= 1.0f - 1e-6f);
     }
+
+    @Test
+    void recitedLineDoesNotFuzzyMatchSingleWordTrigger() {
+        // voiceCast#47 E (fuzzy length filter): a recited body line must not
+        // ride on one near-identical word — "fire" vs the sentence scored
+        // 0.75 via char Levenshtein ("pyre") and, un-gated, NEAR-fired the
+        // spell idle. Alias chars < half the utterance chars -> gated to 0.
+        SpellMatcher.Result r = SpellMatcher.match("the pyre remembers my name", roster());
+        assertTrue(r.fuzzy() == null || r.fuzzy().score() < 0.65f);
+    }
+
+    @Test
+    void sameLengthDifferentWordsCollisionsAreGated() {
+        // voiceCast#47 E (overlap coefficient): a same-length sentence whose
+        // words are NOT the alias's words must not fuzzy-match it — the real
+        // quiz case scored "the pyre remembers my name" against a 4-word
+        // trigger sharing only "the" (1/4 < 0.5). One shared content word
+        // keeps a 2-word alias alive ("melt arma" -> "melt armor" = 1/2).
+        List<SessionVocabulary.Entry> two = List.of(
+                entry("wizardreal:melt_armor", "melt armor"),
+                entry("wizardreal:tstorm", "hear the thunder"));
+        SpellMatcher.Result r = SpellMatcher.match("the pyre remembers my name", two);
+        assertTrue(r.fuzzy() == null || r.fuzzy().score() < 0.65f);
+        SpellMatcher.Result typo = SpellMatcher.match("melt arma", two);
+        assertNotNull(typo.fuzzy());
+        assertTrue(typo.fuzzy().score() >= 0.65f);
+    }
+
+    @Test
+    void singleWordHeardCannotRideMultiWordAliasSkeleton() {
+        // voiceCast#47 E (gate tightening): one heard word must not match a
+        // multi-word alias on the first word's vowelless skeleton — real
+        // case: sensevoice heard "auro" and scored "aurae levitas" 1.0
+        // (aurae/auro both strip to "r"). Half the alias's words must be
+        // present verbatim regardless of how short the utterance is.
+        List<SessionVocabulary.Entry> two = List.of(
+                entry("wizardreal:aurae_levitas", "aurae levitas"));
+        SpellMatcher.Result r = SpellMatcher.match("auro", two);
+        assertTrue(r.fuzzy() == null || r.fuzzy().score() < 0.65f);
+    }
 }

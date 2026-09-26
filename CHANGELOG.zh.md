@@ -23,8 +23,13 @@
 - 共享的 Qwen3-ASR 原生识别器缓存改为 LRU 有界——至多 2 个热词集会话（各约 1.5-2.8 GB）+ 1 个钉住的无热词实例——不再按不同施法模式词表无限累积原生会话：切换施法模式不再增长原生内存，被逐出的会话经 sherpa 原生关闭（仍有解码在跑则推迟），同集复用依旧零重载，空转录兜底实例永不多付一次重载
 - 实时部分转写预览（按住 PTT 时的灰色斜体行）暂不可用：0.5.0 的引擎是整句解码器，松开 PTT 才产出文本。客户端预览管线保留，未来接入流式引擎无需协议改动即可恢复
 
+### Changes
+
+- breaking: 文本 NEAR（模糊别名相似度，Tier 3）打分前先过两道经典集合相似度过滤（voiceCast#47 E，"词数相差过大"规则）：**长度过滤**——别名须占转写归一化字符数的一半以上；**重叠系数**——多词别名的词至少一半逐字出现在转写中。此前 best-pair token 均分让别名的每个词都能在背诵长句里找到松散亲戚，无关 trigger 被打到 ~0.75-0.83 并在 idle 误施法（实测：背 "the pyre remembers my name" NEAR 上无关法术并 skip-cast）。半句念唱（"ign"→"ignis"）、ASR 误听（"falsome"→"falsum"、换蛋→虚影弹）与 CJK 单词别名不受影响（单 token 对跳过门控）。音素层（Tier 4）保持全长关键词句内检测不变——覆盖率地板实验翻转的 23 个 fast-fixture 用例全是真阳性（句子确实包含 trigger 词）。两条 c1b 等价向量按新裁定修订（v14 失去一个跨法术模糊 runner-up；v42 负句用例改判 AMBIGUOUS——原钉住的 NEAR ignis 正是此类 bug；wizardreal 侧字节级同源副本已同步）
+
 ### Bugfixes
 
+- breaking: IPA 类引擎（zipa）不再把贪心音素 token 串当作 `RecognitionResult.utteranceText` 发出——该字段对它们恒为空，音素只走 `ipa()` 通道（voicecast#47）。此前音素串会进入裁定器的文本层，短骨架触发词别名的模糊匹配会打出高置信错误法术（无关法术上 `TEXT_NEAR` 1.0 分）；依赖 ipa 引擎 `utteranceText()` 的消费方此前匹配的是音素汤，请改用 `ipa()` 或裁定后的 spell/decision 字段
 - 会话销毁（退出、服务器关闭）期间另一线程声明施法模式或推送词表，不再向游戏线程调用方抛 `RejectedExecutionException`（`VoiceCastServer.setCastMode` / 词表推送）：两个入口都能容忍已拆毁的会话 worker 并静默忽略
 - 会话识别器构建时在 start 前一次性注入完整路由词表（施法模式 ∩ 引擎语言桶），取代此前"先注入无模式的语言投影、随后再覆盖为路由结果"的做法——sherpa 系识别器此前每次构建会把热词语法完整构建两次，第一次用的还是错误候选集
 - 流式与离线识别器向 sherpa 的 `acceptWaveform` 传的是样本数，而该 API 期望的是采样率，导致音频被时间拉伸（生产端每个 200 ms 分块被拉长约 5 倍、bench 整文件加速），转写结果截断或整句缺失；两处调用点现已改传真实的 16 kHz 采样率

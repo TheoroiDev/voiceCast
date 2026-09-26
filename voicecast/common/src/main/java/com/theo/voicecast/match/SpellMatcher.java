@@ -105,9 +105,55 @@ public final class SpellMatcher {
 
     /** ASR errors are phonetic: 换蛋/幻弹 share pinyin, falsome/falsum share
      *  the consonant skeleton — character Levenshtein alone scores both at
-     *  0.0-0.71. Take the best of orthographic and phonetic similarity. */
+     *  0.0-0.71. Take the best of orthographic and phonetic similarity.
+     *
+     *  <p>Pre-gates (voiceCast#47 E, the "词数相差过大" rule): the best-pair
+     *  token average lets every alias token find SOME loose buddy anywhere in
+     *  the utterance, and char similarity lets a short alias ride on one
+     *  near-identical word — so a recited sentence scored short trigger
+     *  aliases ~0.75 and fired them idle (real case: "the pyre remembers my
+     *  name" → torpor NEAR; "fire" ↔ "pyre" alone = 0.75). Two classical
+     *  pruning filters from set-similarity joins run before scoring:
+     *  <ul>
+     *  <li><b>length filter</b> (PPJoin-family, pigeonhole on the score
+     *  bound): the alias must span at least half the utterance's normalized
+     *  characters — kills short-alias-in-long-sentence at any token size;</li>
+     *  <li><b>overlap coefficient</b> (multi-token alias x multi-token
+     *  utterance only): at least half the alias's own words must appear
+     *  verbatim in the utterance — kills similar-length-different-words
+     *  collisions ("...remembers my name" vs "hear the thunder" share only
+     *  "the"). ASR-confused SINGLE words skip both gates, so half-spoken
+     *  chants ("ign"→"ignis") and mishearings ("falsome"→"falsum") are
+     *  unaffected.</li>
+     *  </ul> */
     private static float fuzzy(String alias, String text) {
+        if (!fuzzyGatesHit(alias, text)) return 0f;
         return Math.max(similarity(alias, text), Phonetics.score(alias, text));
+    }
+
+    /** Floor for the alias's share of the utterance's characters (length filter). */
+    private static final double FUZZY_MIN_CHAR_RATIO = 0.5;
+    /** Floor for the share of the alias's own words found in the utterance. */
+    private static final double FUZZY_MIN_TOKEN_OVERLAP = 0.5;
+
+    static boolean fuzzyGatesHit(String alias, String text) {
+        String na = normalize(alias);
+        String nt = normalize(text);
+        if (na.isEmpty() || nt.isEmpty()) return false;
+        if (na.length() < nt.length() * FUZZY_MIN_CHAR_RATIO) return false;
+        List<String> a = java.util.Arrays.stream(na.split(" "))
+                .filter(s -> !s.isEmpty()).toList();
+        List<String> t = java.util.Arrays.stream(nt.split(" "))
+                .filter(s -> !s.isEmpty()).toList();
+        // Multi-word ALIAS gate fires regardless of utterance token count: a
+        // recited single word must not ride a whole phrase alias on its first
+        // word's vowelless skeleton (real case: sensevoice "auro" scored
+        // "aurae levitas" 1.0 — aurae/auro strip to the same "r").
+        if (a.size() >= 2) {
+            long hits = a.stream().filter(t::contains).distinct().count();
+            if (hits / (double) a.size() < FUZZY_MIN_TOKEN_OVERLAP) return false;
+        }
+        return true;
     }
 
     /** Levenshtein-based similarity in [0,1], comparing against the longest string. */

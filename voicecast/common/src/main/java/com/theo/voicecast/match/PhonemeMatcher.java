@@ -88,6 +88,12 @@ public final class PhonemeMatcher {
 
     private static float score(List<String> heard, List<String> target) {
         float sim = similarity(heard, target);
+        // Contiguous keyword-in-utterance detection — a FEATURE, not a false
+        // alarm (voiceCast#47 E review): a coverage-floor experiment flipped 23
+        // fast-fixture cases and every one was a true positive (a chant line
+        // of the same spell, tatoeba sentences literally containing the trigger
+        // word). Idle false-fires from recited lines live in the TEXT tier
+        // (Tier 3), gated in SpellMatcher — the phoneme lane keeps full KWS.
         if (containsSublist(heard, target)) {
             // exact template spoken as a contiguous chunk -> very strong match
             sim = Math.max(sim, 0.92f);
