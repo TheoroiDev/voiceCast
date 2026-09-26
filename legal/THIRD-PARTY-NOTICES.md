@@ -11,9 +11,8 @@ each subproject's build scripts and mod manifests.
 
 - License: Apache-2.0 — Copyright k2-fsa contributors
 - Upstream: <https://github.com/k2-fsa/sherpa-onnx>
-- Used by: the streaming/offline speech recognition engines (zipformer,
-  SenseVoice) and the streaming GTCRN noise suppression
-  (`OnlineSpeechDenoiser`).
+- Used by: the offline Qwen3-ASR recognition engine (0.5.0 lineup) and the
+  streaming GTCRN noise suppression (`OnlineSpeechDenoiser`).
 - Note: the Apache-2.0 license text is distributed by the upstream project;
   a copy can be obtained from the upstream repository (`LICENSE` file).
 
@@ -21,8 +20,8 @@ each subproject's build scripts and mod manifests.
 
 - License: MIT — Copyright (c) Microsoft Corporation
 - Upstream: <https://onnxruntime.ai/>, <https://github.com/microsoft/onnxruntime>
-- Used by: the `ipa-phonemes` engine (wav2vec2-espeak phoneme inference on CPU)
-  and as sherpa-onnx's inference backend.
+- Used by: the `ipa-phonemes` engine (ZIPA phoneme inference on CPU) and as
+  sherpa-onnx's inference backend.
 - MIT text:
 
 > Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -59,11 +58,23 @@ each subproject's build scripts and mod manifests.
 
 ## Related but NOT bundled
 
-- **Speech models** (sherpa-onnx zipformer bilingual / SenseVoice GTCRN
-  archives, `wav2vec2-lv-60-espeak-cv-ft` ONNX q4 weights + vocab): downloaded
-  at runtime into `config/voicecast/models/`, never shipped inside the jars.
-  Apache-2.0 (sherpa-onnx released models, wav2vec2 ONNX conversion) /
-  CC0 (Mozilla Common Voice data).
+- **Qwen3-ASR 0.6B, ONNX int8 export** (`sherpa-onnx-qwen3-asr-0.6B-int8-*`
+  archive): downloaded at runtime into `config/voicecast/models/`, never
+  shipped inside the jars. Apache-2.0 — base model by Qwen (see
+  <https://github.com/QwenLM/Qwen3-ASR>, `license: apache-2.0` on the
+  Hugging Face weights); exported and published as the official sherpa-onnx
+  release archive by the k2-fsa project (see
+  <https://github.com/k2-fsa/sherpa-onnx>). Apache-2.0 permits
+  redistribution; retain the license and attribution when re-hosting.
+- **ZIPA IPA phoneme model, ONNX int8** (`model.int8.onnx` + `tokens.txt`,
+  `zipa-small-crctc-ns-no-diacritics-700k`): downloaded at runtime into
+  `config/voicecast/models/`, never shipped inside the jars. MIT — upstream
+  project ZIPA (see <https://github.com/lingjzhu/zipa>, ACL 2025); the int8
+  ONNX export is fetched from the project's official
+  Hugging Face organization (see
+  <https://huggingface.co/anyspeech/zipa-small-crctc-ns-no-diacritics-700k>;
+  that repo card carries no explicit license tag — the governing upstream
+  project license is MIT).
 - **GTCRN noise-suppression model** (`gtcrn_simple.onnx`, ~523 KB): downloaded
   at runtime when `[client] noiseSuppression` is enabled. MIT — Copyright (c)
   2024 Xiaobin Rong (see <https://github.com/Xiaobin-Rong/gtcrn>).
