@@ -1,0 +1,23 @@
+# Unified line-ending policy (voiceCast#50 step 4, kept in sync across the
+# workspace repos): LF in the repository AND the working tree on all
+# platforms — the dev toolchain is Git Bash / pwsh, both LF-safe. Windows-only
+# scripts keep CRLF. Known binaries are marked explicitly so text=auto can
+# never corrupt them.
+* text=auto eol=lf
+
+# Windows scripts must keep CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binaries (never normalized)
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.jar binary
+*.zip binary
+*.ogg binary
+*.wav binary
+*.onnx binary
+*.ttf binary
+*.otf binary
