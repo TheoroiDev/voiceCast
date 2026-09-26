@@ -24,17 +24,20 @@ class SpellMatcherPhoneticTest {
 
     private static List<SessionVocabulary.Entry> roster() {
         return List.of(
-                entry("wizardreal:falsum", "falsum", "幻弹"),
-                entry("wizardreal:fulgur", "雷蓄"),
+                entry("wizardreal:falsum", "falsum", "虚影弹"),
+                entry("wizardreal:fulgur", "雷序"),
+                entry("wizardreal:tonitrus", "链电", "连锁雷"),
                 entry("wizardreal:explosion", "explosion"));
     }
 
     @Test
     void zhHomophonesMatchViaPinyin() {
-        // 幻弹 → huan dan; the recognizer heard 换蛋/换谈 — identical pinyin
-        assertFuzzy("换蛋", "wizardreal:falsum");
-        assertFuzzy("换谈。", "wizardreal:falsum");
-        // 雷蓄 → lei xu; heard 雷续 — identical pinyin
+        // 链电 → lian dian; the recognizer heard 练电 — identical pinyin
+        // (R8 human anchor 2026-09-26; the pre-rename 幻弹/换蛋 anchors died
+        // with the alias rename — 换蛋 is NOT homophonic with 虚影弹)
+        assertFuzzy("练电", "wizardreal:tonitrus");
+        assertFuzzy("练电。", "wizardreal:tonitrus");
+        // 雷序 → lei xu; heard 雷续 — identical pinyin
         assertFuzzy("雷续。", "wizardreal:fulgur");
     }
 

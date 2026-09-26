@@ -128,11 +128,68 @@ public final class SpellMatcher {
      *  </ul> */
     private static float fuzzy(String alias, String text) {
         if (!fuzzyGatesHit(alias, text)) return 0f;
-        return Math.max(similarity(alias, text), Phonetics.score(alias, text));
+        if (!sameScriptFamily(alias, text)) return 0f; // #49② language-consistency gate
+        float literal = similarity(alias, text);
+        // Phonetics-only hits are trusted only while the utterance does NOT
+        // outgrow the alias (see FUZZY_MIN_LITERAL_FOR_PHONETICS) — an
+        // equal-length pure-homophone transcription is a correctly SPOKEN
+        // alias the ASR just spelled with different hanzi.
+        boolean outgrown = normalize(text).length() > normalize(alias).length();
+        if (outgrown && literal < FUZZY_MIN_LITERAL_FOR_PHONETICS) return literal;
+        return Math.max(literal, Phonetics.score(alias, text));
+    }
+
+    /** Coarse script family: CJK (hanzi + kana — ja aliases share the zh
+     *  writing system), LATIN, or MIXED. #49② language-consistency gate: the
+     *  Phonetics layer transliterates EVERYTHING to latin, so an equal-length
+     *  cross-script pair ("今天阳光真好" vs en "catena", literal 0.0) still
+     *  scores ~0.67 through the best-pair average — unrelated scripts must
+     *  never fuzzy-match. MIXED passes (mixed-script aliases are legal). */
+    static boolean sameScriptFamily(String alias, String text) {
+        return scriptFamily(normalize(alias)) == scriptFamily(normalize(text))
+                || scriptFamily(normalize(alias)) == ScriptFamily.MIXED
+                || scriptFamily(normalize(text)) == ScriptFamily.MIXED;
+    }
+
+    enum ScriptFamily { CJK, LATIN, MIXED }
+
+    static ScriptFamily scriptFamily(String s) {
+        boolean cjk = false, latin = false;
+        for (int i = 0; i < s.length(); ) {
+            int cp = s.codePointAt(i);
+            i += Character.charCount(cp);
+            Character.UnicodeBlock b = Character.UnicodeBlock.of(cp);
+            boolean isCjk = (b == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
+                    || b == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
+                    || b == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B
+                    || b == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
+                    || b == Character.UnicodeBlock.HIRAGANA
+                    || b == Character.UnicodeBlock.KATAKANA);
+            if (isCjk) cjk = true;
+            else if ((cp >= 'a' && cp <= 'z') || (cp >= 'A' && cp <= 'Z')) latin = true;
+        }
+        if (cjk && latin) return ScriptFamily.MIXED;
+        if (cjk) return ScriptFamily.CJK;
+        if (latin) return ScriptFamily.LATIN;
+        return ScriptFamily.MIXED; // digits/punct-only: don't gate
     }
 
     /** Floor for the alias's share of the utterance's characters (length filter). */
     private static final double FUZZY_MIN_CHAR_RATIO = 0.5;
+    /** Symmetric ceiling (wr#35, #48 W3): the utterance may outgrow the alias
+     *  by at most this factor. zh chitchat recheck 2026-09-26: 117 negatives
+     *  scored zh FPR 100% (en 0/57 — the length/overlap gates already cover
+     *  latin) because the 0.5 floor alone admits a 6-char sentence against a
+     *  3-char alias at exactly 0.5. Same-length homophone hits are untouched
+     *  ("施暴" for 尸爆, "练电" for 链电). */
+    private static final double FUZZY_MAX_UTTERANCE_RATIO = 1.8;
+    /** Floor on the LITERAL (Levenshtein) similarity for a Phonetics-only hit
+     *  that OUTGROWS the alias: a longer utterance is a sentence that merely
+     *  contains a near-homophone run ("今天阳光真好" → 圣光箭 via the shared
+     *  "guang"), not a spoken alias. Equal-length pure homophones are the
+     *  zh incantation norm and stay exempt (the floor made zh triggers
+     *  collapse to 0/234 — every miss was an equal-length homophone pair). */
+    private static final float FUZZY_MIN_LITERAL_FOR_PHONETICS = 0.4f;
     /** Floor for the share of the alias's own words found in the utterance. */
     private static final double FUZZY_MIN_TOKEN_OVERLAP = 0.5;
 
@@ -141,6 +198,7 @@ public final class SpellMatcher {
         String nt = normalize(text);
         if (na.isEmpty() || nt.isEmpty()) return false;
         if (na.length() < nt.length() * FUZZY_MIN_CHAR_RATIO) return false;
+        if (nt.length() > na.length() * FUZZY_MAX_UTTERANCE_RATIO) return false;
         List<String> a = java.util.Arrays.stream(na.split(" "))
                 .filter(s -> !s.isEmpty()).toList();
         List<String> t = java.util.Arrays.stream(nt.split(" "))

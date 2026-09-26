@@ -226,7 +226,7 @@
       "id": "wizardreal:falsum",
       "aliases": [
         "falsum",
-        "幻弹"
+        "虚影弹"
       ],
       "ipa": [
         "fɑlsəm"
@@ -235,10 +235,20 @@
     {
       "id": "wizardreal:fulgur",
       "aliases": [
-        "雷蓄"
+        "雷序"
       ],
       "ipa": [
         "lei ɕy"
+      ]
+    },
+    {
+      "id": "wizardreal:tonitrus",
+      "aliases": [
+        "链电",
+        "连锁雷"
+      ],
+      "ipa": [
+        "liɛn tiɛn"
       ]
     }
   ],
@@ -431,19 +441,19 @@
       }
     },
     {
-      "id": "v10_zh_pinyin_homophone_near_zh",
+      "id": "v10_zh_homophone_near_zh",
       "lang": "zh",
       "lines": [
         "text"
       ],
       "level": 0,
-      "text": "换蛋",
+      "text": "练电",
       "ipa": "",
       "ctc": {},
       "expected": {
         "decision": "NEAR",
-        "spellId": "wizardreal:falsum",
-        "pronId": "wizardreal:falsum",
+        "spellId": "wizardreal:tonitrus",
+        "pronId": "wizardreal:tonitrus",
         "score": null,
         "altCount": 0,
         "kind": "INSTANT",
