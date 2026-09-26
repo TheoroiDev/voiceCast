@@ -2,7 +2,7 @@
 
 中文对照版；英文为主：[CHANGELOG.md](CHANGELOG.md)（两份保持同步，冲突以英文为准）。
 
-## Unreleased（未发布）
+## 0.5.0（2026-09-27）
 
 ### Features
 
@@ -27,8 +27,6 @@
 - CTC margin 拒识（S6 移植，随契约 v2 沿用）：前两名模板后验差距小于 0.02 的语句（lab 校准：FPR 0.3% / recall 42.8%）整组 CTC 分数清零，模糊胜出不再误发边缘法术——裁定器读取 margin 前的差距，被压制的 top1 本可过 forward 阈值时判 `AMBIGUOUS`。Verbose 日志（`/voicecast verbose`）在该门拒识时打印 top1/top2 后验值与差距——仅排障用，规则本身不变
 - 共享的 Qwen3-ASR 原生识别器缓存改为 LRU 有界——至多 2 个热词集会话（各约 1.5-2.8 GB）+ 1 个钉住的无热词实例——不再按不同施法模式词表无限累积原生会话：切换施法模式不再增长原生内存，被逐出的会话经 sherpa 原生关闭（仍有解码在跑则推迟），同集复用依旧零重载，空转录兜底实例永不多付一次重载
 - 实时部分转写预览（按住 PTT 时的灰色斜体行）暂不可用：0.5.0 的引擎是整句解码器，松开 PTT 才产出文本。客户端预览管线保留，未来接入流式引擎无需协议改动即可恢复
-
-### Changes
 
 - breaking: 文本 NEAR（模糊别名相似度，Tier 3）打分前先过两道经典集合相似度过滤（voiceCast#47 E，"词数相差过大"规则）：**长度过滤**——别名须占转写归一化字符数的一半以上；**重叠系数**——多词别名的词至少一半逐字出现在转写中。此前 best-pair token 均分让别名的每个词都能在背诵长句里找到松散亲戚，无关 trigger 被打到 ~0.75-0.83 并在 idle 误施法（实测：背 "the pyre remembers my name" NEAR 上无关法术并 skip-cast）。半句念唱（"ign"→"ignis"）、ASR 误听（"falsome"→"falsum"、换蛋→虚影弹）与 CJK 单词别名不受影响（单 token 对跳过门控）。音素层（Tier 4）保持全长关键词句内检测不变——覆盖率地板实验翻转的 23 个 fast-fixture 用例全是真阳性（句子确实包含 trigger 词）。两条 c1b 等价向量按新裁定修订（v14 失去一个跨法术模糊 runner-up；v42 负句用例改判 AMBIGUOUS——原钉住的 NEAR ignis 正是此类 bug；wizardreal 侧字节级同源副本已同步）
 

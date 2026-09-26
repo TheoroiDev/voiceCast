@@ -2,7 +2,7 @@
 
 English primary; Chinese mirror: [CHANGELOG.zh.md](CHANGELOG.zh.md) (keep both in sync, English wins on conflict).
 
-## Unreleased
+## 0.5.0 (2026-09-27)
 
 ### Features
 
