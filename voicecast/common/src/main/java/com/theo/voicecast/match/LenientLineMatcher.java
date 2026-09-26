@@ -16,8 +16,8 @@ public final class LenientLineMatcher implements ChantLineMatcher {
     private LenientLineMatcher() {}
 
     @Override
-    public LineMatch match(List<String> lineIpa, List<String> aliases,
-                           String heard, List<String> heardIpa) {
+    public LineMatch match(String linePronId, List<String> lineIpa, List<String> aliases,
+                           String heard, List<String> heardIpa, ChantVerdict verdict) {
         if (heardIpa != null && !heardIpa.isEmpty() && lineIpa != null && !lineIpa.isEmpty()) {
             String ipaText = String.join(" ", heardIpa);
             for (String templ : lineIpa) {
