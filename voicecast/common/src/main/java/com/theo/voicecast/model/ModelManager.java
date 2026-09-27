@@ -134,7 +134,24 @@ public final class ModelManager {
         // run crashed mid-download) can never destroy an installation.
         Path staging = dir.resolveSibling(dir.getFileName() + ".download");
         try {
+            // voiceCast#51 断点续传: *.part files survive the staging wipe — a
+            // crashed download resumes from its partial bytes on the next run.
+            List<Path> parts = new ArrayList<>();
+            if (Files.isDirectory(staging)) {
+                try (var stream = Files.list(staging)) {
+                    parts = stream.filter(p -> p.getFileName().toString().endsWith(".part")).toList();
+                }
+                for (Path part : parts) {
+                    Files.move(part, staging.resolveSibling(part.getFileName().toString() + ".keep"),
+                            StandardCopyOption.REPLACE_EXISTING);
+                }
+            }
             deleteRecursively(staging);
+            Files.createDirectories(staging);
+            for (Path part : parts) {
+                Files.move(staging.resolveSibling(part.getFileName().toString() + ".keep"),
+                        part, StandardCopyOption.REPLACE_EXISTING);
+            }
         } catch (IOException e) {
             throw new IOException("Could not clear download staging dir " + staging, e);
         }
@@ -226,55 +243,79 @@ public final class ModelManager {
      * the archive downloads (sherpa tar.bz2) route through this so proxy/retry
      * behaviour is identical for every model.
      */
+    /**
+     * Shared HTTP fetch with RESUME (voiceCast#51): partial bytes live at
+     * {@code target + ".part"}; when present, the request carries
+     * {@code Range: bytes=<size>-} and a 206 response appends to the part
+     * file (a 200 means the server ignored Range — restart from zero). The
+     * completed part is SHA-256-verified whole, then atomically moved into
+     * place, so an interrupted download never leaves a half-verified file at
+     * {@code target}. Part files survive mirror switches (the bytes are
+     * identical across mirrors of the same asset).
+     */
     private void fetchUrlToFile(String url, Path target, String expectedSha256,
                                 DownloadListener progress) throws IOException {
+        Path part = target.resolveSibling(target.getFileName() + ".part");
+        long already = Files.isRegularFile(part) ? Files.size(part) : 0;
+
         HttpURLConnection conn = openConnection(URI.create(url));
         conn.setConnectTimeout(15_000);
         conn.setReadTimeout(120_000);
         conn.setInstanceFollowRedirects(true);
         conn.setRequestProperty("User-Agent", "VoiceCast/0.1.0");
-        long total = conn.getContentLengthLong();
+        if (already > 0) {
+            conn.setRequestProperty("Range", "bytes=" + already + "-");
+        }
         int code = conn.getResponseCode();
         if (code < 200 || code >= 300) {
             conn.disconnect();
             throw new IOException("HTTP " + code + " for " + url);
         }
+        boolean resuming = already > 0 && code == 206;
+        long doneBase = resuming ? already : 0;
+        long total = conn.getContentLengthLong();
+        if (total > 0) total += doneBase;
+
         long done;
         try (InputStream in = conn.getInputStream()) {
             byte[] buf = new byte[65536];
             done = 0;
             long lastReport = 0;
-            try (var out = Files.newOutputStream(target,
-                    StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE)) {
+            var opts = resuming
+                    ? new StandardOpenOption[]{StandardOpenOption.CREATE, StandardOpenOption.APPEND, StandardOpenOption.WRITE}
+                    : new StandardOpenOption[]{StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING, StandardOpenOption.WRITE};
+            try (var out = Files.newOutputStream(part, opts)) {
                 int r;
                 while ((r = in.read(buf)) > 0) {
                     out.write(buf, 0, r);
                     done += r;
-                    if (progress != null && done - lastReport > 1_000_000) {
-                        progress.onProgress(done, total);
+                    if (progress != null && doneBase + done - lastReport > 1_000_000) {
+                        progress.onProgress(doneBase + done, total);
                         lastReport = done;
                     }
                 }
             }
-            if (progress != null) progress.onProgress(done, total);
+            if (progress != null) progress.onProgress(doneBase + done, total);
         } finally {
             conn.disconnect();
         }
         // Treat an empty (or truncated) body as a failure so callers retry / fall
         // back to another mirror instead of silently shipping a 0-byte model.
-        if (done == 0) {
+        if (done == 0 && !resuming) {
             throw new IOException("Downloaded 0 bytes from " + url);
         }
-        if (total > 0 && done < total) {
-            throw new IOException("Truncated download from " + url + " (" + done + "/" + total + " bytes)");
+        if (total > 0 && doneBase + done < total) {
+            throw new IOException("Truncated download from " + url + " ("
+                    + (doneBase + done) + "/" + total + " bytes)");
         }
         if (expectedSha256 != null && !expectedSha256.isBlank()) {
-            String actual = sha256(target);
+            String actual = sha256(part);
             if (!actual.equalsIgnoreCase(expectedSha256)) {
                 throw new IOException("SHA256 mismatch for " + target.getFileName()
                         + ": expected " + expectedSha256 + " got " + actual);
             }
         }
+        Files.move(part, target, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
     }
 
     /**
@@ -564,6 +605,17 @@ public final class ModelManager {
 
     /** SHA-256 of a file (hex). Package-visible for the installed-cache re-checks
      *  in {@link ZipaModel}/{@link SherpaModel} (R2 F-B1). */
+    /** Test seam: hash an in-memory payload with the same digest the
+     *  downloader verifies against. */
+    static String sha256ForTest(byte[] data) {
+        try {
+            var md = MessageDigest.getInstance("SHA-256");
+            return HexFormat.of().formatHex(md.digest(data));
+        } catch (java.security.NoSuchAlgorithmException e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
     static String sha256(Path p) throws IOException {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");

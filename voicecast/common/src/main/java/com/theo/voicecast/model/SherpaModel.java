@@ -159,6 +159,15 @@ public final class SherpaModel {
      * so the counter visibly ticks every ~1 MB (a "%.1f GB" display would sit
      * frozen on the same value for ~100 MB stretches, reading as a stall).
      */
+    /** Download progress line for the recognizer-state broadcast: a
+     *  percentage when the total is known, a byte count otherwise. */
+    public static String describeProgress(long done, long total) {
+        if (total > 0) {
+            return String.format(java.util.Locale.ROOT, "%d%% (%s)", done * 100 / total, describeSize(done));
+        }
+        return describeSize(done);
+    }
+
     public static String describeSize(long bytes) {
         if (bytes >= 10L << 30) return String.format(java.util.Locale.ROOT, "%.2f GB", bytes / 1073741824.0);
         if (bytes >= 1L << 20) return String.format(java.util.Locale.ROOT, "%.0f MB", bytes / 1048576.0);

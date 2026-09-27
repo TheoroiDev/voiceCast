@@ -312,7 +312,7 @@ public enum VoiceCastServer {
                 if (config.autoDownload) {
                     if (entry == null) throw new java.io.IOException("No model configured for engine " + engine);
                     dir = ZipaModel.resolveOrDownload(runDir, modelConfig, entry, (done, total) ->
-                            broadcastState(RecognizerState.LOADING, "voicecast.state.downloading_ipa", SherpaModel.describeSize(done)));
+                            broadcastState(RecognizerState.LOADING, "voicecast.state.downloading_ipa", SherpaModel.describeProgress(done, total)));
                 } else {
                     dir = ZipaModel.directory(runDir, entry.id());
                     if (!ZipaModel.isValidModelDir(dir, entry))
@@ -325,7 +325,7 @@ public enum VoiceCastServer {
                 if (config.autoDownload) {
                     if (entry == null) throw new java.io.IOException("No model configured for engine " + engine);
                     SherpaModel.resolveOrDownload(runDir, modelConfig, entry, (done, total) ->
-                            broadcastState(RecognizerState.LOADING, "voicecast.state.downloading_model", SherpaModel.describeSize(done)));
+                            broadcastState(RecognizerState.LOADING, "voicecast.state.downloading_model", SherpaModel.describeProgress(done, total)));
                 } else {
                     Path dir = runDir.resolve("config/voicecast/models").resolve(entry.id());
                     if (!SherpaModel.isPlausiblyComplete(dir, entry))

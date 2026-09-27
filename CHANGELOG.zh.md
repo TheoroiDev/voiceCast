@@ -6,6 +6,8 @@
 
 ### Features
 
+- 首启模型下载器完成（voiceCast#51 混合方案）：全新安装现在从本项目托管的 GitHub Release 下载 qwen3 模型包——识别状态实时显示进度（百分比+字节）、逐字节 SHA-256 校验、真·断点续传（`.part` + HTTP Range，中断/换镜像/重试/跨重启都从断点继续，不再从头下载）
+- GTCRN 降噪模型（524 KB）随 jar 分发、首次使用时本地提取——最小的必需模型不再依赖网络；ZIPA 文件新增项目自托管镜像（优先于上游 Hugging Face 源）
 - Qwen3 解码语言锁定（voiceCast#49）：会话路由后只剩**单一**语言桶时（`[voice] languages="en"`），引擎经 sherpa 原生流级 `language` 选项把解码锁定到该语言——开放多语解码会让热词偏置的英文语句转写成中文并误施中文法术（lab 复现：fulmen → 法门）。默认 `auto`；`language_lock="off"` 恢复开放解码；其它值原样透传作为语言名（服务端覆写）。多语言会话刻意保持开放——锁错比不锁更糟（中文语音在 English 锁下会转成拼音）；识别结果现在携带**实际**解码语言（空 = 开放多语），不再填会话配置投影
 
 - breaking: IPA CTC 后验校准（R3/R5 移植）：词表模板按 token 数归一的 forward log-prob（lp/L）与原始帧和 null 竞争者做 softmax，且模型词表无词界 token 时多词模板改为拼接而非丢弃——生产规模词表上，按重标定默认阈值非咒语误接收从 82% 降至 2.6%（新 per-token 量级下 0.6 阈值语义失效；下游 `[match] forwardThreshold` 0.10（原下游常量），既有 per-spell threshold 覆盖须重新标定）
@@ -101,6 +103,7 @@
 
 ### Packaging
 
+- common jar 内新增 524 KB GTCRN 降噪权重（`assets/voicecast/models/gtcrn_simple.onnx`，MIT）
 - IPA 模型仅发 q4 ONNX（float32 回退移除）；保留全平台 ONNX Runtime natives 供专用服务器
 - `config/` gitignore 规则收窄到运行目录
 

@@ -6,6 +6,8 @@ English primary; Chinese mirror: [CHANGELOG.zh.md](CHANGELOG.zh.md) (keep both i
 
 ### Features
 
+- First-launch model downloader completed (voiceCast#51 混合方案): a fresh install now downloads the qwen3 archive from our hosted GitHub Release with a live progress readout (percentage + bytes in the recognizer state), full SHA-256 verification, and true resume — an interrupted download continues from its partial bytes (`.part` + HTTP Range) across restarts, mirror switches and retries instead of starting over
+- The GTCRN denoiser model (524 KB) now ships inside the jar and is extracted on first use — the smallest required model no longer needs any network access; the ZIPA files gained a project-hosted mirror tried before the upstream Hugging Face sources
 - Qwen3 decode language lock (voiceCast#49): the engine now constrains decoding to the session language via sherpa's native per-stream `language` option when the routed session has exactly ONE language bucket (`[voice] languages="en"` locks English) — open-multilingual decoding let a hotword-biased English utterance come back as Chinese text and cast a zh spell (reproduced in the lab: fulmen → 法门). `auto` is the default; `language_lock="off"` restores open decoding and any other value passes through verbatim as the language name (server-side override). Multi-bucket sessions deliberately stay open — a WRONG lock is worse than none (a zh utterance under English decodes as pinyin); report results now carry the ACTUAL decode language (empty = open) instead of the session config projection
 
 - breaking: IPA CTC posterior calibration (R3/R5 port): vocabulary templates score forward-log-prob per token (lp/L) against a raw frame-sum null competitor, and multi-word templates concatenate instead of being dropped when the model vocab has no word-marker token — on the production-scale vocabulary this cuts non-spell false-accepts from 82% to 2.6% at the retuned default threshold (0.6 semantics are void under the new per-token scale; the forward threshold is the voicecast config key `[match] forwardThreshold` (0.10) and pre-existing per-spell threshold overrides must be re-tuned)
@@ -101,6 +103,7 @@ English primary; Chinese mirror: [CHANGELOG.zh.md](CHANGELOG.zh.md) (keep both i
 
 ### Packaging
 
+- the common jar now bundles the 524 KB GTCRN denoiser weights (`assets/voicecast/models/gtcrn_simple.onnx`, MIT)
 - IPA model ships q4 ONNX only (the float32 fallback was dropped); full-platform ONNX Runtime natives retained for dedicated servers
 - `config/` gitignore rule scoped to run directories
 

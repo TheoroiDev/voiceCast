@@ -353,23 +353,32 @@ public final class ModelConfig {
         Map<String, Object> gtcrnProps = new LinkedHashMap<>();
         gtcrnProps.put("type", "denoiser");
 
-        // Official sherpa-onnx release archive (the only verified source; the
-        // 1.7B model has no official sherpa package — trigger-tracked, not shipped).
-        String qwen3Url = "https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/"
+        // voiceCast#51 首启下载器: the qwen3 archive is SELF-HOSTED on this
+        // project's GitHub Releases with its SHA-256 pinned below — the
+        // downloader verifies every byte. The official k2-fsa archive cannot
+        // serve as a fallback mirror (its packaging differs, so its digest
+        // differs; the pinned sha wins). GitHub reachability concerns are
+        // handled by the existing proxy detection + resume support.
+        String qwen3Url = "https://github.com/TheoroiDev/voiceCast/releases/download/models-1/"
                 + "sherpa-onnx-qwen3-asr-0.6B-int8-2026-03-25.tar.bz2";
 
+        // voiceCast#51: our own GitHub Release mirrors the upstream files
+        // (same bytes, pinned by the sha256 entries below) — tried FIRST so
+        // players get a stable, project-controlled source; the upstream HF
+        // and its cn-friendly mirror remain as fallbacks.
+        String zipaSelf = "https://github.com/TheoroiDev/voiceCast/releases/download/models-1";
         String zipaHf = "https://huggingface.co/anyspeech/zipa-small-crctc-ns-no-diacritics-700k/resolve/main";
         String zipaMirror = "https://hf-mirror.com/anyspeech/zipa-small-crctc-ns-no-diacritics-700k/resolve/main";
         Map<String, Object> zipaModel = new LinkedHashMap<>();
         zipaModel.put("name", "model.int8.onnx");
         zipaModel.put("minBytes", 60L * 1024 * 1024);
         zipaModel.put("sha256", "e79c5ec351001b8d1d05c167e5cb294c84dd616dc1733479b05971b953378c9a");
-        zipaModel.put("urls", List.of(zipaHf + "/model.int8.onnx", zipaMirror + "/model.int8.onnx"));
+        zipaModel.put("urls", List.of(zipaSelf + "/model.int8.onnx", zipaHf + "/model.int8.onnx", zipaMirror + "/model.int8.onnx"));
         Map<String, Object> zipaTokens = new LinkedHashMap<>();
         zipaTokens.put("name", "tokens.txt");
         zipaTokens.put("minBytes", 1L);
         zipaTokens.put("sha256", "f8e042a0c9130532b22d03ec7cae2f75a23fbec70c450c31a8efb51787b2b8fe");
-        zipaTokens.put("urls", List.of(zipaHf + "/tokens.txt", zipaMirror + "/tokens.txt"));
+        zipaTokens.put("urls", List.of(zipaSelf + "/tokens.txt", zipaHf + "/tokens.txt", zipaMirror + "/tokens.txt"));
 
         Map<String, Object> gtcrnFile = new LinkedHashMap<>();
         gtcrnFile.put("name", "gtcrn_simple.onnx");
@@ -382,9 +391,10 @@ public final class ModelConfig {
         models.put("qwen3-asr-0.6b-int8", model(qwen3Props,
                 Map.of("kind", KIND_SHERPA_ARCHIVE,
                         "urls", List.of(qwen3Url),
-                        // sha256: no official value published for this asset; the
-                        // size gate (from the GitHub release API) is the integrity check
-                        "size_bytes", 878_702_423L)));
+                        // Deterministic repack of the extracted model dir; the
+                        // downloader verifies every byte against this digest.
+                        "sha256", "736234c3b31a23d928abfd05af0ed17ffa7ebab591166c4ac69f12347f564c7b",
+                        "size_bytes", 878_717_382L)));
         models.put("zipa-ipa", model(ipaProps,
                 Map.of("kind", KIND_LOOSE_FILES, "files", List.of(zipaModel, zipaTokens))));
         models.put("gtcrn-simple-denoiser", model(gtcrnProps,
