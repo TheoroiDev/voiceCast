@@ -48,27 +48,11 @@ tasks.matching { it.name in ["runClient", "runServer"] }.configureEach {
 // Loom caches remapped mavenLocal jars under <repo>/.gradle/loom-cache/
 // remapped_mods keyed by coordinates — republishing voicecast to mavenLocal
 // does NOT invalidate them, so dev runs silently keep using the old jar
-// (AGENTS.md troubleshooting entry). -PwipeRemappedCache=true registers a
-// task that deletes remapped/com/theo before build/runClient/runServer;
-// without the property nothing changes.
-if (project.findProperty("wipeRemappedCache") == "true") {
-    def wipeRemappedDir = rootProject.file(".gradle/loom-cache/remapped_mods/remapped/com/theo")
-    def wipeRemappedTask = tasks.register("wipeRemappedCache") {
-        group = "wizard dev"
-        description = "Delete the loom remapped_mods cache for com.theo (stale mavenLocal remaps)."
-        doLast {
-            if (wipeRemappedDir.isDirectory()) {
-                project.delete(wipeRemappedDir)
-                project.logger.lifecycle("wipeRemappedCache: deleted ${wipeRemappedDir}")
-            } else {
-                project.logger.lifecycle("wipeRemappedCache: nothing to delete at ${wipeRemappedDir}")
-            }
-        }
-    }
-    tasks.matching { it.name in ["build", "runClient", "runServer"] }.configureEach {
-        dependsOn wipeRemappedTask
-    }
-}
+// (AGENTS.md troubleshooting entry). Model-download/remap cache wiping is
+// deliberately NOT automated inside the build (wizardReal#51): any in-build
+// deletion races with loom's configuration-time remap staging. When voicecast
+// is republished to mavenLocal, wipe the cache manually first:
+//   ./gradlew --stop && rm -rf .gradle/loom-cache/remapped_mods && ./gradlew build
 
 // ---- dev run auto-configuration ------------------------------------------
 
