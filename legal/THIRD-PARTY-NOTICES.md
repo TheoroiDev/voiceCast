@@ -64,9 +64,9 @@ each subproject's build scripts and mod manifests.
   <https://github.com/QwenLM/Qwen3-ASR>, `license: apache-2.0` on the
   Hugging Face weights); exported and published as the official sherpa-onnx
   release archive by the k2-fsa project (see
-  <https://github.com/k2-fsa/sherpa-onnx>), byte-identical repack
-  self-hosted on this project's Releases (voiceCast#51). Apache-2.0 permits
-  redistribution; retain the license and attribution when re-hosting.
+  <https://github.com/k2-fsa/sherpa-onnx>). Apache-2.0 permits redistribution; the project does NOT re-host or
+  redistribute model weights — players download from the official sources
+  after explicitly accepting each model's license (voiceCast#51).
 - **ZIPA IPA phoneme model, ONNX int8** (`model.int8.onnx` + `tokens.txt`,
   `zipa-small-crctc-ns-no-diacritics-700k`): downloaded at runtime into
   `config/voicecast/models/`, never shipped inside the jars. MIT — upstream
@@ -75,8 +75,9 @@ each subproject's build scripts and mod manifests.
   Hugging Face organization (see
   <https://huggingface.co/anyspeech/zipa-small-crctc-ns-no-diacritics-700k>;
   that repo card carries no explicit license tag — the governing upstream
-  project license is MIT), with a byte-identical self-hosted mirror on this
-  project's Releases (voiceCast#51).
+  project license is MIT; the project does NOT re-host these weights —
+  players download from the official sources after explicitly accepting the
+  license (voiceCast#51).
 - **GTCRN noise-suppression model** (`gtcrn_simple.onnx`, ~523 KB): downloaded
   at runtime when `[client] noiseSuppression` is enabled. MIT — Copyright (c)
   2024 Xiaobin Rong (see <https://github.com/Xiaobin-Rong/gtcrn>).

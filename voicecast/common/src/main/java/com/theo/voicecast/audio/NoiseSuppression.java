@@ -61,22 +61,7 @@ public final class NoiseSuppression {
                 Path p = dir.resolve(f.name());
                 if (!Files.isRegularFile(p) || Files.size(p) < Math.max(1, f.minBytes())) {
                     Files.createDirectories(dir);
-                    // voiceCast#51 混合方案: the 524 KB GTCRN denoiser ships
-                    // INSIDE the jar (MIT, redistribution cleared) — extract
-                    // from the classpath instead of downloading. The catalog
-                    // URLs stay as the fallback when the resource is absent.
-                    boolean extracted = false;
-                    try (java.io.InputStream bundled = NoiseSuppression.class
-                            .getResourceAsStream("/assets/voicecast/models/" + f.name())) {
-                        if (bundled != null) {
-                            Files.copy(bundled, p, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-                            extracted = true;
-                            LOGGER.info("Extracted bundled denoiser model {}", p.getFileName());
-                        }
-                    }
-                    if (!extracted) {
-                        mgr.downloadFile(entry.id(), f.name(), f.urls(), f.sha256(), (done, total) -> { }, f.minBytes());
-                    }
+                    mgr.downloadFile(entry.id(), f.name(), f.urls(), f.sha256(), (done, total) -> { }, f.minBytes());
                 }
             }
             Path model = dir.resolve(entry.files().get(0).name());
