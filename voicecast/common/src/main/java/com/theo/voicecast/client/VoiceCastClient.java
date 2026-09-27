@@ -223,8 +223,7 @@ public enum VoiceCastClient {
             if (!cfg.noiseSuppression) return null;
             var modelConfig = com.theo.voicecast.model.ModelConfig.load(dir);
             return com.theo.voicecast.audio.NoiseSuppression.create(
-                    dir, modelConfig, cfg::licenseAccepted,
-                    (modelId, ignored) -> cfg.acceptLicense(dir, modelId));
+                    dir, modelConfig, cfg::licenseAccepted);
         } catch (Throwable t) {
             com.theo.voicecast.VoiceCast.LOGGER.warn("Noise suppression unavailable (continuing without)", t);
             return null;

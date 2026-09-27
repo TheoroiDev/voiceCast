@@ -45,6 +45,7 @@ Applies immediately; remembered in `config/voicecast/voicecast.toml` under `[cli
 
 ## Model download fails (server)
 
+- "model license not accepted for '<model>'": run `/voicecast licenses` to see each model's license and acceptance state, then `/voicecast licenses accept` as an operator (voiceCast#51 consent gate). The client-side denoiser has the same pair in the client command tree;
 - Proxy: `-Dhttps.proxyHost=<host> -Dhttps.proxyPort=<port>` (the downloader also detects `HTTPS_PROXY`);
 - Self-host / change mirrors: `config/voicecast/models.json`;
 - Fully offline: `[server] autoDownload = false` + manual placement — details in [Configuration](Configuration).

@@ -24,7 +24,7 @@ Via the Mod Menu / Mods-list **config button**, or the `/voicecast settings` com
 | **Utterance recognition** `qwen3-asr-0.6b-int8` | ~880 MB | Free-form spoken triggers and chant lines in en/zh/ja/ko/yue/de/fr/es/ru (default) |
 | **Phoneme recognition (IPA)** `zipa-ipa` | ~70 MB | Pronouncing Latin/English/Chinese/Japanese incantations (phoneme matching) |
 
-The model downloads **once** on first selection into `config/voicecast/models/` (sha256-verified). The Qwen3-ASR model comes from the official **sherpa-onnx GitHub release**; the **IPA (ZIPA)** model comes from HuggingFace with the hf-mirror.com mirror — you can add your own mirrors in `models.json`. Switch any time:
+The model downloads **once** on first selection into `config/voicecast/models/` (checksum-verified) — on a server you (or an op) accept the model license first via `/voicecast licenses accept`; on single-player the same command accepts it for your game. See [Server Setup](Server-Setup). The Qwen3-ASR model comes from the official **sherpa-onnx GitHub release**; the **IPA (ZIPA)** model comes from HuggingFace with the hf-mirror.com mirror — you can add your own mirrors in `models.json`. Switch any time:
 
 ```
 /voicecast engine en      # utterance recognition (Qwen3-ASR, default)

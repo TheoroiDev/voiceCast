@@ -6,7 +6,7 @@
 
 Full math in the project's internal capacity analysis — this page is the cheat sheet.
 
-> **Baseline: 0.5.0 engine swap (Qwen3-ASR + ZIPA).** File sizes are read off the shipped
+> **Baseline: 0.5.0 engine swap (Qwen3-ASR + ZIPA).** File sizes are read off the downloaded
 > models; RAM/RTF figures come from the engine-swap lab bench (L1: n=1660 clips; L2b: hotworded
 > Qwen3 runs) until a production measured pass lands.
 
@@ -20,7 +20,7 @@ Full math in the project's internal capacity analysis — this page is the cheat
 | CPU (Qwen3-ASR) | lab RTF median 0.165–0.170 hotworded @ 8 threads (single-row max spikes recorded) | decode is serialized per shared instance — CPU scales with speaking time, not session count |
 | CPU (IPA / ZIPA) | lab RTF 0.014 mean / p95 0.021 (n=1660 clips) | decoded on a shared pool fixed at `min(4, cores-1)` threads |
 
-Disk: the shipped model set is ~1.0 GB (Qwen3-ASR ~950 MB extracted + ZIPA 70 MB + the 0.5 MB gtcrn denoiser). Run dirs **hardlink** the workspace copies, so seeded run dirs add no extra disk on the same volume.
+Disk: the downloaded model set is ~1.0 GB (Qwen3-ASR ~950 MB extracted + ZIPA 70 MB + the 0.5 MB gtcrn denoiser). Run dirs **hardlink** the workspace copies, so seeded run dirs add no extra disk on the same volume.
 
 ## Capacity cheat sheet
 

@@ -45,6 +45,7 @@
 
 ## 模型下载失败（服务器）
 
+- “model license not accepted for '<模型>'”：先 `/voicecast licenses` 查看各模型的许可与接受状态，再以 OP 执行 `/voicecast licenses accept`（voiceCast#51 同意门）。客户端降噪模型在客户端命令树里有同样一组命令；
 - 代理：`-Dhttps.proxyHost=<host> -Dhttps.proxyPort=<port>`（下载器也会探测 `HTTPS_PROXY`）；
 - 自托管/换镜像：`config/voicecast/models.json`；
 - 完全离线：`[server] autoDownload = false` + 手动放置——详见[配置参考](Configuration-zh)。

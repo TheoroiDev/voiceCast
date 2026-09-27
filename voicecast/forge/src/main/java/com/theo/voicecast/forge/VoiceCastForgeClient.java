@@ -58,6 +58,10 @@ public final class VoiceCastForgeClient {
                         .executes(ctx -> send(ctx.getSource(), VoiceCastClientDebug.toggleDebugWav())))
                 .then(Commands.literal("status")
                         .executes(ctx -> send(ctx.getSource(), VoiceCastClientDebug.status())))
+                .then(Commands.literal("licenses")
+                        .executes(ctx -> send(ctx.getSource(), VoiceCastClientDebug.licenses()))
+                        .then(Commands.literal("accept")
+                                .executes(ctx -> send(ctx.getSource(), VoiceCastClientDebug.licensesAccept()))))
                 .then(Commands.literal("engine")
                         .executes(ctx -> {
                             EnginePicker.currentEngineFeedback();

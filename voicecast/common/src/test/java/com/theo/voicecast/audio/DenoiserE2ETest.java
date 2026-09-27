@@ -24,7 +24,7 @@ class DenoiserE2ETest {
     void realDenoiserCleansNoisySpeech() throws Exception {
         Path gameDir = Files.createTempDirectory("voicecast-e2e-denoiser");
         ModelConfig config = ModelConfig.load(gameDir);
-        NoiseSuppression ns = NoiseSuppression.create(gameDir, config, null, null);
+        NoiseSuppression ns = NoiseSuppression.create(gameDir, config, null);
         assertNotNull(ns, "denoiser must initialize against the default catalog");
 
         // k2-fsa's own noisy-speech sample (16 kHz/16-bit/mono); downloadFile

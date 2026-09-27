@@ -2,13 +2,22 @@
 
 English primary; Chinese mirror: [CHANGELOG.zh.md](CHANGELOG.zh.md) (keep both in sync, English wins on conflict).
 
+## Unreleased
+
+### Bugfixes
+
+- The client-side noise-suppression license gate is now actually operable: its message pointed at the SERVER's `/voicecast licenses accept` (which writes `[modelLicenses]`), so the client denoiser could never be unlocked. The client command tree gains `/voicecast licenses` (lists every catalog model's license and acceptance state) and `/voicecast licenses accept` (records into `[client].acceptedLicenses`) (voiceCast#51)
+- `/voicecast licenses` list + accept now cover ALL catalog models including the denoiser (previously engine models only) (voiceCast#51)
+- Recognizer-creation paths that bypass the first-launch downloader (re-resolve after a model directory was wiped or corrupted) now run the same license-consent and autoDownload gates as the first launch, instead of silently re-downloading (voiceCast#51)
+
+### Changes
+
+- Model downloads RESUME: an interrupted download continues from its partial bytes (HTTP Range + `.part`) across retries and server restarts instead of starting over; the recognizer-state readout shows a download percentage. Verification is per source: a pinned SHA-256 where the upstream publishes one, a size gate where it does not. Per-model license metadata stays exposed to addon authors via the catalog (`license.name`/`license.url`, voiceCast#51)
+
 ## 0.5.0 (2026-09-27)
 
 ### Features
 
-- Model license consent gate (voiceCast#51): before the downloader fetches any model, the server owner (single-system players: you are the op) must explicitly accept that model's license terms — `/voicecast licenses` lists every model with its license (name + upstream link) and acceptance state; `/voicecast licenses accept` records it in `voicecast.toml [modelLicenses]` and retries the default engine. Until accepted the engine stays unloaded with a message pointing at the command; acceptance is per model and survives restarts
-- First-launch model downloader completed (voiceCast#51 混合方案): a fresh install now downloads the qwen3 archive from our hosted GitHub Release with a live progress readout (percentage + bytes in the recognizer state), full SHA-256 verification, and true resume — an interrupted download continues from its partial bytes (`.part` + HTTP Range) across restarts, mirror switches and retries instead of starting over
-- The GTCRN denoiser model (524 KB) now ships inside the jar and is extracted on first use — the smallest required model no longer needs any network access; the ZIPA files gained a project-hosted mirror tried before the upstream Hugging Face sources
 - Qwen3 decode language lock (voiceCast#49): the engine now constrains decoding to the session language via sherpa's native per-stream `language` option when the routed session has exactly ONE language bucket (`[voice] languages="en"` locks English) — open-multilingual decoding let a hotword-biased English utterance come back as Chinese text and cast a zh spell (reproduced in the lab: fulmen → 法门). `auto` is the default; `language_lock="off"` restores open decoding and any other value passes through verbatim as the language name (server-side override). Multi-bucket sessions deliberately stay open — a WRONG lock is worse than none (a zh utterance under English decodes as pinyin); report results now carry the ACTUAL decode language (empty = open) instead of the session config projection
 
 - breaking: IPA CTC posterior calibration (R3/R5 port): vocabulary templates score forward-log-prob per token (lp/L) against a raw frame-sum null competitor, and multi-word templates concatenate instead of being dropped when the model vocab has no word-marker token — on the production-scale vocabulary this cuts non-spell false-accepts from 82% to 2.6% at the retuned default threshold (0.6 semantics are void under the new per-token scale; the forward threshold is the voicecast config key `[match] forwardThreshold` (0.10) and pre-existing per-spell threshold overrides must be re-tuned)
@@ -21,7 +30,6 @@ English primary; Chinese mirror: [CHANGELOG.zh.md](CHANGELOG.zh.md) (keep both i
 
 ### Changes
 
-- Model downloads now RESUME: an interrupted download continues from its partial bytes (HTTP Range + `.part`) across retries, mirror switches and server restarts, instead of starting over; the recognizer-state readout shows a download percentage; per-model license metadata is exposed to addon authors via the catalog (`license.name`/`license.url`, voiceCast#51)
 - Tier3 fuzzy matching gains three guards (voiceCast#48 W3, wr#35, #49②), calibrated on 117 chitchat negatives + 234 zh trigger positives: a script-family gate (a CJK transcript never fuzzy-matches a latin alias and vice versa — the phonetics layer transliterates everything, so equal-length cross-script pairs scored ~0.67 on literal 0.0), a symmetric length window (the utterance may outgrow the alias by at most 1.8× — a 6-char chitchat sentence slipped the old 0.5 floor against a 3-char alias at exactly 0.5), and a literal floor of 0.4 for outgrowing utterances only (an EQUAL-length pure-homophone transcription is a correctly spoken zh alias the ASR spelled with different hanzi — 施暴 for 尸爆 — and stays exempt). zh chitchat FPR 100% → 0% (en 0% unchanged), zh trigger hit 94.4% → 95.7%
 
 

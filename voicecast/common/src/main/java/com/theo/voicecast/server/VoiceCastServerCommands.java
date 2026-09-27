@@ -122,7 +122,7 @@ public final class VoiceCastServerCommands {
         VoiceCastServer s = server();
         List<String> lines = new ArrayList<>();
         lines.add("model licenses (downloads are blocked until a model is accepted):");
-        for (String id : s.catalogModelIds()) {
+        for (String id : s.allModelIds()) {
             var entry = s.catalogModel(id);
             String lic = entry == null || entry.license() == null
                     ? "unspecified"
@@ -144,13 +144,14 @@ public final class VoiceCastServerCommands {
             send(ctx, List.of("voicecast server not started"));
             return 0;
         }
-        for (String id : s.catalogModelIds()) {
+        for (String id : s.allModelIds()) {
             s.config().acceptLicense(s.runDir(), id);
         }
         int n = s.config().acceptedLicenses.size();
         // Un-block the default engine: the license gate previously failed it.
         s.requestEngine(s.defaultEngineId(), true);
-        send(ctx, List.of("accepted license terms for " + n + " model(s); retrying the default engine"));
+        send(ctx, List.of("accepted license terms for " + n + " model(s); retrying the default engine"
+                + " (other engines load on first selection, no extra confirmation needed)"));
         return Command.SINGLE_SUCCESS;
     }
 

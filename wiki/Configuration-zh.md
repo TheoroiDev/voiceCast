@@ -79,7 +79,8 @@ noiseSuppression = false      # 识别通路麦克风采播降噪（GTCRN）；�
     },
     "gtcrn-simple-denoiser": {
       "properties": { "type": "denoiser" },
-      "source": { "kind": "loose-files", "files": [ { "name": "gtcrn_simple.onnx", "minBytes": 400000, "urls": ["..."] } ] }
+      "source": { "kind": "loose-files", "files": [ { "name": "gtcrn_simple.onnx", "minBytes": 400000, "urls": ["..."] } ],
+                  "license": { "name": "MIT", "url": "<上游许可链接>" } }
     }
   },
   "mirrorProbe": { "enabled": true, "probeBytes": 262144, "timeoutMs": 5000, "minFileSizeBytes": 8388608 }
@@ -91,8 +92,9 @@ noiseSuppression = false      # 识别通路麦克风采播降噪（GTCRN）；�
 - **一个模型 = 一个引擎**：模型名兼作引擎 id 与模型目录名；没有独立的 `engines` 节；
 - **语言默认按声明顺序**：第一个 `lang` 包含某语言的模型即为该语言默认（`/voicecast engine en` 选中它）；
 - **`properties.type`**：`offline`（整句 ASR）、`ipa`（音素）、`denoiser`（辅助增强模型——走同一下载管线但绝不作为引擎列出/选择）；`properties.family` 决定引擎族——仅 ipa 类有默认推导，其余（如 `sherpa-qwen3`）必须显式声明；
+- **`source.license`**（voiceCast#51）：为每个模型声明许可（`name` + 上游 `url`）——同意门据此生成 `/voicecast licenses` 清单；没有 license 块的模型显示 "unspecified"，下载前同样需要接受；
 - **多镜像测速**：`source.urls` 配多个地址时并发 Range-GET 探测吞吐，**最快者先下载**；小文件跳过探测；
-- **自托管模型**：把 `urls` 换成你自己的 HTTP 地址即可（内网镜像、对象存储都行）；
+- **自托管模型**：把 `urls` 换成你自己的 HTTP 地址即可（内网镜像、对象存储都行）——那是你自己的分发行为，本项目本身不转存任何模型权重；
 - 手动放置：`autoDownload=false` 时把解压后的文件放到 `config/voicecast/models/<模型名>/`（sherpa 归档需 tokens 等价物与 `.onnx` 文件位于模型根目录——`tokens.txt`，Qwen3-ASR 则为 `tokenizer/` 目录）。
 
 ## 诊断

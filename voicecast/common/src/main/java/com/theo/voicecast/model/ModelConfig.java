@@ -61,8 +61,6 @@ public final class ModelConfig {
     private static final Logger LOGGER = LoggerFactory.getLogger("VoiceCast");
     public static final String FILE_NAME = "models.json";
     public static final int SCHEMA_VERSION = 2;
-    /** JSON Schema artifact documenting the v2 catalog (workspace-relative). */
-    public static final String SCHEMA_FILE = "docs/schemas/voicecast-models-v2.schema.json";
     public static final String KIND_SHERPA_ARCHIVE = "sherpa-archive";
     public static final String KIND_LOOSE_FILES = "loose-files";
 
@@ -289,7 +287,6 @@ public final class ModelConfig {
     public void save() {
         Map<String, Object> root = new LinkedHashMap<>();
         root.put("version", (long) SCHEMA_VERSION);
-        root.put("$schema", SCHEMA_FILE);
         root.put("_doc", "VoiceCast model catalog v2 - one model = one engine; the model name is the "
                 + "engine id and the config/voicecast/models/<name> directory. properties.lang selects "
                 + "per-language defaults by declaration order (first declared wins); properties.type is "

@@ -19,6 +19,7 @@ Drop `voicecast-<loader>-*.jar` (or the fabric build) into the `mods/` folder. R
 ## Model download
 
 - The server **pre-warms the default engine** at start (`[server] defaultEngine`, the Qwen3-ASR catalog default, ~880 MB); other engines download on first selection by player and are **shared server-wide**;
+- **License consent (voiceCast#51):** before a model's first download the operator must accept its license — `/voicecast licenses` lists every model with license name + upstream link, `/voicecast licenses accept` records consent into `[modelLicenses]` and retries the default engine. A model already on disk (manual placement) needs no consent;
 - Downloads go over HTTPS with checksum/size verification. The Qwen3-ASR model comes from the official **sherpa-onnx GitHub release**; the **IPA (ZIPA)** model uses HuggingFace with the hf-mirror.com mirror — you can add extra mirrors in `models.json` (multiple `urls` are probed and downloaded fastest-first);
 - **No internet / slow network**:
   - Proxy via JVM flags: `-Dhttps.proxyHost=<host> -Dhttps.proxyPort=<port>` (the downloader also detects the `HTTPS_PROXY` env var);

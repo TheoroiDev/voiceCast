@@ -117,6 +117,19 @@ class ModelInstallGateTest {
                 List.of(), "offline", List.of("en", "zh"), Map.of(), null);
     }
 
+    /** Refine 2026-09-27: this fixture used to hand-copy the catalog's
+     *  qwen3 entry and drift silently. Pin it to the shipped default. */
+    @Test
+    void fixtureMatchesShippedQwen3CatalogEntry() {
+        ModelConfig cfg = ModelConfig.load(Path.of("build/test-catalog-fixture"));
+        ModelConfig.ModelEntry shipped = cfg.model("qwen3-asr-0.6b-int8");
+        var fixture = realQwen3Entry();
+        org.junit.jupiter.api.Assertions.assertEquals(shipped.id(), fixture.id());
+        org.junit.jupiter.api.Assertions.assertEquals(shipped.kind(), fixture.kind());
+        org.junit.jupiter.api.Assertions.assertEquals(shipped.sizeBytes(), fixture.sizeBytes());
+        org.junit.jupiter.api.Assertions.assertEquals(shipped.urls(), fixture.urls());
+    }
+
     @Test
     void realWorkspaceQwen3DirPassesTheGate() throws IOException {
         Path dir = realQwen3Dir();

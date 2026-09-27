@@ -79,7 +79,8 @@ Auto-created with defaults and **fully user-owned** (saved back as-parsed; there
     },
     "gtcrn-simple-denoiser": {
       "properties": { "type": "denoiser" },
-      "source": { "kind": "loose-files", "files": [ { "name": "gtcrn_simple.onnx", "minBytes": 400000, "urls": ["..."] } ] }
+      "source": { "kind": "loose-files", "files": [ { "name": "gtcrn_simple.onnx", "minBytes": 400000, "urls": ["..."] } ],
+                  "license": { "name": "MIT", "url": "<upstream license link>" } }
     }
   },
   "mirrorProbe": { "enabled": true, "probeBytes": 262144, "timeoutMs": 5000, "minFileSizeBytes": 8388608 }
@@ -92,7 +93,8 @@ Key points:
 - **Per-language defaults follow declaration order**: the first declared model whose `lang` contains a language wins for that language (`/voicecast engine en` picks it);
 - **`properties.type`**: `offline` (utterance ASR), `ipa` (phonemes), `denoiser` (auxiliary enhancement model — downloadable but never listed/selected as an engine); `properties.family` selects the engine family — derived by default only for the ipa kind, everything else (e.g. `sherpa-qwen3`) must be declared explicitly;
 - **Mirror probing**: with multiple `source.urls` the server probes them concurrently (ranged GET, throughput-ranked) and downloads **fastest-first**; small files skip probing;
-- **Self-hosting**: point `urls` at your own HTTP endpoints (LAN mirror, object storage);
+- **`source.license`** (voiceCast#51): declare each model's license (`name` + upstream `url`) — the consent gate reads it for the `/voicecast licenses` listing; a model without a license block shows as "unspecified" and still requires acceptance before download;
+- **Self-hosting**: point `urls` at your own HTTP endpoints (LAN mirror, object storage) — that is YOUR distribution, the project itself never re-hosts model weights;
 - Manual placement: with `autoDownload=false` put extracted files under `config/voicecast/models/<modelName>/` (sherpa archives need a tokens equivalent + the `.onnx` files at the model root — a `tokens.txt`, or a `tokenizer/` directory for Qwen3-ASR).
 
 ## Diagnostics

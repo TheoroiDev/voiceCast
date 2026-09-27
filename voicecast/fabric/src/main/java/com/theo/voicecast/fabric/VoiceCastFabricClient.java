@@ -53,6 +53,10 @@ public final class VoiceCastFabricClient implements ClientModInitializer {
                                 .executes(ctx -> feedback(ctx.getSource(), VoiceCastClientDebug.toggleDebugWav())))
                         .then(ClientCommandManager.literal("status")
                                 .executes(ctx -> feedback(ctx.getSource(), VoiceCastClientDebug.status())))
+                        .then(ClientCommandManager.literal("licenses")
+                                .executes(ctx -> feedback(ctx.getSource(), VoiceCastClientDebug.licenses()))
+                                .then(ClientCommandManager.literal("accept")
+                                        .executes(ctx -> feedback(ctx.getSource(), VoiceCastClientDebug.licensesAccept()))))
                         .then(ClientCommandManager.literal("engine")
                                 .executes(ctx -> {
                                     EnginePicker.currentEngineFeedback();

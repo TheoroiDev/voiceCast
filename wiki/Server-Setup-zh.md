@@ -19,6 +19,7 @@
 ## 模型下载
 
 - 服务器启动时**预热默认引擎**（`[server] defaultEngine`，默认即目录默认 Qwen3-ASR，~880 MB），玩家首次选用其他引擎时按需下载并**全服共享**；
+- **许可同意门（voiceCast#51）：**模型首次下载前服主必须显式接受其许可——`/voicecast licenses` 列出每个模型的许可名称与上游链接，`/voicecast licenses accept` 记录同意进 `[modelLicenses]` 并自动重试默认引擎。已在磁盘上的模型（手动放置）无需同意；
 - 下载走 HTTPS + 校验和/大小校验。Qwen3-ASR 模型来自 **sherpa-onnx 官方 GitHub release**；**IPA（ZIPA）** 模型走 HuggingFace 并带 hf-mirror.com 镜像——也可在 `models.json` 自行追加镜像（多个 `urls` 会并发测速、最快者优先）；
 - **无外网/下载慢**的服务器：
   - JVM 代理参数：`-Dhttps.proxyHost=<host> -Dhttps.proxyPort=<port>`（下载器也会探测 `HTTPS_PROXY` 环境变量）；

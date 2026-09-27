@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -70,8 +71,10 @@ class ModelConfigTest {
         ModelConfig.load(runDir);
         String json = Files.readString(file());
         assertTrue(json.contains("\"version\": 2") || json.contains("\"version\":2"), "schema version 2 expected");
-        assertTrue(json.contains("$schema"), "$schema pointer missing");
-        assertTrue(json.contains("voicecast-models-v2.schema.json"), "$schema must point at the v2 schema");
+        // refine 2026-09-27: the $schema pointer pointed at a repo-relative
+        // path that has never existed in this repository — dropped, and the
+        // absence is pinned so it does not silently come back dangling.
+        assertFalse(json.contains("$schema"), "dangling $schema pointer must stay removed");
         assertTrue(json.contains("\"properties\""), "v2 properties section missing");
         assertTrue(json.contains("\"source\""), "v2 source section missing");
         assertTrue(!json.contains("\"engines\""), "v2 has no engines section");
@@ -170,6 +173,27 @@ class ModelConfigTest {
         assertTrue(weights.sha256() != null && weights.sha256().length() == 64, "pinned weights checksum");
         assertTrue(weights.urls().stream().anyMatch(u -> u.contains("huggingface.co/anyspeech/zipa")));
         assertTrue(weights.urls().stream().anyMatch(u -> u.contains("hf-mirror.com/anyspeech/zipa")));
+    }
+
+    /** Refine 2026-09-27 guard (voiceCast#51 user ruling: the project never
+     *  re-hosts model weights) — every default catalog URL must point at an
+     *  upstream source, never at a project-owned release or mirror. */
+    @Test
+    void defaultCatalogUrlsAreNeverProjectHosted() {
+        ModelConfig cfg = ModelConfig.load(runDir);
+        List<String> banned = List.of("TheoroiDev", "theo-models");
+        for (String id : cfg.modelIds()) {
+            for (var f : cfg.model(id).files()) {
+                for (String url : f.urls()) {
+                    for (String b : banned) {
+                        assertFalse(url.contains(b),
+                                "project-hosted model URL (re-distribution ban): " + id + " → " + url);
+                    }
+                }
+            }
+        }
+        assertEquals("MIT", cfg.model("gtcrn-simple-denoiser").license().name(),
+                "gtcrn upstream license");
     }
 
     @Test

@@ -24,7 +24,7 @@ VoiceCast 是**库模组**：识别在**服务器端**进行，客户端只推�
 | **整句识别** `qwen3-asr-0.6b-int8` | ~880 MB | 自由说出的触发词与咒语吟唱，覆盖 en/zh/ja/ko/yue/de/fr/es/ru（默认） |
 | **音素识别（IPA）** `zipa-ipa` | ~70 MB | 按发音念拉丁/中/日文咒语（音素匹配） |
 
-模型只在**首次选用时下载一次**到 `config/voicecast/models/`（sha256 校验）。Qwen3-ASR 模型来自 **sherpa-onnx 官方 GitHub release**；**IPA（ZIPA）** 模型来自 HuggingFace 并带 hf-mirror.com 镜像——也可在 `models.json` 自行追加镜像。随时切换：
+模型只在**首次选用时下载一次**到 `config/voicecast/models/`（校验和校验）——服务器上需先由服主/OP 用 `/voicecast licenses accept` 接受模型许可；单机玩家用同一条命令为自己的游戏接受。详见[服务器搭建](Server-Setup-zh)。Qwen3-ASR 模型来自 **sherpa-onnx 官方 GitHub release**；**IPA（ZIPA）** 模型来自 HuggingFace 并带 hf-mirror.com 镜像——也可在 `models.json` 自行追加镜像。随时切换：
 
 ```
 /voicecast engine en      # 整句识别（Qwen3-ASR，默认）

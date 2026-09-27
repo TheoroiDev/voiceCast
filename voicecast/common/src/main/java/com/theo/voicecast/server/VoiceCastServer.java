@@ -19,6 +19,7 @@ import dev.architectury.networking.NetworkManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -132,6 +133,13 @@ public enum VoiceCastServer {
     /** Catalog entry for one model id (voiceCast#51 license listing), or null. */
     public ModelConfig.ModelEntry catalogModel(String modelId) {
         return modelConfig == null ? null : modelConfig.model(modelId);
+    }
+
+    /** ALL catalog model ids including utility models (denoiser) — the
+     *  consent surface (voiceCast#51): a license covers every download,
+     *  not just engine models. */
+    public java.util.List<String> allModelIds() {
+        return modelConfig == null ? java.util.List.of() : modelConfig.modelIds();
     }
 
     /** Server run directory (config root parent) for config writers, or null
@@ -250,9 +258,11 @@ public enum VoiceCastServer {
         ModelConfig.ModelEntry entry = modelConfig == null ? null : modelConfig.model(engine);
         String kind = entry == null ? null : entry.kind();
         if (ModelConfig.KIND_LOOSE_FILES.equals(kind)) {
+            gateModelFetch(entry);
             return ZipaModel.directory(runDir, entry.id());
         }
         if (ModelConfig.KIND_SHERPA_ARCHIVE.equals(kind)) {
+            gateModelFetch(entry);
             return SherpaModel.resolveOrDownload(runDir, modelConfig, entry,
                     (done, total) -> broadcastState(RecognizerState.LOADING,
                             "voicecast.state.downloading_model", SherpaModel.describeSize(done)));
@@ -380,10 +390,46 @@ public enum VoiceCastServer {
      */
     private void requireLicense(ModelConfig.ModelEntry entry) throws java.io.IOException {
         if (entry == null) return;
-        if (config.licenseAccepted(entry.id())) return;
-        String name = entry.license() == null ? "unspecified" : entry.license().name();
-        throw new java.io.IOException("model license not accepted for '" + entry.id()
-                + "' (" + name + ") — run /voicecast licenses accept as an operator");
+        String msg = licenseGateMessage(entry, config.licenseAccepted(entry.id()), true, false);
+        if (msg != null) throw new java.io.IOException(msg);
+    }
+
+    /** Consent/autoDownload gate for the resolve-or-download callers that
+     *  bypass loadEngine's own branches (createRecognizer / configure):
+     *  only bites when the model is actually missing — content already on
+     *  disk implies a prior acceptance (or dev provisioning), and re-fetching
+     *  a provisioned model is not a licensing event. */
+    private void gateModelFetch(ModelConfig.ModelEntry entry) throws java.io.IOException {
+        if (entry == null || config == null) return; // null config = detached/test context; loadEngine gates its own branches
+        String msg = licenseGateMessage(entry, config.licenseAccepted(entry.id()),
+                config.autoDownload, modelPresent(entry));
+        if (msg != null) throw new java.io.IOException(msg);
+    }
+
+    private boolean modelPresent(ModelConfig.ModelEntry entry) {
+        Path dir = runDir.resolve("config/voicecast/models").resolve(entry.id());
+        if (!Files.isDirectory(dir)) return false;
+        try (var stream = Files.list(dir)) {
+            return stream.findAny().isPresent();
+        } catch (java.io.IOException e) {
+            return false;
+        }
+    }
+
+    /** Pure decision core (unit-testable): null = fetch allowed, else the
+     *  operator-facing error message. {@code present} models never gate. */
+    static String licenseGateMessage(ModelConfig.ModelEntry entry, boolean accepted,
+                                     boolean autoDownload, boolean present) {
+        if (entry == null || present) return null;
+        if (!accepted) {
+            String name = entry.license() == null ? "unspecified" : entry.license().name();
+            return "model license not accepted for '" + entry.id()
+                    + "' (" + name + ") — run /voicecast licenses accept as an operator";
+        }
+        if (!autoDownload) {
+            return "model '" + entry.id() + "' missing and autoDownload=false";
+        }
+        return null;
     }
 
     public void setVocabulary(SessionVocabulary vocab) {
