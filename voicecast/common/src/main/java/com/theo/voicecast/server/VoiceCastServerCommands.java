@@ -52,6 +52,11 @@ public final class VoiceCastServerCommands {
                 .then(Commands.literal("verbose").executes(VoiceCastServerCommands::clientOnly))
                 .then(Commands.literal("debugwav").executes(VoiceCastServerCommands::clientOnly))
                 .then(Commands.literal("status").executes(VoiceCastServerCommands::status))
+                .then(Commands.literal("licenses")
+                        .executes(VoiceCastServerCommands::licensesList)
+                        .then(Commands.literal("accept")
+                                .requires(source -> source.hasPermission(2))
+                                .executes(VoiceCastServerCommands::licensesAccept)))
                 .then(Commands.literal("engine")
                         .then(Commands.literal("list").executes(VoiceCastServerCommands::engineList))
                         .then(Commands.literal("default")
@@ -107,6 +112,45 @@ public final class VoiceCastServerCommands {
             lines.add("  " + line);
         }
         send(ctx, lines);
+        return Command.SINGLE_SUCCESS;
+    }
+
+    /** voiceCast#51: list every downloadable catalog model with its license
+     *  metadata and whether this server has accepted it (level 0 — reading a
+     *  license is free; accepting is the op-gated sibling). */
+    private static int licensesList(CommandContext<CommandSourceStack> ctx) {
+        VoiceCastServer s = server();
+        List<String> lines = new ArrayList<>();
+        lines.add("model licenses (downloads are blocked until a model is accepted):");
+        for (String id : s.catalogModelIds()) {
+            var entry = s.catalogModel(id);
+            String lic = entry == null || entry.license() == null
+                    ? "unspecified"
+                    : entry.license().name() + " <" + entry.license().url() + ">";
+            boolean ok = s.config() != null && s.config().licenseAccepted(id);
+            lines.add("  " + id + " — " + lic + "  [accepted=" + ok + "]");
+        }
+        lines.add("accept all as an operator: /voicecast licenses accept");
+        send(ctx, lines);
+        return Command.SINGLE_SUCCESS;
+    }
+
+    /** voiceCast#51: accept the license terms of EVERY downloadable catalog
+     *  model (ops). Per-model revocation = edit [modelLicenses].accepted in
+     *  config/voicecast/voicecast.toml. */
+    private static int licensesAccept(CommandContext<CommandSourceStack> ctx) {
+        VoiceCastServer s = server();
+        if (s.config() == null) {
+            send(ctx, List.of("voicecast server not started"));
+            return 0;
+        }
+        for (String id : s.catalogModelIds()) {
+            s.config().acceptLicense(s.runDir(), id);
+        }
+        int n = s.config().acceptedLicenses.size();
+        // Un-block the default engine: the license gate previously failed it.
+        s.requestEngine(s.defaultEngineId(), true);
+        send(ctx, List.of("accepted license terms for " + n + " model(s); retrying the default engine"));
         return Command.SINGLE_SUCCESS;
     }
 

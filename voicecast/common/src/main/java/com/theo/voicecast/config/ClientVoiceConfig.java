@@ -41,6 +41,25 @@ public final class ClientVoiceConfig {
      * (see voicecast#27) — parsing {@code defer} falls back to SHARE with a warn. */
     public SvcCoexistence svcCoexistence = SvcCoexistence.SHARE;
 
+    /** [client] acceptedLicenses (voiceCast#51): model ids whose license terms
+     *  the player has accepted — the client-side denoiser download is gated on
+     *  this list. Manage via /voicecast licenses accept. */
+    public java.util.List<String> acceptedLicenses = java.util.List.of();
+
+    /** voiceCast#51: whether the player accepted the license of {@code modelId}. */
+    public boolean licenseAccepted(String modelId) {
+        return acceptedLicenses.contains(modelId);
+    }
+
+    /** Record an acceptance and persist it immediately. */
+    public void acceptLicense(Path runDir, String modelId) {
+        if (licenseAccepted(modelId)) return;
+        java.util.LinkedHashSet<String> out = new java.util.LinkedHashSet<>(acceptedLicenses);
+        out.add(modelId);
+        acceptedLicenses = java.util.List.copyOf(out);
+        save(runDir);
+    }
+
     public enum SvcCoexistence {
         SHARE;
         static SvcCoexistence parse(String s) {
@@ -65,6 +84,11 @@ public final class ClientVoiceConfig {
             c.engine = toml.getString(SECTION, "engine", c.engine).trim().toLowerCase(Locale.ROOT);
             c.noiseSuppression = toml.getBool(SECTION, "noiseSuppression", c.noiseSuppression);
             c.svcCoexistence = SvcCoexistence.parse(toml.getString(SECTION_COMPAT, "svcCoexistence", "share"));
+            c.acceptedLicenses = toml.getStringList(SECTION, "acceptedLicenses", c.acceptedLicenses).stream()
+                    .map(String::trim)
+                    .filter(x -> !x.isEmpty())
+                    .distinct()
+                    .toList();
         }
         return c;
     }
@@ -76,6 +100,7 @@ public final class ClientVoiceConfig {
         toml.setInt("", "version", ServerConfig.SCHEMA_VERSION);
         toml.setString(SECTION, "engine", engine);
         toml.setBool(SECTION, "noiseSuppression", noiseSuppression);
+        toml.setStringList(SECTION, "acceptedLicenses", acceptedLicenses);
         toml.setString(SECTION_COMPAT, "svcCoexistence", svcCoexistence.name().toLowerCase(Locale.ROOT));
         toml.save(f);
     }

@@ -70,4 +70,18 @@ class ServerConfigTest {
         c = ServerConfig.load(runDir);
         assertEquals("", c.engine, "blank defaultEngine = catalog default");
     }
+
+    @Test
+    void modelLicenseAcceptanceRoundTrips() {
+        ServerConfig c = ServerConfig.load(runDir);
+        assertFalse(c.licenseAccepted("qwen3-asr-0.6b-int8"));
+
+        c.acceptLicense(runDir, "qwen3-asr-0.6b-int8");
+        assertTrue(c.licenseAccepted("qwen3-asr-0.6b-int8"));
+
+        // persisted across a reload
+        ServerConfig reloaded = ServerConfig.load(runDir);
+        assertTrue(reloaded.licenseAccepted("qwen3-asr-0.6b-int8"));
+        assertFalse(reloaded.licenseAccepted("zipa-ipa"), "per-model isolation");
+    }
 }

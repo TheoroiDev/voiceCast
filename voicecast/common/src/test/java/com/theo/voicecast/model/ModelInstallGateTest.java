@@ -41,7 +41,7 @@ class ModelInstallGateTest {
     private static ModelConfig.ModelEntry sherpaEntry(long sizeBytes) {
         return new ModelConfig.ModelEntry("gate-model", ModelConfig.KIND_SHERPA_ARCHIVE, sizeBytes, null,
                 List.of("https://example.invalid/gate-model.tar.bz2"), List.of(),
-                "offline", List.of("en"), Map.of());
+                "offline", List.of("en"), Map.of(), null);
     }
 
     private Path dirWith(String tokens, long onnxBytes) throws IOException {
@@ -114,7 +114,7 @@ class ModelInstallGateTest {
                 878_702_423L, null,
                 List.of("https://github.com/k2-fsa/sherpa-onnx/releases/download/asr-models/"
                         + "sherpa-onnx-qwen3-asr-0.6B-int8-2026-03-25.tar.bz2"),
-                List.of(), "offline", List.of("en", "zh"), Map.of());
+                List.of(), "offline", List.of("en", "zh"), Map.of(), null);
     }
 
     @Test
@@ -201,7 +201,7 @@ class ModelInstallGateTest {
         ModelConfig.ModelEntry entry = new ModelConfig.ModelEntry("zipa-gate", ModelConfig.KIND_LOOSE_FILES,
                 0, null, List.of(),
                 List.of(new ModelConfig.FileEntry("tokens.txt", List.of(url), sha, 1, false)),
-                "ipa", List.of(), Map.of());
+                "ipa", List.of(), Map.of(), null);
 
         Path gameDir = temp.resolve("game");
         Path cache = ZipaModel.directory(gameDir, "zipa-gate");

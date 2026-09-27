@@ -221,8 +221,10 @@ public enum VoiceCastClient {
             var dir = Minecraft.getInstance().gameDirectory.toPath();
             var cfg = com.theo.voicecast.config.ClientVoiceConfig.load(dir);
             if (!cfg.noiseSuppression) return null;
+            var modelConfig = com.theo.voicecast.model.ModelConfig.load(dir);
             return com.theo.voicecast.audio.NoiseSuppression.create(
-                    dir, com.theo.voicecast.model.ModelConfig.load(dir));
+                    dir, modelConfig, cfg::licenseAccepted,
+                    (modelId, ignored) -> cfg.acceptLicense(dir, modelId));
         } catch (Throwable t) {
             com.theo.voicecast.VoiceCast.LOGGER.warn("Noise suppression unavailable (continuing without)", t);
             return null;

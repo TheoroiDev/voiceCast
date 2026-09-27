@@ -48,10 +48,20 @@ public final class NoiseSuppression {
      * catalog has no denoiser model or anything fails — callers treat null
      * as "no noise suppression".
      */
-    public static NoiseSuppression create(Path gameDir, ModelConfig config) {
+    public static NoiseSuppression create(Path gameDir, ModelConfig config,
+                                          java.util.function.Predicate<String> licenseAccepted,
+                                          java.util.function.BiConsumer<String, String> acceptLicense) {
         ModelConfig.ModelEntry entry = config.denoiserModel();
         if (entry == null) {
             LOGGER.info("noiseSuppression enabled but the catalog has no denoiser model");
+            return null;
+        }
+        // voiceCast#51 同意门 (client side): the denoiser's own 524 KB model
+        // still carries a license — without acceptance the feature degrades to
+        // plain passthrough instead of downloading.
+        if (licenseAccepted != null && !licenseAccepted.test(entry.id())) {
+            LOGGER.info("denoiser model '{}' license not accepted — noise suppression disabled "
+                    + "(/voicecast licenses accept)", entry.id());
             return null;
         }
         try {
@@ -62,6 +72,7 @@ public final class NoiseSuppression {
                 if (!Files.isRegularFile(p) || Files.size(p) < Math.max(1, f.minBytes())) {
                     Files.createDirectories(dir);
                     mgr.downloadFile(entry.id(), f.name(), f.urls(), f.sha256(), (done, total) -> { }, f.minBytes());
+                    if (acceptLicense != null) acceptLicense.accept(entry.id(), "");
                 }
             }
             Path model = dir.resolve(entry.files().get(0).name());

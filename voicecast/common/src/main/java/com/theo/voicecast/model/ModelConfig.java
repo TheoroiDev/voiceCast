@@ -68,10 +68,17 @@ public final class ModelConfig {
 
     public record FileEntry(String name, List<String> urls, String sha256, long minBytes, boolean optional) {}
 
+    /** Download-gate license metadata (voiceCast#51): every downloadable
+     *  model declares WHOSE terms a server owner / player must accept before
+     *  the downloader will fetch it. Both fields optional (legacy custom
+     *  entries without metadata are gated as "license unspecified"). */
+    public record LicenseInfo(String name, String url) {}
+
     /** One catalog model = one selectable engine. */
     public record ModelEntry(String id, String kind, long sizeBytes, String sha256,
                              List<String> urls, List<FileEntry> files,
-                             String type, List<String> languages, Map<String, String> options) {}
+                             String type, List<String> languages, Map<String, String> options,
+                             LicenseInfo license) {}
 
     public record MirrorProbe(boolean enabled, long probeBytes, long timeoutMs, long minFileSizeBytes) {
         public static final MirrorProbe DEFAULT = new MirrorProbe(true, 262_144, 5_000, 8L * 1024 * 1024);
@@ -249,12 +256,20 @@ public final class ModelConfig {
                 if (p.getValue() == null || "lang".equals(p.getKey()) || "type".equals(p.getKey())) continue;
                 options.put(p.getKey(), String.valueOf(p.getValue()));
             }
+            LicenseInfo license = null;
+            if (Json.getMap(source, "license") != null) {
+                Map<String, Object> lic = Json.getMap(source, "license");
+                license = new LicenseInfo(
+                        String.valueOf(lic.getOrDefault("name", "")),
+                        String.valueOf(lic.getOrDefault("url", "")));
+            }
             models.put(id, new ModelEntry(id, kind,
                     Json.getLong(source, "size_bytes", Json.getLong(source, "sizeBytes", 0)),
                     Json.getString(source, "sha256", null),
                     urls, List.copyOf(files),
                     type.trim().toLowerCase(Locale.ROOT), List.copyOf(langs),
-                    options.isEmpty() ? Map.of() : Map.copyOf(options)));
+                    options.isEmpty() ? Map.of() : Map.copyOf(options),
+                    license));
         }
         return !models.isEmpty();
     }
@@ -299,6 +314,12 @@ public final class ModelConfig {
             if (!m.urls().isEmpty()) source.put("urls", m.urls());
             if (m.sizeBytes() > 0) source.put("size_bytes", m.sizeBytes());
             if (m.sha256() != null) source.put("sha256", m.sha256());
+            if (m.license() != null) {
+                Map<String, Object> lic = new LinkedHashMap<>();
+                lic.put("name", m.license().name());
+                lic.put("url", m.license().url());
+                source.put("license", lic);
+            }
             if (!m.files().isEmpty()) {
                 List<Object> files = new ArrayList<>();
                 for (FileEntry f : m.files()) {
@@ -387,11 +408,17 @@ public final class ModelConfig {
                         "urls", List.of(qwen3Url),
                         // sha256: no official value published for this asset; the
                         // size gate (from the GitHub release API) is the integrity check
-                        "size_bytes", 878_702_423L)));
+                        "size_bytes", 878_702_423L,
+                        "license", Map.of("name", "Apache-2.0",
+                                "url", "https://github.com/QwenLM/Qwen3-ASR"))));
         models.put("zipa-ipa", model(ipaProps,
-                Map.of("kind", KIND_LOOSE_FILES, "files", List.of(zipaModel, zipaTokens))));
+                Map.of("kind", KIND_LOOSE_FILES, "files", List.of(zipaModel, zipaTokens),
+                        "license", Map.of("name", "MIT",
+                                "url", "https://github.com/lingjzhu/zipa"))));
         models.put("gtcrn-simple-denoiser", model(gtcrnProps,
-                Map.of("kind", KIND_LOOSE_FILES, "files", List.of(gtcrnFile))));
+                Map.of("kind", KIND_LOOSE_FILES, "files", List.of(gtcrnFile),
+                        "license", Map.of("name", "MIT",
+                                "url", "https://github.com/Xiaobin-Rong/gtcrn"))));
 
         Map<String, Object> root = new LinkedHashMap<>();
         root.put("models", models);

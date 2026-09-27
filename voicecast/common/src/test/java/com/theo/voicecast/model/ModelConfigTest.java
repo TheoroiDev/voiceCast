@@ -171,4 +171,20 @@ class ModelConfigTest {
         assertTrue(weights.urls().stream().anyMatch(u -> u.contains("huggingface.co/anyspeech/zipa")));
         assertTrue(weights.urls().stream().anyMatch(u -> u.contains("hf-mirror.com/anyspeech/zipa")));
     }
+
+    @Test
+    void shippedModelsCarryLicenseMetadata() {
+        ModelConfig cfg = ModelConfig.load(runDir);
+        for (String id : cfg.modelIds()) {
+            var entry = cfg.model(id);
+            org.junit.jupiter.api.Assertions.assertNotNull(entry.license(),
+                    "shipped model without license metadata: " + id);
+            org.junit.jupiter.api.Assertions.assertFalse(entry.license().name().isBlank(), id);
+            org.junit.jupiter.api.Assertions.assertFalse(entry.license().url().isBlank(), id);
+        }
+        org.junit.jupiter.api.Assertions.assertEquals("Apache-2.0",
+                cfg.model("qwen3-asr-0.6b-int8").license().name());
+        org.junit.jupiter.api.Assertions.assertEquals("MIT",
+                cfg.model("zipa-ipa").license().name());
+    }
 }

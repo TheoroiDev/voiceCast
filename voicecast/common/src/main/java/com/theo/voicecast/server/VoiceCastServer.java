@@ -129,6 +129,23 @@ public enum VoiceCastServer {
         return modelConfig == null ? List.of() : modelConfig.engineIds();
     }
 
+    /** Catalog entry for one model id (voiceCast#51 license listing), or null. */
+    public ModelConfig.ModelEntry catalogModel(String modelId) {
+        return modelConfig == null ? null : modelConfig.model(modelId);
+    }
+
+    /** Server run directory (config root parent) for config writers, or null
+     *  before {@link #start}. */
+    public Path runDir() {
+        return runDir;
+    }
+
+    /** Loaded server config (voiceCast#51 license command surface), or null
+     *  before {@link #start}. */
+    public ServerConfig config() {
+        return config;
+    }
+
     /** One-line-per-engine catalog summary (id [lang=[...], family=...]). */
     public List<String> catalogSummary() {
         if (modelConfig == null) return List.of();
@@ -311,6 +328,7 @@ public enum VoiceCastServer {
                 Path dir;
                 if (config.autoDownload) {
                     if (entry == null) throw new java.io.IOException("No model configured for engine " + engine);
+                    requireLicense(entry);
                     dir = ZipaModel.resolveOrDownload(runDir, modelConfig, entry, (done, total) ->
                             broadcastState(RecognizerState.LOADING, "voicecast.state.downloading_ipa", SherpaModel.describeProgress(done, total)));
                 } else {
@@ -324,6 +342,7 @@ public enum VoiceCastServer {
                 ModelConfig.ModelEntry entry = modelConfig.model(engine);
                 if (config.autoDownload) {
                     if (entry == null) throw new java.io.IOException("No model configured for engine " + engine);
+                    requireLicense(entry);
                     SherpaModel.resolveOrDownload(runDir, modelConfig, entry, (done, total) ->
                             broadcastState(RecognizerState.LOADING, "voicecast.state.downloading_model", SherpaModel.describeProgress(done, total)));
                 } else {
@@ -350,6 +369,21 @@ public enum VoiceCastServer {
                             ENGINE_RETRY_BASE_MS << Math.min(fails - 1, 4)));
             broadcastState(RecognizerState.NO_MODEL, "voicecast.state.no_model", engine, String.valueOf(e.getMessage()));
         }
+    }
+
+    /**
+     * voiceCast#51 同意门: the downloader refuses to fetch a model whose
+     * license terms have not been explicitly accepted for this server
+     * ({@code /voicecast licenses accept}). Throws BEFORE any network
+     * activity; the message surfaces through the standard engine-failure
+     * broadcast and tells the operator exactly what to do.
+     */
+    private void requireLicense(ModelConfig.ModelEntry entry) throws java.io.IOException {
+        if (entry == null) return;
+        if (config.licenseAccepted(entry.id())) return;
+        String name = entry.license() == null ? "unspecified" : entry.license().name();
+        throw new java.io.IOException("model license not accepted for '" + entry.id()
+                + "' (" + name + ") — run /voicecast licenses accept as an operator");
     }
 
     public void setVocabulary(SessionVocabulary vocab) {
