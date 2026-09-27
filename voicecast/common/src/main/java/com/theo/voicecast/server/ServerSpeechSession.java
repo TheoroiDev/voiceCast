@@ -42,7 +42,10 @@ public final class ServerSpeechSession {
     // (free casting = OPEN, ladder chant = CHANT_CONFIRM + the spell).
     private volatile CastMode castMode;
     private volatile List<String> castSpellIds = java.util.List.of();
-    private long lastFrameMs;
+    private volatile long lastFrameMs;
+    /** refine R2: set before teardown — a long native load that survives
+     *  the 2 s dispose grace must not resurrect the recognizer afterwards. */
+    private volatile boolean disposed;
     private boolean active; // recognizer built and live for the current engine
     private String activeEngine; // engine the current recognizer was built for
 
@@ -94,6 +97,9 @@ public final class ServerSpeechSession {
         worker.submit(() -> {
             active = false;
             activeEngine = null;
+            // refine R2: the old engine must stop consuming audio NOW — the
+            // new build may take tens of seconds (download + native load).
+            disposeRecognizer();
             ensureReady();
         });
     }
@@ -155,6 +161,7 @@ public final class ServerSpeechSession {
 
     private void buildRecognizer() {
         disposeRecognizer();
+        if (disposed) return;
         // R2 F-B3: the qwen3 native load happens HERE (tens of seconds) after
         // the engine-level READY broadcast already reached the player — without
         // this the HUD silently falls back to idle during the whole load.
@@ -177,6 +184,10 @@ public final class ServerSpeechSession {
                         playerName(), engine);
                 VoiceCastServer.INSTANCE.sendState(player, RecognizerState.ERROR,
                         "voicecast.state.error", engine);
+                return;
+            }
+            if (disposed) { // quit raced the native load — release, never resurrect
+                try { r.stop(); } catch (Throwable ignored) {}
                 return;
             }
             recognizer = r;
@@ -292,6 +303,7 @@ public final class ServerSpeechSession {
     }
 
     void dispose() {
+        disposed = true;
         // Stop accepting work, let in-flight work finish (so a concurrently
         // running buildRecognizer cannot resurrect the recognizer after we
         // dispose it), then tear down native resources.

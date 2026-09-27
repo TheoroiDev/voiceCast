@@ -126,6 +126,7 @@ public enum VoiceCastClient {
     public String modelDownloadStatus() { return ""; }
 
     private void updateMicWanted() {
+        warmDenoiserOnce();
         boolean want;
         if (!enabled) {
             want = false;
@@ -163,6 +164,21 @@ public enum VoiceCastClient {
             micRetryAtMs = 0;
             startMic(); // one-shot retry for a transiently busy device
         }
+    }
+
+    /** refine R2: the denoiser model downloads synchronously on first build —
+     *  doing that inside the first PTT press froze the client for the whole
+     *  download. Warm it once off-thread instead (the built instance is
+     *  discarded; startMic builds its own, which is then fast because the
+     *  files are already on disk). No-op when noiseSuppression is disabled. */
+    private volatile boolean denoiserWarmed;
+
+    private void warmDenoiserOnce() {
+        if (denoiserWarmed) return;
+        denoiserWarmed = true;
+        Thread t = new Thread(this::createNoiseSuppression, "VoiceCast-DenoiserWarmup");
+        t.setDaemon(true);
+        t.start();
     }
 
     private void startMic() {

@@ -311,6 +311,9 @@ public final class ModelManager {
         if (expectedSha256 != null && !expectedSha256.isBlank()) {
             String actual = sha256(part);
             if (!actual.equalsIgnoreCase(expectedSha256)) {
+                // refine R2: a full-size corrupt part would resume forever at
+                // 0 new bytes — scrap it so the retry starts clean.
+                try { Files.deleteIfExists(part); } catch (java.io.IOException ignored) {}
                 throw new IOException("SHA256 mismatch for " + target.getFileName()
                         + ": expected " + expectedSha256 + " got " + actual);
             }

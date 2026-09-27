@@ -93,6 +93,11 @@ public enum VoiceCastServer {
         if (scheduler != null) { scheduler.shutdownNow(); scheduler = null; }
         sessions.values().forEach(ServerSpeechSession::dispose);
         sessions.clear();
+        // refine R2: stale backoff/failure state must not carry into the
+        // next server (single-JVM world change); a loadEngine thread still
+        // in flight will re-fail and re-record on its own.
+        engineRetryNotBefore.clear();
+        engineFailures.clear();
         try { ZipaShared.shutdown(); } catch (Throwable ignored) {}
         engineStates.clear();
         server = null;
@@ -321,7 +326,17 @@ public enum VoiceCastServer {
             engineFailures.remove(engine);
             engineRetryNotBefore.remove(engine);
         }
-        engineStates.put(engine, EngineState.DOWNLOADING);
+        // refine R2: atomic claim — two concurrent callers (player selection
+        // + session worker) must not both spawn loadEngine and double-write
+        // the same staging/.part download.
+        boolean claimed;
+        if (state == EngineState.FAILED && userInitiated) {
+            engineStates.replace(engine, EngineState.DOWNLOADING);
+            claimed = true;
+        } else {
+            claimed = engineStates.putIfAbsent(engine, EngineState.DOWNLOADING) == null;
+        }
+        if (!claimed) return; // someone else is already loading this engine
         broadcastState(RecognizerState.LOADING, "voicecast.state.preparing", engine);
         final String eng = engine;
         Thread t = new Thread(() -> loadEngine(eng), "VoiceCast-EngineLoad-" + engine);
@@ -622,8 +637,12 @@ public enum VoiceCastServer {
 
     private void broadcastState(RecognizerState state, String key, String... args) {
         if (server == null) return;
-        for (ServerPlayer p : server.getPlayerList().getPlayers()) {
-            sendState(p, state, key, args);
-        }
+        // refine R2: called from engine-load/progress threads — iterate the
+        // player list on the main thread (concurrent-modification safety).
+        server.execute(() -> {
+            for (ServerPlayer p : server.getPlayerList().getPlayers()) {
+                sendState(p, state, key, args);
+            }
+        });
     }
 }

@@ -82,9 +82,15 @@ public final class MicCapture {
 
     public synchronized void stop() {
         running.set(false);
-        if (thread != null) {
-            thread.interrupt();
-            thread = null;
+        Thread t = thread;
+        thread = null;
+        if (t != null) {
+            t.interrupt();
+            try {
+                t.join(1000); // refine R2: never release() mid native process()
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
         closeQuietly();
         if (noiseSuppression != null) {
