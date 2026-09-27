@@ -176,7 +176,12 @@ public enum VoiceCastClient {
     private void warmDenoiserOnce() {
         if (denoiserWarmed) return;
         denoiserWarmed = true;
-        Thread t = new Thread(this::createNoiseSuppression, "VoiceCast-DenoiserWarmup");
+        Thread t = new Thread(() -> {
+            // warm the download, then release the native handle — the real
+            // denoiser is built fresh at PTT time (files are on disk by then)
+            com.theo.voicecast.audio.NoiseSuppression w = createNoiseSuppression();
+            if (w != null) w.release();
+        }, "VoiceCast-DenoiserWarmup");
         t.setDaemon(true);
         t.start();
     }

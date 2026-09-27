@@ -330,13 +330,14 @@ public enum VoiceCastServer {
         // + session worker) must not both spawn loadEngine and double-write
         // the same staging/.part download.
         boolean claimed;
-        if (state == EngineState.FAILED && userInitiated) {
-            engineStates.replace(engine, EngineState.DOWNLOADING);
-            claimed = true;
-        } else {
+        if (state == EngineState.FAILED) {
+            claimed = engineStates.replace(engine, EngineState.FAILED, EngineState.DOWNLOADING);
+        } else if (state == EngineState.UNLOADED) {
             claimed = engineStates.putIfAbsent(engine, EngineState.DOWNLOADING) == null;
+        } else {
+            claimed = engineStates.replace(engine, state, EngineState.DOWNLOADING);
         }
-        if (!claimed) return; // someone else is already loading this engine
+        if (!claimed) return; // someone else claimed it between read and CAS
         broadcastState(RecognizerState.LOADING, "voicecast.state.preparing", engine);
         final String eng = engine;
         Thread t = new Thread(() -> loadEngine(eng), "VoiceCast-EngineLoad-" + engine);
@@ -636,11 +637,12 @@ public enum VoiceCastServer {
     }
 
     private void broadcastState(RecognizerState state, String key, String... args) {
-        if (server == null) return;
+        MinecraftServer s = server;
+        if (s == null) return;
         // refine R2: called from engine-load/progress threads — iterate the
         // player list on the main thread (concurrent-modification safety).
-        server.execute(() -> {
-            for (ServerPlayer p : server.getPlayerList().getPlayers()) {
+        s.execute(() -> {
+            for (ServerPlayer p : s.getPlayerList().getPlayers()) {
                 sendState(p, state, key, args);
             }
         });

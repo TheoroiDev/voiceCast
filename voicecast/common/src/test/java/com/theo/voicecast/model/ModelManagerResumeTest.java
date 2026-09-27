@@ -106,7 +106,10 @@ class ModelManagerResumeTest {
 
             assertTrue(!Files.exists(dir.resolve("model.bin")),
                     "a sha-mismatched download must not land at the target");
-            assertTrue(Files.exists(part), "the part file stays for diagnosis");
+            // refine R2: the corrupt part is scrapped, not kept — a full-size
+            // bad part would resume forever at 0 new bytes; the retry starts
+            // clean instead
+            assertTrue(!Files.exists(part), "the corrupt part is scrapped");
         } finally {
             server.stop(0);
         }
